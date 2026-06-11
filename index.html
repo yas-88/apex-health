@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Apex — 90-Day Protocol</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.19.0/dist/tabler-icons.min.css">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --ink:#0f0f0d;--ink2:#3d3d38;--ink3:#7a7a72;--ink4:#b0b0a6;
+  --bg:#ffffff;--bg2:#f8f7f4;--bg3:#f1f0eb;--bg4:#e8e7e0;
+  --bdr:rgba(0,0,0,0.07);--bdr2:rgba(0,0,0,0.12);
+  --teal:#1D9E75;--teal-dk:#0F6E56;--teal-bg:#E6F5EF;--teal-mid:#9FE1CB;
+  --gold:#B8720F;--gold-bg:#FDF3E3;--gold-mid:#F5C870;
+  --vio:#5046B8;--vio-bg:#EEEEFE;--vio-mid:#ABA5F0;
+  --coral:#C8512A;--coral-bg:#FAEEE9;
+  --rsm:5px;--rmd:9px;--rlg:14px;--rxl:20px;--r2xl:28px;
+}
+@media(prefers-color-scheme:dark){:root{
+  --ink:#f0ede6;--ink2:#c4c0b6;--ink3:#7e7b72;--ink4:#4a4843;
+  --bg:#191816;--bg2:#201f1c;--bg3:#282724;--bg4:#33312d;
+  --bdr:rgba(255,255,255,0.07);--bdr2:rgba(255,255,255,0.12);
+  --teal:#5DCAA5;--teal-dk:#9FE1CB;--teal-bg:#082e21;--teal-mid:#1D9E75;
+  --gold:#EFA127;--gold-bg:#2d1e05;--gold-mid:#BA7517;
+  --vio:#9b94e8;--vio-bg:#1c1942;--vio-mid:#534AB7;
+  --coral:#e8805a;--coral-bg:#2e1008;
+}}
+html{font-size:15px}
+body{font-family:'Inter',system-ui,sans-serif;background:var(--bg2);color:var(--ink);line-height:1.6;min-height:100vh;padding:2rem 1rem 4rem}
+.shell{max-width:820px;margin:0 auto;background:var(--bg);border-radius:var(--r2xl);border:0.5px solid var(--bdr2);box-shadow:0 4px 24px rgba(0,0,0,0.07);overflow:hidden}
+
+/* HEADER */
+.hdr{background:var(--bg2);border-bottom:0.5px solid var(--bdr);padding:1.6rem 1.75rem 0}
+.hdr-top{display:flex;align-items:flex-start;justify-content:space-between;gap:1rem;margin-bottom:1.5rem;flex-wrap:wrap}
+.brand{display:flex;align-items:center;gap:12px}
+.brand-mark{width:38px;height:38px;border-radius:11px;background:var(--teal);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.brand-mark i{font-size:20px;color:#fff}
+.brand-name{font-family:'DM Serif Display',Georgia,serif;font-size:22px;color:var(--ink);letter-spacing:-.02em;line-height:1.1}
+.brand-tag{font-size:10px;font-weight:500;text-transform:uppercase;letter-spacing:.10em;color:var(--ink3);margin-top:2px}
+.hstats{display:flex;gap:6px;flex-wrap:wrap}
+.hs{background:var(--bg);border:0.5px solid var(--bdr2);border-radius:var(--rmd);padding:8px 14px;text-align:center;min-width:60px}
+.hs-v{font-size:16px;font-weight:600;color:var(--ink);letter-spacing:-.02em;line-height:1.1}
+.hs-v.ac{color:var(--teal)}
+.hs-u{font-size:10px;font-weight:400;color:var(--ink3);margin-left:1px}
+.hs-l{font-size:9.5px;text-transform:uppercase;letter-spacing:.06em;color:var(--ink4);margin-top:2px}
+nav{display:flex;gap:0;overflow-x:auto;scrollbar-width:none}
+nav::-webkit-scrollbar{display:none}
+.nb{padding:11px 16px;font-size:12.5px;font-weight:500;color:var(--ink3);border:none;background:none;cursor:pointer;white-space:nowrap;border-bottom:2px solid transparent;letter-spacing:.01em;transition:color .15s,border-color .15s;font-family:inherit}
+.nb:hover{color:var(--ink)}
+.nb.on{color:var(--teal);border-bottom-color:var(--teal)}
+
+/* PANELS */
+.content{padding:1.75rem}
+.panel{display:none}
+.panel.on{display:block}
+.ew{font-size:9.5px;font-weight:600;text-transform:uppercase;letter-spacing:.09em;color:var(--ink4);margin-bottom:.75rem;margin-top:1.5rem}
+.ew:first-child{margin-top:0}
+.div{height:0.5px;background:var(--bdr);margin:1.5rem 0}
+
+/* KPI */
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(100px,1fr));gap:8px;margin-bottom:1.5rem}
+.kpi{background:var(--bg2);border:0.5px solid var(--bdr);border-radius:var(--rlg);padding:14px 16px}
+.kpi-n{font-size:24px;font-weight:600;color:var(--ink);letter-spacing:-.03em;line-height:1}
+.kpi-u{font-size:13px;font-weight:400;color:var(--ink3)}
+.kpi-l{font-size:11px;color:var(--ink3);margin-top:4px}
+
+/* PHASES */
+.phg{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:1.5rem}
+@media(max-width:540px){.phg{grid-template-columns:1fr}}
+.phtile{border-radius:var(--rlg);padding:16px;border:0.5px solid var(--bdr);background:var(--bg);position:relative;overflow:hidden}
+.phtile::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;border-radius:var(--rlg) var(--rlg) 0 0}
+.phtile.t{background:var(--teal-bg);border-color:var(--teal-mid)}.phtile.t::before{background:var(--teal)}
+.phtile.a{background:var(--gold-bg);border-color:var(--gold-mid)}.phtile.a::before{background:var(--gold)}
+.phtile.d{background:var(--vio-bg);border-color:var(--vio-mid)}.phtile.d::before{background:var(--vio)}
+.ph-rng{font-size:9.5px;font-weight:600;text-transform:uppercase;letter-spacing:.07em;margin-bottom:5px}
+.phtile.t .ph-rng{color:var(--teal-dk)}.phtile.a .ph-rng{color:var(--gold)}.phtile.d .ph-rng{color:var(--vio)}
+.ph-nm{font-family:'DM Serif Display',Georgia,serif;font-size:17px;color:var(--ink);margin-bottom:4px}
+.ph-ds{font-size:11.5px;color:var(--ink2);line-height:1.55}
+
+/* WEEK STRIP */
+.wstrip{display:grid;grid-template-columns:repeat(7,1fr);gap:5px;margin-bottom:1.5rem}
+.dc{border:0.5px solid var(--bdr);border-radius:var(--rmd);padding:9px 4px 8px;text-align:center;background:var(--bg)}
+.dc-n{font-size:10px;color:var(--ink4);margin-bottom:5px;font-weight:500}
+.dc-dot{width:6px;height:6px;border-radius:50%;margin:0 auto 4px}
+.dc-t{font-size:9.5px;font-weight:600}
+.dc.lift{border-color:var(--teal-mid);background:var(--teal-bg)}.dc.lift .dc-dot{background:var(--teal)}.dc.lift .dc-t{color:var(--teal-dk)}
+.dc.hiit{border-color:var(--gold-mid);background:var(--gold-bg)}.dc.hiit .dc-dot{background:var(--gold)}.dc.hiit .dc-t{color:var(--gold)}
+.dc.spt{border-color:var(--vio-mid);background:var(--vio-bg)}.dc.spt .dc-dot{background:var(--vio)}.dc.spt .dc-t{color:var(--vio)}
+.dc.rst .dc-dot{background:var(--ink4)}.dc.rst .dc-t{color:var(--ink3)}
+
+/* PROGRESS */
+.progs{display:flex;flex-direction:column;gap:10px;margin-bottom:1.5rem}
+.prog-meta{display:flex;justify-content:space-between;font-size:11.5px;margin-bottom:5px}
+.prog-nm{color:var(--ink2);font-weight:500}
+.prog-track{height:5px;background:var(--bg3);border-radius:3px;overflow:hidden}
+.prog-fill{height:100%;border-radius:3px}
+
+/* BUTTONS */
+.ctarow{display:flex;gap:8px;flex-wrap:wrap;margin-top:1.5rem;padding-top:1.5rem;border-top:0.5px solid var(--bdr)}
+.btn{display:inline-flex;align-items:center;gap:5px;padding:9px 16px;font-size:12.5px;font-weight:500;font-family:inherit;border-radius:var(--rmd);border:0.5px solid var(--bdr2);background:var(--bg);color:var(--ink2);cursor:pointer;transition:background .15s,color .15s}
+.btn:hover{background:var(--bg2);color:var(--ink)}
+.btn.pr{background:var(--teal);color:#fff;border-color:var(--teal-dk)}.btn.pr:hover{background:var(--teal-dk)}
+
+/* CARDS */
+.card{background:var(--bg);border:0.5px solid var(--bdr);border-radius:var(--rlg);padding:14px 16px;margin-bottom:8px}
+.ch{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+.ci{width:32px;height:32px;border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.ci i{font-size:16px}
+.ci.tl{background:var(--teal-bg)}.ci.tl i{color:var(--teal-dk)}
+.ci.gd{background:var(--gold-bg)}.ci.gd i{color:var(--gold)}
+.ci.vi{background:var(--vio-bg)}.ci.vi i{color:var(--vio)}
+.ci.co{background:var(--coral-bg)}.ci.co i{color:var(--coral)}
+.ct{font-size:13.5px;font-weight:500;color:var(--ink)}
+.cs{font-size:11px;color:var(--ink4);margin-top:1px}
+.cb{font-size:12.5px;color:var(--ink2);line-height:1.65}
+
+/* EXERCISE ROWS */
+.ex{display:flex;justify-content:space-between;align-items:baseline;padding:6px 0;border-bottom:0.5px solid var(--bdr);gap:12px}
+.ex:last-child{border-bottom:none}
+.exn{font-size:12.5px;font-weight:500;color:var(--ink);flex-shrink:0}
+.exs{font-size:11.5px;color:var(--ink3);text-align:right}
+
+/* TAGS */
+.tag{display:inline-block;font-size:10px;font-weight:600;padding:2px 8px;border-radius:20px;letter-spacing:.02em}
+.tt{background:var(--teal-bg);color:var(--teal-dk)}
+.ta{background:var(--gold-bg);color:var(--gold)}
+.td{background:var(--vio-bg);color:var(--vio)}
+.tc{background:var(--coral-bg);color:var(--coral)}
+.tn{background:var(--bg3);color:var(--ink2)}
+
+/* BARS */
+.ibar,.wbar{border-radius:var(--rmd);padding:10px 14px;font-size:12.5px;line-height:1.6;margin-bottom:10px;display:flex;gap:9px;align-items:flex-start}
+.ibar{background:var(--teal-bg);border:0.5px solid var(--teal-mid);color:var(--teal-dk)}
+.wbar{background:var(--coral-bg);border:0.5px solid var(--coral);color:var(--coral)}
+.ibar i,.wbar i{flex-shrink:0;font-size:15px;margin-top:1px}
+
+/* WEEK CALENDAR */
+.ptabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:1rem}
+.ptab{padding:6px 14px;font-size:11.5px;font-weight:500;border-radius:20px;border:0.5px solid var(--bdr2);background:var(--bg);cursor:pointer;color:var(--ink3);transition:all .15s;font-family:inherit}
+.ptab.at{background:var(--teal-bg);color:var(--teal-dk);border-color:var(--teal-mid)}
+.ptab.aa{background:var(--gold-bg);color:var(--gold);border-color:var(--gold-mid)}
+.ptab.ad{background:var(--vio-bg);color:var(--vio);border-color:var(--vio-mid)}
+.wkc{border:0.5px solid var(--bdr);border-radius:var(--rlg);margin-bottom:7px;overflow:hidden;background:var(--bg)}
+.wkh{display:flex;align-items:center;gap:10px;padding:11px 14px;cursor:pointer;user-select:none;transition:background .15s}
+.wkh:hover{background:var(--bg2)}
+.wknum{font-size:11px;font-weight:600;color:var(--ink4);min-width:52px}
+.wktitle{font-size:13px;font-weight:500;color:var(--ink);flex:1}
+.wkchev{font-size:13px;color:var(--ink4);transition:transform .2s;margin-left:auto}
+.wkchev.op{transform:rotate(180deg)}
+.wkb{display:none;border-top:0.5px solid var(--bdr)}
+.wkb.op{display:block}
+.wkd{display:grid;grid-template-columns:72px 1fr;border-bottom:0.5px solid var(--bdr)}
+.wkd:last-child{border-bottom:none}
+.wkdl{padding:10px 12px;font-size:11px;font-weight:600;border-right:0.5px solid var(--bdr);color:var(--ink4);display:flex;align-items:flex-start;padding-top:12px}
+.wkdl.lift{color:var(--teal-dk)}.wkdl.hiit{color:var(--gold)}.wkdl.spt{color:var(--vio)}
+.wkdc{padding:10px 14px}
+.wkdt{font-size:12.5px;font-weight:500;color:var(--ink);margin-bottom:4px}
+.wkdd{font-size:11.5px;color:var(--ink3);line-height:1.6}
+.npill{display:inline-block;font-size:10.5px;padding:3px 9px;border-radius:20px;margin-top:5px}
+.npill.t{background:var(--teal-bg);color:var(--teal-dk)}
+.npill.a{background:var(--gold-bg);color:var(--gold)}
+.npill.d{background:var(--vio-bg);color:var(--vio)}
+
+/* SUPP */
+.si{display:flex;align-items:flex-start;gap:10px;padding:9px 0;border-bottom:0.5px solid var(--bdr)}
+.si:last-child{border-bottom:none}
+.sdot{width:8px;height:8px;border-radius:50%;margin-top:4px;flex-shrink:0}
+.sn{font-size:12.5px;font-weight:500;color:var(--ink)}
+.snote{font-size:11.5px;color:var(--ink3);margin-top:2px;line-height:1.55}
+
+/* MACRO */
+.mband{display:flex;border-radius:var(--rsm);overflow:hidden;height:8px;margin:8px 0 10px}
+.mseg{height:100%}
+.mleg{display:flex;gap:16px;font-size:11px;color:var(--ink3);margin-bottom:1.25rem}
+.mldot{width:8px;height:8px;border-radius:2px;display:inline-block;margin-right:4px;vertical-align:middle}
+
+/* FASTING */
+.fvis{display:flex;gap:4px;margin:8px 0 1.25rem}
+.fseg{border-radius:var(--rsm);padding:8px 12px;font-size:11px;font-weight:500}
+.fseg strong{display:block;font-size:12px;margin-bottom:1px}
+.fseg.fast{background:var(--bg3);color:var(--ink3);flex:3}
+.fseg.eat{background:var(--teal-bg);color:var(--teal-dk);flex:2}
+
+/* RECOVERY */
+.recg{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:8px;margin-bottom:1rem}
+.rect{background:var(--bg2);border:0.5px solid var(--bdr);border-radius:var(--rlg);padding:14px}
+.recic{font-size:18px;color:var(--teal);margin-bottom:6px}
+.rectt{font-size:12.5px;font-weight:500;color:var(--ink);margin-bottom:4px}
+.recb{font-size:11.5px;color:var(--ink3);line-height:1.55}
+
+/* EASTERN */
+.etile{background:var(--bg2);border:0.5px solid var(--bdr);border-radius:var(--rlg);padding:14px 16px;margin-bottom:8px}
+.eth{display:flex;align-items:center;gap:8px;margin-bottom:7px}
+.etl{font-size:13px;font-weight:500;color:var(--ink)}
+.etb{font-size:12.5px;color:var(--ink2);line-height:1.65}
+.elist{list-style:none;margin-top:7px;display:flex;flex-direction:column;gap:5px}
+.elist li{font-size:12px;color:var(--ink3);padding-left:13px;position:relative;line-height:1.55}
+.elist li::before{content:'';position:absolute;left:0;top:7px;width:4px;height:4px;border-radius:50%;background:var(--teal)}
+</style>
+</head>
+<body>
+<div class="shell">
+
+<!-- HEADER -->
+<header class="hdr">
+  <div class="hdr-top">
+    <div class="brand">
+      <div class="brand-mark"><i class="ti ti-activity"></i></div>
+      <div>
+        <div class="brand-name">Apex</div>
+        <div class="brand-tag">90-Day Protocol</div>
+      </div>
+    </div>
+    <div class="hstats">
+      <div class="hs"><div class="hs-v">200<span class="hs-u">lb</span></div><div class="hs-l">Current</div></div>
+      <div class="hs"><div class="hs-v ac">170<span class="hs-u">lb</span></div><div class="hs-l">Target</div></div>
+      <div class="hs"><div class="hs-v">16<span class="hs-u">hr</span></div><div class="hs-l">Fast</div></div>
+      <div class="hs"><div class="hs-v">13<span class="hs-u">wk</span></div><div class="hs-l">Program</div></div>
+    </div>
+  </div>
+  <nav>
+    <button class="nb on" onclick="go('overview',this)">Overview</button>
+    <button class="nb" onclick="go('training',this)">Training</button>
+    <button class="nb" onclick="go('nutrition',this)">Nutrition</button>
+    <button class="nb" onclick="go('supplements',this)">Supplements</button>
+    <button class="nb" onclick="go('recovery',this)">Recovery</button>
+    <button class="nb" onclick="go('eastern',this)">Eastern</button>
+  </nav>
+</header>
+
+<!-- OVERVIEW -->
+<div id="p-overview" class="content panel on">
+  <div class="kpis">
+    <div class="kpi"><div class="kpi-n">30<span class="kpi-u">lb</span></div><div class="kpi-l">Fat to lose</div></div>
+    <div class="kpi"><div class="kpi-n">4<span class="kpi-u">days</span></div><div class="kpi-l">Lifts/week</div></div>
+    <div class="kpi"><div class="kpi-n">45<span class="kpi-u">min</span></div><div class="kpi-l">Session cap</div></div>
+    <div class="kpi"><div class="kpi-n">175<span class="kpi-u">g</span></div><div class="kpi-l">Daily protein</div></div>
+    <div class="kpi"><div class="kpi-n">15k</div><div class="kpi-l">Step target</div></div>
+  </div>
+
+  <div class="ew">90-day phases</div>
+  <div class="phg">
+    <div class="phtile t"><div class="ph-rng">Days 1–30</div><div class="ph-nm">Foundation</div><div class="ph-ds">Lock habits. Log every lift. 10–12 reps. Build the baseline.</div></div>
+    <div class="phtile a"><div class="ph-rng">Days 31–60</div><div class="ph-nm">Acceleration</div><div class="ph-ds">+5 lb every two weeks. 4 sets. HIIT intensifies.</div></div>
+    <div class="phtile d"><div class="ph-rng">Days 61–90</div><div class="ph-nm">Definition</div><div class="ph-ds">6–8 reps. 3 sec eccentric. Supersets. Peak load.</div></div>
+  </div>
+
+  <div class="ew">Weekly structure</div>
+  <div class="wstrip">
+    <div class="dc lift"><div class="dc-n">Mon</div><div class="dc-dot"></div><div class="dc-t">Push</div></div>
+    <div class="dc lift"><div class="dc-n">Tue</div><div class="dc-dot"></div><div class="dc-t">Pull</div></div>
+    <div class="dc hiit"><div class="dc-n">Wed</div><div class="dc-dot"></div><div class="dc-t">HIIT</div></div>
+    <div class="dc lift"><div class="dc-n">Thu</div><div class="dc-dot"></div><div class="dc-t">Legs</div></div>
+    <div class="dc lift"><div class="dc-n">Fri</div><div class="dc-dot"></div><div class="dc-t">Full</div></div>
+    <div class="dc spt"><div class="dc-n">Sat</div><div class="dc-dot"></div><div class="dc-t">Soccer</div></div>
+    <div class="dc rst"><div class="dc-n">Sun</div><div class="dc-dot"></div><div class="dc-t">Rest</div></div>
+  </div>
+
+  <div class="ew">Phase progress</div>
+  <div class="progs">
+    <div><div class="prog-meta"><span class="prog-nm">Foundation</span><span style="font-size:11px;color:var(--teal)">Wks 1–4</span></div><div class="prog-track"><div class="prog-fill" style="width:31%;background:var(--teal)"></div></div></div>
+    <div><div class="prog-meta"><span class="prog-nm">Acceleration</span><span style="font-size:11px;color:var(--gold)">Wks 5–8</span></div><div class="prog-track"><div class="prog-fill" style="width:31%;background:var(--gold)"></div></div></div>
+    <div><div class="prog-meta"><span class="prog-nm">Definition</span><span style="font-size:11px;color:var(--vio)">Wks 9–13</span></div><div class="prog-track"><div class="prog-fill" style="width:38%;background:var(--vio)"></div></div></div>
+  </div>
+
+  <div class="ctarow">
+    <button class="btn pr" onclick="go('training',document.querySelectorAll('.nb')[1])"><i class="ti ti-calendar"></i> Training calendar</button>
+    <button class="btn" onclick="go('nutrition',document.querySelectorAll('.nb')[2])"><i class="ti ti-salad"></i> Meal plan</button>
+    <button class="btn" onclick="go('eastern',document.querySelectorAll('.nb')[5])"><i class="ti ti-sun"></i> Morning ritual</button>
+  </div>
+</div>
+
+<!-- TRAINING -->
+<div id="p-training" class="content panel">
+  <div class="ibar"><i class="ti ti-info-circle"></i><span>Workout window: 12–1 pm fasted. 5 min dynamic warm-up + 30 min lifts + 5–10 min yoga cool-down. Hard ceiling: 45 min.</span></div>
+
+  <div class="ew">The 4-day split</div>
+  <div class="card">
+    <div class="ch"><div class="ci tl"><i class="ti ti-arrow-up"></i></div><div><div class="ct">Monday — push</div><div class="cs">Chest, shoulders, triceps</div></div><span class="tag tt" style="margin-left:auto">45 min</span></div>
+    <div class="ex"><span class="exn">DB floor press</span><span class="exs">3–4 × 10, 60–90 sec</span></div>
+    <div class="ex"><span class="exn">DB shoulder press</span><span class="exs">3–4 × 10, 60–90 sec</span></div>
+    <div class="ex"><span class="exn">DB lateral raise</span><span class="exs">3 × 12–15, 45 sec</span></div>
+    <div class="ex"><span class="exn">Overhead tricep extension</span><span class="exs">3 × 12, 45 sec</span></div>
+    <div class="ex"><span class="exn">Push-up finisher</span><span class="exs">1 × max</span></div>
+  </div>
+  <div class="card">
+    <div class="ch"><div class="ci tl"><i class="ti ti-arrow-down"></i></div><div><div class="ct">Tuesday — pull</div><div class="cs">Back, biceps, rear delts</div></div><span class="tag tt" style="margin-left:auto">45 min</span></div>
+    <div class="ex"><span class="exn">DB bent-over row</span><span class="exs">3–4 × 10, 90 sec</span></div>
+    <div class="ex"><span class="exn">Single-arm DB row</span><span class="exs">3–4 × 10 each, 90 sec</span></div>
+    <div class="ex"><span class="exn">Inverted row (under table)</span><span class="exs">3 × 10, 60 sec</span></div>
+    <div class="ex"><span class="exn">Incline DB curl</span><span class="exs">3 × 10–12, 45 sec</span></div>
+    <div class="ex"><span class="exn">DB shrug</span><span class="exs">2 × 15, 30 sec</span></div>
+  </div>
+  <div class="card">
+    <div class="ch"><div class="ci gd"><i class="ti ti-bolt"></i></div><div><div class="ct">Wednesday — HIIT cardio</div><div class="cs">Fasted, 20 min max</div></div><span class="tag ta" style="margin-left:auto">20 min</span></div>
+    <div class="ex"><span class="exn">Phase 1 — 6–8 rounds</span><span class="exs">30 sec work / 90 sec rest</span></div>
+    <div class="ex"><span class="exn">Phase 2 — 8 rounds</span><span class="exs">30 sec work / 75 sec rest</span></div>
+    <div class="ex"><span class="exn">Phase 3 — 8–10 rounds</span><span class="exs">30 sec work / 45 sec rest</span></div>
+    <div class="ex"><span class="exn">Moves</span><span class="exs">Jump squats · high knees · burpees · skate jumps</span></div>
+  </div>
+  <div class="card">
+    <div class="ch"><div class="ci tl"><i class="ti ti-run"></i></div><div><div class="ct">Thursday — legs + core</div><div class="cs">Quads, hamstrings, glutes, core</div></div><span class="tag tt" style="margin-left:auto">45 min</span></div>
+    <div class="ex"><span class="exn">DB goblet squat</span><span class="exs">3–4 × 12, 90 sec</span></div>
+    <div class="ex"><span class="exn">Romanian deadlift</span><span class="exs">3–4 × 10, 90 sec</span></div>
+    <div class="ex"><span class="exn">Bulgarian split squat</span><span class="exs">3 × 8 each, 90 sec</span></div>
+    <div class="ex"><span class="exn">Single-leg calf raise</span><span class="exs">3 × 15 each</span></div>
+    <div class="ex"><span class="exn">Plank → ab wheel rollout</span><span class="exs">3 × 45 sec → 3 × 8</span></div>
+  </div>
+  <div class="card">
+    <div class="ch"><div class="ci tl"><i class="ti ti-layers"></i></div><div><div class="ct">Friday — full body</div><div class="cs">Compound emphasis, metabolic finish</div></div><span class="tag tt" style="margin-left:auto">45 min</span></div>
+    <div class="ex"><span class="exn">DB clean + press</span><span class="exs">3–4 × 6–8, 90 sec</span></div>
+    <div class="ex"><span class="exn">Renegade row</span><span class="exs">3–4 × 8 each, 90 sec</span></div>
+    <div class="ex"><span class="exn">DB squat to press</span><span class="exs">3 × 10, 75 sec</span></div>
+    <div class="ex"><span class="exn">Farmers carry</span><span class="exs">2 × 40–50 sec</span></div>
+    <div class="ex"><span class="exn">Dead bug</span><span class="exs">3 × 8–10 each side</span></div>
+  </div>
+
+  <div class="div"></div>
+  <div class="ew">13-week calendar</div>
+  <div class="ptabs">
+    <button class="ptab at" onclick="showPh('f',this)">Phase 1: Foundation</button>
+    <button class="ptab" onclick="showPh('a',this)">Phase 2: Acceleration</button>
+    <button class="ptab" onclick="showPh('d',this)">Phase 3: Definition</button>
+  </div>
+
+  <div id="clf">
+    <div class="wkc" id="w1"><div class="wkh" onclick="tw('w1')"><span class="wknum">Week 1</span><span class="wktitle">Establish baseline weights</span><span class="tag tt">Foundation</span><i class="ti ti-chevron-down wkchev" id="w1c"></i></div>
+      <div class="wkb" id="w1b">
+        <div class="wkd"><div class="wkdl lift">Mon</div><div class="wkdc"><div class="wkdt">Push — learn your working weights</div><div class="wkdd">Floor press 3×10 · Shoulder press 3×10 · Lateral raise 3×12 · Tricep ext 3×12 · Push-up 1×max<br><span class="npill t">Record every weight. This is your Day 1 baseline.</span></div></div></div>
+        <div class="wkd"><div class="wkdl lift">Tue</div><div class="wkdc"><div class="wkdt">Pull — feel the muscle, not the weight</div><div class="wkdd">Bent row 3×10 · Single-arm row 3×10 · Face pull 3×15 · Hammer curl 3×12 · Shrug 2×15</div></div></div>
+        <div class="wkd"><div class="wkdl hiit">Wed</div><div class="wkdc"><div class="wkdt">HIIT — 6 rounds, 30 sec on / 90 sec rest</div><div class="wkdd">Jump squats or high knees. Add 1 round per week until you reach 8.</div></div></div>
+        <div class="wkd"><div class="wkdl lift">Thu</div><div class="wkdc"><div class="wkdt">Legs + core</div><div class="wkdd">Goblet squat 3×12 · RDL 3×10 · Reverse lunge 3×10 · Calf raise 3×20 · Plank 3×40 sec</div></div></div>
+        <div class="wkd"><div class="wkdl lift">Fri</div><div class="wkdc"><div class="wkdt">Full body — practice the clean + press</div><div class="wkdd">Clean+press 3×8 · Renegade row 3×8 · Squat-to-press 3×10 · Suitcase carry 2×30 sec · Dead bug 3×8</div></div></div>
+        <div class="wkd"><div class="wkdl spt">Sat</div><div class="wkdc"><div class="wkdt">Soccer + 10 min foam roll post-match</div></div></div>
+        <div class="wkd"><div class="wkdl">Sun</div><div class="wkdc"><div class="wkdt">Walk + 5 rounds sun salutations + abhyanga</div></div></div>
+      </div>
+    </div>
+    <div class="wkc" id="w2"><div class="wkh" onclick="tw('w2')"><span class="wknum">Week 2</span><span class="wktitle">Hit top of rep range, prep first weight jump</span><span class="tag tt">Foundation</span><i class="ti ti-chevron-down wkchev" id="w2c"></i></div>
+      <div class="wkb" id="w2b"><div class="wkd"><div class="wkdl lift">Mon–Fri</div><div class="wkdc"><div class="wkdt">Same split. Target 12 reps on every set that called for 10.</div><div class="wkdd">If you hit 12 clean → add 2.5–5 lb next week. HIIT up to 7 rounds. Plank to 50 sec.<br><span class="npill t">Rule: could do 3+ more reps = add weight next session.</span></div></div></div></div>
+    </div>
+    <div class="wkc" id="w3"><div class="wkh" onclick="tw('w3')"><span class="wknum">Week 3</span><span class="wktitle">First weight increase on all primary lifts</span><span class="tag tt">Foundation</span><i class="ti ti-chevron-down wkchev" id="w3c"></i></div>
+      <div class="wkb" id="w3b">
+        <div class="wkd"><div class="wkdl lift">Mon</div><div class="wkdc"><div class="wkdt">Push: +2.5–5 lb on floor press and shoulder press</div><div class="wkdd">Lateral raise + overhead ext: same weight, +1 rep per set</div></div></div>
+        <div class="wkd"><div class="wkdl lift">Tue</div><div class="wkdc"><div class="wkdt">Pull: +5 lb on rows, +2.5 lb on curls</div></div></div>
+        <div class="wkd"><div class="wkdl hiit">Wed</div><div class="wkdc"><div class="wkdt">HIIT — 8 rounds, 30/90 (Phase 1 peak)</div></div></div>
+        <div class="wkd"><div class="wkdl lift">Thu</div><div class="wkdc"><div class="wkdt">Legs: +5 lb on goblet squat and RDL. Plank to 55 sec.</div></div></div>
+        <div class="wkd"><div class="wkdl lift">Fri</div><div class="wkdc"><div class="wkdt">Full body: clean+press +2.5 lb, renegade row +2.5 lb</div></div></div>
+      </div>
+    </div>
+    <div class="wkc" id="w4"><div class="wkh" onclick="tw('w4')"><span class="wknum">Week 4</span><span class="wktitle">Deload — 2 sets, same weight, no HIIT</span><span class="tag tn">Deload</span><i class="ti ti-chevron-down wkchev" id="w4c"></i></div>
+      <div class="wkb" id="w4b"><div class="wkd"><div class="wkdl lift">Mon–Fri</div><div class="wkdc"><div class="wkdt">2 sets per exercise. Keep Week 3 weights. Replace HIIT with 20 min zone 2 walk.</div><div class="wkdd"><span class="npill t">Deload is non-negotiable. Adaptation consolidates this week.</span></div></div></div></div>
+    </div>
+  </div>
+
+  <div id="cla" style="display:none">
+    <div class="wkc" id="w5"><div class="wkh" onclick="tw('w5')"><span class="wknum">Week 5</span><span class="wktitle">Reload — 3 sets, 90 sec rest, new exercises</span><span class="tag ta">Acceleration</span><i class="ti ti-chevron-down wkchev" id="w5c"></i></div>
+      <div class="wkb" id="w5b">
+        <div class="wkd"><div class="wkdl lift">Mon</div><div class="wkdc"><div class="wkdt">Push — 90 sec rest on primaries. Kickback → overhead extension.</div><div class="wkdd">Floor press 3×10 · Shoulder press 3×10 · Lateral raise 3×15 · Overhead ext 3×12</div></div></div>
+        <div class="wkd"><div class="wkdl lift">Tue</div><div class="wkdc"><div class="wkdt">Pull — add inverted row. Hammer curl → incline curl.</div><div class="wkdd">Bent row 3×10 · Single-arm row 3×10 · Inverted row 3×10 · Incline curl 3×10</div></div></div>
+        <div class="wkd"><div class="wkdl hiit">Wed</div><div class="wkdc"><div class="wkdt">HIIT — 8 rounds, rest tightened to 75 sec</div></div></div>
+        <div class="wkd"><div class="wkdl lift">Thu</div><div class="wkdc"><div class="wkdt">Legs: reverse lunge → Bulgarian split squat</div><div class="wkdd">Goblet squat 3×12 · RDL 3×10 · Bulgarian split squat 3×8 each · Calf raise 3×20</div></div></div>
+        <div class="wkd"><div class="wkdl lift">Fri</div><div class="wkdc"><div class="wkdt">Full body: suitcase carry → farmers carry (heavier)</div></div></div>
+      </div>
+    </div>
+    <div class="wkc" id="w6"><div class="wkh" onclick="tw('w6')"><span class="wknum">Week 6</span><span class="wktitle">+5 lb on all primary lifts</span><span class="tag ta">Acceleration</span><i class="ti ti-chevron-down wkchev" id="w6c"></i></div>
+      <div class="wkb" id="w6b"><div class="wkd"><div class="wkdl lift">Mon–Fri</div><div class="wkdc"><div class="wkdt">Floor press, shoulder press, rows, RDL, goblet squat: +5 lb each</div><div class="wkdd">Isolation: +2.5 lb or +1 rep. Bulgarian split squat: +2.5 lb only if form is clean.<br><span class="npill a">Week 6 is where training starts to feel real. Expect DOMS.</span></div></div></div></div>
+    </div>
+    <div class="wkc" id="w7"><div class="wkh" onclick="tw('w7')"><span class="wknum">Week 7</span><span class="wktitle">Volume peak — 4 sets on all primaries</span><span class="tag ta">Acceleration</span><i class="ti ti-chevron-down wkchev" id="w7c"></i></div>
+      <div class="wkb" id="w7b"><div class="wkd"><div class="wkdl lift">Mon–Fri</div><div class="wkdc"><div class="wkdt">4 sets (up from 3) on all primaries. Keep Week 6 weights.</div><div class="wkdd">Isolation stays at 3 sets. HIIT 8 rounds / 60 sec rest.<br><span class="npill a">Highest volume week. Sleep and protein become critical.</span></div></div></div></div>
+    </div>
+    <div class="wkc" id="w8"><div class="wkh" onclick="tw('w8')"><span class="wknum">Week 8</span><span class="wktitle">Deload — 2 sets, recover for Phase 3</span><span class="tag tn">Deload</span><i class="ti ti-chevron-down wkchev" id="w8c"></i></div>
+      <div class="wkb" id="w8b"><div class="wkd"><div class="wkdl lift">Mon–Fri</div><div class="wkdc"><div class="wkdt">2 sets × 8 reps. Keep Week 7 weights. No HIIT — steady walk only.</div><div class="wkdd"><span class="npill a">Phase 3 demands max load. Arrive fresh.</span></div></div></div></div>
+    </div>
+  </div>
+
+  <div id="cld" style="display:none">
+    <div class="wkc" id="w9"><div class="wkh" onclick="tw('w9')"><span class="wknum">Week 9</span><span class="wktitle">Strength mode — 6–8 reps, 3 sec eccentric</span><span class="tag td">Definition</span><i class="ti ti-chevron-down wkchev" id="w9c"></i></div>
+      <div class="wkb" id="w9b">
+        <div class="wkd"><div class="wkdl lift">Mon</div><div class="wkdc"><div class="wkdt">Push: +10 lb on floor press and shoulder press. 4×6, 2 min rest.</div><div class="wkdd">3 sec eccentric every rep. Lateral raise 3×15 slow. Overhead ext 3×10 slow.</div></div></div>
+        <div class="wkd"><div class="wkdl lift">Tue</div><div class="wkdc"><div class="wkdt">Pull: +10 lb rows, 4×6. Add 1 sec pause at top of inverted row.</div></div></div>
+        <div class="wkd"><div class="wkdl hiit">Wed</div><div class="wkdc"><div class="wkdt">HIIT — 8 rounds, 30 sec / 45 sec rest. Peak metabolic demand.</div><div class="wkdd">Skate jumps, burpee-to-press, sprawl+jump, broad jump</div></div></div>
+        <div class="wkd"><div class="wkdl lift">Thu</div><div class="wkdc"><div class="wkdt">Legs: +10 lb goblet squat and RDL. Ab wheel rollout replaces plank.</div></div></div>
+        <div class="wkd"><div class="wkdl lift">Fri</div><div class="wkdc"><div class="wkdt">Full body: clean+press 4×6. Goblet squat hold 3×45 sec isometric.</div></div></div>
+      </div>
+    </div>
+    <div class="wkc" id="w10"><div class="wkh" onclick="tw('w10')"><span class="wknum">Week 10</span><span class="wktitle">+5 lb on primaries, introduce rest-pause</span><span class="tag td">Definition</span><i class="ti ti-chevron-down wkchev" id="w10c"></i></div>
+      <div class="wkb" id="w10b"><div class="wkd"><div class="wkdl lift">Mon–Fri</div><div class="wkdc"><div class="wkdt">All primaries +5 lb. Last set: reps to near-failure, 15 sec pause, 2–3 more.</div><div class="wkdd">3 sec eccentric every rep. 6 clean reps with new weight = green light.<br><span class="npill d">Rest-pause hits failure safely without a spotter.</span></div></div></div></div>
+    </div>
+    <div class="wkc" id="w11"><div class="wkh" onclick="tw('w11')"><span class="wknum">Week 11</span><span class="wktitle">Superset pairings — same load, less rest</span><span class="tag td">Definition</span><i class="ti ti-chevron-down wkchev" id="w11c"></i></div>
+      <div class="wkb" id="w11b">
+        <div class="wkd"><div class="wkdl lift">Mon</div><div class="wkdc"><div class="wkdt">A: floor press ×6 → B: lateral raise ×12. Rest 90 sec. ×4.</div><div class="wkdd">A: shoulder press ×6 → B: overhead ext ×10. Rest 90 sec. ×3.</div></div></div>
+        <div class="wkd"><div class="wkdl lift">Tue</div><div class="wkdc"><div class="wkdt">A: bent row ×6 → B: incline curl ×8. A: single-arm row ×6 → B: face pull ×15.</div></div></div>
+        <div class="wkd"><div class="wkdl lift">Thu</div><div class="wkdc"><div class="wkdt">Goblet squat + RDL back-to-back. Rest 90 sec. ×4 rounds.</div></div></div>
+        <div class="wkd"><div class="wkdl lift">Fri</div><div class="wkdc"><div class="wkdt">Clean+press + renegade row back-to-back. Rest 90 sec. ×4 rounds.</div></div></div>
+      </div>
+    </div>
+    <div class="wkc" id="w12"><div class="wkh" onclick="tw('w12')"><span class="wknum">Week 12</span><span class="wktitle">Peak week — heaviest weights, full intensity</span><span class="tag td">Definition</span><i class="ti ti-chevron-down wkchev" id="w12c"></i></div>
+      <div class="wkb" id="w12b"><div class="wkd"><div class="wkdl lift">Mon–Fri</div><div class="wkdc"><div class="wkdt">Final +5 lb attempt on all primaries. 4×6. Rest-pause every primary. HIIT 10 rounds.</div><div class="wkdd"><span class="npill d">Compare Week 1 vs Week 12 weights. The gap is your proof of work.</span></div></div></div></div>
+    </div>
+    <div class="wkc" id="w13"><div class="wkh" onclick="tw('w13')"><span class="wknum">Week 13</span><span class="wktitle">Re-test baseline, set Phase 4 starting weights</span><span class="tag tn">Transition</span><i class="ti ti-chevron-down wkchev" id="w13c"></i></div>
+      <div class="wkb" id="w13b">
+        <div class="wkd"><div class="wkdl lift">Mon</div><div class="wkdc"><div class="wkdt">Re-run Week 1 lifts at Week 1 weights. 3×12. Should feel easy.</div><div class="wkdd">Document. Photograph. Compare energy and soccer performance to Day 1.</div></div></div>
+        <div class="wkd"><div class="wkdl">Tue–Sun</div><div class="wkdc"><div class="wkdt">Light activity only. Phase 4: same structure, all starting weights +10–15%.</div></div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- NUTRITION -->
+<div id="p-nutrition" class="content panel">
+  <div class="kpis">
+    <div class="kpi"><div class="kpi-n">2050<span class="kpi-u">kcal</span></div><div class="kpi-l">Daily target</div></div>
+    <div class="kpi"><div class="kpi-n">175<span class="kpi-u">g</span></div><div class="kpi-l">Protein</div></div>
+    <div class="kpi"><div class="kpi-n">65<span class="kpi-u">g</span></div><div class="kpi-l">Fat</div></div>
+    <div class="kpi"><div class="kpi-n">185<span class="kpi-u">g</span></div><div class="kpi-l">Carbs</div></div>
+  </div>
+  <div class="ew">Macro split</div>
+  <div class="mband"><div class="mseg" style="width:34%;background:var(--teal)"></div><div class="mseg" style="width:29%;background:var(--gold)"></div><div class="mseg" style="width:37%;background:var(--vio)"></div></div>
+  <div class="mleg"><span><span class="mldot" style="background:var(--teal)"></span>Protein 34%</span><span><span class="mldot" style="background:var(--gold)"></span>Fat 29%</span><span><span class="mldot" style="background:var(--vio)"></span>Carbs 37%</span></div>
+  <div class="ew">Fasting window</div>
+  <div class="fvis">
+    <div class="fseg fast"><strong>8 pm → 12 pm — Fast (16 hr)</strong>Black coffee + cardamom + cinnamon + L-theanine only</div>
+    <div class="fseg eat"><strong>12 pm → 8 pm — Eat (8 hr)</strong>4 meals or 3 + optional shake</div>
+  </div>
+  <div class="ew">Meal structure</div>
+  <div class="card"><div class="ch"><div class="ci tl"><i class="ti ti-clock"></i></div><div><div class="ct">12:00 pm — break fast</div><div class="cs">~600 kcal · 45 g protein · post-workout</div></div></div><div class="cb">3–4 eggs or 200 g Greek yogurt + berries. Small serving oats or sweet potato. Handful walnuts. Ginger + lemon + turmeric tea alongside.</div></div>
+  <div class="card"><div class="ch"><div class="ci gd"><i class="ti ti-clock"></i></div><div><div class="ct">3:00–4:00 pm — meal 2</div><div class="cs">~700 kcal · 50 g protein · largest meal</div></div></div><div class="cb">Grilled chicken or salmon + roasted vegetables + quinoa or brown rice. Largest carb window of the day.</div></div>
+  <div class="card"><div class="ch"><div class="ci vi"><i class="ti ti-clock"></i></div><div><div class="ct">6:30–7:00 pm — meal 3</div><div class="cs">~550 kcal · 45 g protein</div></div></div><div class="cb">Protein + fat dominant. No high-glycemic carbs. Fatty fish, avocado, leafy greens, olive oil. Tulsi + cinnamon tea post-meal.</div></div>
+  <div class="card"><div class="ch"><div class="ci co"><i class="ti ti-clock"></i></div><div><div class="ct">7:30–8:00 pm — optional meal 4</div><div class="cs">~200 kcal · 20 g protein · before window closes</div></div></div><div class="cb">Casein-forward only. Greek yogurt + berries + a few almonds. Supports overnight muscle protein synthesis.</div></div>
+  <div class="ew">Anti-inflammatory staples</div>
+  <div style="display:flex;flex-wrap:wrap;gap:5px;margin-bottom:1.5rem">
+    <span class="tag tt">Wild salmon</span><span class="tag tt">Sardines</span><span class="tag tt">Blueberries</span><span class="tag tt">Pomegranate</span><span class="tag tt">Walnuts</span><span class="tag tt">Extra virgin olive oil</span><span class="tag tt">Dark leafy greens</span><span class="tag tt">Bone broth</span><span class="tag tt">Turmeric + black pepper</span><span class="tag tt">Ginger</span><span class="tag ta">Cardamom (in use)</span><span class="tag ta">Cinnamon (in use)</span>
+  </div>
+  <div class="ctarow"><button class="btn pr"><i class="ti ti-list"></i> 7-day meal plan</button><button class="btn"><i class="ti ti-scale"></i> Calorie cycling by day type</button></div>
+</div>
+
+<!-- SUPPLEMENTS -->
+<div id="p-supplements" class="content panel">
+  <div class="wbar"><i class="ti ti-alert-circle"></i><span>Calcium and magnesium compete for the same intestinal transporters. Separate by at least 2 hours or one cancels the other out.</span></div>
+  <div class="ew">Morning — fasting window (safe)</div>
+  <div class="card">
+    <div class="si"><div class="sdot" style="background:var(--teal)"></div><div><div class="sn">L-theanine 200 mg — in your coffee</div><div class="snote">Already doing this. Blunts cortisol spike, sharpens focus. Direct synergy with caffeine.</div></div></div>
+    <div class="si"><div class="sdot" style="background:var(--teal)"></div><div><div class="sn">Ashwagandha 300–600 mg (KSM-66)</div><div class="snote">Morning if it energizes you. Lowers cortisol, supports testosterone. Shift to bedtime if it sedates.</div></div></div>
+  </div>
+  <div class="ew">Meal 1 — 12:00 pm (with food)</div>
+  <div class="card">
+    <div class="si"><div class="sdot" style="background:var(--vio)"></div><div><div class="sn">Multivitamin with D3</div><div class="snote">D3 requires dietary fat to absorb. Take with your largest meal. Aim for 2,000–4,000 IU D3 total.</div></div></div>
+    <div class="si"><div class="sdot" style="background:var(--vio)"></div><div><div class="sn">Fish oil 2–3 g EPA+DHA</div><div class="snote">Reduces DOMS, lowers triglycerides, supports cognition. With food to prevent reflux.</div></div></div>
+    <div class="si"><div class="sdot" style="background:var(--vio)"></div><div><div class="sn">Creatine monohydrate 5 g</div><div class="snote">Timing is flexible — any meal works. Increases phosphocreatine, drives strength gains. No loading needed.</div></div></div>
+    <div class="si"><div class="sdot" style="background:var(--vio)"></div><div><div class="sn">Milk thistle 150 mg</div><div class="snote">Silymarin supports liver phase II detox. Pairs well with the autophagy drive from your fasting window.</div></div></div>
+  </div>
+  <div class="ew">Meal 3 — 6:30 pm</div>
+  <div class="card"><div class="si"><div class="sdot" style="background:var(--gold)"></div><div><div class="sn">Calcium hydroxyapatite 500 mg (split dose)</div><div class="snote">Second half here, first half at Meal 1. Better absorbed than carbonate. Keep 2+ hrs from magnesium.</div></div></div></div>
+  <div class="ew">Bedtime — 30–60 min before sleep</div>
+  <div class="card">
+    <div class="si"><div class="sdot" style="background:var(--coral)"></div><div><div class="sn">Magnesium glycinate 400 mg</div><div class="snote">Most bioavailable form. Deepens slow-wave sleep, reduces anxiety, relaxes muscles. Single highest-impact change in your stack.</div></div></div>
+    <div class="si"><div class="sdot" style="background:var(--coral)"></div><div><div class="sn">L-theanine 100–200 mg (optional second dose)</div><div class="snote">With magnesium glycinate, this is a clinically studied sleep stack. Blunts night-time rumination.</div></div></div>
+  </div>
+  <div class="ew">Two gaps in your current stack</div>
+  <div class="wbar"><i class="ti ti-plus"></i><span><strong>Zinc 15–25 mg</strong> — supports testosterone, immune function, protein synthesis. Most people in a caloric deficit are depleted. Take with dinner.</span></div>
+  <div class="wbar"><i class="ti ti-plus"></i><span><strong>Vitamin K2 MK-7 100 mcg</strong> — directs calcium to bones, not arteries. Non-negotiable alongside D3 + calcium hydroxyapatite.</span></div>
+  <div class="ctarow"><button class="btn pr"><i class="ti ti-microscope"></i> Full supplement science</button></div>
+</div>
+
+<!-- RECOVERY -->
+<div id="p-recovery" class="content panel">
+  <div class="ibar"><i class="ti ti-moon"></i><span>80% of daily growth hormone is released in the first 2 sleep cycles. Magnesium + L-theanine at bedtime directly supports this. The fasting close at 8 pm exists for the same reason.</span></div>
+  <div class="ew">Sleep protocol</div>
+  <div class="recg">
+    <div class="rect"><div class="recic"><i class="ti ti-moon"></i></div><div class="rectt">Dim lights at 8 pm</div><div class="recb">Melatonin onset needs ambient light to drop. Screen warm filter alone isn't enough.</div></div>
+    <div class="rect"><div class="recic"><i class="ti ti-temperature"></i></div><div class="rectt">Room at 65–68°F</div><div class="recb">Core temp drop of 1–3°F is the physiological trigger for deep sleep onset.</div></div>
+    <div class="rect"><div class="recic"><i class="ti ti-sun"></i></div><div class="rectt">Morning light &lt;30 min</div><div class="recb">Your first walk already does this. Sets cortisol awake-phase. Protect it.</div></div>
+    <div class="rect"><div class="recic"><i class="ti ti-clock"></i></div><div class="rectt">Consistent wake time</div><div class="recb">More impactful than bedtime. ±30 min max on weekends. Anchors everything.</div></div>
+    <div class="rect"><div class="recic"><i class="ti ti-droplet"></i></div><div class="rectt">No fluids 90 min pre-bed</div><div class="recb">Night urination fragments sleep cycles. Front-load your 100 oz/day earlier.</div></div>
+    <div class="rect"><div class="recic"><i class="ti ti-leaf"></i></div><div class="rectt">Sleep tea blend</div><div class="recb">Chamomile + valerian + passionflower + cardamom. 30 min before bed.</div></div>
+  </div>
+  <div class="ew">Weekly recovery schedule</div>
+  <div class="card">
+    <div class="ex"><span class="exn"><span class="tag tt" style="margin-right:6px">Daily</span>2–3 walks</span><span class="exs">Morning light · post-lunch · evening zone 2</span></div>
+    <div class="ex"><span class="exn"><span class="tag tt" style="margin-right:6px">Daily</span>Sun salutations</span><span class="exs">5–10 min end of every workout</span></div>
+    <div class="ex"><span class="exn"><span class="tag tt" style="margin-right:6px">Daily</span>Breathwork</span><span class="exs">3–5 min box or 4-7-8 before bed</span></div>
+    <div class="ex"><span class="exn"><span class="tag ta" style="margin-right:6px">3×/wk</span>Cold finish shower</span><span class="exs">2 min cool → 30 sec cold. Reduces DOMS ~30%.</span></div>
+    <div class="ex"><span class="exn"><span class="tag ta" style="margin-right:6px">Weekly</span>Foam roll</span><span class="exs">Post-soccer: quads, IT band, calves</span></div>
+    <div class="ex"><span class="exn"><span class="tag ta" style="margin-right:6px">Weekly</span>20-min yoga flow</span><span class="exs">Sunday — parasympathetic reset</span></div>
+    <div class="ex"><span class="exn"><span class="tag td" style="margin-right:6px">Monthly</span>Massage</span><span class="exs">Already on the calendar. Best day-after-leg day.</span></div>
+    <div class="ex"><span class="exn"><span class="tag tn" style="margin-right:6px">Seasonal</span>Sauna</span><span class="exs">3×/wk × 20 min at 170–180°F when available</span></div>
+  </div>
+  <div class="ew">Hydration</div>
+  <div class="card"><div class="cb">At 200 lb: 100 oz (~3 liters) minimum daily. Add 16 oz per workout hour. Add 8–12 oz on soccer days. Electrolytes post-soccer: pinch Himalayan salt + lemon in water.</div></div>
+  <div class="ctarow"><button class="btn pr"><i class="ti ti-zzz"></i> Deep sleep protocol</button></div>
+</div>
+
+<!-- EASTERN -->
+<div id="p-eastern" class="content panel">
+  <div class="ew">Ayurveda alignment</div>
+  <div class="etile"><div class="eth"><div class="ci vi" style="width:30px;height:30px;border-radius:8px"><i class="ti ti-yin-yang" style="font-size:15px"></i></div><div class="etl">Vata-Pitta imbalance</div></div><div class="etb">Irregular winter discipline + anxiety + inflammation points here. Your protocol is already well-aligned — cardamom-cinnamon coffee, ashwagandha, and fasting all work with this constitution. The gap is grounding: consistent routine, warm oil self-massage, and less cold in the evening.</div></div>
+  <div class="etile"><div class="eth"><div class="ci tl" style="width:30px;height:30px;border-radius:8px"><i class="ti ti-massage" style="font-size:15px"></i></div><div class="etl">Abhyanga (self-massage)</div></div><div class="etb">Sesame oil (warming, Vata-calming) or coconut oil (Pitta-cooling). 10 min before Sunday shower. Crown to extremities. Supports lymphatic flow, reduces cortisol — measurable parasympathetic activation in RCTs.</div></div>
+  <div class="ew">Breathwork</div>
+  <div class="recg">
+    <div class="rect"><div class="recic" style="color:var(--vio)"><i class="ti ti-wind"></i></div><div class="rectt">Box breathing</div><div class="recb">4 in / 4 hold / 4 out / 4 hold. 5 min pre-workout or pre-sleep.</div></div>
+    <div class="rect"><div class="recic" style="color:var(--vio)"><i class="ti ti-wind"></i></div><div class="rectt">4-7-8 breath</div><div class="recb">4 in / 7 hold / 8 out. 4 cycles before bed. Strongest vagal activation for sleep onset.</div></div>
+    <div class="rect"><div class="recic" style="color:var(--vio)"><i class="ti ti-wind"></i></div><div class="rectt">Nadi Shodhana</div><div class="recb">Alternate nostril. 5 min midday. Reduces afternoon mental fatigue.</div></div>
+    <div class="rect"><div class="recic" style="color:var(--vio)"><i class="ti ti-wind"></i></div><div class="rectt">Kapalbhati</div><div class="recb">30–60 rapid belly pumps × 3. Morning energizer. Stimulates liver, generates internal heat.</div></div>
+  </div>
+  <div class="ew">Mudras</div>
+  <div class="etile"><ul class="elist"><li><strong style="color:var(--ink)">Surya mudra</strong> — ring finger bent under thumb. Stimulates metabolic fire. 15 min daily.</li><li><strong style="color:var(--ink)">Prana mudra</strong> — ring + pinky tips to thumb. Builds vitality and fatigue resistance.</li><li><strong style="color:var(--ink)">Apana mudra</strong> — middle + ring tips to thumb. Supports detox and elimination during fasting.</li></ul></div>
+  <div class="ew">Chakra focus</div>
+  <div class="etile"><ul class="elist"><li><strong style="color:var(--ink)">Manipura (solar plexus)</strong> — metabolism, will, discipline. Sun salutations directly activate this. Add yellow visualization.</li><li><strong style="color:var(--ink)">Anahata (heart)</strong> — cortisol regulation and resilience. Box breathing and L-theanine both support this.</li><li><strong style="color:var(--ink)">Vishuddha (throat)</strong> — humming on your morning walk activates the vagal nerve. Measurable parasympathetic effect.</li></ul></div>
+  <div class="ew">Tea blends by purpose</div>
+  <div class="card">
+    <div class="ex"><span class="exn"><span class="tag tt" style="margin-right:6px">Break fast</span>Ginger + lemon + turmeric + black pepper</span><span class="exs">Wakes digestion, anti-inflammatory</span></div>
+    <div class="ex"><span class="exn"><span class="tag ta" style="margin-right:6px">Post-workout</span>Holy basil (Tulsi) + cinnamon</span><span class="exs">Lowers cortisol spike, stabilizes blood sugar</span></div>
+    <div class="ex"><span class="exn"><span class="tag td" style="margin-right:6px">Pre-sleep</span>Chamomile + valerian + passionflower + cardamom</span><span class="exs">GABA-ergic, deepens sleep quality</span></div>
+  </div>
+  <div class="ctarow"><button class="btn pr"><i class="ti ti-sun"></i> Build morning ritual</button><button class="btn"><i class="ti ti-snowflake"></i> Winter adaptation</button></div>
+</div>
+
+</div><!-- /shell -->
+<script>
+function go(id,btn){
+  document.querySelectorAll('.panel').forEach(p=>p.classList.remove('on'));
+  document.querySelectorAll('.nb').forEach(b=>b.classList.remove('on'));
+  document.getElementById('p-'+id).classList.add('on');
+  if(btn) btn.classList.add('on');
+}
+function showPh(p,btn){
+  document.querySelectorAll('#p-training .ptab').forEach(b=>b.classList.remove('at','aa','ad'));
+  ['f','a','d'].forEach(x=>{var e=document.getElementById('cl'+x);if(e)e.style.display='none';});
+  var e=document.getElementById('cl'+p);if(e)e.style.display='block';
+  btn.classList.add(p==='f'?'at':p==='a'?'aa':'ad');
+}
+function tw(id){
+  var b=document.getElementById(id+'b'),c=document.getElementById(id+'c');
+  if(!b)return;
+  var op=b.classList.contains('op');
+  b.classList.toggle('op',!op);
+  if(c)c.classList.toggle('op',!op);
+}
+</script>
+</body>
+</html>
