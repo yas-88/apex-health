@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>Apex — 90-Day Protocol</title>
+<title>Tareeq — 90-Day Protocol</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
@@ -13,7 +13,7 @@
    there's no flash of the wrong theme while the rest of the page loads. */
 (function(){
   try{
-    var saved = sessionStorage.getItem('apex-theme-mode'); // 'light' | 'dark' | 'auto' | null
+    var saved = sessionStorage.getItem('tareeq-theme-mode'); // 'light' | 'dark' | 'auto' | null
     var mode = saved || 'auto';
     var resolved;
     if(mode === 'light' || mode === 'dark'){
@@ -256,7 +256,7 @@ nav::-webkit-scrollbar{display:none}
     <div class="brand">
       <div class="brand-mark"><i class="ti ti-activity"></i></div>
       <div>
-        <div class="brand-name">Apex</div>
+        <div class="brand-name">Tareeq</div>
         <div class="brand-tag">90-Day Protocol</div>
       </div>
     </div>
@@ -599,8 +599,8 @@ function tw(id){
    (if geolocation granted) > 7am–7pm clock fallback.
    Mode + last known coords persist in sessionStorage for this tab session.
 */
-var THEME_KEY = 'apex-theme-mode';
-var COORDS_KEY = 'apex-theme-coords';
+var THEME_KEY = 'tareeq-theme-mode';
+var COORDS_KEY = 'tareeq-theme-coords';
 var themeCheckTimer = null;
 
 function getMode(){
