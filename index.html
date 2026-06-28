@@ -83,8 +83,8 @@ body{font-family:'Inter',system-ui,sans-serif;background:var(--bg2);color:var(--
 .hdr{background:var(--bg2);border-bottom:0.5px solid var(--bdr);padding:1.7rem 1.85rem 0}
 .hdr-top{display:flex;align-items:flex-start;justify-content:space-between;gap:1rem;margin-bottom:1.4rem;flex-wrap:wrap}
 .brand{display:flex;align-items:center;gap:13px}
-.brand-mark{width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0}
-.brand-mark svg{width:30px;height:30px}
+.brand-mark{width:62px;height:32px;display:flex;align-items:center;justify-content:flex-start;flex-shrink:0}
+.brand-mark svg{width:62px;height:32px}
 .brand-name{font-family:'DM Serif Display',Georgia,serif;font-size:23px;color:var(--ink);letter-spacing:-.01em;line-height:1.1}
 .brand-tag{font-size:10px;font-weight:500;text-transform:uppercase;letter-spacing:.11em;color:var(--ink3);margin-top:3px}
 
@@ -287,9 +287,17 @@ nav.pillar-nav::-webkit-scrollbar{display:none}
     <div class="hdr-top">
       <div class="brand">
         <div class="brand-mark">
-          <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M15 65 L40 65 L52 50 L60 58 Q68 66 78 58 Q86 50 80 38" stroke="var(--repair)" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
-            <circle cx="64" cy="45" r="4" fill="var(--gold)"/>
+          <svg viewBox="0 0 140 70" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <!-- Fire: rising peak -->
+            <path d="M6 52 L24 52 L32 22 L40 52" stroke="var(--repair)" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/>
+            <!-- Ground: flat steady stretch -->
+            <path d="M40 52 L62 52" stroke="var(--repair)" stroke-width="3.4" stroke-linecap="round"/>
+            <!-- Fuel: open dip / vessel -->
+            <path d="M70 52 Q78 38 86 52 Q94 66 102 52" stroke="var(--repair)" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/>
+            <!-- Repair: open settling spiral -->
+            <path d="M102 52 Q112 30 124 30 Q136 30 132 42 Q129 50 120 47" stroke="var(--repair)" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/>
+            <!-- The transition dot, Fire cooling into Ground -->
+            <circle cx="64" cy="52" r="4" fill="var(--gold)"/>
           </svg>
         </div>
         <div>
