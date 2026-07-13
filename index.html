@@ -323,11 +323,12 @@ nav.pillar-nav::-webkit-scrollbar{display:none}
       <button class="nb" data-pillar="repair" onclick="go('repair',this)"><span class="nb-dot"></span>Repair</button>
     </nav>
     <nav class="pillar-nav" id="protocol-nav" style="display:none">
-      <button class="nb on" data-pillar="protocol" onclick="go('protocol',this)"><span class="nb-dot"></span>My 90 Days</button>
+      <button class="nb on" data-pillar="protocol" onclick="go('protocol',this)"><span class="nb-dot"></span>Overview</button>
       <button class="nb" data-pillar="p-training" onclick="go('p-training',this)"><span class="nb-dot"></span>Training</button>
       <button class="nb" data-pillar="p-nutrition" onclick="go('p-nutrition',this)"><span class="nb-dot"></span>Nutrition</button>
       <button class="nb" data-pillar="p-supplements" onclick="go('p-supplements',this)"><span class="nb-dot"></span>Supplements</button>
       <button class="nb" data-pillar="p-calendar" onclick="go('p-calendar',this)"><span class="nb-dot"></span>Calendar</button>
+      <button class="nb" data-pillar="p-baseline" onclick="go('p-baseline',this)"><span class="nb-dot"></span>Baseline</button>
     </nav>
   </header>
 
@@ -430,7 +431,7 @@ nav.pillar-nav::-webkit-scrollbar{display:none}
           <div class="fc-sources"><span class="etag est"><i class="ti ti-flask"></i>Established</span><span class="etag trad"><i class="ti ti-feather"></i>Traditional practice</span></div>
         </div>
         <div class="fc-body">
-          <p>Four lifting days a week — push, pull, legs, full body — is enough frequency to drive consistent adaptation without the joint and nervous-system wear of training daily. Each muscle group gets worked, then given 48–72 hours to actually complete the repair that the stimulus only started.</p>
+          <p>Four lifting days a week — push, pull, lower, full body — is enough frequency to drive consistent adaptation without the joint and nervous-system wear of training daily. Each muscle group gets worked, then given 48–72 hours to actually complete the repair that the stimulus only started.</p>
           <p>Before the weight moves, there's a quieter way to arrive at the work: <strong>Surya mudra</strong>, the ring finger folded under the thumb, held for a few breaths before training begins. Traditionally associated with stimulating Agni and warmth in the body, it costs nothing and asks for nothing except a moment of attention before effort — the difference between walking into a workout and arriving at one.</p>
         </div>
         <div class="fc-practice">
@@ -460,7 +461,7 @@ nav.pillar-nav::-webkit-scrollbar{display:none}
         <div class="ex"><span class="exn">DB shrug</span><span class="exs">2 × 15, 30 sec</span></div>
       </div>
       <div class="card">
-        <div class="ch"><div class="ci" style="background:var(--fire-bg)"><i class="ti ti-run" style="color:var(--fire-dk)"></i></div><div><div class="ct">Thursday — legs + core</div><div class="cs">Quads, hamstrings, glutes, core</div></div><span class="tag tag-fire" style="margin-left:auto">45 min</span></div>
+        <div class="ch"><div class="ci" style="background:var(--fire-bg)"><i class="ti ti-run" style="color:var(--fire-dk)"></i></div><div><div class="ct">Wednesday — lower (legs + core)</div><div class="cs">Quads, hamstrings, glutes, core</div></div><span class="tag tag-fire" style="margin-left:auto">45 min</span></div>
         <div class="ex"><span class="exn">DB goblet squat</span><span class="exs">3–4 × 12, 90 sec</span></div>
         <div class="ex"><span class="exn">Romanian deadlift</span><span class="exs">3–4 × 10, 90 sec</span></div>
         <div class="ex"><span class="exn">Bulgarian split squat</span><span class="exs">3 × 8 each, 90 sec</span></div>
@@ -468,12 +469,13 @@ nav.pillar-nav::-webkit-scrollbar{display:none}
         <div class="ex"><span class="exn">Plank → ab wheel rollout</span><span class="exs">3 × 45 sec → 3 × 8</span></div>
       </div>
       <div class="card">
-        <div class="ch"><div class="ci" style="background:var(--fire-bg)"><i class="ti ti-layers" style="color:var(--fire-dk)"></i></div><div><div class="ct">Friday — full body</div><div class="cs">Compound emphasis, metabolic finish</div></div><span class="tag tag-fire" style="margin-left:auto">45 min</span></div>
+        <div class="ch"><div class="ci" style="background:var(--fire-bg)"><i class="ti ti-layers" style="color:var(--fire-dk)"></i></div><div><div class="ct">Thursday — full body + bag</div><div class="cs">Compound emphasis, metabolic finish</div></div><span class="tag tag-fire" style="margin-left:auto">45 min</span></div>
         <div class="ex"><span class="exn">DB clean + press</span><span class="exs">3–4 × 6–8, 90 sec</span></div>
         <div class="ex"><span class="exn">Renegade row</span><span class="exs">3–4 × 8 each, 90 sec</span></div>
         <div class="ex"><span class="exn">DB squat to press</span><span class="exs">3 × 10, 75 sec</span></div>
         <div class="ex"><span class="exn">Farmers carry</span><span class="exs">2 × 40–50 sec</span></div>
         <div class="ex"><span class="exn">Dead bug</span><span class="exs">3 × 8–10 each side</span></div>
+        <div class="ex"><span class="exn">Punching bag — rounds</span><span class="exs">3–5 × 2–3 min</span></div>
       </div>
 
       <div class="ew">The metabolic edge — HIIT and breath as heat</div>
@@ -496,14 +498,6 @@ nav.pillar-nav::-webkit-scrollbar{display:none}
         </div>
       </div>
 
-      <div class="card">
-        <div class="ch"><div class="ci" style="background:var(--fire-bg)"><i class="ti ti-bolt" style="color:var(--fire-dk)"></i></div><div><div class="ct">Wednesday — HIIT cardio</div><div class="cs">Fasted, 20 min max</div></div><span class="tag tag-fire" style="margin-left:auto">20 min</span></div>
-        <div class="ex"><span class="exn">Phase 1 — 6–8 rounds</span><span class="exs">30 sec work / 90 sec rest</span></div>
-        <div class="ex"><span class="exn">Phase 2 — 8 rounds</span><span class="exs">30 sec work / 75 sec rest</span></div>
-        <div class="ex"><span class="exn">Phase 3 — 8–10 rounds</span><span class="exs">30 sec work / 45 sec rest</span></div>
-        <div class="ex"><span class="exn">Moves</span><span class="exs">Jump squats · high knees · burpees · skate jumps</span></div>
-      </div>
-
       <div class="ew">Keeping the flame steady — discipline without burnout</div>
       <div class="fusion-card">
         <div class="fc-head">
@@ -511,7 +505,7 @@ nav.pillar-nav::-webkit-scrollbar{display:none}
           <div class="fc-sources"><span class="etag est"><i class="ti ti-flask"></i>Established</span><span class="etag trad"><i class="ti ti-feather"></i>Traditional practice</span></div>
         </div>
         <div class="fc-body">
-          <p>Training without scheduled lighter weeks eventually produces the opposite of adaptation: chronically elevated cortisol, suppressed testosterone, poor sleep, and a body that stops responding to stimulus it once thrived on. This is why every four weeks in this charter includes a deload — same movements, lighter load, shorter sessions. It isn't a break from progress. It's the week the progress from the last month actually gets absorbed.</p>
+          <p>Training without scheduled lighter weeks eventually produces the opposite of adaptation: chronically elevated cortisol, suppressed testosterone, poor sleep, and a body that stops responding to stimulus it once thrived on. This is why lighter weeks belong in the plan — a deload of the same movements at lighter load and shorter sessions, taken when the body asks for it rather than on a rigid clock. It isn't a break from progress. It's the week the progress from the last month actually gets absorbed.</p>
           <p>Ayurveda has a word for what happens when Agni runs unchecked: it doesn't just burn fuel faster, it can scorch the tissue meant to hold it — irritability, inflammation, and exhaustion dressed up as productivity. The deload week and Agni-tending are the same idea stated twice: a fire kept at the right size lasts. A fire pushed past its size burns out, sometimes burns the house down with it.</p>
         </div>
       </div>
@@ -645,19 +639,19 @@ nav.pillar-nav::-webkit-scrollbar{display:none}
           <div class="fc-sources"><span class="etag est"><i class="ti ti-flask"></i>Established</span><span class="etag emrg"><i class="ti ti-sparkles"></i>Emerging</span></div>
         </div>
         <div class="fc-body">
-          <p>An extended overnight fast — eight pm to noon, sixteen hours — does two things with reasonably strong evidence behind them. First, it lowers circulating insulin for long enough that the body shifts toward burning stored fat for fuel rather than the glucose that's always available right after eating. Second, in the latter hours of a fast, cells increase <em>autophagy</em>: the clearing-out of damaged proteins and components, a kind of cellular housekeeping that happens far more slowly when the body is constantly processing incoming food. The autophagy research is still maturing in humans specifically — animal data is stronger than human data — so it's held here as emerging rather than settled, even though the insulin and fat-oxidation mechanics are well established.</p>
+          <p>An extended overnight fast of roughly sixteen hours does two things with reasonably strong evidence behind them. First, it lowers circulating insulin for long enough that the body shifts toward burning stored fat for fuel rather than the glucose that's always available right after eating. Second, in the latter hours of a fast, cells increase <em>autophagy</em>: the clearing-out of damaged proteins and components, a kind of cellular housekeeping that happens far more slowly when the body is constantly processing incoming food. The autophagy research is still maturing in humans specifically — animal data is stronger than human data — so it's held here as emerging rather than settled, even though the insulin and fat-oxidation mechanics are well established.</p>
           <p>Ayurveda arrived at a version of this insight without the word "insulin": eating only when genuinely hungry, and giving real space between meals, so that Agni isn't asked to process new food before it's finished the last batch. A digestive fire that's never allowed to rest doesn't get stronger from constant use — it gets tired, the way any fire fed continuously without tending eventually smokes more than it burns.</p>
         </div>
       </div>
 
       <div class="ew">The eating window</div>
       <div class="card">
-        <div class="ch"><div class="ci" style="background:var(--fuel-bg)"><i class="ti ti-clock" style="color:var(--fuel-dk)"></i></div><div><div class="ct">8 pm → 12 pm — the fast</div><div class="cs">16 hours</div></div></div>
-        <div class="cb">Black coffee, cardamom, cinnamon, L-theanine. Nothing that meaningfully raises insulin. The fast closes at noon, ideally just after training.</div>
+        <div class="ch"><div class="ci" style="background:var(--fuel-bg)"><i class="ti ti-clock" style="color:var(--fuel-dk)"></i></div><div><div class="ct">The overnight fast</div><div class="cs">~16 hours</div></div></div>
+        <div class="cb">Black coffee, cardamom, cinnamon, L-theanine. Nothing that meaningfully raises insulin. The fast closes when you break it, ideally just after training.</div>
       </div>
       <div class="card">
-        <div class="ch"><div class="ci" style="background:var(--fuel-bg)"><i class="ti ti-clock" style="color:var(--fuel-dk)"></i></div><div><div class="ct">12 pm → 8 pm — the eating window</div><div class="cs">8 hours · 2050 kcal · 175g protein</div></div></div>
-        <div class="cb">Three to four meals, protein anchoring each one, carbohydrate weighted toward the meal closest to training.</div>
+        <div class="ch"><div class="ci" style="background:var(--fuel-bg)"><i class="ti ti-clock" style="color:var(--fuel-dk)"></i></div><div><div class="ct">The eating window</div><div class="cs">Protein anchors each meal</div></div></div>
+        <div class="cb">A small number of meals, protein anchoring each, whole-food carbohydrate weighted toward the meal closest to training.</div>
       </div>
 
       <div class="ew">The meals, and the logic inside each one</div>
@@ -673,20 +667,12 @@ nav.pillar-nav::-webkit-scrollbar{display:none}
       </div>
 
       <div class="card">
-        <div class="ch"><div class="ci" style="background:var(--fuel-bg)"><i class="ti ti-sun" style="color:var(--fuel-dk)"></i></div><div><div class="ct">12:00 pm — break the fast</div><div class="cs">~600 kcal · 45g protein · post-workout</div></div></div>
-        <div class="cb">3–4 eggs or 200g Greek yogurt with berries. Small serving of oats or sweet potato. A handful of walnuts. Ginger-lemon-turmeric tea alongside, to wake digestion gently rather than all at once.</div>
+        <div class="ch"><div class="ci" style="background:var(--fuel-bg)"><i class="ti ti-sun" style="color:var(--fuel-dk)"></i></div><div><div class="ct">Breaking the fast — the first meal</div><div class="cs">Protein-forward · the bigger, recovery meal</div></div></div>
+        <div class="cb">Grilled or baked protein, a plate of vegetables, and a little whole-food carbohydrate. Fruit after the protein rather than alone, which blunts the blood-sugar rise. Ginger-lemon-turmeric tea alongside, to wake digestion gently rather than all at once.</div>
       </div>
       <div class="card">
-        <div class="ch"><div class="ci" style="background:var(--fuel-bg)"><i class="ti ti-sun-high" style="color:var(--fuel-dk)"></i></div><div><div class="ct">3:00–4:00 pm — the largest meal</div><div class="cs">~700 kcal · 50g protein</div></div></div>
-        <div class="cb">Grilled chicken or salmon, roasted vegetables, quinoa or brown rice. The biggest carbohydrate allowance of the day, eaten while Agni — and insulin sensitivity — are both still strong.</div>
-      </div>
-      <div class="card">
-        <div class="ch"><div class="ci" style="background:var(--fuel-bg)"><i class="ti ti-moon-stars" style="color:var(--fuel-dk)"></i></div><div><div class="ct">6:30–7:00 pm — the lighter meal</div><div class="cs">~550 kcal · 45g protein</div></div></div>
-        <div class="cb">Fatty fish, avocado, leafy greens, olive oil. Protein and fat forward, carbohydrate minimal. Tulsi and cinnamon tea afterward — traditionally cortisol-calming, and a clean way to close the savory part of the day.</div>
-      </div>
-      <div class="card">
-        <div class="ch"><div class="ci" style="background:var(--fuel-bg)"><i class="ti ti-clock-pause" style="color:var(--fuel-dk)"></i></div><div><div class="ct">7:30–8:00 pm — optional, closing meal</div><div class="cs">~200 kcal · 20g protein</div></div></div>
-        <div class="cb">Greek yogurt, berries, a few almonds. Casein-forward, slow to digest — feeding overnight muscle repair without asking the body to do heavy digestive work right before the fast and sleep both begin.</div>
+        <div class="ch"><div class="ci" style="background:var(--fuel-bg)"><i class="ti ti-moon-stars" style="color:var(--fuel-dk)"></i></div><div><div class="ct">The last meal — lighter, earlier</div><div class="cs">3 to 4 hours before bed</div></div></div>
+        <div class="cb">Fatty fish or another protein, avocado, leafy greens, olive oil. Protein and fat forward, lighter than the first meal, finished a few hours before sleep. Tulsi and cinnamon tea afterward — traditionally cortisol-calming, and a clean way to close the day.</div>
       </div>
 
       <div class="ew">Foods that lower the inflammatory load</div>
@@ -785,139 +771,90 @@ nav.pillar-nav::-webkit-scrollbar{display:none}
 
     <!-- ═══════════ PROTOCOL: OVERVIEW ═══════════ -->
     <div id="p-protocol" class="panel">
-      <div class="ew">My 90 days</div>
+      <div class="ew">My protocol</div>
       <p style="font-size:13.5px;color:var(--ink2);line-height:1.75;max-width:600px;margin-bottom:1.25rem">
-        This is one person's specific walk through the charter — the numbers, the schedule, the exact stack. The charter is the way; this is how it's currently being walked. Update it as your body and life change. The charter underneath doesn't.
+        This is one person's specific walk through the charter — the schedule, the foods, the stack. The charter is the way; this is how it's currently being walked. Update it as your body and life change. The charter underneath doesn't.
       </p>
 
       <div class="kpis">
-        <div class="kpi"><div class="kpi-n">200<span class="kpi-u">lb</span></div><div class="kpi-l">Current</div></div>
-        <div class="kpi"><div class="kpi-n">170<span class="kpi-u">lb</span></div><div class="kpi-l">Target</div></div>
-        <div class="kpi"><div class="kpi-n">16<span class="kpi-u">hr</span></div><div class="kpi-l">Fast</div></div>
+        <div class="kpi"><div class="kpi-n">16<span class="kpi-u">hr</span></div><div class="kpi-l">Daily fast</div></div>
+        <div class="kpi"><div class="kpi-n">2<span class="kpi-u">meals</span></div><div class="kpi-l">A day</div></div>
         <div class="kpi"><div class="kpi-n">4<span class="kpi-u">days</span></div><div class="kpi-l">Lifts/week</div></div>
-        <div class="kpi"><div class="kpi-n">13<span class="kpi-u">wk</span></div><div class="kpi-l">Program length</div></div>
+        <div class="kpi"><div class="kpi-n">1<span class="kpi-u">×24hr</span></div><div class="kpi-l">Weekly fast</div></div>
       </div>
 
-      <div class="ew">Phases of this 90-day arc</div>
-      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:1.5rem">
-        <div class="card"><div class="ph-eyebrow" style="color:var(--fire-dk);font-size:9.5px">Days 1–30</div><div class="ct" style="font-family:'DM Serif Display',Georgia,serif;font-size:16px;margin:4px 0">Foundation</div><div class="cb">Lock the habit. Log every lift. Build the baseline Fire can be measured against.</div></div>
-        <div class="card"><div class="ph-eyebrow" style="color:var(--fuel-dk);font-size:9.5px">Days 31–60</div><div class="ct" style="font-family:'DM Serif Display',Georgia,serif;font-size:16px;margin:4px 0">Acceleration</div><div class="cb">+5 lb every two weeks. Four sets. HIIT tightens.</div></div>
-        <div class="card"><div class="ph-eyebrow" style="color:var(--ground-dk);font-size:9.5px">Days 61–90</div><div class="ct" style="font-family:'DM Serif Display',Georgia,serif;font-size:16px;margin:4px 0">Definition</div><div class="cb">Six to eight reps. Three-second eccentric. Supersets. Peak load.</div></div>
+      <div class="ew">What I'm tracking — a year out</div>
+      <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-bottom:1.5rem">
+        <div class="card"><div class="ph-eyebrow" style="color:var(--fire-dk);font-size:9.5px">First</div><div class="ct" style="font-family:'DM Serif Display',Georgia,serif;font-size:16px;margin:4px 0">Strength &amp; performance</div><div class="cb">A first strict pull-up. Push-up sets that climb. A full Saturday match with recovery by Sunday. The lifts trending up over months.</div></div>
+        <div class="card"><div class="ph-eyebrow" style="color:var(--repair-dk);font-size:9.5px">Second</div><div class="ct" style="font-family:'DM Serif Display',Georgia,serif;font-size:16px;margin:4px 0">Sleep &amp; recovery</div><div class="cb">Seven to eight hours most nights. Waking before the alarm. Resting heart rate drifting down. Soreness clearing faster.</div></div>
+        <div class="card"><div class="ph-eyebrow" style="color:var(--ground-dk);font-size:9.5px">Third</div><div class="ct" style="font-family:'DM Serif Display',Georgia,serif;font-size:16px;margin:4px 0">Self-relationship</div><div class="cb">Catching the inner critic sooner. The 24-hour rule holding before a new restriction. Missing a day without spiraling. Enjoying the process.</div></div>
+        <div class="card"><div class="ph-eyebrow" style="color:var(--fuel-dk);font-size:9.5px">Fourth</div><div class="ct" style="font-family:'DM Serif Display',Georgia,serif;font-size:16px;margin:4px 0">Labs &amp; biomarkers</div><div class="cb">With the physician, once or twice a year. Direction over any single reading.</div></div>
       </div>
 
       <div class="ew">This week, at a glance</div>
       <div style="display:grid;grid-template-columns:repeat(7,1fr);gap:5px;margin-bottom:1.5rem">
         <div class="card" style="padding:9px 4px;text-align:center"><div style="font-size:10px;color:var(--ink4);margin-bottom:4px">Mon</div><div style="font-size:9.5px;font-weight:600;color:var(--fire-dk)">Push</div></div>
-        <div class="card" style="padding:9px 4px;text-align:center"><div style="font-size:10px;color:var(--ink4);margin-bottom:4px">Tue</div><div style="font-size:9.5px;font-weight:600;color:var(--fire-dk)">Pull</div></div>
-        <div class="card" style="padding:9px 4px;text-align:center"><div style="font-size:10px;color:var(--ink4);margin-bottom:4px">Wed</div><div style="font-size:9.5px;font-weight:600;color:var(--fuel-dk)">HIIT</div></div>
-        <div class="card" style="padding:9px 4px;text-align:center"><div style="font-size:10px;color:var(--ink4);margin-bottom:4px">Thu</div><div style="font-size:9.5px;font-weight:600;color:var(--fire-dk)">Legs</div></div>
-        <div class="card" style="padding:9px 4px;text-align:center"><div style="font-size:10px;color:var(--ink4);margin-bottom:4px">Fri</div><div style="font-size:9.5px;font-weight:600;color:var(--fire-dk)">Full</div></div>
+        <div class="card" style="padding:9px 4px;text-align:center"><div style="font-size:10px;color:var(--ink4);margin-bottom:4px">Tue</div><div style="font-size:9.5px;font-weight:600;color:var(--fire-dk)">Pull+Mob</div></div>
+        <div class="card" style="padding:9px 4px;text-align:center"><div style="font-size:10px;color:var(--ink4);margin-bottom:4px">Wed</div><div style="font-size:9.5px;font-weight:600;color:var(--fire-dk)">Lower</div></div>
+        <div class="card" style="padding:9px 4px;text-align:center"><div style="font-size:10px;color:var(--ink4);margin-bottom:4px">Thu</div><div style="font-size:9.5px;font-weight:600;color:var(--fire-dk)">Full+Bag</div></div>
+        <div class="card" style="padding:9px 4px;text-align:center"><div style="font-size:10px;color:var(--ink4);margin-bottom:4px">Fri</div><div style="font-size:9.5px;font-weight:600;color:var(--ink3)">Outdoors</div></div>
         <div class="card" style="padding:9px 4px;text-align:center"><div style="font-size:10px;color:var(--ink4);margin-bottom:4px">Sat</div><div style="font-size:9.5px;font-weight:600;color:var(--ground-dk)">Soccer</div></div>
-        <div class="card" style="padding:9px 4px;text-align:center"><div style="font-size:10px;color:var(--ink4);margin-bottom:4px">Sun</div><div style="font-size:9.5px;font-weight:600;color:var(--ink3)">Rest</div></div>
+        <div class="card" style="padding:9px 4px;text-align:center"><div style="font-size:10px;color:var(--ink4);margin-bottom:4px">Sun</div><div style="font-size:9.5px;font-weight:600;color:var(--ink3)">Outdoors</div></div>
       </div>
 
       <div class="ctarow">
-        <button class="btn pr" onclick="go('p-training',document.querySelector('[data-pillar=p-training]'))"><i class="ti ti-calendar"></i> Open the 13-week calendar</button>
+        <button class="btn pr" onclick="go('p-training',document.querySelector('[data-pillar=p-training]'))"><i class="ti ti-calendar"></i> Open my training week</button>
         <button class="btn" onclick="setAppMode('charter')"><i class="ti ti-book"></i> Back to the charter</button>
       </div>
     </div>
 
     <!-- ═══════════ PROTOCOL: TRAINING ═══════════ -->
     <div id="p-p-training" class="panel">
-      <div class="ibar"><i class="ti ti-info-circle"></i><span>Drawn from <span class="charter-link" onclick="setAppMode('charter');go('fire',document.querySelector('[data-pillar=fire]'))"><i class="ti ti-flame"></i>Fire</span> — the full reasoning for this structure lives there. This is the week-by-week application of it.</span></div>
+      <div class="ibar"><i class="ti ti-info-circle"></i><span>Drawn from <span class="charter-link" onclick="setAppMode('charter');go('fire',document.querySelector('[data-pillar=fire]'))"><i class="ti ti-flame"></i>Fire</span> — the full reasoning lives there. This is how the week actually runs.</span></div>
 
-      <div class="ew">13-week calendar</div>
-      <div class="ptabs">
-        <button class="ptab at" onclick="showPh('f',this)">Phase 1: Foundation</button>
-        <button class="ptab" onclick="showPh('a',this)">Phase 2: Acceleration</button>
-        <button class="ptab" onclick="showPh('d',this)">Phase 3: Definition</button>
+      <div class="ew">The training week</div>
+      <div class="card">
+        <div class="ch"><div class="ci" style="background:var(--fire-bg)"><i class="ti ti-arrow-up" style="color:var(--fire-dk)"></i></div><div><div class="ct">Mon — Push</div><div class="cs">Chest, shoulders, triceps</div></div><span class="tag tag-fire" style="margin-left:auto">Weights</span></div>
+        <div class="cb">DB floor or incline press, shoulder press, floor flyes, overhead triceps, lateral raises. Push-ups to failure to finish. 3 to 4 sets, 8 to 15 reps.</div>
+      </div>
+      <div class="card">
+        <div class="ch"><div class="ci" style="background:var(--fire-bg)"><i class="ti ti-arrow-down" style="color:var(--fire-dk)"></i></div><div><div class="ct">Tue — Pull + Mobility</div><div class="cs">Back, biceps, core</div></div><span class="tag tag-fire" style="margin-left:auto">Weights</span></div>
+        <div class="cb">Single-arm rows with the 30, bent-over rows, curls, then core: planks, hollow holds. Close with a sun salutation flow and roller work. Mobility is the theme today.</div>
+      </div>
+      <div class="card">
+        <div class="ch"><div class="ci" style="background:var(--fire-bg)"><i class="ti ti-run" style="color:var(--fire-dk)"></i></div><div><div class="ct">Wed — Lower</div><div class="cs">Quads, hamstrings, glutes, calves</div></div><span class="tag tag-fire" style="margin-left:auto">Weights</span></div>
+        <div class="cb">Goblet squats with the 30, Bulgarian split squats, single-leg RDLs, walking lunges, glute bridges, calves. 12 to 20 reps, slow lowering, pause at the bottom. Single-leg work carries this day.</div>
+      </div>
+      <div class="card">
+        <div class="ch"><div class="ci" style="background:var(--fire-bg)"><i class="ti ti-layers" style="color:var(--fire-dk)"></i></div><div><div class="ct">Thu — Full body + bag</div><div class="cs">Compounds, then conditioning</div></div><span class="tag tag-fire" style="margin-left:auto">Weights</span></div>
+        <div class="cb">Thrusters, clean-to-press, renegade rows, then the punching bag in rounds. The short sweaty one. Cardio and stress release both.</div>
+      </div>
+      <div class="card">
+        <div class="ch"><div class="ci" style="background:var(--bg3)"><i class="ti ti-bike" style="color:var(--ink3)"></i></div><div><div class="ct">Fri — Outdoors</div><div class="cs">Nothing structured</div></div><span class="tag tag-n" style="margin-left:auto">Play</span></div>
+        <div class="cb">Longboard, bike, tennis, or a walk. Roller and stretch if the legs need it.</div>
+      </div>
+      <div class="card">
+        <div class="ch"><div class="ci" style="background:var(--ground-bg)"><i class="ti ti-ball-football" style="color:var(--ground-dk)"></i></div><div><div class="ct">Sat — Soccer</div><div class="cs">The week's hardest cardio</div></div><span class="tag tag-ground" style="margin-left:auto">Match</span></div>
+        <div class="cb">Full match with friends. Already handled, no need to stack conditioning on top.</div>
+      </div>
+      <div class="card">
+        <div class="ch"><div class="ci" style="background:var(--bg3)"><i class="ti ti-mountain" style="color:var(--ink3)"></i></div><div><div class="ct">Sun — Outdoors + reset</div><div class="cs">Hike or an easy day</div></div><span class="tag tag-n" style="margin-left:auto">Play</span></div>
+        <div class="cb">A hike or an easy day outside. The weekly 24-hour fast lands here. Water, salt, electrolytes maintained.</div>
       </div>
 
-      <div id="clf">
-        <div class="wkc" id="w1"><div class="wkh" onclick="tw('w1')"><span class="wknum">Week 1</span><span class="wktitle">Establish baseline weights</span><span class="tag tag-fire">Foundation</span><i class="ti ti-chevron-down wkchev" id="w1c"></i></div>
-          <div class="wkb" id="w1b">
-            <div class="wkd"><div class="wkdl lift">Mon</div><div class="wkdc"><div class="wkdt">Push — learn your working weights</div><div class="wkdd">Floor press 3×10 · Shoulder press 3×10 · Lateral raise 3×12 · Tricep ext 3×12 · Push-up 1×max<br><span class="npill t">Record every weight. This is your Day 1 baseline.</span></div></div></div>
-            <div class="wkd"><div class="wkdl lift">Tue</div><div class="wkdc"><div class="wkdt">Pull — feel the muscle, not the weight</div><div class="wkdd">Bent row 3×10 · Single-arm row 3×10 · Face pull 3×15 · Hammer curl 3×12 · Shrug 2×15</div></div></div>
-            <div class="wkd"><div class="wkdl hiit">Wed</div><div class="wkdc"><div class="wkdt">HIIT — 6 rounds, 30 sec on / 90 sec rest</div><div class="wkdd">Jump squats or high knees. Add 1 round per week until you reach 8.</div></div></div>
-            <div class="wkd"><div class="wkdl lift">Thu</div><div class="wkdc"><div class="wkdt">Legs + core</div><div class="wkdd">Goblet squat 3×12 · RDL 3×10 · Reverse lunge 3×10 · Calf raise 3×20 · Plank 3×40 sec</div></div></div>
-            <div class="wkd"><div class="wkdl lift">Fri</div><div class="wkdc"><div class="wkdt">Full body — practice the clean + press</div><div class="wkdd">Clean+press 3×8 · Renegade row 3×8 · Squat-to-press 3×10 · Suitcase carry 2×30 sec · Dead bug 3×8</div></div></div>
-            <div class="wkd"><div class="wkdl spt">Sat</div><div class="wkdc"><div class="wkdt">Soccer + 10 min foam roll post-match</div></div></div>
-            <div class="wkd"><div class="wkdl">Sun</div><div class="wkdc"><div class="wkdt">Walk + 5 rounds sun salutations + abhyanga</div></div></div>
-          </div>
-        </div>
-        <div class="wkc" id="w2"><div class="wkh" onclick="tw('w2')"><span class="wknum">Week 2</span><span class="wktitle">Hit top of rep range, prep first weight jump</span><span class="tag tag-fire">Foundation</span><i class="ti ti-chevron-down wkchev" id="w2c"></i></div>
-          <div class="wkb" id="w2b"><div class="wkd"><div class="wkdl lift">Mon–Fri</div><div class="wkdc"><div class="wkdt">Same split. Target 12 reps on every set that called for 10.</div><div class="wkdd">If you hit 12 clean → add 2.5–5 lb next week. HIIT up to 7 rounds. Plank to 50 sec.<br><span class="npill t">Rule: could do 3+ more reps = add weight next session.</span></div></div></div></div>
-        </div>
-        <div class="wkc" id="w3"><div class="wkh" onclick="tw('w3')"><span class="wknum">Week 3</span><span class="wktitle">First weight increase on all primary lifts</span><span class="tag tag-fire">Foundation</span><i class="ti ti-chevron-down wkchev" id="w3c"></i></div>
-          <div class="wkb" id="w3b">
-            <div class="wkd"><div class="wkdl lift">Mon</div><div class="wkdc"><div class="wkdt">Push: +2.5–5 lb on floor press and shoulder press</div><div class="wkdd">Lateral raise + overhead ext: same weight, +1 rep per set</div></div></div>
-            <div class="wkd"><div class="wkdl lift">Tue</div><div class="wkdc"><div class="wkdt">Pull: +5 lb on rows, +2.5 lb on curls</div></div></div>
-            <div class="wkd"><div class="wkdl hiit">Wed</div><div class="wkdc"><div class="wkdt">HIIT — 8 rounds, 30/90 (Phase 1 peak)</div></div></div>
-            <div class="wkd"><div class="wkdl lift">Thu</div><div class="wkdc"><div class="wkdt">Legs: +5 lb on goblet squat and RDL. Plank to 55 sec.</div></div></div>
-            <div class="wkd"><div class="wkdl lift">Fri</div><div class="wkdc"><div class="wkdt">Full body: clean+press +2.5 lb, renegade row +2.5 lb</div></div></div>
-          </div>
-        </div>
-        <div class="wkc" id="w4"><div class="wkh" onclick="tw('w4')"><span class="wknum">Week 4</span><span class="wktitle">Deload — 2 sets, same weight, no HIIT</span><span class="tag tag-n">Deload</span><i class="ti ti-chevron-down wkchev" id="w4c"></i></div>
-          <div class="wkb" id="w4b"><div class="wkd"><div class="wkdl lift">Mon–Fri</div><div class="wkdc"><div class="wkdt">2 sets per exercise. Keep Week 3 weights. Replace HIIT with 20 min zone 2 walk.</div><div class="wkdd"><span class="npill t">Deload is non-negotiable. Adaptation consolidates this week.</span></div></div></div></div>
-        </div>
+      <div class="ew">Progression — before buying anything</div>
+      <div class="card">
+        <div class="cb">When a weight starts feeling light (legs first), climb in this order: <strong>more reps, then slower tempo, then pauses, then single-limb versions, then shorter rest.</strong> That buys months. The eventual fix is one heavier pair or an adjustable dumbbell. No rush.</div>
       </div>
 
-      <div id="cla" style="display:none">
-        <div class="wkc" id="w5"><div class="wkh" onclick="tw('w5')"><span class="wknum">Week 5</span><span class="wktitle">Reload — 3 sets, 90 sec rest, new exercises</span><span class="tag tag-fuel">Acceleration</span><i class="ti ti-chevron-down wkchev" id="w5c"></i></div>
-          <div class="wkb" id="w5b">
-            <div class="wkd"><div class="wkdl lift">Mon</div><div class="wkdc"><div class="wkdt">Push — 90 sec rest on primaries. Kickback → overhead extension.</div><div class="wkdd">Floor press 3×10 · Shoulder press 3×10 · Lateral raise 3×15 · Overhead ext 3×12</div></div></div>
-            <div class="wkd"><div class="wkdl lift">Tue</div><div class="wkdc"><div class="wkdt">Pull — add inverted row. Hammer curl → incline curl.</div><div class="wkdd">Bent row 3×10 · Single-arm row 3×10 · Inverted row 3×10 · Incline curl 3×10</div></div></div>
-            <div class="wkd"><div class="wkdl hiit">Wed</div><div class="wkdc"><div class="wkdt">HIIT — 8 rounds, rest tightened to 75 sec</div></div></div>
-            <div class="wkd"><div class="wkdl lift">Thu</div><div class="wkdc"><div class="wkdt">Legs: reverse lunge → Bulgarian split squat</div><div class="wkdd">Goblet squat 3×12 · RDL 3×10 · Bulgarian split squat 3×8 each · Calf raise 3×20</div></div></div>
-            <div class="wkd"><div class="wkdl lift">Fri</div><div class="wkdc"><div class="wkdt">Full body: suitcase carry → farmers carry (heavier)</div></div></div>
-          </div>
-        </div>
-        <div class="wkc" id="w6"><div class="wkh" onclick="tw('w6')"><span class="wknum">Week 6</span><span class="wktitle">+5 lb on all primary lifts</span><span class="tag tag-fuel">Acceleration</span><i class="ti ti-chevron-down wkchev" id="w6c"></i></div>
-          <div class="wkb" id="w6b"><div class="wkd"><div class="wkdl lift">Mon–Fri</div><div class="wkdc"><div class="wkdt">Floor press, shoulder press, rows, RDL, goblet squat: +5 lb each</div><div class="wkdd">Isolation: +2.5 lb or +1 rep. Bulgarian split squat: +2.5 lb only if form is clean.<br><span class="npill a">Week 6 is where training starts to feel real. Expect DOMS.</span></div></div></div></div>
-        </div>
-        <div class="wkc" id="w7"><div class="wkh" onclick="tw('w7')"><span class="wknum">Week 7</span><span class="wktitle">Volume peak — 4 sets on all primaries</span><span class="tag tag-fuel">Acceleration</span><i class="ti ti-chevron-down wkchev" id="w7c"></i></div>
-          <div class="wkb" id="w7b"><div class="wkd"><div class="wkdl lift">Mon–Fri</div><div class="wkdc"><div class="wkdt">4 sets (up from 3) on all primaries. Keep Week 6 weights.</div><div class="wkdd">Isolation stays at 3 sets. HIIT 8 rounds / 60 sec rest.<br><span class="npill a">Highest volume week. Sleep and protein become critical.</span></div></div></div></div>
-        </div>
-        <div class="wkc" id="w8"><div class="wkh" onclick="tw('w8')"><span class="wknum">Week 8</span><span class="wktitle">Deload — 2 sets, recover for Phase 3</span><span class="tag tag-n">Deload</span><i class="ti ti-chevron-down wkchev" id="w8c"></i></div>
-          <div class="wkb" id="w8b"><div class="wkd"><div class="wkdl lift">Mon–Fri</div><div class="wkdc"><div class="wkdt">2 sets × 8 reps. Keep Week 7 weights. No HIIT — steady walk only.</div><div class="wkdd"><span class="npill a">Phase 3 demands max load. Arrive fresh.</span></div></div></div></div>
-        </div>
-      </div>
+      <div class="ew">Equipment</div>
+      <div class="card"><div class="cb">Dumbbell pairs 5, 10, 15, 20 lb. Single 30 lb. Mat, rollers, punching bag.</div></div>
 
-      <div id="cld" style="display:none">
-        <div class="wkc" id="w9"><div class="wkh" onclick="tw('w9')"><span class="wknum">Week 9</span><span class="wktitle">Strength mode — 6–8 reps, 3 sec eccentric</span><span class="tag tag-ground">Definition</span><i class="ti ti-chevron-down wkchev" id="w9c"></i></div>
-          <div class="wkb" id="w9b">
-            <div class="wkd"><div class="wkdl lift">Mon</div><div class="wkdc"><div class="wkdt">Push: +10 lb on floor press and shoulder press. 4×6, 2 min rest.</div><div class="wkdd">3 sec eccentric every rep. Lateral raise 3×15 slow. Overhead ext 3×10 slow.</div></div></div>
-            <div class="wkd"><div class="wkdl lift">Tue</div><div class="wkdc"><div class="wkdt">Pull: +10 lb rows, 4×6. Add 1 sec pause at top of inverted row.</div></div></div>
-            <div class="wkd"><div class="wkdl hiit">Wed</div><div class="wkdc"><div class="wkdt">HIIT — 8 rounds, 30 sec / 45 sec rest. Peak metabolic demand.</div><div class="wkdd">Skate jumps, burpee-to-press, sprawl+jump, broad jump</div></div></div>
-            <div class="wkd"><div class="wkdl lift">Thu</div><div class="wkdc"><div class="wkdt">Legs: +10 lb goblet squat and RDL. Ab wheel rollout replaces plank.</div></div></div>
-            <div class="wkd"><div class="wkdl lift">Fri</div><div class="wkdc"><div class="wkdt">Full body: clean+press 4×6. Goblet squat hold 3×45 sec isometric.</div></div></div>
-          </div>
-        </div>
-        <div class="wkc" id="w10"><div class="wkh" onclick="tw('w10')"><span class="wknum">Week 10</span><span class="wktitle">+5 lb on primaries, introduce rest-pause</span><span class="tag tag-ground">Definition</span><i class="ti ti-chevron-down wkchev" id="w10c"></i></div>
-          <div class="wkb" id="w10b"><div class="wkd"><div class="wkdl lift">Mon–Fri</div><div class="wkdc"><div class="wkdt">All primaries +5 lb. Last set: reps to near-failure, 15 sec pause, 2–3 more.</div><div class="wkdd">3 sec eccentric every rep. 6 clean reps with new weight = green light.<br><span class="npill d">Rest-pause hits failure safely without a spotter.</span></div></div></div></div>
-        </div>
-        <div class="wkc" id="w11"><div class="wkh" onclick="tw('w11')"><span class="wknum">Week 11</span><span class="wktitle">Superset pairings — same load, less rest</span><span class="tag tag-ground">Definition</span><i class="ti ti-chevron-down wkchev" id="w11c"></i></div>
-          <div class="wkb" id="w11b">
-            <div class="wkd"><div class="wkdl lift">Mon</div><div class="wkdc"><div class="wkdt">A: floor press ×6 → B: lateral raise ×12. Rest 90 sec. ×4.</div><div class="wkdd">A: shoulder press ×6 → B: overhead ext ×10. Rest 90 sec. ×3.</div></div></div>
-            <div class="wkd"><div class="wkdl lift">Tue</div><div class="wkdc"><div class="wkdt">A: bent row ×6 → B: incline curl ×8. A: single-arm row ×6 → B: face pull ×15.</div></div></div>
-            <div class="wkd"><div class="wkdl lift">Thu</div><div class="wkdc"><div class="wkdt">Goblet squat + RDL back-to-back. Rest 90 sec. ×4 rounds.</div></div></div>
-            <div class="wkd"><div class="wkdl lift">Fri</div><div class="wkdc"><div class="wkdt">Clean+press + renegade row back-to-back. Rest 90 sec. ×4 rounds.</div></div></div>
-          </div>
-        </div>
-        <div class="wkc" id="w12"><div class="wkh" onclick="tw('w12')"><span class="wknum">Week 12</span><span class="wktitle">Peak week — heaviest weights, full intensity</span><span class="tag tag-ground">Definition</span><i class="ti ti-chevron-down wkchev" id="w12c"></i></div>
-          <div class="wkb" id="w12b"><div class="wkd"><div class="wkdl lift">Mon–Fri</div><div class="wkdc"><div class="wkdt">Final +5 lb attempt on all primaries. 4×6. Rest-pause every primary. HIIT 10 rounds.</div><div class="wkdd"><span class="npill d">Compare Week 1 vs Week 12 weights. The gap is your proof of work.</span></div></div></div></div>
-        </div>
-        <div class="wkc" id="w13"><div class="wkh" onclick="tw('w13')"><span class="wknum">Week 13</span><span class="wktitle">Re-test baseline, set Phase 4 starting weights</span><span class="tag tag-n">Transition</span><i class="ti ti-chevron-down wkchev" id="w13c"></i></div>
-          <div class="wkb" id="w13b">
-            <div class="wkd"><div class="wkdl lift">Mon</div><div class="wkdc"><div class="wkdt">Re-run Week 1 lifts at Week 1 weights. 3×12. Should feel easy.</div><div class="wkdd">Document. Photograph. Compare energy and soccer performance to Day 1.</div></div></div>
-            <div class="wkd"><div class="wkdl">Tue–Sun</div><div class="wkdc"><div class="wkdt">Light activity only. Phase 4: same structure, all starting weights +10–15%.</div></div></div>
-          </div>
-        </div>
-      </div>
+      <div class="wbar"><i class="ti ti-massage"></i><span>Monthly massage lands on a Wednesday. Train before it, or shift Lower to Friday that week.</span></div>
 
       <div class="ctarow">
         <button class="btn pr" onclick="go('p-nutrition',document.querySelector('[data-pillar=p-nutrition]'))"><i class="ti ti-soup"></i> See nutrition</button>
-        <button class="btn" onclick="go('protocol',document.querySelector('[data-pillar=protocol]'))"><i class="ti ti-arrow-left"></i> Back to my 90 days</button>
+        <button class="btn" onclick="go('protocol',document.querySelector('[data-pillar=protocol]'))"><i class="ti ti-arrow-left"></i> Back to my protocol</button>
       </div>
     </div>
 
@@ -925,28 +862,44 @@ nav.pillar-nav::-webkit-scrollbar{display:none}
     <div id="p-p-nutrition" class="panel">
       <div class="ibar"><i class="ti ti-info-circle"></i><span>Drawn from <span class="charter-link" onclick="setAppMode('charter');go('fuel',document.querySelector('[data-pillar=fuel]'))"><i class="ti ti-soup"></i>Fuel</span> — the timing logic and food energetics live there.</span></div>
 
-      <div class="kpis">
-        <div class="kpi"><div class="kpi-n">2050<span class="kpi-u">kcal</span></div><div class="kpi-l">Daily target</div></div>
-        <div class="kpi"><div class="kpi-n">175<span class="kpi-u">g</span></div><div class="kpi-l">Protein</div></div>
-        <div class="kpi"><div class="kpi-n">65<span class="kpi-u">g</span></div><div class="kpi-l">Fat</div></div>
-        <div class="kpi"><div class="kpi-n">185<span class="kpi-u">g</span></div><div class="kpi-l">Carbs</div></div>
-      </div>
-
-      <div class="ew">Macro split</div>
-      <div class="mband"><div class="mseg" style="width:34%;background:var(--repair)"></div><div class="mseg" style="width:29%;background:var(--fuel)"></div><div class="mseg" style="width:37%;background:var(--ground)"></div></div>
-      <div class="mleg"><span><span class="mldot" style="background:var(--repair)"></span>Protein 34%</span><span><span class="mldot" style="background:var(--fuel)"></span>Fat 29%</span><span><span class="mldot" style="background:var(--ground)"></span>Carbs 37%</span></div>
+      <div class="ew">The shape</div>
+      <div class="card"><div class="cb">Two meals inside a 16-hour fast. No counting. Hunger and energy are the gauge. The one real risk in a short window is undereating protein, so make both meals substantial: eat enough to reach satisfied, not just to stop.</div></div>
 
       <div class="ew">Fasting window</div>
       <div class="fvis">
-        <div class="fseg fast"><strong>8 pm → 12 pm — Fast (16 hr)</strong>Black coffee + cardamom + cinnamon + L-theanine only</div>
-        <div class="fseg eat"><strong>12 pm → 8 pm — Eat (8 hr)</strong>4 meals or 3 + optional shake</div>
+        <div class="fseg fast"><strong>8 pm → 1 pm — Fast (16 hr)</strong>Coffee (cardamom, cinnamon, L-theanine), water + sea salt, electrolytes, creatine. Train fasted.</div>
+        <div class="fseg eat"><strong>1 pm → 8 pm — Eat</strong>Two meals. First near 1 pm, last 7 to 8 pm.</div>
       </div>
 
-      <div class="ew">Meal structure</div>
-      <div class="card"><div class="ch"><div class="ci" style="background:var(--fuel-bg)"><i class="ti ti-clock" style="color:var(--fuel-dk)"></i></div><div><div class="ct">12:00 pm — break fast</div><div class="cs">~600 kcal · 45 g protein · post-workout</div></div></div><div class="cb">3–4 eggs or 200 g Greek yogurt + berries. Small serving oats or sweet potato. Handful walnuts.</div></div>
-      <div class="card"><div class="ch"><div class="ci" style="background:var(--fuel-bg)"><i class="ti ti-clock" style="color:var(--fuel-dk)"></i></div><div><div class="ct">3:00–4:00 pm — meal 2</div><div class="cs">~700 kcal · 50 g protein · largest meal</div></div></div><div class="cb">Grilled chicken or salmon + roasted vegetables + quinoa or brown rice.</div></div>
-      <div class="card"><div class="ch"><div class="ci" style="background:var(--fuel-bg)"><i class="ti ti-clock" style="color:var(--fuel-dk)"></i></div><div><div class="ct">6:30–7:00 pm — meal 3</div><div class="cs">~550 kcal · 45 g protein</div></div></div><div class="cb">Fatty fish, avocado, leafy greens, olive oil.</div></div>
-      <div class="card"><div class="ch"><div class="ci" style="background:var(--fuel-bg)"><i class="ti ti-clock" style="color:var(--fuel-dk)"></i></div><div><div class="ct">7:30–8:00 pm — optional meal 4</div><div class="cs">~200 kcal · 20 g protein</div></div></div><div class="cb">Greek yogurt + berries + a few almonds.</div></div>
+      <div class="ew">The two meals</div>
+      <div class="card"><div class="ch"><div class="ci" style="background:var(--fuel-bg)"><i class="ti ti-sun" style="color:var(--fuel-dk)"></i></div><div><div class="ct">~1 pm — first meal</div><div class="cs">The bigger, recovery meal</div></div></div><div class="cb">Grilled or baked protein, a plate of vegetables, then a small handful of berries or a fruit after the protein. This is the meal that carries the training.</div></div>
+      <div class="card"><div class="ch"><div class="ci" style="background:var(--fuel-bg)"><i class="ti ti-moon-stars" style="color:var(--fuel-dk)"></i></div><div><div class="ct">7 to 8 pm — last meal</div><div class="cs">Lighter, 3 to 4 hours before bed</div></div></div><div class="cb">Protein and fat forward: fish or meat, leafy greens, avocado, olive oil. Lighter than the first. Or the occasional smoothie swap when Mae's having pasta: milk, banana, avocado, mushroom powder, collagen, vanilla protein, plus grilled chicken or fish for the real protein.</div></div>
+
+      <div class="ew">Portion by hand — no scale</div>
+      <div class="card">
+        <div class="ex"><span class="exn">Protein</span><span class="exs">1 to 2 palms per meal, lean to 2</span></div>
+        <div class="ex"><span class="exn">Vegetables</span><span class="exs">A fist or more</span></div>
+        <div class="ex"><span class="exn">Whole-food carbs</span><span class="exs">A cupped hand, if you want them</span></div>
+        <div class="ex"><span class="exn">Fats (olive oil, nut butter)</span><span class="exs">A thumb</span></div>
+      </div>
+      <div class="card"><div class="cb">A palm of cooked protein is one serving: 4 eggs, a palm-sized steak, a salmon fillet, or a chicken breast the size of your palm. Greek yogurt and plain dairy are fine; aged gouda and cheddar too (gouda is a real source of K2). Cheese is whole food, just calorie-dense, so pair it with a meal instead of grazing a block.</div></div>
+
+      <div class="ew">Keep it whole, skip the autopilot</div>
+      <div class="card">
+        <div class="ex"><span class="exn">Pistachios &amp; cashews</span><span class="exs">Portion into a bowl, buy in-shell, attach to a meal</span></div>
+        <div class="ex"><span class="exn">Greek yogurt + blueberries + almond butter</span><span class="exs">With or right after a meal, not a solo snack</span></div>
+        <div class="ex"><span class="exn">Fruit</span><span class="exs">After the protein, which blunts the sugar rise</span></div>
+        <div class="ex"><span class="exn">The two cuts</span><span class="exs">Added sugar and bread. Whole-food carbs stay.</span></div>
+      </div>
+
+      <div class="ew">What's in season — Pacific Northwest</div>
+      <div class="ibar"><i class="ti ti-info-circle"></i><span>Right now, summer: berries, cherries, apricots, and the first peaches and nectarines. Enjoy the season. Anchor fruit to a meal when you can.</span></div>
+      <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-bottom:1rem">
+        <div class="card"><div class="ph-eyebrow" style="color:var(--fuel-dk);font-size:9.5px">Spring · Mar–May</div><div class="cb">Strawberries (late), rhubarb, asparagus, peas, radishes, spring greens.</div></div>
+        <div class="card"><div class="ph-eyebrow" style="color:var(--fire-dk);font-size:9.5px">Summer · Jun–Aug</div><div class="cb">Blueberries, strawberries, raspberries, blackberries, cherries, apricots, peaches, nectarines, plums, tomatoes, zucchini, cucumbers.</div></div>
+        <div class="card"><div class="ph-eyebrow" style="color:var(--ground-dk);font-size:9.5px">Fall · Sep–Nov</div><div class="cb">Apples, pears, grapes, figs, late peaches, winter squash, Brussels sprouts, kale, cauliflower, beets.</div></div>
+        <div class="card"><div class="ph-eyebrow" style="color:var(--repair-dk);font-size:9.5px">Winter · Dec–Feb</div><div class="cb">Stored apples and pears, kale, chard, cabbage, leeks, carrots, beets, parsnips, winter squash.</div></div>
+      </div>
 
       <div class="ctarow">
         <button class="btn pr" onclick="go('p-supplements',document.querySelector('[data-pillar=p-supplements]'))"><i class="ti ti-pill"></i> See supplements</button>
@@ -963,26 +916,26 @@ nav.pillar-nav::-webkit-scrollbar{display:none}
       <div class="card">
         <div class="ch"><div class="ci" style="background:var(--ground-bg)"><i class="ti ti-sun" style="color:var(--ground-dk)"></i></div><div><div class="ct">Morning — fasting window</div></div></div>
         <div class="ex"><span class="exn">L-theanine 200 mg, in coffee</span><span class="exs">Cortisol blunting, no jitter</span></div>
-        <div class="ex"><span class="exn">Ashwagandha 300–600 mg (KSM-66)</span><span class="exs">Shift to bedtime if sedating</span></div>
       </div>
       <div class="card">
         <div class="ch"><div class="ci" style="background:var(--ground-bg)"><i class="ti ti-clock" style="color:var(--ground-dk)"></i></div><div><div class="ct">Midday — with food</div></div></div>
         <div class="ex"><span class="exn">Multivitamin with D3</span><span class="exs">2,000–4,000 IU D3 total/day</span></div>
         <div class="ex"><span class="exn">Fish oil 2–3 g EPA+DHA</span><span class="exs">With food</span></div>
+        <div class="ex"><span class="exn">Vitamin K2 MK-7 100 mcg</span><span class="exs">Directs calcium to bone; pairs with D3</span></div>
         <div class="ex"><span class="exn">Creatine monohydrate 5 g</span><span class="exs">Timing flexible</span></div>
-        <div class="ex"><span class="exn">Milk thistle 150 mg</span><span class="exs">Liver phase II support</span></div>
         <div class="ex"><span class="exn">Calcium hydroxyapatite 250 mg</span><span class="exs">Half dose</span></div>
       </div>
       <div class="card">
         <div class="ch"><div class="ci" style="background:var(--ground-bg)"><i class="ti ti-moon" style="color:var(--ground-dk)"></i></div><div><div class="ct">Bedtime — 30–60 min before sleep</div></div></div>
-        <div class="ex"><span class="exn">Magnesium glycinate 400 mg</span><span class="exs">Single highest-impact change</span></div>
+        <div class="ex"><span class="exn">Magnesium glycinate 400 mg</span><span class="exs">Relaxation, sleep quality</span></div>
+        <div class="ex"><span class="exn">Ashwagandha 300–600 mg (KSM-66)</span><span class="exs">Stress and cortisol</span></div>
+        <div class="ex"><span class="exn">Milk thistle 150 mg</span><span class="exs">Liver support</span></div>
         <div class="ex"><span class="exn">L-theanine 100–200 mg (optional)</span><span class="exs">Blunts rumination</span></div>
         <div class="ex"><span class="exn">Calcium hydroxyapatite 250 mg</span><span class="exs">2+ hrs from magnesium</span></div>
       </div>
 
-      <div class="ew">Gaps to close</div>
-      <div class="wbar"><i class="ti ti-plus"></i><span><strong>Zinc 15–25 mg</strong> with dinner.</span></div>
-      <div class="wbar"><i class="ti ti-plus"></i><span><strong>Vitamin K2 MK-7, 100 mcg</strong> alongside D3 and calcium.</span></div>
+      <div class="ew">Gaps to consider</div>
+      <div class="wbar"><i class="ti ti-plus"></i><span><strong>Zinc 15–25 mg</strong> with dinner. Run it past the doctor with the baseline labs first.</span></div>
 
       <div class="ctarow">
         <button class="btn pr" onclick="go('p-calendar',document.querySelector('[data-pillar=p-calendar]'))"><i class="ti ti-calendar-event"></i> View full calendar</button>
@@ -1001,14 +954,75 @@ nav.pillar-nav::-webkit-scrollbar{display:none}
         <div class="ex"><span class="exn"><span class="tag tag-repair" style="margin-right:6px">Daily</span>Breathwork</span><span class="exs">3–5 min, before bed</span></div>
         <div class="ex"><span class="exn"><span class="tag tag-fire" style="margin-right:6px">3×/wk</span>Cold finish shower</span><span class="exs">2 min cool → 30 sec cold</span></div>
         <div class="ex"><span class="exn"><span class="tag tag-ground" style="margin-right:6px">Weekly</span>Yin / restorative flow</span><span class="exs">Sunday, 20 min</span></div>
-        <div class="ex"><span class="exn"><span class="tag tag-n" style="margin-right:6px">Monthly</span>Massage</span><span class="exs">Day after heaviest leg session</span></div>
+        <div class="ex"><span class="exn"><span class="tag tag-n" style="margin-right:6px">Monthly</span>Massage</span><span class="exs">Wednesday. Train before it, or shift Lower to Friday that week.</span></div>
       </div>
 
       <div class="ew">Hydration</div>
-      <div class="card"><div class="cb">At 200 lb: 100 oz (~3 liters) minimum daily. Add 16 oz per workout hour. Add 8–12 oz on soccer days. Electrolytes post-soccer: a pinch of Himalayan salt and lemon in water.</div></div>
+      <div class="card"><div class="cb">Water through the day with a pinch of sea salt and electrolytes, more around training and on soccer days. A pinch of Himalayan salt and lemon in water after soccer replaces what you sweat out.</div></div>
 
       <div class="ctarow">
-        <button class="btn pr" onclick="go('protocol',document.querySelector('[data-pillar=protocol]'))"><i class="ti ti-circle-check"></i> Back to my 90 days</button>
+        <button class="btn pr" onclick="go('protocol',document.querySelector('[data-pillar=protocol]'))"><i class="ti ti-circle-check"></i> Back to my protocol</button>
+        <button class="btn" onclick="setAppMode('charter')"><i class="ti ti-book"></i> Return to the charter</button>
+      </div>
+    </div>
+
+    <!-- ═══════════ PROTOCOL: BASELINE (physician tracker) ═══════════ -->
+    <div id="p-p-baseline" class="panel">
+      <div class="ibar"><i class="ti ti-info-circle"></i><span>The gate on extended fasting opens here, or it holds. One honest baseline this year, so next year's numbers mean something.</span></div>
+
+      <div class="ew">Say this first</div>
+      <div class="card"><div class="cb">"I'm changing how I eat and train. I do daily intermittent fasting, I'm considering a longer fast down the line, and I want a full baseline." That framing gets better tests than "just a checkup."</div></div>
+
+      <div class="ew">Confirm the standard panel</div>
+      <div class="card">
+        <div class="ex"><span class="exn">CBC + metabolic panel (CMP)</span><span class="exs">Kidney, liver, electrolytes, sugar</span></div>
+        <div class="ex"><span class="exn">Lipid panel</span><span class="exs"></span></div>
+        <div class="ex"><span class="exn">HbA1c + fasting glucose</span><span class="exs">Blood sugar over time</span></div>
+        <div class="ex"><span class="exn">Thyroid (at least TSH)</span><span class="exs"></span></div>
+      </div>
+
+      <div class="ew">Ask for by name — often skipped</div>
+      <div class="card">
+        <div class="ex"><span class="exn">hs-CRP</span><span class="exs">Inflammation</span></div>
+        <div class="ex"><span class="exn">Vitamin D</span><span class="exs">You supplement it</span></div>
+        <div class="ex"><span class="exn">Ferritin + full iron panel</span><span class="exs">You train hard and fasted</span></div>
+        <div class="ex"><span class="exn">Vitamin B12 + folate</span><span class="exs"></span></div>
+        <div class="ex"><span class="exn">Magnesium</span><span class="exs"></span></div>
+        <div class="ex"><span class="exn">Fasting insulin</span><span class="exs">Early metabolic trend</span></div>
+      </div>
+
+      <div class="ew">Hormones — read together, not alone</div>
+      <div class="card">
+        <div class="ex"><span class="exn">Total &amp; free testosterone</span><span class="exs"></span></div>
+        <div class="ex"><span class="exn">SHBG</span><span class="exs">Changes what "free" means</span></div>
+        <div class="ex"><span class="exn">Estradiol</span><span class="exs">Bone and mood</span></div>
+        <div class="ex"><span class="exn">Morning cortisol</span><span class="exs">Optional; stress axis</span></div>
+      </div>
+
+      <div class="wbar"><i class="ti ti-alert-circle"></i><span>Bring the supplement list. Mention creatine, so a slightly raised creatinine reading doesn't send anyone chasing a ghost.</span></div>
+
+      <div class="ew">Two questions to ask out loud</div>
+      <div class="card">
+        <div class="cb" style="margin-bottom:8px">"Given how I eat and train, is anything here worth watching more closely?"</div>
+        <div class="cb">"I'm considering a 3-to-5-day water fast in the future. Given my labs and history, is that safe for me, and what would you check first?" This answer opens the gate, or holds it.</div>
+      </div>
+
+      <div class="ew">After the checkup — fill in</div>
+      <div class="card">
+        <div class="ex"><span class="exn">Baseline bloodwork date</span><span class="exs"></span></div>
+        <div class="ex"><span class="exn">Key findings</span><span class="exs"></span></div>
+        <div class="ex"><span class="exn">Hormone read (T, free T, SHBG, estradiol)</span><span class="exs"></span></div>
+        <div class="ex"><span class="exn">hs-CRP, glucose, vitamin D</span><span class="exs"></span></div>
+        <div class="ex"><span class="exn">Iron / ferritin, B12, fasting insulin</span><span class="exs"></span></div>
+        <div class="ex"><span class="exn">Extended fasting: cleared?</span><span class="exs"></span></div>
+        <div class="ex"><span class="exn">If cleared, frequency</span><span class="exs"></span></div>
+        <div class="ex"><span class="exn">Conditions / what to watch</span><span class="exs"></span></div>
+        <div class="ex"><span class="exn">Next review</span><span class="exs"></span></div>
+      </div>
+      <div class="card"><div class="cb">One caution: a full workup can turn up a mild out-of-range number that means little on its own. Don't let a single flag rewrite the story before you and the doctor read it in context. Direction over one reading.</div></div>
+
+      <div class="ctarow">
+        <button class="btn pr" onclick="go('protocol',document.querySelector('[data-pillar=protocol]'))"><i class="ti ti-circle-check"></i> Back to my protocol</button>
         <button class="btn" onclick="setAppMode('charter')"><i class="ti ti-book"></i> Return to the charter</button>
       </div>
     </div>
@@ -1040,20 +1054,6 @@ function go(id,btn){
   var p = document.getElementById('p-'+id);
   if(p) p.classList.add('on');
   if(btn) btn.classList.add('on');
-}
-function showPh(p,btn){
-  document.querySelectorAll('#p-p-training .ptab').forEach(b=>b.classList.remove('at','aa','ad'));
-  ['f','a','d'].forEach(function(x){var e=document.getElementById('cl'+x);if(e)e.style.display='none';});
-  var e=document.getElementById('cl'+p);
-  if(e) e.style.display='block';
-  btn.classList.add(p==='f'?'at':p==='a'?'aa':'ad');
-}
-function tw(id){
-  var b=document.getElementById(id+'b'),c=document.getElementById(id+'c');
-  if(!b)return;
-  var op=b.classList.contains('op');
-  b.classList.toggle('op',!op);
-  if(c)c.classList.toggle('op',!op);
 }
 function setAppMode(mode){
   document.getElementById('mode-charter').classList.toggle('on', mode==='charter');
