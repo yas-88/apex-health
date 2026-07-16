@@ -87,9 +87,13 @@ body{font-family:'Inter',system-ui,sans-serif;background:var(--bg2);color:var(--
 .hdr-top{display:flex;align-items:flex-start;justify-content:space-between;gap:1rem;margin-bottom:1.4rem;flex-wrap:wrap}
 .brand{display:flex;align-items:center;gap:13px}
 .logo-mark{background-image:var(--logo);background-size:contain;background-repeat:no-repeat;background-position:center;display:block}
-/* Bilingual wordmark — external asset committed to repo root as wordmark.png.
-   Cream plate is intentional: exact brand colors on both themes. */
-.brand-wordmark{width:196px;height:42px;background-image:url('wordmark.png');background-size:134% auto;background-position:50% 47%;background-repeat:no-repeat;border-radius:9px}
+/* Bilingual wordmark — asset lives at repo root as wordmark.png (commit alongside
+   apple-touch-icon.png). Layered urls are graceful fallbacks: live root file first,
+   then the Brand/Icon copy for local preview. Missing layers render as nothing.
+   The #wm-unmat SVG filter turns the image's cream paper into true transparency,
+   so the mark sits seamlessly on both themes; dark mode lifts the strokes. */
+.brand-wordmark{width:196px;height:42px;background-image:url('wordmark.png'),url('wordmark.PNG'),url('../Brand/Icon/wordmark.PNG');background-size:134% auto;background-position:50% 47%;background-repeat:no-repeat;border-radius:9px;filter:url(#wm-unmat)}
+html[data-theme="dark"] .brand-wordmark{filter:url(#wm-unmat) brightness(1.45) saturate(.85)}
 .brand-tag{font-size:10px;font-weight:500;text-transform:uppercase;letter-spacing:.11em;color:var(--ink3);margin-top:5px;padding-left:2px}
 
 .hdr-controls{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
@@ -308,6 +312,15 @@ nav.pillar-nav::-webkit-scrollbar{display:none}
 </style>
 </head>
 <body>
+<!-- Wordmark unmatting filter: manufactures alpha from luminance so the PNG's
+     cream paper becomes transparent. sRGB interpolation is required — the math
+     is tuned to sRGB channel sums (cream ≈ 2.8, strokes ≤ 1.7). -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <filter id="wm-unmat" color-interpolation-filters="sRGB">
+    <feColorMatrix type="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  -0.85 -0.85 -0.85 0 2.4"/>
+    <feComponentTransfer><feFuncA type="linear" slope="1.15" intercept="-0.08"/></feComponentTransfer>
+  </filter>
+</svg>
 <div class="shell">
 
   <!-- HEADER -->
