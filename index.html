@@ -102,6 +102,9 @@ html[data-theme="dark"] img.brand-wordmark{filter:brightness(1.5) saturate(.88)}
 .tt-btn:hover{color:var(--ink)}
 .tt-btn.on{background:var(--ink);color:var(--bg)}
 .tt-btn.on:hover{color:var(--bg)}
+.tt-sep{width:0.5px;height:18px;background:var(--bdr2);margin:0 3px}
+#refresh-btn.spin i{animation:tq-spin .6s linear infinite}
+@keyframes tq-spin{to{transform:rotate(360deg)}}
 
 /* Mode switch: Charter vs Protocol */
 .mode-switch{display:flex;gap:2px;background:var(--bg3);border-radius:20px;padding:3px;border:0.5px solid var(--bdr)}
@@ -301,6 +304,10 @@ nav.pillar-nav::-webkit-scrollbar{display:none}
   .fc-strand{flex-direction:column;gap:10px}
   .fc-strand-divider{display:none}
   .hdr-controls{width:100%;justify-content:space-between}
+  .hdr-controls{gap:6px;flex-wrap:nowrap}
+  .mode-btn{padding:7px 10px}
+  .tt-btn{width:26px}
+  .tt-sep{margin:0 2px}
 }
 /* Logo home button — press the mark to return to the top */
 .home-return{display:flex;justify-content:center;padding:1.4rem 1rem 2.2rem;background:var(--bg2)}
@@ -331,6 +338,8 @@ nav.pillar-nav::-webkit-scrollbar{display:none}
           <button class="tt-btn" id="tt-light" onclick="setTheme('light')" title="Light" aria-label="Light mode"><i class="ti ti-sun"></i></button>
           <button class="tt-btn" id="tt-auto" onclick="setTheme('auto')" title="Auto" aria-label="Automatic mode"><i class="ti ti-sun-moon"></i></button>
           <button class="tt-btn" id="tt-dark" onclick="setTheme('dark')" title="Dark" aria-label="Dark mode"><i class="ti ti-moon"></i></button>
+          <span class="tt-sep" aria-hidden="true"></span>
+          <button class="tt-btn" id="refresh-btn" onclick="refreshPage()" title="Refresh" aria-label="Load the latest version"><i class="ti ti-refresh"></i></button>
         </div>
       </div>
     </div>
@@ -1224,6 +1233,20 @@ function go(id,btn){
   if(p) p.classList.add('on');
   if(btn) btn.classList.add('on');
 }
+/* Refresh: reloads past the browser cache and reopens the same panel */
+function refreshPage(){
+  var b=document.getElementById('refresh-btn'); if(b) b.classList.add('spin');
+  try{var cur=document.querySelector('.panel.on'); if(cur) sessionStorage.setItem('tareeq-panel', cur.id.replace(/^p-/,''));}catch(e){}
+  location.replace(location.pathname+'?v='+Date.now());
+}
+function restorePanel(){
+  var id=null;
+  try{id=sessionStorage.getItem('tareeq-panel'); sessionStorage.removeItem('tareeq-panel');}catch(e){}
+  if(location.search.indexOf('v=')>-1 && history.replaceState) history.replaceState(null,'',location.pathname);
+  if(!id || !document.getElementById('p-'+id)) return;
+  setAppMode((id==='protocol'||id.indexOf('p-')===0)?'protocol':'charter');
+  go(id, document.querySelector('[data-pillar="'+id+'"]'));
+}
 function setAppMode(mode){
   document.getElementById('mode-charter').classList.toggle('on', mode==='charter');
   document.getElementById('mode-protocol').classList.toggle('on', mode==='protocol');
@@ -1308,6 +1331,7 @@ function scheduleThemeRecheck(){
     }
   },5*60*1000);
 }
+document.addEventListener('DOMContentLoaded', restorePanel);
 (function initTheme(){
   var mode=getMode();
   updateToggleUI(mode);
