@@ -364,6 +364,7 @@ nav.pillar-nav::-webkit-scrollbar{display:none}
       <button class="nb" data-pillar="p-supplements" onclick="go('p-supplements',this)"><span class="nb-dot"></span>Supplements</button>
       <button class="nb" data-pillar="p-calendar" onclick="go('p-calendar',this)"><span class="nb-dot"></span>Calendar</button>
       <button class="nb" data-pillar="p-baseline" onclick="go('p-baseline',this)"><span class="nb-dot"></span>Baseline</button>
+      <button class="nb" data-pillar="p-checkpoints" onclick="go('p-checkpoints',this)"><span class="nb-dot"></span>Checkpoints</button>
     </nav>
   </header>
 
@@ -1296,6 +1297,50 @@ nav.pillar-nav::-webkit-scrollbar{display:none}
       <div class="ctarow">
         <button class="btn pr" onclick="go('protocol',document.querySelector('[data-pillar=protocol]'))"><i class="ti ti-circle-check"></i> Back to my protocol</button>
         <button class="btn" onclick="setAppMode('charter')"><i class="ti ti-book"></i> Return to the charter</button>
+      </div>
+    </div>
+
+    <!-- ═══════════ PROTOCOL: CHECKPOINTS (3-year tracker) ═══════════ -->
+    <div id="p-p-checkpoints" class="panel">
+      <div class="ibar"><i class="ti ti-info-circle"></i><span>Every review point through Oct 2029, in one place. Quarterly checkpoints count from the July 20, 2026 training start. Each one ends the same way: send the notes to Claude and update Tareeq.</span></div>
+
+      <div class="ew">Next 12 months</div>
+      <div class="card tl">
+        <div class="ex"><span class="exn"><span class="tag tag-ground" style="margin-right:6px">Dec 14</span>Message Dr. Chikere<span class="tag tag-repair" style="margin-left:6px">On calendar</span></span><span class="exs">Ask him to place the Jan and Apr lab orders</span></div>
+        <div class="ex"><span class="exn"><span class="tag tag-fire" style="margin-right:6px">Jan 20</span>6-month checkpoint<span class="tag tag-repair" style="margin-left:6px">On calendar</span></span><span class="exs">First strict pull-up is the target</span></div>
+        <div class="ex"><span class="exn"><span class="tag tag-ground" style="margin-right:6px">Jan 26</span>Lab draw window<span class="tag tag-repair" style="margin-left:6px">On calendar</span></span><span class="exs">Fasted, before 10 am. Lipids, vitamin D, A1c, estradiol, hs-CRP, iron, folate, fasting insulin</span></div>
+        <div class="ex"><span class="exn"><span class="tag tag-n" style="margin-right:6px">Day 90</span>Hair &amp; beard verdict<span class="tag tag-n" style="margin-left:6px">Proposed</span></span><span class="exs">Compare photos. Keep, change or drop the onion treatment</span></div>
+        <div class="ex"><span class="exn"><span class="tag tag-fire" style="margin-right:6px">Apr 20</span>9-month checkpoint<span class="tag tag-repair" style="margin-left:6px">On calendar</span></span><span class="exs">Quarterly review</span></div>
+        <div class="ex"><span class="exn"><span class="tag tag-ground" style="margin-right:6px">Apr 27</span>Hormone draw window<span class="tag tag-repair" style="margin-left:6px">On calendar</span></span><span class="exs">Total and free T, SHBG, LH, FSH. Pause the multivitamin 3 days before</span></div>
+        <div class="ex"><span class="exn"><span class="tag tag-fire" style="margin-right:6px">Jul 20</span>1-year checkpoint<span class="tag tag-repair" style="margin-left:6px">On calendar</span><span class="tag tag-n" style="margin-left:6px">+ program review</span></span><span class="exs">Full review of the training week, not just the numbers</span></div>
+      </div>
+
+      <div class="ew">Years 2 and 3</div>
+      <div class="card tl">
+        <div class="ex"><span class="exn"><span class="tag tag-fire" style="margin-right:6px">Quarterly</span>Checkpoint on the 20th<span class="tag tag-repair" style="margin-left:6px">On calendar</span></span><span class="exs">Oct, Jan, Apr, Jul, through Oct 2029</span></div>
+        <div class="ex"><span class="exn"><span class="tag tag-ground" style="margin-right:6px">Each July</span>Yearly baseline labs<span class="tag tag-n" style="margin-left:6px">Proposed</span></span><span class="exs">2027, 2028, 2029, near the Jul 21 anniversary of the first draw</span></div>
+      </div>
+
+      <div class="ew">What every checkpoint reviews</div>
+      <div class="card">
+        <div class="steps">
+          <div class="step"><div class="step-n" style="background:var(--fire-bg);color:var(--fire-dk)">1</div><div class="step-t"><strong>Strength:</strong> max push-ups, dead hang time, pull-up progress, top weight and reps on rows, goblet squat, shrugs, static holds.</div></div>
+          <div class="step"><div class="step-n" style="background:var(--repair-bg);color:var(--repair-dk)">2</div><div class="step-t"><strong>Sleep:</strong> how rested you wake, how steady the timing has been.</div></div>
+          <div class="step"><div class="step-n" style="background:var(--ground-bg);color:var(--ground-dk)">3</div><div class="step-t"><strong>Self-relationship:</strong> how you talk to yourself about training.</div></div>
+          <div class="step"><div class="step-n" style="background:var(--fuel-bg);color:var(--fuel-dk)">4</div><div class="step-t"><strong>Labs:</strong> any results since the last checkpoint. Direction over any single reading.</div></div>
+          <div class="step"><div class="step-n" style="background:var(--bg3);color:var(--ink2)">5</div><div class="step-t"><strong>Routines:</strong> latest hair and beard photo, and whether the shake plate and daily anchors are still worth their time.</div></div>
+        </div>
+      </div>
+
+      <div class="ew">When to change the training</div>
+      <div class="card"><div class="cb">Swap a lift when it has stalled for <strong>3 straight weeks</strong> after you&#8217;ve used the whole ladder: more reps, slower tempo, pauses, single-limb, shorter rest. Stalled means no added rep or load. If several lifts stall at once, check sleep and food before changing the program. <span class="muted">The 3-week rule is a working judgment, not a published standard.</span></div></div>
+
+      <div class="ew">Hair &amp; beard tracking</div>
+      <div class="card"><div class="cb">Photos every 4 weeks: same window light, same 4 angles (front hairline, crown, each side of the beard). Give the onion treatment about 3 months before judging it. <span class="muted">Start date to confirm.</span></div></div>
+
+      <div class="ctarow">
+        <button class="btn pr" onclick="go('protocol',document.querySelector('[data-pillar=protocol]'))"><i class="ti ti-circle-check"></i> Back to my protocol</button>
+        <button class="btn" onclick="go('p-baseline',document.querySelector('[data-pillar=p-baseline]'))"><i class="ti ti-arrow-left"></i> Back to baseline</button>
       </div>
     </div>
 
