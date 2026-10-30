@@ -321,6 +321,17 @@ nav.pillar-nav::-webkit-scrollbar{display:none}
 .home-btn:hover{opacity:.66;transform:translateY(-2px)}
 .home-btn:active{transform:translateY(0)}
 .home-btn .logo-mark{width:74px;height:44px}
+
+/* Checkpoint alert banner */
+.cp-alert{display:none;align-items:flex-start;gap:12px;background:var(--repair-bg);border:0.5px solid var(--repair-mid);color:var(--ink);border-radius:var(--rlg);padding:13px 15px;margin-bottom:1.2rem}
+.cp-alert.on{display:flex;animation:cp-in .5s ease}
+.cp-alert i{font-size:20px;color:var(--repair-dk);margin-top:1px}
+.cp-alert .cp-t{font-size:13.5px;font-weight:500;line-height:1.45}
+.cp-alert .cp-s{font-size:12px;color:var(--ink2);margin-top:2px;line-height:1.5}
+.cp-alert .cp-go{background:none;border:none;color:var(--repair-dk);font:inherit;font-size:12px;font-weight:600;padding:0;margin-top:6px;cursor:pointer}
+.cp-alert .cp-x{margin-left:auto;background:none;border:none;color:var(--ink3);cursor:pointer;font-size:16px;line-height:1;padding:2px}
+@keyframes cp-in{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){.cp-alert.on{animation:none}}
 </style>
 </head>
 <body>
@@ -394,6 +405,12 @@ nav.pillar-nav::-webkit-scrollbar{display:none}
 
   <!-- ════════════════ PLACEHOLDER FOR PANELS — built in next pass ════════════════ -->
   <div class="content">
+    <div class="cp-alert" id="cp-alert" role="status" aria-live="polite">
+      <i class="ti ti-calendar-event"></i>
+      <div><div class="cp-t" id="cp-title"></div><div class="cp-s" id="cp-sub"></div>
+      <button class="cp-go" onclick="setAppMode('protocol');go('p-checkpoints',document.querySelector('[data-pillar=p-checkpoints]'))">Open checkpoints</button></div>
+      <button class="cp-x" onclick="cpDismiss()" aria-label="Dismiss"><i class="ti ti-plus" style="transform:rotate(45deg);display:inline-block;font-size:16px;color:var(--ink3)"></i></button>
+    </div>
 
     <!-- ═══════════ OVERVIEW ═══════════ -->
     <div id="p-overview" class="panel on">
@@ -1307,19 +1324,21 @@ nav.pillar-nav::-webkit-scrollbar{display:none}
 
       <div class="ew">Next 12 months</div>
       <div class="card tl">
+        <div class="ex"><span class="exn"><span class="tag tag-n" style="margin-right:6px">Nov 2</span>Hair &amp; beard photos<span class="tag tag-repair" style="margin-left:6px">On calendar</span></span><span class="exs">Day 1 of the consistent onion run. Repeats Nov 30, Dec 28, Jan 25</span></div>
         <div class="ex"><span class="exn"><span class="tag tag-ground" style="margin-right:6px">Dec 14</span>Message Dr. Chikere<span class="tag tag-repair" style="margin-left:6px">On calendar</span></span><span class="exs">Ask him to place the Jan and Apr lab orders</span></div>
         <div class="ex"><span class="exn"><span class="tag tag-fire" style="margin-right:6px">Jan 20</span>6-month checkpoint<span class="tag tag-repair" style="margin-left:6px">On calendar</span></span><span class="exs">First strict pull-up is the target</span></div>
         <div class="ex"><span class="exn"><span class="tag tag-ground" style="margin-right:6px">Jan 26</span>Lab draw window<span class="tag tag-repair" style="margin-left:6px">On calendar</span></span><span class="exs">Fasted, before 10 am. Lipids, vitamin D, A1c, estradiol, hs-CRP, iron, folate, fasting insulin</span></div>
-        <div class="ex"><span class="exn"><span class="tag tag-n" style="margin-right:6px">Day 90</span>Hair &amp; beard verdict<span class="tag tag-n" style="margin-left:6px">Proposed</span></span><span class="exs">Compare photos. Keep, change or drop the onion treatment</span></div>
+        <div class="ex"><span class="exn"><span class="tag tag-n" style="margin-right:6px">Jan 31</span>Hair &amp; beard verdict<span class="tag tag-repair" style="margin-left:6px">On calendar</span></span><span class="exs">Day 90. Compare Nov 2 and Jan 25 photos. Keep, change or drop the onion treatment</span></div>
+
         <div class="ex"><span class="exn"><span class="tag tag-fire" style="margin-right:6px">Apr 20</span>9-month checkpoint<span class="tag tag-repair" style="margin-left:6px">On calendar</span></span><span class="exs">Quarterly review</span></div>
         <div class="ex"><span class="exn"><span class="tag tag-ground" style="margin-right:6px">Apr 27</span>Hormone draw window<span class="tag tag-repair" style="margin-left:6px">On calendar</span></span><span class="exs">Total and free T, SHBG, LH, FSH. Pause the multivitamin 3 days before</span></div>
-        <div class="ex"><span class="exn"><span class="tag tag-fire" style="margin-right:6px">Jul 20</span>1-year checkpoint<span class="tag tag-repair" style="margin-left:6px">On calendar</span><span class="tag tag-n" style="margin-left:6px">+ program review</span></span><span class="exs">Full review of the training week, not just the numbers</span></div>
+        <div class="ex"><span class="exn"><span class="tag tag-fire" style="margin-right:6px">Jul 20</span>1-year checkpoint + program review<span class="tag tag-repair" style="margin-left:6px">On calendar</span></span><span class="exs">Full review of the training week, not just the numbers</span></div>
       </div>
 
       <div class="ew">Years 2 and 3</div>
       <div class="card tl">
         <div class="ex"><span class="exn"><span class="tag tag-fire" style="margin-right:6px">Quarterly</span>Checkpoint on the 20th<span class="tag tag-repair" style="margin-left:6px">On calendar</span></span><span class="exs">Oct, Jan, Apr, Jul, through Oct 2029</span></div>
-        <div class="ex"><span class="exn"><span class="tag tag-ground" style="margin-right:6px">Each July</span>Yearly baseline labs<span class="tag tag-n" style="margin-left:6px">Proposed</span></span><span class="exs">2027, 2028, 2029, near the Jul 21 anniversary of the first draw</span></div>
+        <div class="ex"><span class="exn"><span class="tag tag-ground" style="margin-right:6px">Each July</span>Yearly baseline labs<span class="tag tag-repair" style="margin-left:6px">On calendar</span></span><span class="exs">Jul 21 in 2027, 2028 and 2029. Alert 2 weeks out to book the orders</span></div>
       </div>
 
       <div class="ew">What every checkpoint reviews</div>
@@ -1337,7 +1356,7 @@ nav.pillar-nav::-webkit-scrollbar{display:none}
       <div class="card"><div class="cb">Swap a lift when it has stalled for <strong>3 straight weeks</strong> after you&#8217;ve used the whole ladder: more reps, slower tempo, pauses, single-limb, shorter rest. Stalled means no added rep or load. If several lifts stall at once, check sleep and food before changing the program. <span class="muted">The 3-week rule is a working judgment, not a published standard.</span></div></div>
 
       <div class="ew">Hair &amp; beard tracking</div>
-      <div class="card"><div class="cb">Photos every 4 weeks: same window light, same 4 angles (front hairline, crown, each side of the beard). Give the onion treatment about 3 months before judging it. <span class="muted">Start date to confirm.</span></div></div>
+      <div class="card"><div class="cb">Photos every 4 weeks: same window light, same 4 angles (front hairline, crown, each side of the beard). Consistent run starts Mon Nov 2, 2026; verdict on Jan 31, 2027. After that, photos move to the quarterly checkpoint.</div></div>
 
       <div class="ctarow">
         <button class="btn pr" onclick="go('protocol',document.querySelector('[data-pillar=protocol]'))"><i class="ti ti-circle-check"></i> Back to my protocol</button>
@@ -1485,6 +1504,74 @@ document.addEventListener('DOMContentLoaded', restorePanel);
   updateToggleUI(mode);
   if(mode==='auto')requestLocationAndApply();
   scheduleThemeRecheck();
+})();
+
+/* Checkpoint alerts: shown when Tareeq opens, with a soft chime on first tap.
+   Dates mirror the Google Calendar events. */
+var CP=(function(){
+  var L=[
+    ['2026-11-02','Hair & beard photos, day 1','Before the onion mix. Same light, 4 angles.'],
+    ['2026-11-30','Hair & beard photos','Same light, same 4 angles.'],
+    ['2026-12-14','Message Dr. Chikere','Ask him to place the January and April lab orders.'],
+    ['2026-12-28','Hair & beard photos','Same light, same 4 angles.'],
+    ['2027-01-25','Hair & beard photos','Last set before the day-90 verdict.'],
+    ['2027-01-26','Lab draw window','Fasted, before 10 am.'],
+    ['2027-01-31','Hair & beard verdict','Compare Nov 2 and Jan 25. Keep, change or drop the onion.'],
+    ['2027-04-27','Hormone draw window','Fasted, before 10 am. Multivitamin paused 3 days before.'],
+    ['2027-07-21','Yearly baseline labs','Book the orders with Dr. Chikere.'],
+    ['2028-07-21','Yearly baseline labs','Book the orders with Dr. Chikere.'],
+    ['2029-07-21','Yearly baseline labs','Book the orders with Dr. Chikere.']
+  ];
+  for(var y=2027;y<=2029;y++){[1,4,7,10].forEach(function(m){
+    var mo=(m<10?'0':'')+m, months=(y-2026)*12+m-7;
+    var t=months===12?'1-year checkpoint + program review':'Tareeq checkpoint, '+months+' months';
+    L.push([y+'-'+mo+'-20',t,'Strength, sleep, self-relationship, labs, routines.']);
+  });}
+  return L.map(function(e){var p=e[0].split('-');return {d:new Date(+p[0],+p[1]-1,+p[2]),k:e[0],t:e[1],s:e[2]};}).sort(function(a,b){return a.d-b.d;});
+})();
+function cpDue(){
+  var now=new Date(); now.setHours(0,0,0,0);
+  for(var i=0;i<CP.length;i++){
+    var days=Math.round((CP[i].d-now)/86400000);
+    if(days>=-1&&days<=7) return {c:CP[i],days:days};
+    if(days>7) return null;
+  }
+  return null;
+}
+function cpChime(){
+  try{
+    var A=window.AudioContext||window.webkitAudioContext; if(!A) return;
+    var ctx=new A(), t=ctx.currentTime;
+    [[392,0],[523.25,0.18],[659.25,0.36]].forEach(function(n){
+      var o=ctx.createOscillator(), g=ctx.createGain();
+      o.type='sine'; o.frequency.value=n[0];
+      g.gain.setValueAtTime(0.0001,t+n[1]);
+      g.gain.exponentialRampToValueAtTime(0.12,t+n[1]+0.04);
+      g.gain.exponentialRampToValueAtTime(0.0001,t+n[1]+1.1);
+      o.connect(g); g.connect(ctx.destination); o.start(t+n[1]); o.stop(t+n[1]+1.2);
+    });
+  }catch(e){}
+  try{ if(navigator.vibrate) navigator.vibrate([18,60,18]); }catch(e){}
+}
+function cpDismiss(){
+  var el=document.getElementById('cp-alert'); if(el) el.classList.remove('on');
+  try{ if(el&&el.dataset.k) localStorage.setItem('tareeq-cp-seen',el.dataset.k); }catch(e){}
+  try{ if(navigator.clearAppBadge) navigator.clearAppBadge(); }catch(e){}
+}
+(function cpInit(){
+  var due=cpDue(); if(!due) { try{ if(navigator.clearAppBadge) navigator.clearAppBadge(); }catch(e){} return; }
+  var key=due.c.k+(due.days<=0?'|due':'|soon');
+  try{ if(localStorage.getItem('tareeq-cp-seen')===key) return; }catch(e){}
+  var when=due.days===0?'Today':due.days===1?'Tomorrow':due.days===-1?'Yesterday':'In '+due.days+' days';
+  var el=document.getElementById('cp-alert'); if(!el) return;
+  el.dataset.k=key;
+  document.getElementById('cp-title').textContent=when+': '+due.c.t;
+  document.getElementById('cp-sub').textContent=due.c.s;
+  el.classList.add('on');
+  try{ if(navigator.setAppBadge) navigator.setAppBadge(1); }catch(e){}
+  var played=false;
+  function once(){ if(played) return; played=true; cpChime(); document.removeEventListener('pointerdown',once,true); }
+  document.addEventListener('pointerdown',once,true);
 })();
 
 /* Offline: save the app on first visit so it opens without internet */
