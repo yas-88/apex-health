@@ -1,0 +1,49 @@
+/* Self-hosted so Tareeq works offline. Icons: Tabler Icons 3.19.0 (MIT), trimmed to the glyphs this page uses. Fonts: Inter, DM Serif Display, Noto Naskh Arabic (SIL OFL) via Fontsource. */
+@font-face{font-family:'Inter';font-style:normal;font-weight:300;font-display:swap;src:url(inter-latin-300-normal.woff2) format('woff2')}
+@font-face{font-family:'Inter';font-style:normal;font-weight:400;font-display:swap;src:url(inter-latin-400-normal.woff2) format('woff2')}
+@font-face{font-family:'Inter';font-style:normal;font-weight:500;font-display:swap;src:url(inter-latin-500-normal.woff2) format('woff2')}
+@font-face{font-family:'Inter';font-style:normal;font-weight:600;font-display:swap;src:url(inter-latin-600-normal.woff2) format('woff2')}
+@font-face{font-family:'DM Serif Display';font-style:normal;font-weight:400;font-display:swap;src:url(dm-serif-display-latin-400-normal.woff2) format('woff2')}
+@font-face{font-family:'DM Serif Display';font-style:italic;font-weight:400;font-display:swap;src:url(dm-serif-display-latin-400-italic.woff2) format('woff2')}
+@font-face{font-family:'Noto Naskh Arabic';font-style:normal;font-weight:400;font-display:swap;src:url(noto-naskh-arabic-arabic-400-normal.woff2) format('woff2')}
+@font-face{font-family:'Noto Naskh Arabic';font-style:normal;font-weight:500;font-display:swap;src:url(noto-naskh-arabic-arabic-500-normal.woff2) format('woff2')}
+@font-face{font-family:'tabler-icons';font-style:normal;font-weight:400;font-display:block;src:url(tabler-icons-sub.woff2) format('woff2')}
+.ti{font-family:'tabler-icons'!important;speak:none;font-style:normal;font-weight:normal;font-variant:normal;text-transform:none;line-height:1;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
+.ti-alert-circle:before{content:"\ea05"}
+.ti-arrow-down:before{content:"\ea16"}
+.ti-arrow-left:before{content:"\ea19"}
+.ti-arrow-up:before{content:"\ea25"}
+.ti-ball-football:before{content:"\ee06"}
+.ti-bike:before{content:"\ea36"}
+.ti-book:before{content:"\ea39"}
+.ti-bulb-off:before{content:"\ea50"}
+.ti-calendar:before{content:"\ea53"}
+.ti-calendar-event:before{content:"\ea52"}
+.ti-chevron-right:before{content:"\ea61"}
+.ti-circle-check:before{content:"\ea67"}
+.ti-clipboard-list:before{content:"\ea6d"}
+.ti-clock:before{content:"\ea70"}
+.ti-droplet:before{content:"\ea97"}
+.ti-droplet-off:before{content:"\ee83"}
+.ti-feather:before{content:"\ee8b"}
+.ti-flame:before{content:"\ec2c"}
+.ti-flask:before{content:"\ebd2"}
+.ti-hand-finger:before{content:"\ee94"}
+.ti-heart-handshake:before{content:"\f0f3"}
+.ti-info-circle:before{content:"\eac5"}
+.ti-leaf:before{content:"\ed4f"}
+.ti-massage:before{content:"\eeb1"}
+.ti-moon:before{content:"\eaf8"}
+.ti-moon-stars:before{content:"\ece7"}
+.ti-mountain:before{content:"\ef97"}
+.ti-pill:before{content:"\ec44"}
+.ti-plus:before{content:"\eb0b"}
+.ti-refresh:before{content:"\eb13"}
+.ti-run:before{content:"\ec82"}
+.ti-soup:before{content:"\ef2e"}
+.ti-sparkles:before{content:"\f6d7"}
+.ti-stack-2:before{content:"\eef7"}
+.ti-sun:before{content:"\eb30"}
+.ti-sun-moon:before{content:"\f4a3"}
+.ti-temperature-minus:before{content:"\ebed"}
+.ti-wind:before{content:"\ec34"}
