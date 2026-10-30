@@ -1,7 +1,7 @@
 /* Tareeq offline worker.
    Page: network first, so updates arrive whenever you're online; falls back to the saved copy offline.
    Fonts, icons, images: saved once, served from the device. Bump VERSION when those files change. */
-var VERSION = 'tareeq-v3';
+var VERSION = 'tareeq-v4';
 var CORE = ['./', 'index.html', 'fonts/fonts.css', 'manifest.webmanifest',
   'fonts/inter-latin-300-normal.woff2', 'fonts/inter-latin-400-normal.woff2',
   'fonts/inter-latin-500-normal.woff2', 'fonts/inter-latin-600-normal.woff2',
