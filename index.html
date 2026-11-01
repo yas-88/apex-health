@@ -458,6 +458,7 @@ body.has-bbar .fab{display:flex}
       <button class="nb" data-pillar="p-calendar" onclick="go('p-calendar',this)"><span class="nb-dot"></span>Calendar</button>
       <button class="nb" data-pillar="p-rhythm" onclick="go('p-rhythm',this)"><span class="nb-dot"></span>Rhythm</button>
       <button class="nb" data-pillar="p-baseline" onclick="go('p-baseline',this)"><span class="nb-dot"></span>Baseline</button>
+      <button class="nb" data-pillar="p-week" onclick="go('p-week',this)"><span class="nb-dot"></span>Weekly review</button>
       <button class="nb" data-pillar="p-weight" onclick="go('p-weight',this)"><span class="nb-dot"></span>Weight</button>
       <button class="nb" data-pillar="p-mind" onclick="go('p-mind',this)"><span class="nb-dot"></span>Mental health</button>
       <button class="nb" data-pillar="p-prevent" onclick="go('p-prevent',this)"><span class="nb-dot"></span>Preventive</button>
@@ -1431,7 +1432,7 @@ body.has-bbar .fab{display:flex}
       <div class="card"><div class="cb"><strong>Rinse days:</strong> lukewarm water, then a light Nexxus conditioner on mid-lengths and ends. Nothing on the scalp. The masque stays on shampoo days, so a heavy product doesn&#8217;t go on 6 or 7 times a week. <span class="muted">Judgment: watch for limp or coated curls and adjust.</span></div></div>
       <div class="card">
         <div class="cb"><strong>Phase 1, first 4 weeks:</strong> Nizoral Mon and Thu (every 3 to 4 days, as the label says), Nexxus Sat after soccer. Shampoo every 2 to 3 days while the scalp settles.</div>
-        <div class="cb" style="margin-top:8px"><strong>Phase 2, once the scratchy, dry and oily feeling is gone:</strong> shampoo twice a week. Nizoral Mon, Nexxus Thu, and Saturday becomes a rinse day. Onion stays Mon and Thu. Step-down check: Nov 30.</div>
+        <div class="cb" style="margin-top:8px"><strong>Phase 2, once the scratchy, dry and oily feeling is gone:</strong> shampoo twice a week. Nizoral Mon, Nexxus Thu, and Saturday becomes a rinse day. Onion stays Mon and Thu. Started Oct 26. Step-down check: Nov 23.</div>
         <div class="cb" style="margin-top:8px"><strong>Order on Mon and Thu.</strong> Nizoral at the noon shower, derma stamp at 8:30 pm. Keep it that way: the label says not to use it on broken or inflamed scalp, so never wash with Nizoral the morning after a stamp.</div>
         <div class="cb" style="margin-top:8px"><strong>Derma stamp.</strong> Set to 0.5 mm for scalp and beard. Press straight down, no dragging. About 5 to 10 min total, covering the thinning areas of the scalp and the patchy areas of the beard.</div>
         <div class="cd-legend" style="margin-top:8px">
@@ -1585,7 +1586,7 @@ body.has-bbar .fab{display:flex}
             <button class="btn" id="ac-reg" onclick="acRegister()"><i class="ti ti-plus"></i> Turn on Face ID for this device</button>
             <button class="btn" onclick="acSignOut()">Sign out</button>
           </div>
-          <div class="cs" style="margin-top:8px">Syncs weight, milestones, check-ins, sleep, reflections, connection and fasts. Travel mode and the alert you dismissed stay on each device.</div>
+          <div class="cs" style="margin-top:8px">Syncs weight, milestones, check-ins, sleep, reflections, connection, fasts and lab results. Travel mode and the alert you dismissed stay on each device.</div>
         </div>
       </div>
 
@@ -1604,6 +1605,19 @@ body.has-bbar .fab{display:flex}
     <!-- ═══════════ PROTOCOL: BASELINE (physician tracker) ═══════════ -->
     <div id="p-p-baseline" class="panel">
       <div class="ibar"><i class="ti ti-info-circle"></i><span>The gate on extended fasting opens here, or it holds. One honest baseline this year, so next year's numbers mean something.</span></div>
+
+      <div class="ew">Lab trends</div>
+      <div class="card">
+        <div class="cb">Each marker over time, against your lab&#8217;s own reference range where the report gave one. Read direction across draws; one reading is a snapshot.</div>
+        <div class="wt-form" style="margin-top:10px;flex-wrap:wrap">
+          <input type="date" id="lb-date" aria-label="Draw date">
+          <select id="lb-m" class="fa-sel" aria-label="Marker"></select>
+          <input type="number" id="lb-v" step="0.01" inputmode="decimal" placeholder="value" aria-label="Value" style="width:90px">
+          <button class="btn pr" onclick="lbAdd()"><i class="ti ti-plus"></i> Add result</button>
+        </div>
+        <div class="cs" id="lb-msg" style="margin-top:6px">Add new results as they land in MyChart. They sync with your account.</div>
+      </div>
+      <div id="lb-charts"></div>
 
       <div class="ew">Say this first</div>
       <div class="card"><div class="cb">"I'm changing how I eat and train. I do daily intermittent fasting, I'm considering a longer fast down the line, and I want a full baseline." That framing gets better tests than "just a checkup."</div></div>
@@ -1670,6 +1684,29 @@ body.has-bbar .fab{display:flex}
       <div class="ctarow">
         <button class="btn pr" onclick="go('protocol',document.querySelector('[data-pillar=protocol]'))"><i class="ti ti-circle-check"></i> Back to my protocol</button>
         <button class="btn" onclick="setAppMode('charter')"><i class="ti ti-book"></i> Return to the charter</button>
+      </div>
+    </div>
+
+    <!-- ═══════════ PROTOCOL: WEEKLY REVIEW ═══════════ -->
+    <div id="p-p-week" class="panel">
+      <div class="ibar"><i class="ti ti-info-circle"></i><span>Sunday look-back: what the week held, kindly. Notice, don&#8217;t grade.</span></div>
+      <div class="card"><div class="wt-form" style="justify-content:space-between;align-items:center">
+        <button class="btn" onclick="wkShift(-1)" aria-label="Previous week"><i class="ti ti-arrow-left"></i></button>
+        <div style="text-align:center"><div class="ct" id="wk-title"></div><div class="cs" id="wk-sub"></div></div>
+        <button class="btn" onclick="wkShift(1)" aria-label="Next week" id="wk-next"><i class="ti ti-arrow-left" style="display:inline-block;transform:rotate(180deg)"></i></button>
+      </div></div>
+      <div class="kpis" id="wk-kpis"></div>
+      <div class="ew">Mind</div>
+      <div class="card" id="wk-mind"></div>
+      <div class="ew">Body</div>
+      <div class="card" id="wk-body"></div>
+      <div class="ew">Reflection</div>
+      <div class="card" id="wk-ref"></div>
+      <div class="ew">Coming up</div>
+      <div class="card" id="wk-next-up"></div>
+      <div class="ctarow">
+        <button class="btn pr" onclick="bbGoPanel('p-mind','#mh-r1')"><i class="ti ti-pencil"></i> Write this week&#8217;s reflection</button>
+        <button class="btn" onclick="go('protocol',document.querySelector('[data-pillar=protocol]'))"><i class="ti ti-arrow-left"></i> Back to my protocol</button>
       </div>
     </div>
 
@@ -1801,15 +1838,15 @@ body.has-bbar .fab{display:flex}
         <div class="ex"><span class="exn"><span class="tag tag-ground" style="margin-right:6px">July</span>Annual physical + yearly labs<span class="tag tag-repair" style="margin-left:6px">On calendar</span></span><span class="exs">Blood pressure, weight, and the Baseline panel labs. Alert 2 weeks out to book</span></div>
         <div class="ex"><span class="exn"><span class="tag tag-fire" style="margin-right:6px">Mid-Oct</span>Flu shot<span class="tag tag-repair" style="margin-left:6px">On calendar</span></span><span class="exs">Every year. Reminder Oct 1 to book</span></div>
         <div class="ex"><span class="exn"><span class="tag tag-repair" style="margin-right:6px">Dental</span>Cleanings<span class="tag tag-n" style="margin-left:6px">Date to confirm</span></span><span class="exs">Now every 3 months, exam every other visit. Likely every 6 months after the December visit; tell Claude the date once it&#8217;s booked</span></div>
-        <div class="ex"><span class="exn"><span class="tag tag-n" style="margin-right:6px">~40</span>Baseline eye exam</span><span class="exs">No glasses, no problems, so nothing needed now. A full eye exam around 40 (about 2028), then as the eye doctor advises. Sooner for any change in vision</span></div>
+        <div class="ex"><span class="exn"><span class="tag tag-n" style="margin-right:6px">Aug 2028</span>Baseline eye exam</span><span class="exs">No glasses, no problems, so nothing needed now. A full eye exam when you turn 40 (Aug 20, 2028), then as the eye doctor advises. Sooner for any change in vision</span></div>
       </div>
 
       <div class="ew">Screenings by age</div>
       <div class="card tl">
         <div class="ex"><span class="exn"><span class="tag tag-fire" style="margin-right:6px">Now</span>Blood pressure, yearly</span><span class="exs">Yearly for adults 40+, and for under-40s at higher risk (overweight counts). Covered at the July physical</span></div>
         <div class="ex"><span class="exn"><span class="tag tag-fire" style="margin-right:6px">Now</span>Prediabetes and diabetes</span><span class="exs">Ages 35 to 70 with overweight. A1c is in the January labs; every 3 years after a normal result</span></div>
-        <div class="ex"><span class="exn"><span class="tag tag-fuel" style="margin-right:6px">40</span>Heart risk score</span><span class="exs">Ask Dr. Chikere for a 10-year cardiovascular risk score alongside the lipid panel</span></div>
-        <div class="ex"><span class="exn"><span class="tag tag-ground" style="margin-right:6px">45</span>Colorectal cancer screening</span><span class="exs">Starts at 45 (about 2033) and runs to 75</span></div>
+        <div class="ex"><span class="exn"><span class="tag tag-fuel" style="margin-right:6px">Aug 2028</span>Heart risk score</span><span class="exs">Ask Dr. Chikere for a 10-year cardiovascular risk score alongside the lipid panel</span></div>
+        <div class="ex"><span class="exn"><span class="tag tag-ground" style="margin-right:6px">Aug 2033</span>Colorectal cancer screening</span><span class="exs">Starts at 45 (Aug 20, 2033) and runs to 75</span></div>
         <div class="ex"><span class="exn"><span class="tag tag-n" style="margin-right:6px">Ask</span>Vaccines</span><span class="exs">Flu yearly. Ask at the physical when your last Tdap booster was, and which others are due as you get older</span></div>
         <div class="cd-legend" style="margin-top:8px">
           <span class="cd-legend-item"><span class="etag est"><i class="ti ti-flask"></i>Established</span> Blood pressure, diabetes and colorectal timing (USPSTF)</span>
@@ -1845,7 +1882,7 @@ body.has-bbar .fab{display:flex}
       <div class="ew">Next 12 months</div>
       <div class="card tl">
         <div class="ex"><span class="exn"><span class="tag tag-n" style="margin-right:6px">Nov 2</span>Hair &amp; beard photos<span class="tag tag-repair" style="margin-left:6px">On calendar</span></span><span class="exs">Day 1 of the consistent onion run. Repeats Nov 30, Dec 28, Jan 25</span></div>
-        <div class="ex"><span class="exn"><span class="tag tag-n" style="margin-right:6px">Nov 30</span>Nizoral step-down check<span class="tag tag-repair" style="margin-left:6px">On calendar</span></span><span class="exs">Scalp stable? Phase 2: Nizoral Mon, Nexxus Thu, onion Mon and Thu</span></div>
+        <div class="ex"><span class="exn"><span class="tag tag-n" style="margin-right:6px">Nov 23</span>Nizoral step-down check<span class="tag tag-repair" style="margin-left:6px">On calendar</span></span><span class="exs">Scalp stable? Phase 2: Nizoral Mon, Nexxus Thu, onion Mon and Thu</span></div>
         <div class="ex"><span class="exn"><span class="tag tag-ground" style="margin-right:6px">Dec 14</span>Message Dr. Chikere<span class="tag tag-repair" style="margin-left:6px">On calendar</span></span><span class="exs">Ask him to place the Jan and Apr lab orders</span></div>
         <div class="ex"><span class="exn"><span class="tag tag-fire" style="margin-right:6px">Jan 20</span>6-month checkpoint<span class="tag tag-repair" style="margin-left:6px">On calendar</span></span><span class="exs">First strict pull-up is the target</span></div>
         <div class="ex"><span class="exn"><span class="tag tag-ground" style="margin-right:6px">Jan 26</span>Lab draw window<span class="tag tag-repair" style="margin-left:6px">On calendar</span></span><span class="exs">Fasted, before 10 am. Lipids, vitamin D, A1c, estradiol, hs-CRP, iron, folate, fasting insulin</span></div>
@@ -2032,7 +2069,9 @@ document.addEventListener('DOMContentLoaded', restorePanel);
 var CP=(function(){
   var L=[
     ['2026-11-02','Hair & beard photos, day 1','Before the onion mix. Same light, 4 angles.'],
-    ['2026-11-30','Hair & beard photos + Nizoral check','Same 4 angles. Scalp stable? Move to phase 2: Nizoral Mon, Nexxus Thu.'],
+    ['2026-11-23','Nizoral step-down check','4 weeks since Oct 26. Scalp stable? Move to phase 2: Nizoral Mon, Nexxus Thu.'],
+    ['2026-11-30','Hair & beard photos','Same light, same 4 angles.'],
+    ['2028-08-20','Turning 40','Book a baseline eye exam; ask for a 10-year heart risk score at the next physical.'],
     ['2026-12-14','Message Dr. Chikere','Ask him to place the January and April lab orders.'],
     ['2026-12-28','Hair & beard photos','Same light, same 4 angles.'],
     ['2027-01-25','Hair & beard photos','Last set before the day-90 verdict.'],
@@ -2041,6 +2080,7 @@ var CP=(function(){
     ['2027-04-27','Hormone draw window','Fasted, before 10 am. Multivitamin paused 3 days before.'],
   ];
   var yEnd=new Date().getFullYear()+3;
+  if(yEnd>=2033)L.push(['2033-08-20','Turning 45','Colorectal cancer screening starts. Ask Dr. Chikere which option fits.']);
   for(var yy=2027;yy<=yEnd;yy++)L.push([yy+'-07-21','Annual physical + yearly labs','Book the physical and lab orders with Dr. Chikere.']);
   for(var y=2027;y<=yEnd;y++){[1,4,7,10].forEach(function(m){
     var mo=(m<10?'0':'')+m, months=(y-2026)*12+m-7;
@@ -2185,13 +2225,14 @@ function wtRender(){
   li.innerHTML=data.length?data.slice().reverse().slice(0,30).map(function(e){return '<div class="wt-row"><span>'+fmtD(e.d)+'</span><span><strong>'+e.lb+'</strong> lb'+(e.waist?' · '+e.waist+' in':'')+' <button onclick="wtDel(\''+e.d+'\')" aria-label="Delete entry">✕</button></span></div>';}).join(''):'<div class="cs">No entries yet.</div>';
 }
 function wtExport(){
-  var blob=new Blob([JSON.stringify({weight:wtData(),milestones:lsGet(BU_KEY,{}),checkin:lsGet(MH_KEY,{}),reflect:lsGet(MH_R,{}),connect:lsGet(MH_C,{}),fasts:lsGet('tareeq-fasts',[])},null,1)],{type:'application/json'});
+  var blob=new Blob([JSON.stringify({weight:wtData(),milestones:lsGet(BU_KEY,{}),checkin:lsGet(MH_KEY,{}),reflect:lsGet(MH_R,{}),connect:lsGet(MH_C,{}),fasts:lsGet('tareeq-fasts',[]),labs:lsGet('tareeq-labs',[])},null,1)],{type:'application/json'});
   var a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='tareeq-backup-'+ymd(new Date())+'.json';document.body.appendChild(a);a.click();setTimeout(function(){URL.revokeObjectURL(a.href);a.remove();},500);
 }
 function wtImport(inp){
   var f=inp.files&&inp.files[0]; if(!f)return; var r=new FileReader();
   r.onload=function(){try{var j=JSON.parse(r.result);var w=Array.isArray(j)?j:(j.weight||[]);
     var map={};wtData().concat(w).forEach(function(e){if(e&&e.d&&e.lb)map[e.d]=e;});lsSet(WT_KEY,Object.keys(map).map(function(k){return map[k];}));
+    if(Array.isArray(j.labs)){var lm={};lbData().concat(j.labs).forEach(function(e){if(e&&e.d&&e.m)lm[e.d+'|'+e.m]=e;});lsSet('tareeq-labs',Object.keys(lm).map(function(k){return lm[k];}));}
     if(Array.isArray(j.fasts)){var fl=lsGet('tareeq-fasts',[]),seen={};fl.forEach(function(f){seen[f.start]=1;});j.fasts.forEach(function(f){if(f&&f.start&&!seen[f.start])fl.push(f);});lsSet('tareeq-fasts',fl);}
     [['milestones',BU_KEY],['checkin',MH_KEY],['reflect',MH_R],['connect',MH_C]].forEach(function(p){if(j[p[0]]){var m=lsGet(p[1],{});Object.keys(j[p[0]]).forEach(function(k){m[k]=j[p[0]][k];});lsSet(p[1],m);}});
     document.getElementById('wt-msg').textContent='Backup imported.';wtRender();buRender();mhRender();}catch(e){document.getElementById('wt-msg').textContent='That file isn’t a Tareeq backup.';}};
@@ -2278,6 +2319,83 @@ function mhTip(t){var el=document.getElementById('mh-tip');if(!el)return;var h='
   if(t.energy&&t.energy<=2&&!(t.stress>=4))h+='<div class="wbar" style="margin-top:10px"><i class="ti ti-sun"></i><span><strong>Low energy.</strong> Daylight and a short walk first. Then check last night&#8217;s sleep and whether you drank enough today.</span></div>';
   el.innerHTML=h;}
 mhRender();
+/* ---------- Lab trends ---------- */
+var LB_KEY='tareeq-labs';
+var LB_M={
+ tt:{n:'Total testosterone',u:'ng/dL',r:[264,916],g:'Hormones'}, ft:{n:'Free testosterone',u:'pg/mL',r:[46.5,181],g:'Hormones'}, shbg:{n:'SHBG',u:'nmol/L',r:[13,90],g:'Hormones'},
+ lh:{n:'LH',u:'mIU/mL',r:[1.7,8.6],g:'Hormones'}, fsh:{n:'FSH',u:'mIU/mL',r:[1.5,12.4],g:'Hormones'}, e2:{n:'Estradiol',u:'pg/mL',r:null,g:'Hormones'},
+ tc:{n:'Total cholesterol',u:'mg/dL',r:null,g:'Lipids'}, ldl:{n:'LDL',u:'mg/dL',r:null,g:'Lipids'}, hdl:{n:'HDL',u:'mg/dL',r:null,g:'Lipids'}, tg:{n:'Triglycerides',u:'mg/dL',r:null,g:'Lipids'}, ratio:{n:'Cholesterol ratio',u:'',r:null,g:'Lipids'},
+ a1c:{n:'HbA1c',u:'%',r:null,g:'Metabolic'}, ins:{n:'Fasting insulin',u:'uIU/mL',r:null,g:'Metabolic'}, crp:{n:'hs-CRP',u:'mg/L',r:null,g:'Metabolic'},
+ vd:{n:'Vitamin D, 25-OH',u:'ng/mL',r:null,g:'Vitamins and iron'}, fer:{n:'Ferritin',u:'ng/mL',r:null,g:'Vitamins and iron'}, fol:{n:'Folate',u:'ng/mL',r:null,g:'Vitamins and iron'}
+};
+var LB_SEED=[['2026-07-21','tt',265],['2026-10-22','tt',292],['2026-07-21','ft',70.5],['2026-10-22','ft',74.8],['2026-07-21','shbg',15],['2026-10-22','shbg',17],['2026-10-22','lh',5.7],['2026-10-22','fsh',2.8],
+ ['2026-07-21','tc',246],['2026-07-21','ldl',164],['2026-07-21','hdl',40.2],['2026-07-21','tg',191],['2026-07-21','ratio',6.1],['2026-07-21','a1c',5.4],['2026-07-21','vd',29]];
+function lbData(){var d=lsGet(LB_KEY,null);if(!d){d=LB_SEED.map(function(x){return {d:x[0],m:x[1],v:x[2]};});lsSet(LB_KEY,d);}return d;}
+function lbAdd(){var d=document.getElementById('lb-date').value,m=document.getElementById('lb-m').value,v=parseFloat(document.getElementById('lb-v').value),msg=document.getElementById('lb-msg');
+  if(!d||!m||isNaN(v)){msg.textContent='Add the draw date, the marker and the value.';return;}
+  var data=lbData().filter(function(e){return !(e.d===d&&e.m===m);});data.push({d:d,m:m,v:v});lsSet(LB_KEY,data);
+  document.getElementById('lb-v').value='';msg.textContent='Saved '+LB_M[m].n+' for '+fmtD(d)+'.';lbRender();}
+function lbDel(d,m){lsSet(LB_KEY,lbData().filter(function(e){return !(e.d===d&&e.m===m);}));lbRender();}
+function lbRender(){
+  var box=document.getElementById('lb-charts');if(!box)return;
+  var sel=document.getElementById('lb-m');if(sel&&!sel.options.length){sel.innerHTML=Object.keys(LB_M).map(function(k){return '<option value="'+k+'">'+LB_M[k].n+'</option>';}).join('');}
+  var di=document.getElementById('lb-date');if(di&&!di.value)di.value=ymd(new Date());
+  var data=lbData(), groups={}, html='';
+  Object.keys(LB_M).forEach(function(k){var pts=data.filter(function(e){return e.m===k;}).sort(function(a,b){return a.d<b.d?-1:1;});if(!pts.length)return;(groups[LB_M[k].g]=groups[LB_M[k].g]||[]).push([k,pts]);});
+  Object.keys(groups).forEach(function(g){html+='<div class="ew">'+g+'</div>';
+    groups[g].forEach(function(p){var k=p[0],pts=p[1],M=LB_M[k],last=pts[pts.length-1],prev=pts.length>1?pts[pts.length-2]:null,st='';
+      if(M.r){var lo=M.r[0],hi=M.r[1];st=last.v<lo?'Below range':last.v>hi?'Above range':(last.v-lo)<(hi-lo)*0.1?'In range, near the floor':(hi-last.v)<(hi-lo)*0.1?'In range, near the top':'In range';}
+      var ch=prev?((last.v-prev.v>=0?'+':'')+(Math.round((last.v-prev.v)*100)/100)+' since '+fmtD(prev.d)):'First result';
+      html+='<div class="card chart"><div style="display:flex;justify-content:space-between;align-items:baseline;gap:8px"><div class="ct">'+M.n+'</div><div style="text-align:right"><strong>'+last.v+'</strong> <span class="cs">'+M.u+'</span></div></div>'+
+        '<div class="cs" style="margin:2px 0 6px">'+ch+(st?' · '+st:'')+(M.r?' · range '+M.r[0]+' to '+M.r[1]:' · range from your lab report')+'</div>'+
+        '<div id="lbc-'+k+'"></div><details class="exd"><summary><i class="ti ti-chevron-right"></i> '+pts.length+' result'+(pts.length>1?'s':'')+'</summary>'+
+        pts.slice().reverse().map(function(e){return '<div class="wt-row"><span>'+fmtD(e.d)+'</span><span><strong>'+e.v+'</strong> '+M.u+' <button onclick="lbDel(\''+e.d+'\',\''+k+'\')" aria-label="Delete">✕</button></span></div>';}).join('')+'</details></div>';});});
+  box.innerHTML=html||'<div class="cs">No results yet.</div>';
+  Object.keys(LB_M).forEach(function(k){var el=document.getElementById('lbc-'+k);if(!el)return;var M=LB_M[k];
+    var pts=data.filter(function(e){return e.m===k;}).sort(function(a,b){return a.d<b.d?-1:1;}).map(function(e){return [pd(e.d),e.v];});
+    var vals=pts.map(function(p){return p[1];}).concat(M.r||[]), lo=Math.min.apply(null,vals), hi=Math.max.apply(null,vals), pad=(hi-lo)*0.12||1;
+    var x0=+pts[0][0]-30*86400000, x1=Math.max(+pts[pts.length-1][0],Date.now())+30*86400000;
+    var tk=[[new Date(x0+30*86400000),fmtD(ymd(pts[0][0])),'start']];if(Date.now()-pts[0][0]>75*86400000)tk.push([new Date(x1-30*86400000),'Today','end']);
+    drawChart(el,[{pts:pts,color:'var(--repair)',dots:true,w:2}],{x0:x0,x1:x1,y0:Math.max(0,lo-pad),y1:hi+pad,band:M.r||null,intY:(hi-lo)>20,ticks:tk,label:M.n+' over time'});});
+}
+lbRender();
+
+/* ---------- Weekly review ---------- */
+var wkOff=0;
+function wkStart(off){var d=new Date();d.setHours(0,0,0,0);d.setDate(d.getDate()-((d.getDay()+6)%7)+7*off);return d;}
+function wkShift(n){wkOff=Math.min(0,wkOff+n);wkRender();}
+function wkRender(){
+  var t=document.getElementById('wk-title');if(!t)return;
+  var s=wkStart(wkOff), e=new Date(s);e.setDate(e.getDate()+6);var sk=ymd(s), ek=ymd(e), days=[];
+  for(var i=0;i<7;i++){var x=new Date(s);x.setDate(x.getDate()+i);days.push(ymd(x));}
+  t.textContent=wkOff===0?'This week':wkOff===-1?'Last week':'Week of '+fmtD(sk);
+  document.getElementById('wk-sub').textContent=fmtD(sk)+' to '+fmtD(ek);
+  document.getElementById('wk-next').style.visibility=wkOff<0?'visible':'hidden';
+  var ci=lsGet(MH_KEY,{}), logs=days.map(function(d){return ci[d]||{};});
+  function avg(k){var v=logs.filter(function(l){return l[k];}).map(function(l){return l[k];});return v.length?(v.reduce(function(a,b){return a+b;},0)/v.length):null;}
+  var nCI=logs.filter(function(l){return l.mood||l.energy||l.stress;}).length, sl=logs.filter(function(l){return l.sleepH;}), rested=logs.filter(function(l){return l.rested===3;}).length;
+  var hiS=null;days.forEach(function(d,i){if(logs[i].stress&&(!hiS||logs[i].stress>hiS[1]))hiS=[d,logs[i].stress];});
+  var wt=lsGet('tareeq-weight',[]), wIn=wt.filter(function(x){return x.d>=sk&&x.d<=ek;}), ps=new Date(s);ps.setDate(ps.getDate()-7);var psk=ymd(ps),pek=ymd(new Date(s.getTime()-86400000));
+  var wPrev=wt.filter(function(x){return x.d>=psk&&x.d<=pek;});function wa(a){return a.length?a.reduce(function(p,c){return p+c.lb;},0)/a.length:null;}
+  var wA=wa(wIn), wP=wa(wPrev);
+  var fasts=lsGet('tareeq-fasts',[]).filter(function(f){var d=ymd(new Date(f.start));return d>=sk&&d<=ek;}), fh=fasts.reduce(function(a,f){return a+(f.end-f.start)/3600000;},0);
+  var conn=lsGet(MH_C,{})[sk]||{}, ms=lsGet(BU_KEY,{}), msDone=Object.keys(ms).filter(function(k){return ms[k]>=sk&&ms[k]<=ek;}).length;
+  function kpi(n,u,l){return '<div class="kpi"><div class="kpi-n">'+n+'<span class="kpi-u">'+u+'</span></div><div class="kpi-l">'+l+'</div></div>';}
+  document.getElementById('wk-kpis').innerHTML=kpi(nCI,'/7','Check-ins')+kpi(sl.length?(avg('sleepH')).toFixed(1):'–','h','Average sleep')+kpi(wA!=null?wA.toFixed(1):'–','lb','Weight, week avg')+kpi(fasts.length,'','Fasts logged');
+  var m=avg('mood'),en=avg('energy'),st=avg('stress');
+  document.getElementById('wk-mind').innerHTML=nCI?('<div class="ex"><span class="exn">Mood · energy · stress</span><span class="exs">'+(m?m.toFixed(1):'–')+' · '+(en?en.toFixed(1):'–')+' · '+(st?st.toFixed(1):'–')+' (1 to 5)</span></div>'+(hiS&&hiS[1]>=4?'<div class="ex"><span class="exn">Highest stress</span><span class="exs">'+fmtD(hiS[0])+', a '+hiS[1]+'. Worth a thought: what was going on?</span></div>':'')+
+    '<div class="ex"><span class="exn">Sleep</span><span class="exs">'+(sl.length?sl.length+' nights logged, rested on '+rested:'Not logged')+'</span></div>'+
+    '<div class="ex"><span class="exn">Connection</span><span class="exs">'+(conn.call?'Reached out to someone':'No call logged')+' · '+(conn.out?'time outdoors':'no outdoor time logged')+'</span></div>'):'<div class="cs">No check-ins this week. That’s information too, not a grade.</div>';
+  document.getElementById('wk-body').innerHTML='<div class="ex"><span class="exn">Weight</span><span class="exs">'+(wIn.length?wIn.length+' weigh-in'+(wIn.length>1?'s':'')+', avg '+wA.toFixed(1)+' lb'+(wP!=null?' ('+((wA-wP)>0?'+':'')+(wA-wP).toFixed(1)+' vs the week before)':''):'No weigh-ins')+'</span></div>'+
+    '<div class="ex"><span class="exn">Fasting</span><span class="exs">'+(fasts.length?fasts.length+' fast'+(fasts.length>1?'s':'')+', '+Math.round(fh)+' hours total':'None logged')+'</span></div>'+
+    '<div class="ex"><span class="exn">Milestones</span><span class="exs">'+(msDone?msDone+' checked off':'None this week')+'</span></div>';
+  var r=lsGet(MH_R,{})[sk];
+  document.getElementById('wk-ref').innerHTML=r&&(r.a||r.b||r.c)?['a','b','c'].map(function(f,i){return r[f]?'<div class="ex"><span class="exn">'+['Went well','Kinder words','Carry forward'][i]+'</span><span class="exs">'+r[f].replace(/</g,'&lt;')+'</span></div>':'';}).join(''):'<div class="cs">Not written yet. Three short answers, two minutes.</div>';
+  var ns=new Date(e);ns.setDate(ns.getDate()+1);var ne=new Date(ns);ne.setDate(ne.getDate()+6);
+  var up=ALERTS.filter(function(a){return a.d>=ns&&a.d<=ne&&a.k.slice(-2)!=='-b';});
+  document.getElementById('wk-next-up').innerHTML=up.length?up.map(function(a){return '<div class="ex"><span class="exn">'+fmtD(a.k.slice(0,10))+'</span><span class="exs">'+a.t+'</span></div>';}).join(''):'<div class="cs">Nothing scheduled for the week ahead. A steady week.</div>';
+}
+wkRender();
 /* ---------- Today card: clock, light, weather, air, your day ---------- */
 var TD_HOME={lat:45.6387,lon:-122.6615,name:'Vancouver, WA'};
 var WMO={0:['Clear','sun'],1:['Mostly clear','sun'],2:['Partly cloudy','cloud'],3:['Overcast','cloud'],45:['Fog','cloud-fog'],48:['Freezing fog','cloud-fog'],51:['Light drizzle','cloud-rain'],53:['Drizzle','cloud-rain'],55:['Heavy drizzle','cloud-rain'],56:['Freezing drizzle','snowflake'],57:['Freezing drizzle','snowflake'],61:['Light rain','cloud-rain'],63:['Rain','cloud-rain'],65:['Heavy rain','cloud-rain'],66:['Freezing rain','snowflake'],67:['Freezing rain','snowflake'],71:['Light snow','cloud-snow'],73:['Snow','cloud-snow'],75:['Heavy snow','cloud-snow'],77:['Snow grains','cloud-snow'],80:['Rain showers','cloud-rain'],81:['Rain showers','cloud-rain'],82:['Heavy showers','cloud-rain'],85:['Snow showers','cloud-snow'],86:['Snow showers','cloud-snow'],95:['Thunderstorm','cloud-storm'],96:['Thunderstorm, hail','cloud-storm'],99:['Thunderstorm, hail','cloud-storm']};
@@ -2341,6 +2459,7 @@ function tdRender(){
     document.getElementById('td-wx').innerHTML='<i class="ti ti-cloud"></i><div><div class="td-temp">--°</div><div class="td-cond">'+(navigator.onLine?'Loading weather…':'Weather shows once you’re online')+'</div></div>';
     document.getElementById('td-foot').textContent='';
   }
+  if(now.getDay()===0)tips.unshift(['calendar-event','Sunday: your weekly review is ready. <a href="#" onclick="bbGoPanel(\'p-week\');return false" style="color:var(--repair-dk)">Open it</a>']);
   document.getElementById('td-tips').innerHTML=tips.map(function(t){return '<div class="td-tip"><i class="ti ti-'+t[0]+'"></i><span>'+t[1]+'</span></div>';}).join('');
   var mins=now.getHours()*60+now.getMinutes(), S=tdSched(now), next=S.filter(function(s){return s[0]>=mins-10;}).slice(0,3);
   var d=now.getDay(), hair=(d===1||d===4)?'Shampoo day: onion during training, wash, stamp at 8:30':d===6?'Nexxus wash after soccer':(d===2||d===5)?'Rinse and conditioner. Oil blend off the scalp today':'Rinse and conditioner on the lengths';
@@ -2355,9 +2474,9 @@ window.addEventListener('online',function(){tdFetch(true);});
 
 /* ---------- Bottom bar, section sheets, quick log ---------- */
 var BB={
-  log:{t:'Log',items:[['p-weight','Weight','scale'],['p-mind','Check-in and sleep','heart-handshake'],['p-fast','Fasting','clock']]},
+  log:{t:'Log',items:[['p-weight','Weight','scale'],['p-mind','Check-in and sleep','heart-handshake'],['p-fast','Fasting','clock'],['p-week','Weekly review','calendar-event']]},
   plan:{t:'Plan',items:[['p-training','Training','flame'],['p-nutrition','Nutrition','soup'],['p-supplements','Supplements','pill'],['p-calendar','Daily timeline','calendar-event'],['p-rhythm','Rhythm','sun'],['p-travel','Travel','run']]},
-  health:{t:'Health',items:[['p-baseline','Baseline labs','clipboard-list'],['p-prevent','Preventive','heartbeat'],['p-checkpoints','Checkpoints','circle-check'],['p-account','Account','refresh']]}
+  health:{t:'Health',items:[['p-baseline','Labs and trends','clipboard-list'],['p-prevent','Preventive','heartbeat'],['p-checkpoints','Checkpoints','circle-check'],['p-account','Account','refresh']]}
 };
 var BB_SEC={};Object.keys(BB).forEach(function(s){BB[s].items.forEach(function(i){BB_SEC['p-'+i[0]]=s;});});
 function bbToast(t){var el=document.getElementById('toast');if(!el)return;el.textContent=t;el.classList.add('on');setTimeout(function(){el.classList.remove('on');},1800);}
@@ -2382,7 +2501,7 @@ function bbQuick(q){
   else if(q==='q-fast')bbGoPanel('p-fast','#fa-type');
   else if(q==='q-water'){faAdd('water');bbClose();var f=faGet();bbToast('Water logged · '+(f.water*0.25)+' L this fast');}
 }
-(function(){var _go=go;go=function(id,btn){_go(id,btn);bbHighlight();};
+(function(){var _go=go;go=function(id,btn){_go(id,btn);bbHighlight();if(id==='p-week')wkRender();};
   var _sm=setAppMode;setAppMode=function(m){_sm(m);document.body.classList.toggle('has-bbar',m==='protocol');
     var cur=document.querySelector('.panel.on'),cid=cur?cur.id:'',isP=cid==='p-protocol'||cid.indexOf('p-p-')===0;
     if(m==='protocol'&&!isP)go('protocol',document.querySelector('[data-pillar="protocol"]'));
@@ -2436,7 +2555,7 @@ tvRender();
 window.addEventListener('DOMContentLoaded',function(){
 /* ---------- Cloud sync (Supabase, owner-only table) ---------- */
 var SB_URL='https://nvacylouzxbahpnwqcrc.supabase.co', SB_KEY='sb_publishable_lXCUQY2DzL0UhY8Pm-n3YQ_-WO6KS0E';
-var SYNC_KEYS=['tareeq-weight','tareeq-milestones','tareeq-checkin','tareeq-reflect','tareeq-connect','tareeq-fasts'];
+var SYNC_KEYS=['tareeq-weight','tareeq-milestones','tareeq-checkin','tareeq-reflect','tareeq-connect','tareeq-fasts','tareeq-labs'];
 var SB=null, SB_USER=null, acQ={}, acT=null, acLast=lsGet('tareeq-sync-last',null);
 try{ if(window.supabase&&window.supabase.createClient) SB=window.supabase.createClient(SB_URL,SB_KEY,{auth:{persistSession:true,autoRefreshToken:true,detectSessionInUrl:false,experimental:{passkey:true}}}); }catch(e){SB=null;}
 function acStamps(){return lsGet('tareeq-sync-stamps',{});}
@@ -2454,7 +2573,7 @@ async function acPasskeyState(){var b=document.getElementById('ac-reg');if(!b||!
   try{var r=await SB.auth.passkey.list();var n=(r&&r.data&&r.data.length)||0;
     if(n){b.innerHTML='<i class="ti ti-circle-check"></i> Face ID is on'+(n>1?' ('+n+' devices)':'');b.title='Tap to add Face ID on another device';}
     else{b.innerHTML='<i class="ti ti-plus"></i> Turn on Face ID for this device';}}catch(e){}}
-function acRenderAll(){try{wtRender();}catch(e){}try{buRender();}catch(e){}try{mhRender();}catch(e){}try{faRender();}catch(e){}}
+function acRenderAll(){try{lbRender();}catch(e){}try{wkRender();}catch(e){}try{wtRender();}catch(e){}try{buRender();}catch(e){}try{mhRender();}catch(e){}try{faRender();}catch(e){}}
 async function acPush(){
   if(!SB||!SB_USER||!navigator.onLine)return; var keys=Object.keys(acQ); if(!keys.length)return; acQ={};
   var st=acStamps(), rows=keys.map(function(k){return {user_id:SB_USER.id,key:k,value:lsGet(k,null),updated_at:new Date(st[k]||Date.now()).toISOString()};}).filter(function(r){return r.value!==null;});
