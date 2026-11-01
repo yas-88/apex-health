@@ -2318,7 +2318,7 @@ window.acPasskey=acPasskey;window.acPassword=acPassword;window.acRegister=acRegi
 });
 /* Connection pill: shows while offline, flashes when you're back */
 (function(){var p=document.getElementById('net-pill'),t=document.getElementById('net-txt'),h=null;if(!p)return;
-  function off(){clearTimeout(h);p.classList.remove('ok');t.textContent='Offline · saving on this device';p.classList.add('show');}
+  function off(){clearTimeout(h);p.classList.remove('ok');t.textContent='Offline · saved on device';p.classList.add('show');}
   function on(){clearTimeout(h);p.classList.add('ok');t.textContent='Back online · syncing';p.classList.add('show');h=setTimeout(function(){p.classList.remove('show');},2500);}
   window.addEventListener('offline',off);window.addEventListener('online',on);if(!navigator.onLine)off();})();
 
