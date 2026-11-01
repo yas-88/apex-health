@@ -350,6 +350,14 @@ nav.pillar-nav::-webkit-scrollbar{display:none}
 .legend{display:flex;gap:14px;flex-wrap:wrap;font-size:11px;color:var(--ink3);margin-top:8px}
 .legend span{display:inline-flex;align-items:center;gap:5px}
 .legend i.sw{display:inline-block;width:14px;height:2px;border-radius:1px}
+
+.mh-q{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:7px 0}
+.mh-q .lbl{font-size:13px;color:var(--ink2);min-width:58px}
+.mh-scale{display:flex;gap:6px}
+.mh-scale button{width:36px;height:36px;border-radius:50%;border:0.5px solid var(--bdr2);background:var(--bg);color:var(--ink2);font:inherit;font-size:13px;cursor:pointer}
+.mh-scale button.on{background:var(--repair);border-color:var(--repair);color:#fff}
+.mh-ta{width:100%;min-height:70px;font:inherit;font-size:13px;padding:9px 11px;border-radius:var(--rmd);border:0.5px solid var(--bdr2);background:var(--bg);color:var(--ink);resize:vertical;margin-top:6px;box-sizing:border-box}
+.mh-p{font-size:13px;color:var(--ink);margin-top:12px;font-weight:500}
 </style>
 </head>
 <body>
@@ -394,6 +402,7 @@ nav.pillar-nav::-webkit-scrollbar{display:none}
       <button class="nb" data-pillar="p-calendar" onclick="go('p-calendar',this)"><span class="nb-dot"></span>Calendar</button>
       <button class="nb" data-pillar="p-baseline" onclick="go('p-baseline',this)"><span class="nb-dot"></span>Baseline</button>
       <button class="nb" data-pillar="p-weight" onclick="go('p-weight',this)"><span class="nb-dot"></span>Weight</button>
+      <button class="nb" data-pillar="p-mind" onclick="go('p-mind',this)"><span class="nb-dot"></span>Mental health</button>
       <button class="nb" data-pillar="p-checkpoints" onclick="go('p-checkpoints',this)"><span class="nb-dot"></span>Checkpoints</button>
     </nav>
   </header>
@@ -1197,7 +1206,7 @@ nav.pillar-nav::-webkit-scrollbar{display:none}
       </div>
       <div class="card">
         <div class="ch"><div class="ci" style="background:var(--ground-bg)"><i class="ti ti-soup" style="color:var(--ground-dk)"></i></div><div><div class="ct">Dinner — with the last meal</div></div></div>
-        <div class="ex"><span class="exn">Avmacol (Nutramax), sulforaphane-producing <span class="tag tag-n" style="margin-left:4px">New</span></span><span class="exs">Dose per your bottle, with the meal</span></div>
+        <div class="ex"><span class="exn">Avmacol (Nutramax), sulforaphane-producing <span class="tag tag-n" style="margin-left:4px">New</span></span><span class="exs">2 tablets, with the meal</span></div>
         <div class="cd-legend" style="margin-top:8px">
           <span class="cd-legend-item"><span class="etag emrg"><i class="ti ti-sparkles"></i>Emerging</span> Probiotics for general gut health in healthy adults; sulforaphane for &#8220;detox&#8221;</span>
         </div>
@@ -1385,13 +1394,14 @@ nav.pillar-nav::-webkit-scrollbar{display:none}
 
     <!-- ═══════════ PROTOCOL: WEIGHT (manual log) ═══════════ -->
     <div id="p-p-weight" class="panel">
-      <div class="ibar"><i class="ti ti-info-circle"></i><span>A log with no target. The 7-day average shows direction; any single morning is mostly water and timing.</span></div>
+      <div class="ibar"><i class="ti ti-info-circle"></i><span>Target band 160 to 170 lb, and a waist under 35 in (half your height). Watch the 7-day average; any single morning is mostly water and timing.</span></div>
 
       <div class="ew">Log a weigh-in</div>
       <div class="card">
         <div class="wt-form">
           <input type="date" id="wt-date" aria-label="Date">
           <input type="number" id="wt-val" step="0.1" min="60" max="500" inputmode="decimal" placeholder="lb" aria-label="Weight in pounds">
+          <input type="number" id="wt-waist" step="0.25" min="20" max="70" inputmode="decimal" placeholder="waist in" aria-label="Waist in inches, optional">
           <button class="btn pr" onclick="wtAdd()"><i class="ti ti-plus"></i> Save</button>
         </div>
         <div class="cs" id="wt-msg" style="margin-top:6px"></div>
@@ -1400,7 +1410,7 @@ nav.pillar-nav::-webkit-scrollbar{display:none}
       <div class="ew">Trend</div>
       <div class="kpis" id="wt-stats"></div>
       <div class="card chart"><div id="wt-chart"></div>
-        <div class="legend"><span><i class="sw" style="background:var(--ink4)"></i>Daily</span><span><i class="sw" style="background:var(--repair)"></i>7-day average</span></div>
+        <div class="legend"><span><i class="sw" style="background:var(--ink4)"></i>Daily</span><span><i class="sw" style="background:var(--repair)"></i>7-day average</span><span><i class="sw" style="background:var(--repair-bg);height:8px"></i>Target band</span></div>
       </div>
 
       <div class="ew">Entries</div>
@@ -1413,7 +1423,79 @@ nav.pillar-nav::-webkit-scrollbar{display:none}
           <label class="btn"><i class="ti ti-arrow-up"></i> Import backup<input type="file" accept="application/json,.json" hidden onchange="wtImport(this)"></label>
         </div>
       </div>
-      <div class="wbar"><i class="ti ti-alert-circle"></i><span>Weigh under the same conditions each time, for example first thing in the morning. Same scale, same spot on the floor.</span></div>
+      <div class="card">
+        <div class="cb"><strong>Why this band.</strong> At 5&#8242;10&#8243;, 160 to 170 lb is a BMI of about 23 to 24.4, inside the CDC healthy range (18.5 to under 25, which tops out near 174 lb). BMI can&#8217;t tell muscle from fat, so the waist is the better finish line: under 35 in, per NICE&#8217;s half-your-height rule. If the waist gets there at 172, that counts.</div>
+        <div class="cb" style="margin-top:8px"><strong>Pace.</strong> About 1 to 2 lb a week (CDC). From 195, that&#8217;s roughly 3 to 8 months. The slower end protects muscle while you lift. <span class="muted">The muscle point is judgment.</span></div>
+      </div>
+      <div class="wbar"><i class="ti ti-alert-circle"></i><span>Weigh under the same conditions each time, for example first thing in the morning. Same scale, same spot on the floor. Measure the waist at the navel, relaxed, every 2 weeks or so.</span></div>
+
+      <div class="ctarow">
+        <button class="btn pr" onclick="go('p-checkpoints',document.querySelector('[data-pillar=p-checkpoints]'))"><i class="ti ti-calendar-event"></i> Checkpoints</button>
+        <button class="btn" onclick="go('protocol',document.querySelector('[data-pillar=protocol]'))"><i class="ti ti-arrow-left"></i> Back to my protocol</button>
+      </div>
+    </div>
+
+    <!-- ═══════════ PROTOCOL: MENTAL HEALTH ═══════════ -->
+    <div id="p-p-mind" class="panel">
+      <div class="ibar"><i class="ti ti-info-circle"></i><span>Speak to yourself like someone you&#8217;re helping. Everything on this tab stays on this phone.</span></div>
+
+      <div class="ew">Daily check-in</div>
+      <div class="card">
+        <div class="mh-q"><span class="lbl">Mood</span><div class="mh-scale" data-q="mood"><button onclick="mhPick('mood',1)">1</button><button onclick="mhPick('mood',2)">2</button><button onclick="mhPick('mood',3)">3</button><button onclick="mhPick('mood',4)">4</button><button onclick="mhPick('mood',5)">5</button></div></div>
+        <div class="mh-q"><span class="lbl">Energy</span><div class="mh-scale" data-q="energy"><button onclick="mhPick('energy',1)">1</button><button onclick="mhPick('energy',2)">2</button><button onclick="mhPick('energy',3)">3</button><button onclick="mhPick('energy',4)">4</button><button onclick="mhPick('energy',5)">5</button></div></div>
+        <div class="mh-q"><span class="lbl">Stress</span><div class="mh-scale" data-q="stress"><button onclick="mhPick('stress',1)">1</button><button onclick="mhPick('stress',2)">2</button><button onclick="mhPick('stress',3)">3</button><button onclick="mhPick('stress',4)">4</button><button onclick="mhPick('stress',5)">5</button></div></div>
+        <div class="cs" style="margin-top:4px">1 is low, 5 is high. Tap to save; tap again later to update today.</div>
+        <div class="cs" id="mh-msg" style="margin-top:4px"></div>
+      </div>
+      <div class="card chart"><div id="mh-chart"></div>
+        <div class="legend"><span><i class="sw" style="background:var(--repair)"></i>Mood</span><span><i class="sw" style="background:var(--fuel)"></i>Energy</span><span><i class="sw" style="background:var(--ground)"></i>Stress</span></div>
+      </div>
+
+      <div class="ew">Workday shutdown</div>
+      <div class="card">
+        <div class="steps">
+          <div class="step"><div class="step-n" style="background:var(--ground-bg);color:var(--ground-dk)">1</div><div class="step-t">Write tomorrow&#8217;s top 3 so they leave your head.</div></div>
+          <div class="step"><div class="step-n" style="background:var(--ground-bg);color:var(--ground-dk)">2</div><div class="step-t">Close the laptop and put it out of sight. Work notifications off.</div></div>
+          <div class="step"><div class="step-n" style="background:var(--ground-bg);color:var(--ground-dk)">3</div><div class="step-t">Mark the switch: a short walk, a change of clothes, or 5 minutes outside.</div></div>
+        </div>
+        <div class="cs" style="margin-top:8px">Same time every workday. <span class="muted">A working routine, not a clinical protocol.</span></div>
+      </div>
+
+      <div class="ew">Sunday reflection</div>
+      <div class="card">
+        <div class="cs" id="mh-week"></div>
+        <div class="mh-p">1. What went well this week, in body or work?</div>
+        <textarea class="mh-ta" id="mh-r1" oninput="mhReflect()"></textarea>
+        <div class="mh-p">2. Where was I hard on myself, and what would I tell a friend in the same spot?</div>
+        <textarea class="mh-ta" id="mh-r2" oninput="mhReflect()"></textarea>
+        <div class="mh-p">3. One thing to carry into next week.</div>
+        <textarea class="mh-ta" id="mh-r3" oninput="mhReflect()"></textarea>
+        <div class="cs" id="mh-rmsg" style="margin-top:6px">Saves as you type.</div>
+      </div>
+
+      <div class="ew">When to reach out</div>
+      <div class="card">
+        <div class="cb">Message Dr. Chikere if any of these last 2 weeks or more:</div>
+        <div class="ex"><span class="exn">Low mood or lost interest most days</span></div>
+        <div class="ex"><span class="exn">Sleep or appetite clearly off from normal</span></div>
+        <div class="ex"><span class="exn">Worry or stress getting in the way of work or rest</span></div>
+        <div class="cb" style="margin-top:8px">The check-in chart helps here: a run of 1s and 2s on mood is worth a message.</div>
+      </div>
+      <div class="wbar"><i class="ti ti-heart-handshake"></i><span><strong>Anytime, for anything heavier:</strong> call or text <strong>988</strong>, or chat at 988lifeline.org. If you&#8217;re in danger right now, call 911.</span></div>
+
+      <div class="ew">Calm toolkit</div>
+      <div class="card">
+        <div class="ex"><span class="exn">Cyclic sighing, 5 min</span><span class="exs">Two inhales through the nose (long, then a short top-up), one slow exhale through the mouth</span></div>
+        <div class="ex"><span class="exn">Bedtime breathwork, 3 to 5 min</span><span class="exs">Already in your weekly rhythm</span></div>
+        <div class="ex"><span class="exn">10-minute walk outside</span><span class="exs">For a stress spike mid-workday</span></div>
+        <div class="cd-legend" style="margin-top:8px">
+          <span class="cd-legend-item"><span class="etag emrg"><i class="ti ti-sparkles"></i>Emerging</span> Cyclic sighing: one small 2023 trial, better mood than meditation over 28 days</span>
+          <span class="cd-legend-item"><span class="etag est"><i class="ti ti-flask"></i>Established</span> Physical activity for mood and anxiety</span>
+        </div>
+      </div>
+
+      <div class="ew">Connection, this week</div>
+      <div class="card" id="mh-conn"></div>
 
       <div class="ctarow">
         <button class="btn pr" onclick="go('p-checkpoints',document.querySelector('[data-pillar=p-checkpoints]'))"><i class="ti ti-calendar-event"></i> Checkpoints</button>
@@ -1459,7 +1541,7 @@ nav.pillar-nav::-webkit-scrollbar{display:none}
         <div class="steps">
           <div class="step"><div class="step-n" style="background:var(--fire-bg);color:var(--fire-dk)">1</div><div class="step-t"><strong>Strength:</strong> max push-ups, dead hang time, pull-up progress, top weight and reps on rows, goblet squat, shrugs, static holds.</div></div>
           <div class="step"><div class="step-n" style="background:var(--repair-bg);color:var(--repair-dk)">2</div><div class="step-t"><strong>Sleep:</strong> how rested you wake, how steady the timing has been.</div></div>
-          <div class="step"><div class="step-n" style="background:var(--ground-bg);color:var(--ground-dk)">3</div><div class="step-t"><strong>Self-relationship:</strong> how you talk to yourself about training.</div></div>
+          <div class="step"><div class="step-n" style="background:var(--ground-bg);color:var(--ground-dk)">3</div><div class="step-t"><strong>Self-relationship:</strong> how you talk to yourself about training. Check the mood trend and your Sunday reflections in Mental health.</div></div>
           <div class="step"><div class="step-n" style="background:var(--fuel-bg);color:var(--fuel-dk)">4</div><div class="step-t"><strong>Labs:</strong> any results since the last checkpoint. Direction over any single reading.</div></div>
           <div class="step"><div class="step-n" style="background:var(--bg3);color:var(--ink2)">5</div><div class="step-t"><strong>Routines:</strong> latest hair and beard photo, and whether the shake plate and daily anchors are still worth their time.</div></div>
         </div>
@@ -1710,7 +1792,8 @@ function drawChart(el,series,opt){
   for(var i=0;i<=4;i++){var v=y0+(y1-y0)*i/4, y=Y(v);
     g+='<line x1="'+L+'" x2="'+(W-R)+'" y1="'+y+'" y2="'+y+'" style="stroke:var(--bdr);stroke-width:0.5"/>';
     g+='<text x="'+(L-4)+'" y="'+(y+3)+'" text-anchor="end">'+(opt.intY?Math.round(v):Math.round(v*10)/10)+'</text>';}
-  (opt.ticks||[]).forEach(function(t){g+='<text x="'+X(+t[0])+'" y="'+(H-6)+'" text-anchor="middle">'+t[1]+'</text>';});
+  if(opt.band){var bt=Y(Math.min(opt.band[1],y1)),bb=Y(Math.max(opt.band[0],y0));if(bb>bt)g+='<rect x="'+L+'" y="'+bt+'" width="'+(W-L-R)+'" height="'+(bb-bt)+'" style="fill:var(--repair-bg)"/>';}
+  (opt.ticks||[]).forEach(function(t){g+='<text x="'+X(+t[0])+'" y="'+(H-6)+'" text-anchor="'+(t[2]||'middle')+'">'+t[1]+'</text>';});
   if(opt.today){var tx=X(+opt.today);if(tx>=L&&tx<=W-R)g+='<line x1="'+tx+'" x2="'+tx+'" y1="'+T+'" y2="'+(H-B)+'" style="stroke:var(--fire);stroke-width:1;stroke-dasharray:2 2"/>';}
   series.forEach(function(s){
     if(!s.pts.length)return; var d='';
@@ -1725,13 +1808,14 @@ function drawChart(el,series,opt){
 
 /* ---------- Weight log ---------- */
 var WT_KEY='tareeq-weight';
-function wtData(){return lsGet(WT_KEY,[]).sort(function(a,b){return a.d<b.d?-1:1;});}
+var WT_HT=70, WT_BAND=[160,170];
+function wtData(){var d=lsGet(WT_KEY,null);if(!d){d=[{d:'2026-11-01',lb:195}];lsSet(WT_KEY,d);}return d.sort(function(a,b){return a.d<b.d?-1:1;});}
 function wtAdd(){
   var d=document.getElementById('wt-date').value, v=parseFloat(document.getElementById('wt-val').value), m=document.getElementById('wt-msg');
   if(!d||!(v>60&&v<500)){m.textContent='Add a date and a weight in pounds.';return;}
-  var data=wtData().filter(function(e){return e.d!==d;}); data.push({d:d,lb:Math.round(v*10)/10});
+  var wv=parseFloat(document.getElementById('wt-waist').value);var data=wtData().filter(function(e){return e.d!==d;}); var en={d:d,lb:Math.round(v*10)/10}; if(wv>20&&wv<70)en.waist=Math.round(wv*4)/4; data.push(en);
   if(!lsSet(WT_KEY,data)){m.textContent='Couldn’t save on this device. Private browsing blocks storage.';return;}
-  document.getElementById('wt-val').value=''; m.textContent='Saved for '+fmtD(d)+'.'; wtRender();
+  document.getElementById('wt-val').value='';document.getElementById('wt-waist').value=''; m.textContent='Saved for '+fmtD(d)+'.'; wtRender();
 }
 function wtDel(d){lsSet(WT_KEY,wtData().filter(function(e){return e.d!==d;}));wtRender();}
 function wtAvg(data,endKey,days){var end=pd(endKey),start=new Date(end);start.setDate(start.getDate()-(days-1));
@@ -1744,24 +1828,29 @@ function wtRender(){
   var a7=last?wtAvg(data,last.d,7):null;
   var prior=null; if(last){var p=pd(last.d);p.setDate(p.getDate()-28);prior=wtAvg(data,ymd(p),7);}
   function kpi(n,u,l){return '<div class="kpi"><div class="kpi-n">'+n+'<span class="kpi-u">'+u+'</span></div><div class="kpi-l">'+l+'</div></div>';}
-  st.innerHTML=kpi(last?last.lb:'–','lb',last?'Latest, '+fmtD(last.d):'Latest')+kpi(a7!=null?a7.toFixed(1):'–','lb','7-day average')+kpi((a7!=null&&prior!=null)?((a7-prior>0?'+':'')+(a7-prior).toFixed(1)):'–','lb','vs 4 weeks ago');
+  st.innerHTML=kpi(last?last.lb:'–','lb',last?'Latest, '+fmtD(last.d):'Latest')+kpi(a7!=null?a7.toFixed(1):'–','lb','7-day average')+kpi((a7!=null&&prior!=null)?((a7-prior>0?'+':'')+(a7-prior).toFixed(1)):'–','lb','vs 4 weeks ago')
+    +kpi(a7!=null?(a7>WT_BAND[1]?(a7-WT_BAND[1]).toFixed(1):(a7<WT_BAND[0]?'Below':'In')):'–',a7!=null&&a7>WT_BAND[1]?'lb':(a7!=null&&a7>=WT_BAND[0]?' band':''),'To the 160–170 band')
+    +kpi(a7!=null?(703*a7/(WT_HT*WT_HT)).toFixed(1):'–','','BMI, 7-day avg');
+  var wl=data.filter(function(e){return e.waist;}).pop();
+  if(wl)st.innerHTML+=kpi(wl.waist,'in','Waist, '+fmtD(wl.d)+'. Goal under '+(WT_HT/2));
   var daily=data.map(function(e){return [pd(e.d),e.lb];});
   var avg=data.map(function(e){return [pd(e.d),wtAvg(data,e.d,7)];});
   var ticks=[]; if(daily.length){var a=+daily[0][0],b=+daily[daily.length-1][0];[0,0.5,1].forEach(function(f){var t=new Date(a+(b-a)*f);ticks.push([t,MON[t.getMonth()]+' '+t.getDate()]);});}
-  drawChart(document.getElementById('wt-chart'),[{pts:daily,color:'var(--ink4)',line:false,dots:true},{pts:avg,color:'var(--repair)',w:2}],{ticks:ticks,label:'Weight trend'});
+  var lo=Math.min.apply(null,data.map(function(e){return e.lb;}).concat([WT_BAND[0]]))-3, hi=Math.max.apply(null,data.map(function(e){return e.lb;}).concat([WT_BAND[1]]))+3;
+  drawChart(document.getElementById('wt-chart'),[{pts:daily,color:'var(--ink4)',line:false,dots:true},{pts:avg,color:'var(--repair)',w:2}],{ticks:ticks,intY:true,band:WT_BAND,y0:Math.floor(lo),y1:Math.ceil(hi),label:'Weight trend with target band'});
   var li=document.getElementById('wt-list');
-  li.innerHTML=data.length?data.slice().reverse().slice(0,30).map(function(e){return '<div class="wt-row"><span>'+fmtD(e.d)+'</span><span><strong>'+e.lb+'</strong> lb <button onclick="wtDel(\''+e.d+'\')" aria-label="Delete entry">✕</button></span></div>';}).join(''):'<div class="cs">No entries yet.</div>';
+  li.innerHTML=data.length?data.slice().reverse().slice(0,30).map(function(e){return '<div class="wt-row"><span>'+fmtD(e.d)+'</span><span><strong>'+e.lb+'</strong> lb'+(e.waist?' · '+e.waist+' in':'')+' <button onclick="wtDel(\''+e.d+'\')" aria-label="Delete entry">✕</button></span></div>';}).join(''):'<div class="cs">No entries yet.</div>';
 }
 function wtExport(){
-  var blob=new Blob([JSON.stringify({weight:wtData(),milestones:lsGet(BU_KEY,{})},null,1)],{type:'application/json'});
+  var blob=new Blob([JSON.stringify({weight:wtData(),milestones:lsGet(BU_KEY,{}),checkin:lsGet(MH_KEY,{}),reflect:lsGet(MH_R,{}),connect:lsGet(MH_C,{})},null,1)],{type:'application/json'});
   var a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='tareeq-backup-'+ymd(new Date())+'.json';document.body.appendChild(a);a.click();setTimeout(function(){URL.revokeObjectURL(a.href);a.remove();},500);
 }
 function wtImport(inp){
   var f=inp.files&&inp.files[0]; if(!f)return; var r=new FileReader();
   r.onload=function(){try{var j=JSON.parse(r.result);var w=Array.isArray(j)?j:(j.weight||[]);
     var map={};wtData().concat(w).forEach(function(e){if(e&&e.d&&e.lb)map[e.d]=e;});lsSet(WT_KEY,Object.keys(map).map(function(k){return map[k];}));
-    if(j.milestones){var m=lsGet(BU_KEY,{});Object.keys(j.milestones).forEach(function(k){m[k]=j.milestones[k];});lsSet(BU_KEY,m);}
-    document.getElementById('wt-msg').textContent='Backup imported.';wtRender();buRender();}catch(e){document.getElementById('wt-msg').textContent='That file isn’t a Tareeq backup.';}};
+    [['milestones',BU_KEY],['checkin',MH_KEY],['reflect',MH_R],['connect',MH_C]].forEach(function(p){if(j[p[0]]){var m=lsGet(p[1],{});Object.keys(j[p[0]]).forEach(function(k){m[k]=j[p[0]][k];});lsSet(p[1],m);}});
+    document.getElementById('wt-msg').textContent='Backup imported.';wtRender();buRender();mhRender();}catch(e){document.getElementById('wt-msg').textContent='That file isn’t a Tareeq backup.';}};
   r.readAsText(f); inp.value='';
 }
 
@@ -1796,6 +1885,36 @@ function buRender(){
     return '<label class="bu-row'+(d?' done':'')+'"><input type="checkbox"'+(d?' checked':'')+' onchange="buToggle(\''+i.k+'\',this)"><span class="bu-d">'+fmtD(i.k)+'</span><span class="bu-t">'+i.t.replace(/&/g,'&amp;')+'</span></label>';}).join('')+'<div class="cs" style="padding-top:8px">Milestones appear here 2 weeks before they&#8217;re due.</div>';
 }
 wtRender(); buRender();
+/* ---------- Mental health ---------- */
+var MH_KEY='tareeq-checkin', MH_R='tareeq-reflect', MH_C='tareeq-connect';
+function weekKey(d){d=new Date(d);d.setHours(0,0,0,0);var w=(d.getDay()+6)%7;d.setDate(d.getDate()-w);return ymd(d);}
+function mhPick(q,v){var all=lsGet(MH_KEY,{}),k=ymd(new Date());all[k]=all[k]||{};all[k][q]=v;
+  if(!lsSet(MH_KEY,all)){document.getElementById('mh-msg').textContent='Couldn’t save on this device.';return;}
+  document.getElementById('mh-msg').textContent='Saved for today.';mhRender();}
+var mhT=null;
+function mhReflect(){clearTimeout(mhT);mhT=setTimeout(function(){var all=lsGet(MH_R,{}),k=weekKey(new Date());
+  all[k]={a:document.getElementById('mh-r1').value,b:document.getElementById('mh-r2').value,c:document.getElementById('mh-r3').value,t:Date.now()};
+  lsSet(MH_R,all);document.getElementById('mh-rmsg').textContent='Saved.';},500);}
+function mhConn(id,el){var all=lsGet(MH_C,{}),k=weekKey(new Date());all[k]=all[k]||{};all[k][id]=el.checked;lsSet(MH_C,all);el.parentNode.classList.toggle('done',el.checked);}
+function mhRender(){
+  var box=document.getElementById('mh-chart'); if(!box)return;
+  var all=lsGet(MH_KEY,{}), today=all[ymd(new Date())]||{};
+  ['mood','energy','stress'].forEach(function(q){var row=document.querySelector('.mh-scale[data-q="'+q+'"]');if(!row)return;
+    [].forEach.call(row.children,function(b,i){b.classList.toggle('on',today[q]===i+1);b.setAttribute('aria-pressed',today[q]===i+1);});});
+  var end=new Date();end.setHours(0,0,0,0);var start=new Date(end);start.setDate(start.getDate()-29);
+  var keys=Object.keys(all).filter(function(k){var t=pd(k);return t>=start&&t<=end;}).sort();
+  function ser(q,c){return {pts:keys.filter(function(k){return all[k][q];}).map(function(k){return [pd(k),all[k][q]];}),color:c,dots:true,w:1.6};}
+  if(!keys.length){box.innerHTML='<div class="cs" style="padding:20px 0;text-align:center">Your last 30 days show up here.</div>';}
+  else drawChart(box,[ser('mood','var(--repair)'),ser('energy','var(--fuel)'),ser('stress','var(--ground)')],{x0:+start,x1:+end,y0:1,y1:5,intY:true,ticks:[[start,MON[start.getMonth()]+' '+start.getDate(),'start'],[end,'Today','end']],label:'Mood, energy and stress, last 30 days'});
+  var wk=weekKey(new Date()), r=lsGet(MH_R,{})[wk]||{};
+  var we=pd(wk);we.setDate(we.getDate()+6);
+  document.getElementById('mh-week').textContent='Week of '+fmtD(wk)+' to '+fmtD(ymd(we));
+  ['a','b','c'].forEach(function(f,i){var t=document.getElementById('mh-r'+(i+1));if(t&&document.activeElement!==t)t.value=r[f]||'';});
+  var c=lsGet(MH_C,{})[wk]||{};
+  document.getElementById('mh-conn').innerHTML=[['call','Called or saw family or a friend'],['out','Time outdoors, unhurried']].map(function(p){
+    return '<label class="bu-row'+(c[p[0]]?' done':'')+'"><input type="checkbox"'+(c[p[0]]?' checked':'')+' onchange="mhConn(\''+p[0]+'\',this)"><span class="bu-t">'+p[1]+'</span></label>';}).join('')+'<div class="cs" style="padding-top:8px">Resets every Monday.</div>';
+}
+mhRender();
 
 /* Offline: save the app on first visit so it opens without internet */
 if('serviceWorker' in navigator){window.addEventListener('load',function(){navigator.serviceWorker.register('sw.js').catch(function(){});});}
