@@ -204,7 +204,9 @@ nav.pillar-nav::-webkit-scrollbar{display:none}
 .cb{font-size:12.5px;color:var(--ink2);line-height:1.65}
 .ex{display:flex;justify-content:space-between;align-items:baseline;padding:6px 0;border-bottom:0.5px solid var(--bdr);gap:12px}
 .ex:last-child{border-bottom:none}
-.exn{font-size:12.5px;font-weight:500;color:var(--ink);flex-shrink:0}
+.exn{font-size:12.5px;font-weight:500;color:var(--ink);flex:0 1 auto;min-width:0;overflow-wrap:anywhere}
+.exs{flex:1 1 45%;min-width:0;overflow-wrap:anywhere}
+@media (max-width:560px){.ex{flex-direction:column;align-items:flex-start;gap:2px}.ex .exn{max-width:100%}.ex .exs{text-align:left;flex-basis:auto}}
 .tl .ex{flex-direction:column;align-items:flex-start;gap:2px}
 .tl .exn{flex-shrink:1}
 .tl .exs{text-align:left;padding-left:2px}
@@ -413,6 +415,29 @@ body.has-bbar .fab{display:flex}
 .toast{position:fixed;left:50%;bottom:calc(140px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);z-index:960;background:var(--ink);color:var(--bg);font-size:12.5px;padding:8px 14px;border-radius:999px;opacity:0;transition:opacity .2s;pointer-events:none;white-space:nowrap}
 .toast.on{opacity:1}
 @media (prefers-reduced-motion:reduce){.sheet,.sheet-bg{transition:none}}
+
+/* Phone-width fixes: nothing runs off the edge */
+.fc-head{flex-wrap:wrap}
+.fc-head>*:first-child{min-width:0;flex:1 1 200px}
+.fc-sources{flex-shrink:1;min-width:0}
+.card,.fusion-card,.today{min-width:0;overflow-wrap:anywhere}
+[style*="grid-template-columns:repeat(2,1fr)"]{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+[style*="grid-template-columns:repeat(7,1fr)"]{grid-template-columns:repeat(7,minmax(0,1fr))!important}
+[style*="grid-template-columns:repeat(7,1fr)"] .card{padding:8px 2px!important}
+[style*="grid-template-columns:repeat(7,1fr)"] .card div{overflow-wrap:normal;word-break:break-word;font-size:9px!important}
+.td-top{flex-wrap:wrap}
+@media (max-width:350px){.mh-q{flex-wrap:wrap;gap:6px}.mh-q .lbl{width:100%}}
+@media (max-width:380px){
+  .mh-scale{gap:4px}
+  .mh-scale button{width:30px;height:30px;font-size:12px}
+  .mh-scale button[style*="width:44px"]{width:38px!important}
+  .mh-scale button[style*="width:52px"]{width:46px!important}
+  .mh-q .lbl{min-width:48px;font-size:12px}
+  [style*="grid-template-columns:repeat(2,1fr)"]{grid-template-columns:minmax(0,1fr)!important}
+  .fusion-card{padding:16px 14px}
+  .kpi{padding:12px 12px}
+  .kpi-n{font-size:21px}
+}
 </style>
 </head>
 <body>
