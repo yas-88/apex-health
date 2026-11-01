@@ -1521,7 +1521,7 @@ nav.pillar-nav::-webkit-scrollbar{display:none}
         <div class="card">
           <div class="wt-form">
             <button class="btn pr" onclick="acSync(true)"><i class="ti ti-refresh"></i> Sync now</button>
-            <button class="btn" onclick="acRegister()"><i class="ti ti-plus"></i> Turn on Face ID for this device</button>
+            <button class="btn" id="ac-reg" onclick="acRegister()"><i class="ti ti-plus"></i> Turn on Face ID for this device</button>
             <button class="btn" onclick="acSignOut()">Sign out</button>
           </div>
           <div class="cs" style="margin-top:8px">Syncs weight, milestones, check-ins, sleep, reflections, connection and fasts. Travel mode and the alert you dismissed stay on each device.</div>
@@ -2277,6 +2277,10 @@ function acUI(){
   if(!SB){st.textContent='Sync isn’t available right now (the sync library didn’t load). Everything still saves on this device.';return;}
   st.innerHTML=SB_USER?('Signed in as <strong>'+SB_USER.email+'</strong>. '+(acLast?'Last synced '+new Date(acLast).toLocaleString([], {month:'short',day:'numeric',hour:'numeric',minute:'2-digit'})+'.':'Not synced yet.')+(navigator.onLine?'':' Offline: changes will sync when you’re back online.')):'Not signed in. Everything still saves on this device.';
 }
+async function acPasskeyState(){var b=document.getElementById('ac-reg');if(!b||!SB||!SB_USER||!SB.auth.passkey)return;
+  try{var r=await SB.auth.passkey.list();var n=(r&&r.data&&r.data.length)||0;
+    if(n){b.innerHTML='<i class="ti ti-circle-check"></i> Face ID is on'+(n>1?' ('+n+' devices)':'');b.title='Tap to add Face ID on another device';}
+    else{b.innerHTML='<i class="ti ti-plus"></i> Turn on Face ID for this device';}}catch(e){}}
 function acRenderAll(){try{wtRender();}catch(e){}try{buRender();}catch(e){}try{mhRender();}catch(e){}try{faRender();}catch(e){}}
 async function acPush(){
   if(!SB||!SB_USER||!navigator.onLine)return; var keys=Object.keys(acQ); if(!keys.length)return; acQ={};
@@ -2305,10 +2309,10 @@ async function acPassword(){if(!SB)return;var e=document.getElementById('ac-emai
   if(r.error){acMsg('Sign-in failed: '+r.error.message);return;}acMsg('Signed in. Turn on Face ID below so you don’t need the password again.');}
 async function acRegister(){if(!SB||!SB_USER)return;acMsg('Follow the Face ID prompt…');var r=await SB.auth.registerPasskey();
   if(r.error){acMsg(r.error.message.indexOf('disabled')>-1?'Face ID isn’t switched on in Supabase yet (Authentication, Passkeys). Your data still syncs.':(r.error.message.indexOf('exists')>-1?'Face ID is already set up on this device.':'Couldn’t set up Face ID: '+r.error.message));return;}
-  acMsg('Face ID is on. Next time, tap “Sign in with Face ID.”');}
+  acMsg('Face ID is on. Next time, tap “Sign in with Face ID.”');acPasskeyState();}
 async function acSignOut(){if(!SB)return;await SB.auth.signOut();acMsg('Signed out. Your entries stay on this device.');}
 if(SB){
-  SB.auth.onAuthStateChange(function(ev,session){SB_USER=session&&session.user?session.user:null;acUI();if(SB_USER&&(ev==='SIGNED_IN'||ev==='INITIAL_SESSION'))setTimeout(function(){acSync(false);},0);});
+  SB.auth.onAuthStateChange(function(ev,session){SB_USER=session&&session.user?session.user:null;acUI();if(SB_USER)acPasskeyState();if(SB_USER&&(ev==='SIGNED_IN'||ev==='INITIAL_SESSION'))setTimeout(function(){acSync(false);},0);});
   window.addEventListener('online',function(){acUI();acSync(false);});
   window.addEventListener('offline',acUI);
   document.addEventListener('visibilitychange',function(){if(document.visibilityState==='visible')acSync(false);});
