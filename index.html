@@ -358,6 +358,7 @@ nav.pillar-nav::-webkit-scrollbar{display:none}
 .mh-scale button.on{background:var(--repair);border-color:var(--repair);color:#fff}
 .mh-ta{width:100%;min-height:70px;font:inherit;font-size:13px;padding:9px 11px;border-radius:var(--rmd);border:0.5px solid var(--bdr2);background:var(--bg);color:var(--ink);resize:vertical;margin-top:6px;box-sizing:border-box}
 .mh-p{font-size:13px;color:var(--ink);margin-top:12px;font-weight:500}
+.fa-sel{font:inherit;font-size:13px;padding:9px 10px;border-radius:var(--rmd);border:0.5px solid var(--bdr2);background:var(--bg);color:var(--ink);max-width:100%}
 </style>
 </head>
 <body>
@@ -399,6 +400,7 @@ nav.pillar-nav::-webkit-scrollbar{display:none}
       <button class="nb" data-pillar="p-training" onclick="go('p-training',this)"><span class="nb-dot"></span>Training</button>
       <button class="nb" data-pillar="p-nutrition" onclick="go('p-nutrition',this)"><span class="nb-dot"></span>Nutrition</button>
       <button class="nb" data-pillar="p-supplements" onclick="go('p-supplements',this)"><span class="nb-dot"></span>Supplements</button>
+      <button class="nb" data-pillar="p-fast" onclick="go('p-fast',this)"><span class="nb-dot"></span>Fasting</button>
       <button class="nb" data-pillar="p-calendar" onclick="go('p-calendar',this)"><span class="nb-dot"></span>Calendar</button>
       <button class="nb" data-pillar="p-rhythm" onclick="go('p-rhythm',this)"><span class="nb-dot"></span>Rhythm</button>
       <button class="nb" data-pillar="p-baseline" onclick="go('p-baseline',this)"><span class="nb-dot"></span>Baseline</button>
@@ -1233,6 +1235,82 @@ nav.pillar-nav::-webkit-scrollbar{display:none}
       </div>
     </div>
 
+    <!-- ═══════════ PROTOCOL: FASTING (tracker, Ramadan, extended) ═══════════ -->
+    <div id="p-p-fast" class="panel">
+      <div class="ibar"><i class="ti ti-info-circle"></i><span>Track any fast here: the Sunday 24, a Ramadan day, or a longer water fast once it&#8217;s cleared. Hydration, electrolytes, how you feel, and when to stop.</span></div>
+
+      <div class="ew">Fast tracker</div>
+      <div class="card" id="fa-card">
+        <div id="fa-idle">
+          <div class="wt-form">
+            <select id="fa-type" class="fa-sel" aria-label="Fast type">
+              <option value="24">24-hour water fast</option>
+              <option value="ramadan">Ramadan day (dry, dawn to sunset)</option>
+              <option value="ext">Extended water fast (24 h+)</option>
+            </select>
+            <button class="btn pr" onclick="faStart()"><i class="ti ti-clock"></i> Start now</button>
+          </div>
+          <div class="cs" style="margin-top:6px">Started earlier? Start now, then adjust the start time below.</div>
+        </div>
+        <div id="fa-live" style="display:none">
+          <div class="kpis" id="fa-kpis" style="margin-bottom:10px"></div>
+          <div class="wt-form" id="fa-water-row">
+            <button class="btn" onclick="faAdd('water')"><i class="ti ti-droplet"></i> + Water (250 mL)</button>
+            <button class="btn" onclick="faAdd('lytes')"><i class="ti ti-plus"></i> Electrolytes</button>
+          </div>
+          <div class="mh-q" style="margin-top:8px"><span class="lbl">Feeling</span><div class="mh-scale" data-q="faFeel"><button onclick="faFeel(1)">1</button><button onclick="faFeel(2)">2</button><button onclick="faFeel(3)">3</button><button onclick="faFeel(4)">4</button><button onclick="faFeel(5)">5</button></div></div>
+          <div class="cs" style="margin:8px 0 4px">Any of these right now?</div>
+          <div id="fa-sym"></div>
+          <div id="fa-stop"></div>
+          <div class="wt-form" style="margin-top:10px">
+            <label class="cs">Started <input type="datetime-local" id="fa-start" onchange="faSetStart(this.value)" style="font:inherit;font-size:12px;padding:5px 8px;border-radius:var(--rmd);border:0.5px solid var(--bdr2);background:var(--bg);color:var(--ink)"></label>
+          </div>
+          <div class="wt-form" style="margin-top:10px">
+            <button class="btn pr" onclick="faEnd()"><i class="ti ti-circle-check"></i> Break the fast</button>
+            <button class="btn" onclick="faCancel()">Discard</button>
+          </div>
+        </div>
+      </div>
+      <div class="card"><div class="ew" style="margin-top:0">Past fasts</div><div id="fa-hist"></div></div>
+
+      <div class="wbar"><i class="ti ti-alert-circle"></i><span><strong>Stop the fast and eat or drink</strong> if you get dizzy or faint, your heart races or your chest hurts, you feel confused, you vomit, or weakness keeps building. Get care right away if it&#8217;s severe or doesn&#8217;t settle after eating and drinking.</span></div>
+
+      <div class="ew">Ramadan</div>
+      <div class="card">
+        <div class="ch"><div class="ci" style="background:var(--ground-bg)"><i class="ti ti-moon-stars" style="color:var(--ground-dk)"></i></div><div><div class="ct">2027: expected Feb 8 to about Mar 9</div><div class="cs">Exact dates follow the moon sighting. Eid al-Fitr expected Mar 9 or 10</div></div></div>
+        <div class="ex"><span class="exn">Hydration</span><span class="exs">Small sips often from iftar to bed, about 200 mL every 30 min, then again at suhoor. Aim for 3 to 4 L across the night on training days. Electrolytes help you hold it</span></div>
+        <div class="ex"><span class="exn">Training</span><span class="exs">Lifting goes best 1 to 3 hours after iftar. Light work before iftar is fine if it ends near sunset and stays under about an hour. Cut volume the first week</span></div>
+        <div class="ex"><span class="exn">Sleep</span><span class="exs">Expect less. A 20 to 40 min early-afternoon nap helps; keep bed and wake times steady</span></div>
+        <div class="ex"><span class="exn">Suhoor</span><span class="exs">Protein, slow carbs, water, and the L-theanine coffee if you want it. As close to dawn as practical</span></div>
+        <div class="ex"><span class="exn">Iftar</span><span class="exs">Water and dates first, then a full meal. Multivitamin, fish oil, probiotic, Avmacol and K2 with it</span></div>
+        <div class="ex"><span class="exn">Creatine</span><span class="exs">Mix the 10 g into your electrolytes and sip it between iftar and bed</span></div>
+        <div class="ex"><span class="exn">Bedtime</span><span class="exs">Magnesium and ashwagandha as usual; calcium 2+ hours away from magnesium</span></div>
+        <div class="ex"><span class="exn">Sunday 24</span><span class="exs">Pause it during Ramadan; the daily fast covers it. <span class="muted">Judgment.</span></span></div>
+        <div class="cd-legend" style="margin-top:8px">
+          <span class="cd-legend-item"><span class="etag est"><i class="ti ti-flask"></i>Established</span> Hydration, training timing and nap guidance (Aspetar sports medicine guide)</span>
+          <span class="cd-legend-item"><span class="etag emrg"><i class="ti ti-sparkles"></i>Judgment</span> Supplement timing (the guide doesn&#8217;t cover supplements)</span>
+        </div>
+      </div>
+
+      <div class="ew">Extended water fast (24 h+)</div>
+      <div class="wbar" style="background:var(--fire-bg);border-color:var(--fire-mid)"><i class="ti ti-alert-circle" style="color:var(--fire-dk)"></i><span><strong>Gate not cleared.</strong> Your rule: Dr. Chikere&#8217;s OK plus a reason beyond weight loss, and you chose to wait until the labs read normal. Log here once that&#8217;s in place.</span></div>
+      <div class="card">
+        <div class="ex"><span class="exn">Before</span><span class="exs">Doctor&#8217;s sign-off, a planned length, and someone who knows you&#8217;re fasting</span></div>
+        <div class="ex"><span class="exn">During</span><span class="exs">Water through the day, electrolytes per your doctor&#8217;s plan. Log both here so you can see the totals</span></div>
+        <div class="ex"><span class="exn">Movement</span><span class="exs">Walks, mobility, yoga. Skip heavy lifting and soccer until you&#8217;ve refed. <span class="muted">Judgment.</span></span></div>
+        <div class="ex"><span class="exn">Supplements</span><span class="exs">Hold the ones meant to go with food until you eat again; ask Dr. Chikere about the rest. <span class="muted">Judgment.</span></span></div>
+        <div class="ex"><span class="exn">Breaking it</span><span class="exs">Small, easy meals first and build up. Supervised programs refeed for about half the fast&#8217;s length</span></div>
+      </div>
+
+      <div class="ew">Dry fasting</div>
+      <div class="card"><div class="cb">Dry fasting means no water at all, and dehydration is its main risk, along with strain on the kidneys. Cleveland Clinic advises against it outside a supervised setting. Keep dry fasting to Ramadan&#8217;s dawn-to-sunset days. Longer fasts here are water fasts. Your creatine and the creatinine caution in Baseline are one more reason to stay hydrated.</div></div>
+
+      <div class="ctarow">
+        <button class="btn pr" onclick="go('p-nutrition',document.querySelector('[data-pillar=p-nutrition]'))"><i class="ti ti-soup"></i> Nutrition</button>
+        <button class="btn" onclick="go('protocol',document.querySelector('[data-pillar=protocol]'))"><i class="ti ti-arrow-left"></i> Back to my protocol</button>
+      </div>
+    </div>
+
     <!-- ═══════════ PROTOCOL: CALENDAR (recovery rhythm) ═══════════ -->
     <div id="p-p-calendar" class="panel">
       <div class="ibar"><i class="ti ti-info-circle"></i><span>Drawn from <span class="charter-link" onclick="setAppMode('charter');go('repair',document.querySelector('[data-pillar=repair]'))"><i class="ti ti-moon"></i>Repair</span> — the rest of the weekly recovery rhythm.</span></div>
@@ -1861,6 +1939,7 @@ var CP=(function(){
 /* Yearly season and clock alerts, generated so they never run out */
 function nthSun(y,m,n){var d=new Date(y,m,1);d.setDate(1+((7-d.getDay())%7)+7*(n-1));return d;}
 var ALERTS=(function(){var L=CP.slice(),y0=new Date().getFullYear();
+  [[new Date(2027,0,25),'Ramadan in 2 weeks','Expected Feb 8 (moon sighting). Fasting tab: hydration, training timing, supplements.'],[new Date(2027,1,8),'Ramadan expected to begin','Fasting tab has the plan. Pause the Sunday 24.']].forEach(function(e){L.push({d:e[0],k:ymd(e[0])+'-r',t:e[1],s:e[2]});});
   for(var y=y0;y<=y0+1;y++){
     [[new Date(y,2,1),'Spring starts','Rhythm tab: days lengthen fast, retire the light box when mornings are bright.'],
      [nthSun(y,2,2),'Clocks spring forward (2 am)','Shift bedtime 15 minutes earlier for a few nights.'],
@@ -1993,13 +2072,14 @@ function wtRender(){
   li.innerHTML=data.length?data.slice().reverse().slice(0,30).map(function(e){return '<div class="wt-row"><span>'+fmtD(e.d)+'</span><span><strong>'+e.lb+'</strong> lb'+(e.waist?' · '+e.waist+' in':'')+' <button onclick="wtDel(\''+e.d+'\')" aria-label="Delete entry">✕</button></span></div>';}).join(''):'<div class="cs">No entries yet.</div>';
 }
 function wtExport(){
-  var blob=new Blob([JSON.stringify({weight:wtData(),milestones:lsGet(BU_KEY,{}),checkin:lsGet(MH_KEY,{}),reflect:lsGet(MH_R,{}),connect:lsGet(MH_C,{})},null,1)],{type:'application/json'});
+  var blob=new Blob([JSON.stringify({weight:wtData(),milestones:lsGet(BU_KEY,{}),checkin:lsGet(MH_KEY,{}),reflect:lsGet(MH_R,{}),connect:lsGet(MH_C,{}),fasts:lsGet('tareeq-fasts',[])},null,1)],{type:'application/json'});
   var a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='tareeq-backup-'+ymd(new Date())+'.json';document.body.appendChild(a);a.click();setTimeout(function(){URL.revokeObjectURL(a.href);a.remove();},500);
 }
 function wtImport(inp){
   var f=inp.files&&inp.files[0]; if(!f)return; var r=new FileReader();
   r.onload=function(){try{var j=JSON.parse(r.result);var w=Array.isArray(j)?j:(j.weight||[]);
     var map={};wtData().concat(w).forEach(function(e){if(e&&e.d&&e.lb)map[e.d]=e;});lsSet(WT_KEY,Object.keys(map).map(function(k){return map[k];}));
+    if(Array.isArray(j.fasts)){var fl=lsGet('tareeq-fasts',[]),seen={};fl.forEach(function(f){seen[f.start]=1;});j.fasts.forEach(function(f){if(f&&f.start&&!seen[f.start])fl.push(f);});lsSet('tareeq-fasts',fl);}
     [['milestones',BU_KEY],['checkin',MH_KEY],['reflect',MH_R],['connect',MH_C]].forEach(function(p){if(j[p[0]]){var m=lsGet(p[1],{});Object.keys(j[p[0]]).forEach(function(k){m[k]=j[p[0]][k];});lsSet(p[1],m);}});
     document.getElementById('wt-msg').textContent='Backup imported.';wtRender();buRender();mhRender();}catch(e){document.getElementById('wt-msg').textContent='That file isn’t a Tareeq backup.';}};
   r.readAsText(f); inp.value='';
@@ -2085,6 +2165,41 @@ function mhTip(t){var el=document.getElementById('mh-tip');if(!el)return;var h='
   if(t.energy&&t.energy<=2&&!(t.stress>=4))h+='<div class="wbar" style="margin-top:10px"><i class="ti ti-sun"></i><span><strong>Low energy.</strong> Daylight and a short walk first. Then check last night&#8217;s sleep and whether you drank enough today.</span></div>';
   el.innerHTML=h;}
 mhRender();
+/* ---------- Fasting tracker ---------- */
+var FA_ACT='tareeq-fast-active', FA_LOG='tareeq-fasts';
+var FA_NAMES={'24':'24-hour water fast','ramadan':'Ramadan day','ext':'Extended water fast'};
+var FA_SYM=[['dizzy','Dizzy or faint'],['heart','Racing heart or chest pain'],['confused','Confused or foggy beyond normal'],['vomit','Vomiting'],['weak','Weakness that keeps building'],['head','Headache'],['cold','Cold or shaky']];
+var FA_RED=['dizzy','heart','confused','vomit','weak'];
+function faGet(){return lsGet(FA_ACT,null);} function faPut(a){lsSet(FA_ACT,a);}
+function faStart(){var t=document.getElementById('fa-type').value;faPut({type:t,start:Date.now(),water:0,lytes:0,feel:null,sym:{}});faRender();}
+function faAdd(k){var a=faGet();if(!a)return;a[k]=(a[k]||0)+1;faPut(a);faRender();}
+function faFeel(v){var a=faGet();if(!a)return;a.feel=v;faPut(a);faRender();}
+function faSym(k,el){var a=faGet();if(!a)return;a.sym=a.sym||{};a.sym[k]=el.checked;faPut(a);faRender();}
+function faSetStart(v){var a=faGet();if(!a||!v)return;var t=new Date(v).getTime();if(t&&t<=Date.now()){a.start=t;faPut(a);faRender();}}
+function faEnd(){var a=faGet();if(!a)return;var log=lsGet(FA_LOG,[]);a.end=Date.now();log.push(a);lsSet(FA_LOG,log);try{localStorage.removeItem(FA_ACT);}catch(e){}faRender();}
+function faCancel(){try{localStorage.removeItem(FA_ACT);}catch(e){}faRender();}
+function faDur(ms){var h=Math.floor(ms/3600000),m=Math.floor(ms%3600000/60000);return h+'h '+('0'+m).slice(-2)+'m';}
+function faLocal(ms){var d=new Date(ms);d.setMinutes(d.getMinutes()-d.getTimezoneOffset());return d.toISOString().slice(0,16);}
+function faRender(){
+  var card=document.getElementById('fa-card'); if(!card)return; var a=faGet();
+  document.getElementById('fa-idle').style.display=a?'none':'';
+  document.getElementById('fa-live').style.display=a?'':'none';
+  if(a){
+    var el=Date.now()-a.start, dry=a.type==='ramadan';
+    function kpi(n,u,l){return '<div class="kpi"><div class="kpi-n">'+n+'<span class="kpi-u">'+u+'</span></div><div class="kpi-l">'+l+'</div></div>';}
+    document.getElementById('fa-kpis').innerHTML=kpi(faDur(el),'',FA_NAMES[a.type])+(dry?kpi('Dry','','Hydrate at iftar and suhoor'):kpi((a.water*0.25).toFixed(2).replace(/\.?0+$/,''),' L','Water logged')+kpi(a.lytes,'','Electrolyte servings'));
+    document.getElementById('fa-water-row').style.display=dry?'none':'';
+    [].forEach.call(document.querySelectorAll('.mh-scale[data-q="faFeel"] button'),function(b,i){b.classList.toggle('on',a.feel===i+1);});
+    document.getElementById('fa-sym').innerHTML=FA_SYM.map(function(s){var c=a.sym&&a.sym[s[0]];return '<label class="bu-row'+(c?' done':'')+'" style="padding:6px 0"><input type="checkbox"'+(c?' checked':'')+' onchange="faSym(\''+s[0]+'\',this)"><span class="bu-t" style="text-decoration:none">'+s[1]+'</span></label>';}).join('');
+    var red=FA_RED.some(function(k){return a.sym&&a.sym[k];});
+    document.getElementById('fa-stop').innerHTML=red?'<div class="wbar" style="margin-top:10px;background:var(--fire-bg);border-color:var(--fire-mid)"><i class="ti ti-alert-circle" style="color:var(--fire-dk)"></i><span><strong>Stop the fast now.</strong> Drink, eat something easy, sit or lie down. Get care right away if it&#8217;s severe or doesn&#8217;t settle.</span></div>':(a.sym&&(a.sym.head||a.sym.cold)?'<div class="wbar" style="margin-top:10px"><i class="ti ti-droplet"></i><span>'+(dry?'Common on a dry day. Rest, keep cool, and hydrate well at iftar.':'Water and electrolytes first. If it doesn&#8217;t ease, end the fast.')+'</span></div>':'');
+    var si=document.getElementById('fa-start'); if(si&&document.activeElement!==si)si.value=faLocal(a.start);
+  }
+  var log=lsGet(FA_LOG,[]).slice().reverse().slice(0,12);
+  document.getElementById('fa-hist').innerHTML=log.length?log.map(function(f){var d=new Date(f.start);
+    return '<div class="wt-row"><span>'+MON[d.getMonth()]+' '+d.getDate()+' · '+FA_NAMES[f.type]+'</span><span><strong>'+faDur(f.end-f.start)+'</strong>'+(f.type!=='ramadan'?' · '+(f.water*0.25)+' L':'')+'</span></div>';}).join(''):'<div class="cs">No fasts logged yet.</div>';
+}
+faRender(); setInterval(function(){if(faGet()&&document.getElementById('p-p-fast').classList.contains('on'))faRender();},30000);
 
 /* Travel mode */
 function tvOn(){try{return localStorage.getItem('tareeq-travel')==='1';}catch(e){return false;}}
