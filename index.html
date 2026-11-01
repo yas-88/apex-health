@@ -360,6 +360,13 @@ nav.pillar-nav::-webkit-scrollbar{display:none}
 .mh-ta{width:100%;min-height:70px;font:inherit;font-size:13px;padding:9px 11px;border-radius:var(--rmd);border:0.5px solid var(--bdr2);background:var(--bg);color:var(--ink);resize:vertical;margin-top:6px;box-sizing:border-box}
 .mh-p{font-size:13px;color:var(--ink);margin-top:12px;font-weight:500}
 .fa-sel{font:inherit;font-size:13px;padding:9px 10px;border-radius:var(--rmd);border:0.5px solid var(--bdr2);background:var(--bg);color:var(--ink);max-width:100%}
+
+/* Connection pill */
+.net-pill{position:fixed;left:50%;top:calc(env(safe-area-inset-top,0px) + 10px);transform:translate(-50%,-140%);z-index:999;display:inline-flex;align-items:center;gap:6px;padding:6px 12px;border-radius:999px;font-size:12px;white-space:nowrap;font-weight:500;background:var(--ink);color:var(--bg);box-shadow:0 2px 10px rgba(0,0,0,.15);transition:transform .3s ease;pointer-events:none}
+.net-pill.show{transform:translate(-50%,0)}
+.net-pill .dot{width:7px;height:7px;border-radius:50%;background:var(--fuel)}
+.net-pill.ok .dot{background:var(--repair)}
+@media (prefers-reduced-motion:reduce){.net-pill{transition:none}}
 </style>
 </head>
 <body>
@@ -439,6 +446,7 @@ nav.pillar-nav::-webkit-scrollbar{display:none}
   </div>
 
   <!-- ════════════════ PLACEHOLDER FOR PANELS — built in next pass ════════════════ -->
+  <div class="net-pill" id="net-pill" role="status" aria-live="polite"><span class="dot"></span><span id="net-txt"></span></div>
   <div class="content">
     <div class="cp-alert on" id="tv-banner" style="display:none;background:var(--fuel-bg);border-color:var(--fuel-mid)"><i class="ti ti-run" style="color:var(--fuel-dk)"></i><div><div class="cp-t">Travel mode is on</div><div class="cp-s">Light, move, water, check-in. The rest can wait until you&#8217;re home.</div><button class="cp-go" style="color:var(--fuel-dk)" onclick="setAppMode('protocol');go('p-travel',document.querySelector('[data-pillar=p-travel]'))">Open travel mode</button></div></div>
     <div class="cp-alert" id="cp-alert" role="status" aria-live="polite">
@@ -2308,6 +2316,12 @@ if(SB){
 acUI();
 window.acPasskey=acPasskey;window.acPassword=acPassword;window.acRegister=acRegister;window.acSignOut=acSignOut;window.acSync=acSync;
 });
+/* Connection pill: shows while offline, flashes when you're back */
+(function(){var p=document.getElementById('net-pill'),t=document.getElementById('net-txt'),h=null;if(!p)return;
+  function off(){clearTimeout(h);p.classList.remove('ok');t.textContent='Offline · saving on this device';p.classList.add('show');}
+  function on(){clearTimeout(h);p.classList.add('ok');t.textContent='Back online · syncing';p.classList.add('show');h=setTimeout(function(){p.classList.remove('show');},2500);}
+  window.addEventListener('offline',off);window.addEventListener('online',on);if(!navigator.onLine)off();})();
+
 /* Offline: save the app on first visit so it opens without internet */
 if('serviceWorker' in navigator){window.addEventListener('load',function(){navigator.serviceWorker.register('sw.js').catch(function(){});});}
 </script>
