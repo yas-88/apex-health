@@ -404,7 +404,9 @@ nav.pillar-nav::-webkit-scrollbar{display:none}
       <button class="nb" data-pillar="p-baseline" onclick="go('p-baseline',this)"><span class="nb-dot"></span>Baseline</button>
       <button class="nb" data-pillar="p-weight" onclick="go('p-weight',this)"><span class="nb-dot"></span>Weight</button>
       <button class="nb" data-pillar="p-mind" onclick="go('p-mind',this)"><span class="nb-dot"></span>Mental health</button>
+      <button class="nb" data-pillar="p-prevent" onclick="go('p-prevent',this)"><span class="nb-dot"></span>Preventive</button>
       <button class="nb" data-pillar="p-checkpoints" onclick="go('p-checkpoints',this)"><span class="nb-dot"></span>Checkpoints</button>
+      <button class="nb" data-pillar="p-travel" onclick="go('p-travel',this)"><span class="nb-dot"></span>Travel</button>
     </nav>
   </header>
 
@@ -434,6 +436,7 @@ nav.pillar-nav::-webkit-scrollbar{display:none}
 
   <!-- ════════════════ PLACEHOLDER FOR PANELS — built in next pass ════════════════ -->
   <div class="content">
+    <div class="cp-alert on" id="tv-banner" style="display:none;background:var(--fuel-bg);border-color:var(--fuel-mid)"><i class="ti ti-run" style="color:var(--fuel-dk)"></i><div><div class="cp-t">Travel mode is on</div><div class="cp-s">Light, move, water, check-in. The rest can wait until you&#8217;re home.</div><button class="cp-go" style="color:var(--fuel-dk)" onclick="setAppMode('protocol');go('p-travel',document.querySelector('[data-pillar=p-travel]'))">Open travel mode</button></div></div>
     <div class="cp-alert" id="cp-alert" role="status" aria-live="polite">
       <i class="ti ti-calendar-event"></i>
       <div><div class="cp-t" id="cp-title"></div><div class="cp-s" id="cp-sub"></div>
@@ -1329,10 +1332,10 @@ nav.pillar-nav::-webkit-scrollbar{display:none}
 
       <div class="ew">Daily rhythm</div>
       <div class="card tl">
-        <div class="ex"><span class="exn"><span class="tag tag-fuel" style="margin-right:6px">Wake</span>Light first</span><span class="exs">10+ minutes outside or at a bright window before screens. Same wake time every day, weekends included</span></div>
+        <div class="ex"><span class="exn"><span class="tag tag-fuel" style="margin-right:6px">Wake 6:30 to 7</span>Light first</span><span class="exs">10+ minutes outside or at a bright window before screens. Same wake time every day, weekends included</span></div>
         <div class="ex"><span class="exn"><span class="tag tag-fire" style="margin-right:6px">Midday</span>Hardest work and training</span><span class="exs">Noon session, first meal after. Get outside for the brightest part of the day</span></div>
         <div class="ex"><span class="exn"><span class="tag tag-ground" style="margin-right:6px">Workday</span>Movement breaks</span><span class="exs">Stand and stretch at 10:30 and 2:30, shake plate at 4</span></div>
-        <div class="ex"><span class="exn"><span class="tag tag-repair" style="margin-right:6px">Evening</span>Dim down</span><span class="exs">Last meal 7 to 8 pm, lights low and screens dimmed the last hour, breathwork before bed</span></div>
+        <div class="ex"><span class="exn"><span class="tag tag-repair" style="margin-right:6px">Bed 10 to 11</span>Dim down</span><span class="exs">Last meal 7 to 8 pm, lights low and screens dimmed the last hour, breathwork before bed. 7 to 8 hours is your norm</span></div>
         <div class="cs" style="margin-top:6px">A working routine built on the Repair pillar.</div>
       </div>
 
@@ -1370,6 +1373,40 @@ nav.pillar-nav::-webkit-scrollbar{display:none}
       <div class="ctarow">
         <button class="btn pr" onclick="go('p-calendar',document.querySelector('[data-pillar=p-calendar]'))"><i class="ti ti-calendar-event"></i> Daily timeline</button>
         <button class="btn" onclick="go('protocol',document.querySelector('[data-pillar=protocol]'))"><i class="ti ti-arrow-left"></i> Back to my protocol</button>
+      </div>
+    </div>
+
+    <!-- ═══════════ PROTOCOL: TRAVEL MODE ═══════════ -->
+    <div id="p-p-travel" class="panel">
+      <div class="ibar"><i class="ti ti-info-circle"></i><span>The minimum version of your routine for the road. Turn it on while you&#8217;re away; a banner keeps it in view.</span></div>
+      <div class="card"><div class="wt-form"><button class="btn pr" id="tv-btn" onclick="tvToggle()"></button><span class="cs" id="tv-state"></span></div></div>
+
+      <div class="ew">Before you go</div>
+      <div class="card">
+        <div class="ex"><span class="exn">Shift sleep</span><span class="exs">Heading east: go to bed about 1 hour earlier each day for 2 to 3 days before you fly</span></div>
+        <div class="ex"><span class="exn">Pack</span><span class="exs">Weekly pill organizer, creatine and electrolytes, travel-size Nizoral and conditioner, resistance band, derma stamp with alcohol spray</span></div>
+        <div class="ex"><span class="exn">Backup</span><span class="exs">Export a Tareeq backup before you leave</span></div>
+      </div>
+
+      <div class="ew">On the road, daily minimum</div>
+      <div class="card tl">
+        <div class="ex"><span class="exn"><span class="tag tag-fuel" style="margin-right:6px">Light</span>Morning light at the destination</span><span class="exs">Bright light early, dim evenings. Eat and sleep on local time from day one</span></div>
+        <div class="ex"><span class="exn"><span class="tag tag-fire" style="margin-right:6px">Move</span>20-minute session, 3 times a week</span><span class="exs">Push-ups, squats, lunges, plank, band rows. Walk every day</span></div>
+        <div class="ex"><span class="exn"><span class="tag tag-repair" style="margin-right:6px">Water</span>Hydrate, go easy on alcohol and caffeine</span><span class="exs">Especially on the flight</span></div>
+        <div class="ex"><span class="exn"><span class="tag tag-ground" style="margin-right:6px">Mind</span>Keep the daily check-in</span><span class="exs">10 seconds, works offline</span></div>
+        <div class="ex"><span class="exn"><span class="tag tag-n" style="margin-right:6px">Hair</span>Keep the washes, pause the onion</span><span class="exs">Onion prep is hard on the road. <span class="muted">Judgment.</span></span></div>
+      </div>
+
+      <div class="ew">Morocco</div>
+      <div class="card">
+        <div class="cb">Morocco is 8 to 9 hours ahead of Vancouver (GMT+1 most of the year). It switches to GMT during Ramadan, which moves the gap to 7 to 8 hours, so check the date of that switch before booking. Eastward, expect roughly a day of adjustment per hour of time difference.</div>
+      </div>
+      <div class="cd-legend" style="margin:4px 0 1rem">
+        <span class="cd-legend-item"><span class="etag est"><i class="ti ti-flask"></i>Established</span> Jet lag steps (CDC Yellow Book)</span>
+      </div>
+
+      <div class="ctarow">
+        <button class="btn pr" onclick="go('protocol',document.querySelector('[data-pillar=protocol]'))"><i class="ti ti-arrow-left"></i> Back to my protocol</button>
       </div>
     </div>
 
@@ -1505,6 +1542,13 @@ nav.pillar-nav::-webkit-scrollbar{display:none}
         <div class="legend"><span><i class="sw" style="background:var(--repair)"></i>Mood</span><span><i class="sw" style="background:var(--fuel)"></i>Energy</span><span><i class="sw" style="background:var(--ground)"></i>Stress</span></div>
       </div>
 
+      <div class="ew">Sleep, last night</div>
+      <div class="card">
+        <div class="mh-q"><span class="lbl">Hours</span><div class="mh-scale" data-q="sleepH"><button style="width:44px;border-radius:18px" onclick="mhPick('sleepH',6)">&#8804;6</button><button onclick="mhPick('sleepH',7)">7</button><button onclick="mhPick('sleepH',8)">8</button><button style="width:44px;border-radius:18px" onclick="mhPick('sleepH',9)">9+</button></div></div>
+        <div class="mh-q"><span class="lbl">Rested</span><div class="mh-scale" data-q="rested"><button style="width:52px;border-radius:18px" onclick="mhPick('rested',3)">Yes</button><button style="width:52px;border-radius:18px" onclick="mhPick('rested',2)">So-so</button><button style="width:52px;border-radius:18px" onclick="mhPick('rested',1)">No</button></div></div>
+        <div class="cs" id="sl-sum" style="margin-top:6px"></div>
+      </div>
+
       <div class="ew">Workday shutdown</div>
       <div class="card">
         <div class="steps">
@@ -1557,11 +1601,48 @@ nav.pillar-nav::-webkit-scrollbar{display:none}
       </div>
     </div>
 
+    <!-- ═══════════ PROTOCOL: PREVENTIVE CARE ═══════════ -->
+    <div id="p-p-prevent" class="panel">
+      <div class="ibar"><i class="ti ti-info-circle"></i><span>The care that catches things early. Every dated item here is also on your Google Calendar.</span></div>
+
+      <div class="ew">Routine care</div>
+      <div class="card tl">
+        <div class="ex"><span class="exn"><span class="tag tag-ground" style="margin-right:6px">July</span>Annual physical + yearly labs<span class="tag tag-repair" style="margin-left:6px">On calendar</span></span><span class="exs">Blood pressure, weight, and the Baseline panel labs. Alert 2 weeks out to book</span></div>
+        <div class="ex"><span class="exn"><span class="tag tag-fire" style="margin-right:6px">Mid-Oct</span>Flu shot<span class="tag tag-repair" style="margin-left:6px">On calendar</span></span><span class="exs">Every year. Reminder Oct 1 to book</span></div>
+        <div class="ex"><span class="exn"><span class="tag tag-repair" style="margin-right:6px">Dental</span>Cleanings<span class="tag tag-n" style="margin-left:6px">Date to confirm</span></span><span class="exs">Now every 3 months, exam every other visit. Likely every 6 months after the December visit; tell Claude the date once it&#8217;s booked</span></div>
+        <div class="ex"><span class="exn"><span class="tag tag-n" style="margin-right:6px">~40</span>Baseline eye exam</span><span class="exs">No glasses, no problems, so nothing needed now. A full eye exam around 40 (about 2028), then as the eye doctor advises. Sooner for any change in vision</span></div>
+      </div>
+
+      <div class="ew">Screenings by age</div>
+      <div class="card tl">
+        <div class="ex"><span class="exn"><span class="tag tag-fire" style="margin-right:6px">Now</span>Blood pressure, yearly</span><span class="exs">Yearly for adults 40+, and for under-40s at higher risk (overweight counts). Covered at the July physical</span></div>
+        <div class="ex"><span class="exn"><span class="tag tag-fire" style="margin-right:6px">Now</span>Prediabetes and diabetes</span><span class="exs">Ages 35 to 70 with overweight. A1c is in the January labs; every 3 years after a normal result</span></div>
+        <div class="ex"><span class="exn"><span class="tag tag-fuel" style="margin-right:6px">40</span>Heart risk score</span><span class="exs">Ask Dr. Chikere for a 10-year cardiovascular risk score alongside the lipid panel</span></div>
+        <div class="ex"><span class="exn"><span class="tag tag-ground" style="margin-right:6px">45</span>Colorectal cancer screening</span><span class="exs">Starts at 45 (about 2033) and runs to 75</span></div>
+        <div class="ex"><span class="exn"><span class="tag tag-n" style="margin-right:6px">Ask</span>Vaccines</span><span class="exs">Flu yearly. Ask at the physical when your last Tdap booster was, and which others are due as you get older</span></div>
+        <div class="cd-legend" style="margin-top:8px">
+          <span class="cd-legend-item"><span class="etag est"><i class="ti ti-flask"></i>Established</span> Blood pressure, diabetes and colorectal timing (USPSTF)</span>
+          <span class="cd-legend-item"><span class="etag emrg"><i class="ti ti-sparkles"></i>Unverified</span> Eye exam at 40 (widely cited AAO guidance; source not confirmed here). Heart score at 40 is judgment</span>
+        </div>
+      </div>
+
+      <div class="ew">Labs as you get older</div>
+      <div class="card">
+        <div class="cb">The Baseline panel is the running record. Each July, the yearly panel repeats lipids, A1c, vitamin D and the hormone set, so you can read direction over years instead of single results. Bring the trend to the physical, and add tests as Dr. Chikere recommends with age.</div>
+        <div class="wt-form" style="margin-top:10px"><button class="btn" onclick="go('p-baseline',document.querySelector('[data-pillar=p-baseline]'))"><i class="ti ti-clipboard-list"></i> Open Baseline</button></div>
+      </div>
+
+      <div class="ctarow">
+        <button class="btn pr" onclick="go('p-checkpoints',document.querySelector('[data-pillar=p-checkpoints]'))"><i class="ti ti-calendar-event"></i> Checkpoints</button>
+        <button class="btn" onclick="go('protocol',document.querySelector('[data-pillar=protocol]'))"><i class="ti ti-arrow-left"></i> Back to my protocol</button>
+      </div>
+    </div>
+
     <!-- ═══════════ PROTOCOL: CHECKPOINTS (3-year tracker) ═══════════ -->
     <div id="p-p-checkpoints" class="panel">
-      <div class="ibar"><i class="ti ti-info-circle"></i><span>Every review point through Oct 2029, in one place. Quarterly checkpoints count from the July 20, 2026 training start. Each one ends the same way: send the notes to Claude and update Tareeq.</span></div>
+      <div class="ibar"><i class="ti ti-info-circle"></i><span>Every review point, always 3 years ahead. New years add themselves each July. Quarterly checkpoints count from the July 20, 2026 training start. Each one ends the same way: send the notes to Claude and update Tareeq.</span></div>
 
-      <div class="ew">3-year burn-up</div>
+      <div class="ew">Burn-up, rolling 3 years ahead</div>
       <div class="kpis" id="bu-stats"></div>
       <div class="card chart"><div id="bu-chart"></div>
         <div class="legend"><span><i class="sw" style="background:var(--ink4)"></i>Planned</span><span><i class="sw" style="background:var(--repair)"></i>Done</span><span><i class="sw" style="background:var(--fire)"></i>Today</span></div>
@@ -1584,17 +1665,17 @@ nav.pillar-nav::-webkit-scrollbar{display:none}
         <div class="ex"><span class="exn"><span class="tag tag-fire" style="margin-right:6px">Jul 20</span>1-year checkpoint + program review<span class="tag tag-repair" style="margin-left:6px">On calendar</span></span><span class="exs">Full review of the training week, not just the numbers</span></div>
       </div>
 
-      <div class="ew">Years 2 and 3</div>
+      <div class="ew">After year 1</div>
       <div class="card tl">
-        <div class="ex"><span class="exn"><span class="tag tag-fire" style="margin-right:6px">Quarterly</span>Checkpoint on the 20th<span class="tag tag-repair" style="margin-left:6px">On calendar</span></span><span class="exs">Oct, Jan, Apr, Jul, through Oct 2029</span></div>
-        <div class="ex"><span class="exn"><span class="tag tag-ground" style="margin-right:6px">Each July</span>Yearly baseline labs<span class="tag tag-repair" style="margin-left:6px">On calendar</span></span><span class="exs">Jul 21 in 2027, 2028 and 2029. Alert 2 weeks out to book the orders</span></div>
+        <div class="ex"><span class="exn"><span class="tag tag-fire" style="margin-right:6px">Quarterly</span>Checkpoint on the 20th<span class="tag tag-repair" style="margin-left:6px">On calendar</span></span><span class="exs">Oct, Jan, Apr, Jul. Rolling, no end date</span></div>
+        <div class="ex"><span class="exn"><span class="tag tag-ground" style="margin-right:6px">Each July</span>Annual physical + yearly labs<span class="tag tag-repair" style="margin-left:6px">On calendar</span></span><span class="exs">Every July. Alert 2 weeks out to book</span></div>
       </div>
 
       <div class="ew">What every checkpoint reviews</div>
       <div class="card">
         <div class="steps">
           <div class="step"><div class="step-n" style="background:var(--fire-bg);color:var(--fire-dk)">1</div><div class="step-t"><strong>Strength:</strong> max push-ups, dead hang time, pull-up progress, top weight and reps on rows, goblet squat, shrugs, static holds.</div></div>
-          <div class="step"><div class="step-n" style="background:var(--repair-bg);color:var(--repair-dk)">2</div><div class="step-t"><strong>Sleep:</strong> how rested you wake, how steady the timing has been.</div></div>
+          <div class="step"><div class="step-n" style="background:var(--repair-bg);color:var(--repair-dk)">2</div><div class="step-t"><strong>Sleep:</strong> the 7-day sleep log in Mental health. How rested you wake, how steady the timing has been.</div></div>
           <div class="step"><div class="step-n" style="background:var(--ground-bg);color:var(--ground-dk)">3</div><div class="step-t"><strong>Self-relationship:</strong> how you talk to yourself about training. Check the mood trend and your Sunday reflections in Mental health.</div></div>
           <div class="step"><div class="step-n" style="background:var(--fuel-bg);color:var(--fuel-dk)">4</div><div class="step-t"><strong>Labs:</strong> any results since the last checkpoint. Direction over any single reading.</div></div>
           <div class="step"><div class="step-n" style="background:var(--bg3);color:var(--ink2)">5</div><div class="step-t"><strong>Routines:</strong> latest hair and beard photo, and whether the shake plate and daily anchors are still worth their time.</div></div>
@@ -1767,13 +1848,12 @@ var CP=(function(){
     ['2027-01-26','Lab draw window','Fasted, before 10 am.'],
     ['2027-01-31','Hair & beard verdict','Compare Nov 2 and Jan 25. Keep, change or drop the onion.'],
     ['2027-04-27','Hormone draw window','Fasted, before 10 am. Multivitamin paused 3 days before.'],
-    ['2027-07-21','Yearly baseline labs','Book the orders with Dr. Chikere.'],
-    ['2028-07-21','Yearly baseline labs','Book the orders with Dr. Chikere.'],
-    ['2029-07-21','Yearly baseline labs','Book the orders with Dr. Chikere.']
   ];
-  for(var y=2027;y<=2029;y++){[1,4,7,10].forEach(function(m){
+  var yEnd=new Date().getFullYear()+3;
+  for(var yy=2027;yy<=yEnd;yy++)L.push([yy+'-07-21','Annual physical + yearly labs','Book the physical and lab orders with Dr. Chikere.']);
+  for(var y=2027;y<=yEnd;y++){[1,4,7,10].forEach(function(m){
     var mo=(m<10?'0':'')+m, months=(y-2026)*12+m-7;
-    var t=months===12?'1-year checkpoint + program review':'Tareeq checkpoint, '+months+' months';
+    var t=months%12===0?(months/12)+'-year checkpoint + program review':'Tareeq checkpoint, '+months+' months';
     L.push([y+'-'+mo+'-20',t,'Strength, sleep, self-relationship, labs, routines.']);
   });}
   return L.map(function(e){var p=e[0].split('-');return {d:new Date(+p[0],+p[1]-1,+p[2]),k:e[0],t:e[1],s:e[2]};}).sort(function(a,b){return a.d-b.d;});
@@ -1788,7 +1868,9 @@ var ALERTS=(function(){var L=CP.slice(),y0=new Date().getFullYear();
      [new Date(y,8,1),'Fall starts','Rain returns and daylight drops. Start the winter light habits now.'],
      [nthSun(y,10,1),'Clocks fall back (2 am)','Keep the same wake time and get morning light early.'],
      [new Date(y,11,1),'Winter starts','Midday walks for daylight, morning light box if mood dips, watch the check-in chart.']
-    ].forEach(function(e){L.push({d:e[0],k:ymd(e[0])+'-s',t:e[1],s:e[2]});});}
+     ,[new Date(y,9,1),'Book your flu shot','Mid-October, every year.']
+    ].forEach(function(e){L.push({d:e[0],k:ymd(e[0])+'-s',t:e[1],s:e[2]});});
+    for(var m=0;m<12;m++){var bd=nthSun(y,m,1);L.push({d:bd,k:ymd(bd)+'-b',t:'Export a Tareeq backup',s:'Weight tab: Export backup. Takes 5 seconds.'});}}
   return L.sort(function(a,b){return a.d-b.d;});})();
 function cpSeen(){try{return JSON.parse(localStorage.getItem('tareeq-cp-seen-set')||'{}');}catch(e){return {};}}
 function cpDue(){
@@ -1937,7 +2019,7 @@ function buToggle(k,el){var m=buDone();if(el.checked)m[k]=ymd(new Date());else d
 function buRender(){
   var st=document.getElementById('bu-stats'); if(!st)return;
   var items=buItems(), done=buDone(), today=new Date(); today.setHours(0,0,0,0); var tk=ymd(today);
-  var x0=pd('2026-07-01'), x1=pd('2029-11-01');
+  var x0=pd('2026-07-01'), x1=(function(){var d=new Date();d.setFullYear(d.getFullYear()+3);return d>pd('2029-11-01')?d:pd('2029-11-01');})();
   var planned=[[x0,0]],n=0; items.forEach(function(i){n++;planned.push([pd(i.k),n]);});
   var dk=items.filter(function(i){return done[i.k];}).map(function(i){return done[i.k];}).sort();
   var actual=[[x0,0]]; dk.forEach(function(d,j){actual.push([pd(d),j+1]);});
@@ -1945,9 +2027,9 @@ function buRender(){
   var behind=items.filter(function(i){return i.k<=tk&&!done[i.k];}).length;
   var pct=Math.round(dk.length/items.length*100);
   function kpi(n,u,l){return '<div class="kpi"><div class="kpi-n">'+n+'<span class="kpi-u">'+u+'</span></div><div class="kpi-l">'+l+'</div></div>';}
-  st.innerHTML=kpi(dk.length,'/'+items.length,'Milestones done')+kpi(pct,'%','Of the 3 years')+kpi(behind===0?'On':behind,behind===0?' track':' open',behind===0?'Nothing overdue':'Due and not checked');
-  var ticks=[];[2026,2027,2028,2029].forEach(function(y){var t=new Date(y,0,1);if(t>=x0)ticks.push([t,String(y)]);});ticks.unshift([pd('2026-07-20'),'Jul 26']);ticks=ticks.filter(function(t){return t[1]!=='2026';});
-  drawChart(document.getElementById('bu-chart'),[{pts:planned,color:'var(--ink4)',dash:'3 3',step:true,w:1.4},{pts:actual,color:'var(--repair)',step:true,w:2.2,extendTo:today}],{x0:+x0,x1:+x1,y0:0,y1:items.length,ticks:ticks,today:today,intY:true,label:'Milestone burn-up, July 2026 to October 2029'});
+  st.innerHTML=kpi(dk.length,'/'+items.length,'Milestones done')+kpi(pct,'%','Of the plan so far')+kpi(behind===0?'On':behind,behind===0?' track':' open',behind===0?'Nothing overdue':'Due and not checked');
+  var ticks=[];(function(){var a=[];for(var y=2026;y<=x1.getFullYear();y++)a.push(y);return a;})().forEach(function(y){var t=new Date(y,0,1);if(t>=x0)ticks.push([t,String(y)]);});ticks.unshift([pd('2026-07-20'),'Jul 26']);ticks=ticks.filter(function(t){return t[1]!=='2026';});
+  drawChart(document.getElementById('bu-chart'),[{pts:planned,color:'var(--ink4)',dash:'3 3',step:true,w:1.4},{pts:actual,color:'var(--repair)',step:true,w:2.2,extendTo:today}],{x0:+x0,x1:+x1,y0:0,y1:items.length,ticks:ticks,today:today,intY:true,label:'Milestone burn-up, rolling 3 years ahead'});
   var soon=new Date(today);soon.setDate(soon.getDate()+14);var sk=ymd(soon);
   var show=items.filter(function(i){return i.k<=sk;}).reverse();
   document.getElementById('bu-list').innerHTML=show.map(function(i){var d=!!done[i.k];
@@ -1971,6 +2053,13 @@ function mhRender(){
   if(typeof mhTip==='function')mhTip(today);
   ['mood','energy','stress'].forEach(function(q){var row=document.querySelector('.mh-scale[data-q="'+q+'"]');if(!row)return;
     [].forEach.call(row.children,function(b,i){b.classList.toggle('on',today[q]===i+1);b.setAttribute('aria-pressed',today[q]===i+1);});});
+  [['sleepH',[6,7,8,9]],['rested',[3,2,1]]].forEach(function(p){var row=document.querySelector('.mh-scale[data-q="'+p[0]+'"]');if(!row)return;
+    [].forEach.call(row.children,function(b,i){b.classList.toggle('on',today[p[0]]===p[1][i]);});});
+  (function(){var d7=[];for(var i=0;i<7;i++){var t=new Date();t.setDate(t.getDate()-i);var e=all[ymd(t)];if(e&&e.sleepH)d7.push(e);}
+    var el=document.getElementById('sl-sum');if(!el)return;
+    if(!d7.length){el.textContent='Log it each morning; the 7-day average shows here.';return;}
+    var avg=d7.reduce(function(a,e){return a+e.sleepH;},0)/d7.length, r=d7.filter(function(e){return e.rested===3;}).length;
+    el.textContent='Last 7 days: about '+avg.toFixed(1)+' h a night, rested on '+r+' of '+d7.length+' logged mornings.';})();
   var end=new Date();end.setHours(0,0,0,0);var start=new Date(end);start.setDate(start.getDate()-29);
   var keys=Object.keys(all).filter(function(k){var t=pd(k);return t>=start&&t<=end;}).sort();
   function ser(q,c){return {pts:keys.filter(function(k){return all[k][q];}).map(function(k){return [pd(k),all[k][q]];}),color:c,dots:true,w:1.6};}
@@ -1996,6 +2085,13 @@ function mhTip(t){var el=document.getElementById('mh-tip');if(!el)return;var h='
   if(t.energy&&t.energy<=2&&!(t.stress>=4))h+='<div class="wbar" style="margin-top:10px"><i class="ti ti-sun"></i><span><strong>Low energy.</strong> Daylight and a short walk first. Then check last night&#8217;s sleep and whether you drank enough today.</span></div>';
   el.innerHTML=h;}
 mhRender();
+
+/* Travel mode */
+function tvOn(){try{return localStorage.getItem('tareeq-travel')==='1';}catch(e){return false;}}
+function tvRender(){var on=tvOn(),b=document.getElementById('tv-banner'),btn=document.getElementById('tv-btn'),st=document.getElementById('tv-state');
+  if(b)b.style.display=on?'flex':'none'; if(btn)btn.innerHTML=on?'<i class="ti ti-arrow-left"></i> I&#8217;m home, turn off':'<i class="ti ti-run"></i> Turn on travel mode'; if(st)st.textContent=on?'On since '+(function(){try{return fmtD(localStorage.getItem('tareeq-travel-since')||ymd(new Date()));}catch(e){return 'today';}})():'Off';}
+function tvToggle(){try{if(tvOn()){localStorage.removeItem('tareeq-travel');}else{localStorage.setItem('tareeq-travel','1');localStorage.setItem('tareeq-travel-since',ymd(new Date()));}}catch(e){} tvRender();}
+tvRender();
 
 /* Offline: save the app on first visit so it opens without internet */
 if('serviceWorker' in navigator){window.addEventListener('load',function(){navigator.serviceWorker.register('sw.js').catch(function(){});});}
