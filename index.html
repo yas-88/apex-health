@@ -367,6 +367,12 @@ nav.pillar-nav::-webkit-scrollbar{display:none}
 .net-pill .dot{width:7px;height:7px;border-radius:50%;background:var(--fuel)}
 .net-pill.ok .dot{background:var(--repair)}
 @media (prefers-reduced-motion:reduce){.net-pill{transition:none}}
+
+/* Pull to refresh */
+.ptr{position:fixed;left:50%;top:calc(env(safe-area-inset-top,0px) + 6px);z-index:998;width:36px;height:36px;margin-left:-18px;border-radius:50%;background:var(--bg2);border:0.5px solid var(--bdr2);box-shadow:0 2px 8px rgba(0,0,0,.12);display:flex;align-items:center;justify-content:center;opacity:0;transform:translateY(-50px);pointer-events:none}
+.ptr i{font-size:18px;color:var(--repair-dk)}
+.ptr.ready i{color:var(--repair)}
+.ptr.go i{animation:tq-spin .6s linear infinite}
 </style>
 </head>
 <body>
@@ -446,6 +452,7 @@ nav.pillar-nav::-webkit-scrollbar{display:none}
   </div>
 
   <!-- ════════════════ PLACEHOLDER FOR PANELS — built in next pass ════════════════ -->
+  <div class="ptr" id="ptr" aria-hidden="true"><i class="ti ti-refresh"></i></div>
   <div class="net-pill" id="net-pill" role="status" aria-live="polite"><span class="dot"></span><span id="net-txt"></span></div>
   <div class="content">
     <div class="cp-alert on" id="tv-banner" style="display:none;background:var(--fuel-bg);border-color:var(--fuel-mid)"><i class="ti ti-run" style="color:var(--fuel-dk)"></i><div><div class="cp-t">Travel mode is on</div><div class="cp-s">Light, move, water, check-in. The rest can wait until you&#8217;re home.</div><button class="cp-go" style="color:var(--fuel-dk)" onclick="setAppMode('protocol');go('p-travel',document.querySelector('[data-pillar=p-travel]'))">Open travel mode</button></div></div>
@@ -2325,6 +2332,18 @@ window.acPasskey=acPasskey;window.acPassword=acPassword;window.acRegister=acRegi
   function off(){clearTimeout(h);p.classList.remove('ok');t.textContent='Offline · saved on device';p.classList.add('show');}
   function on(){clearTimeout(h);p.classList.add('ok');t.textContent='Back online · syncing';p.classList.add('show');h=setTimeout(function(){p.classList.remove('show');},2500);}
   window.addEventListener('offline',off);window.addEventListener('online',on);if(!navigator.onLine)off();})();
+
+/* Pull to refresh: drag down from the very top and let go */
+(function(){var el=document.getElementById('ptr');if(!el||!('ontouchstart' in window))return;
+  var y0=null,x0=0,dy=0,TH=80;
+  function set(d){var p=Math.min(d,TH*1.5);el.style.opacity=Math.min(1,p/TH);el.style.transform='translateY('+(p*0.6-50)+'px) rotate('+(p*3)+'deg)';el.classList.toggle('ready',d>=TH);}
+  window.addEventListener('touchstart',function(e){if(window.scrollY<=0&&e.touches.length===1){y0=e.touches[0].clientY;x0=e.touches[0].clientX;dy=0;}else y0=null;},{passive:true});
+  window.addEventListener('touchmove',function(e){if(y0===null)return;var d=e.touches[0].clientY-y0,dx=Math.abs(e.touches[0].clientX-x0);
+    if(dx>Math.abs(d)||window.scrollY>0){y0=null;set(0);return;} dy=d; if(d>0)set(d);},{passive:true});
+  window.addEventListener('touchend',function(){if(y0===null)return;y0=null;
+    if(dy>=TH){if(el.classList.contains('go'))return;el.classList.add('go');el.style.opacity=1;el.style.transform='translateY(14px)';setTimeout(function(){refreshPage();},250);}
+    else{el.style.transition='opacity .2s,transform .2s';set(0);setTimeout(function(){el.style.transition='';},220);}},{passive:true});
+})();
 
 /* Offline: save the app on first visit so it opens without internet */
 if('serviceWorker' in navigator){window.addEventListener('load',function(){navigator.serviceWorker.register('sw.js').catch(function(){});});}
