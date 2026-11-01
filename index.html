@@ -373,6 +373,46 @@ nav.pillar-nav::-webkit-scrollbar{display:none}
 .ptr i{font-size:18px;color:var(--repair-dk)}
 .ptr.ready i{color:var(--repair)}
 .ptr.go i{animation:tq-spin .6s linear infinite}
+/* Today card */
+.today{background:var(--bg2);border:0.5px solid var(--bdr);border-radius:var(--rlg);padding:16px 16px 12px;margin-bottom:1.5rem}
+.td-top{display:flex;justify-content:space-between;align-items:flex-start;gap:12px}
+.td-time{font-family:'DM Serif Display',Georgia,serif;font-size:30px;line-height:1;color:var(--ink);white-space:nowrap}
+.td-date{font-size:12px;color:var(--ink3);margin-top:4px;white-space:nowrap}
+.td-wx{display:flex;align-items:center;gap:8px;text-align:right}
+.td-wx i{font-size:30px;color:var(--repair)}
+.td-temp{font-size:22px;font-weight:600;color:var(--ink);line-height:1}
+.td-cond{font-size:11.5px;color:var(--ink3);margin-top:3px;max-width:130px}
+.td-row{font-size:12px;color:var(--ink2);margin-top:12px;display:flex;gap:14px;flex-wrap:wrap}
+.td-row span{display:inline-flex;align-items:center;gap:4px}
+.td-chips{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px}
+.td-chip{font-size:11.5px;font-weight:500;padding:4px 9px;border-radius:999px;background:var(--bg3);color:var(--ink2)}
+.td-tip{display:flex;gap:8px;font-size:12.5px;color:var(--ink);line-height:1.5;padding:8px 10px;border-radius:var(--rmd);background:var(--bg);border:0.5px solid var(--bdr);margin-top:8px}
+.td-tip i{color:var(--fuel-dk);margin-top:2px}
+.td-sec{font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink4);margin:14px 0 6px}
+.td-item{display:flex;gap:10px;font-size:13px;padding:5px 0;color:var(--ink2)}
+.td-item b{color:var(--ink);font-weight:500;min-width:62px;font-variant-numeric:tabular-nums}
+.td-foot{font-size:10.5px;color:var(--ink4);margin-top:12px}
+/* Bottom bar, quick log */
+.bbar{position:fixed;left:0;right:0;bottom:0;z-index:900;display:none;justify-content:space-around;background:var(--bg);border-top:0.5px solid var(--bdr2);padding:6px 6px calc(6px + env(safe-area-inset-bottom,0px))}
+body.has-bbar .bbar{display:flex}
+body.has-bbar .content{padding-bottom:110px}
+.bbar button{flex:1;background:none;border:none;font:inherit;font-size:10.5px;color:var(--ink3);display:flex;flex-direction:column;align-items:center;gap:2px;padding:4px 0;cursor:pointer}
+.bbar button i{font-size:21px}
+.bbar button.on{color:var(--repair-dk)}
+.fab{position:fixed;right:18px;bottom:calc(74px + env(safe-area-inset-bottom,0px));z-index:901;width:52px;height:52px;border-radius:50%;border:none;background:var(--repair);color:#fff;font-size:24px;display:none;align-items:center;justify-content:center;box-shadow:0 4px 14px rgba(0,0,0,.2);cursor:pointer}
+body.has-bbar .fab{display:flex}
+.sheet-bg{position:fixed;inset:0;background:rgba(0,0,0,.35);z-index:950;opacity:0;pointer-events:none;transition:opacity .2s}
+.sheet-bg.on{opacity:1;pointer-events:auto}
+.sheet{position:fixed;left:0;right:0;bottom:0;z-index:951;background:var(--bg);border-radius:18px 18px 0 0;padding:14px 16px calc(18px + env(safe-area-inset-bottom,0px));transform:translateY(105%);transition:transform .25s ease;max-width:640px;margin:0 auto}
+.sheet.on{transform:none}
+.sheet-h{display:flex;justify-content:space-between;align-items:center;font-weight:600;font-size:15px;color:var(--ink);margin-bottom:10px}
+.sheet-h button{background:none;border:none;color:var(--ink3);font-size:18px;cursor:pointer}
+.sheet-g{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.sheet-g button{background:var(--bg2);border:0.5px solid var(--bdr);border-radius:var(--rmd);padding:14px 6px;font:inherit;font-size:12.5px;color:var(--ink);display:flex;flex-direction:column;align-items:center;gap:6px;cursor:pointer}
+.sheet-g button i{font-size:22px;color:var(--repair-dk)}
+.toast{position:fixed;left:50%;bottom:calc(140px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);z-index:960;background:var(--ink);color:var(--bg);font-size:12.5px;padding:8px 14px;border-radius:999px;opacity:0;transition:opacity .2s;pointer-events:none;white-space:nowrap}
+.toast.on{opacity:1}
+@media (prefers-reduced-motion:reduce){.sheet,.sheet-bg{transition:none}}
 </style>
 </head>
 <body>
@@ -878,6 +918,20 @@ nav.pillar-nav::-webkit-scrollbar{display:none}
 
     <!-- ═══════════ PROTOCOL: OVERVIEW ═══════════ -->
     <div id="p-protocol" class="panel">
+      <div class="today" id="today">
+        <div class="td-top">
+          <div><div class="td-time" id="td-time">--:--</div><div class="td-date" id="td-date"></div></div>
+          <div class="td-wx" id="td-wx"><i class="ti ti-cloud"></i><div><div class="td-temp">--°</div><div class="td-cond">Loading weather…</div></div></div>
+        </div>
+        <div class="td-row" id="td-light"></div>
+        <div class="td-chips" id="td-chips"></div>
+        <div id="td-tips"></div>
+        <div class="td-sec">Your day</div>
+        <div id="td-day"></div>
+        <div class="td-sec">This week</div>
+        <div class="cs" id="td-week"></div>
+        <div class="td-foot" id="td-foot"></div>
+      </div>
       <div class="ew">My protocol</div>
       <p style="font-size:13.5px;color:var(--ink2);line-height:1.75;max-width:600px;margin-bottom:1.25rem">
         This is one person's specific walk through the charter — the schedule, the foods, the stack. The charter is the way; this is how it's currently being walked. Update it as your body and life change. The charter underneath doesn't.
@@ -2224,6 +2278,118 @@ function mhTip(t){var el=document.getElementById('mh-tip');if(!el)return;var h='
   if(t.energy&&t.energy<=2&&!(t.stress>=4))h+='<div class="wbar" style="margin-top:10px"><i class="ti ti-sun"></i><span><strong>Low energy.</strong> Daylight and a short walk first. Then check last night&#8217;s sleep and whether you drank enough today.</span></div>';
   el.innerHTML=h;}
 mhRender();
+/* ---------- Today card: clock, light, weather, air, your day ---------- */
+var TD_HOME={lat:45.6387,lon:-122.6615,name:'Vancouver, WA'};
+var WMO={0:['Clear','sun'],1:['Mostly clear','sun'],2:['Partly cloudy','cloud'],3:['Overcast','cloud'],45:['Fog','cloud-fog'],48:['Freezing fog','cloud-fog'],51:['Light drizzle','cloud-rain'],53:['Drizzle','cloud-rain'],55:['Heavy drizzle','cloud-rain'],56:['Freezing drizzle','snowflake'],57:['Freezing drizzle','snowflake'],61:['Light rain','cloud-rain'],63:['Rain','cloud-rain'],65:['Heavy rain','cloud-rain'],66:['Freezing rain','snowflake'],67:['Freezing rain','snowflake'],71:['Light snow','cloud-snow'],73:['Snow','cloud-snow'],75:['Heavy snow','cloud-snow'],77:['Snow grains','cloud-snow'],80:['Rain showers','cloud-rain'],81:['Rain showers','cloud-rain'],82:['Heavy showers','cloud-rain'],85:['Snow showers','cloud-snow'],86:['Snow showers','cloud-snow'],95:['Thunderstorm','cloud-storm'],96:['Thunderstorm, hail','cloud-storm'],99:['Thunderstorm, hail','cloud-storm']};
+var FREEZE=[48,56,57,66,67], SNOW=[71,73,75,77,85,86];
+function tdAQ(a){if(a==null)return null;return a<=50?['Good','var(--repair-bg)','var(--repair-dk)']:a<=100?['Moderate','var(--fuel-bg)','var(--fuel-dk)']:a<=150?['Unhealthy for sensitive groups','var(--fire-bg)','var(--fire-dk)']:a<=200?['Unhealthy','var(--fire-bg)','var(--fire-dk)']:a<=300?['Very unhealthy','var(--ground-bg)','var(--ground-dk)']:['Hazardous','var(--ground-bg)','var(--ground-dk)'];}
+function tdHM(iso){var d=new Date(iso);return d.toLocaleTimeString([],{hour:'numeric',minute:'2-digit'});}
+function tdLoc(){try{var c=JSON.parse(sessionStorage.getItem(COORDS_KEY)||'null');if(c&&c.lat)return {lat:+c.lat.toFixed(3),lon:+c.lon.toFixed(3),name:'your location'};}catch(e){}return TD_HOME;}
+async function tdFetch(force){
+  var c=lsGet('tareeq-wx',null);
+  if(!force&&c&&Date.now()-c.t<30*60000){tdRender();return;}
+  if(!navigator.onLine){tdRender();return;}
+  var L=tdLoc(), tz='America%2FLos_Angeles';
+  try{
+    var w=await fetch('https://api.open-meteo.com/v1/forecast?latitude='+L.lat+'&longitude='+L.lon+'&current=temperature_2m,apparent_temperature,precipitation,weather_code,wind_speed_10m,is_day&daily=temperature_2m_max,temperature_2m_min,precipitation_probability_max,sunrise,sunset,daylight_duration&temperature_unit=fahrenheit&wind_speed_unit=mph&timezone='+tz+'&forecast_days=2').then(function(r){return r.json();});
+    var a=null;try{a=await fetch('https://air-quality-api.open-meteo.com/v1/air-quality?latitude='+L.lat+'&longitude='+L.lon+'&current=us_aqi,pm2_5&timezone='+tz).then(function(r){return r.json();});}catch(e){}
+    if(w&&w.current){lsSet('tareeq-wx',{t:Date.now(),w:w,a:a,place:L.name});}
+  }catch(e){}
+  tdRender();
+}
+function tdSched(now){
+  var d=now.getDay(), wk=d>=1&&d<=5, tr=d>=1&&d<=4, stamp=d===1||d===4;
+  var L=[];
+  if(wk)L.push([9*60,'9:00','Binaural beats, then shake plate']);
+  if(wk)L.push([10*60+30,'10:30','Stand and stretch, 2 min']);
+  if(tr)L.push([12*60,'12:00',stamp?'Train with onion on, then Nizoral wash':'Train, fasted']);
+  if(d===6)L.push([12*60,'Midday','Soccer, then Nexxus wash (optional onion first)']);
+  L.push([13*60,'1:00',wk?'Shake plate flush, then first meal':'First meal']);
+  if(wk)L.push([14*60+30,'2:30','Stand and stretch, 2 min']);
+  if(wk)L.push([16*60,'4:00','Shake plate desk break']);
+  L.push([19*60,'7:00','Last meal by 8']);
+  if(stamp)L.push([20*60+30,'8:30','Derma stamp, scalp and beard']);
+  L.push([22*60,'10:00','Wind down, bed by 11']);
+  return L;
+}
+function tdRender(){
+  var box=document.getElementById('today');if(!box)return;
+  var now=new Date();
+  document.getElementById('td-time').textContent=now.toLocaleTimeString([],{hour:'numeric',minute:'2-digit'});
+  document.getElementById('td-date').textContent=now.toLocaleDateString([],{weekday:'short',month:'short',day:'numeric'});
+  var c=lsGet('tareeq-wx',null), w=c&&c.w, a=c&&c.a&&c.a.current?c.a.current.us_aqi:null, tips=[];
+  if(w&&w.current){
+    var cur=w.current, m=WMO[cur.weather_code]||['Weather','cloud'], icon=m[1]==='sun'&&!cur.is_day?'moon':m[1];
+    document.getElementById('td-wx').innerHTML='<i class="ti ti-'+icon+'"></i><div><div class="td-temp">'+Math.round(cur.temperature_2m)+'°F</div><div class="td-cond">'+m[0]+' · feels '+Math.round(cur.apparent_temperature)+'°</div></div>';
+    var dl=w.daily, hi=Math.round(dl.temperature_2m_max[0]), lo=Math.round(dl.temperature_2m_min[0]), pp=dl.precipitation_probability_max[0];
+    var dd=dl.daylight_duration, chg=dd&&dd.length>1?Math.round((dd[1]-dd[0])/60):null, dh=dd?dd[0]/3600:null;
+    document.getElementById('td-light').innerHTML='<span><i class="ti ti-sunrise"></i>'+tdHM(dl.sunrise[0])+'</span><span><i class="ti ti-sunset"></i>'+tdHM(dl.sunset[0])+'</span>'+(dh?'<span>'+Math.floor(dh)+' h '+Math.round((dh%1)*60)+' min of light'+(chg!==null?' ('+(chg>0?'+':'')+chg+' min tomorrow)':'')+'</span>':'');
+    var q=tdAQ(a);
+    document.getElementById('td-chips').innerHTML='<span class="td-chip">H '+hi+'° · L '+lo+'°</span><span class="td-chip"><i class="ti ti-umbrella"></i> '+(pp==null?'–':pp)+'% rain</span><span class="td-chip"><i class="ti ti-wind"></i> '+Math.round(cur.wind_speed_10m)+' mph</span>'+(q?'<span class="td-chip" style="background:'+q[1]+';color:'+q[2]+'">Air '+a+' · '+q[0]+'</span>':'');
+    var code=cur.weather_code, frz=FREEZE.indexOf(code)>-1||(cur.temperature_2m<=34&&(cur.precipitation>0||SNOW.indexOf(code)>-1));
+    if(a!=null&&a>150)tips.push(['alert-circle','Unhealthy air. Train indoors and skip the outdoor walk and soccer.']);
+    else if(a!=null&&a>100)tips.push(['alert-circle','Air is rough for sensitive groups. Move hard training indoors.']);
+    if(frz)tips.push(['car','Icy roads possible. Allow extra time or stay in, and check WSDOT before driving.']);
+    else if(SNOW.indexOf(code)>-1)tips.push(['car','Snow. Allow extra time on the roads.']);
+    if(cur.apparent_temperature<=32)tips.push(['temperature','Freezing out. Layer up for the walk.']);
+    if(hi>=85)tips.push(['droplet','Hot day. Extra water and electrolytes; train early or indoors.']);
+    if(pp>=70)tips.push(['umbrella','Rain likely. Plan indoor movement; umbrella for the walk.']);
+    else if(pp<30&&now.getHours()<14&&now.getDay()>=1&&now.getDay()<=5&&(a==null||a<=100))tips.push(['sun','Dry afternoon ahead. Take the 2:30 break outside.']);
+    if(dh&&dh<9.5)tips.push(['sun','Short day. Get outside around midday for daylight.']);
+    document.getElementById('td-foot').textContent='Weather and air: Open-Meteo, '+(c.place||'Vancouver, WA')+', as of '+new Date(c.t).toLocaleTimeString([],{hour:'numeric',minute:'2-digit'})+(navigator.onLine?'':' (offline)')+'. Tips are rules of thumb, not official road or air alerts.';
+  } else {
+    document.getElementById('td-wx').innerHTML='<i class="ti ti-cloud"></i><div><div class="td-temp">--°</div><div class="td-cond">'+(navigator.onLine?'Loading weather…':'Weather shows once you’re online')+'</div></div>';
+    document.getElementById('td-foot').textContent='';
+  }
+  document.getElementById('td-tips').innerHTML=tips.map(function(t){return '<div class="td-tip"><i class="ti ti-'+t[0]+'"></i><span>'+t[1]+'</span></div>';}).join('');
+  var mins=now.getHours()*60+now.getMinutes(), S=tdSched(now), next=S.filter(function(s){return s[0]>=mins-10;}).slice(0,3);
+  var d=now.getDay(), hair=(d===1||d===4)?'Shampoo day: onion during training, wash, stamp at 8:30':d===6?'Nexxus wash after soccer':(d===2||d===5)?'Rinse and conditioner. Oil blend off the scalp today':'Rinse and conditioner on the lengths';
+  var nxt=null;for(var i=0;i<ALERTS.length;i++){if(ALERTS[i].d>=new Date(now.getFullYear(),now.getMonth(),now.getDate())&&ALERTS[i].k.slice(-2)!=='-b'){nxt=ALERTS[i];break;}}
+  document.getElementById('td-day').innerHTML=(next.length?next.map(function(s){return '<div class="td-item"><b>'+s[1]+'</b><span>'+s[2]+'</span></div>';}).join(''):'<div class="td-item"><span>Done for today. Rest well.</span></div>')+'<div class="td-item"><b>Hair</b><span>'+hair+'</span></div>'+(nxt?'<div class="td-item"><b>Next</b><span>'+fmtD(nxt.k.slice(0,10))+': '+nxt.t+'</span></div>':'');
+  var ci=lsGet(MH_KEY,{}), w7=0, s7=[], wt=0;for(var j=0;j<7;j++){var t=new Date();t.setDate(t.getDate()-j);var e=ci[ymd(t)];if(e&&(e.mood||e.energy||e.stress))w7++;if(e&&e.sleepH)s7.push(e.sleepH);}
+  var wl=lsGet('tareeq-weight',[]), cut=ymd(new Date(Date.now()-6*86400000));wl.forEach(function(e){if(e.d>=cut)wt++;});
+  document.getElementById('td-week').textContent='Check-ins on '+w7+' of the last 7 days · '+wt+' weigh-in'+(wt===1?'':'s')+(s7.length?' · sleep about '+(s7.reduce(function(x,y){return x+y;},0)/s7.length).toFixed(1)+' h':'')+'. Every bit counts.';
+}
+tdRender(); tdFetch(false); setInterval(function(){tdRender();},30000); setInterval(function(){tdFetch(false);},15*60000);
+window.addEventListener('online',function(){tdFetch(true);});
+
+/* ---------- Bottom bar, section sheets, quick log ---------- */
+var BB={
+  log:{t:'Log',items:[['p-weight','Weight','scale'],['p-mind','Check-in and sleep','heart-handshake'],['p-fast','Fasting','clock']]},
+  plan:{t:'Plan',items:[['p-training','Training','flame'],['p-nutrition','Nutrition','soup'],['p-supplements','Supplements','pill'],['p-calendar','Daily timeline','calendar-event'],['p-rhythm','Rhythm','sun'],['p-travel','Travel','run']]},
+  health:{t:'Health',items:[['p-baseline','Baseline labs','clipboard-list'],['p-prevent','Preventive','heartbeat'],['p-checkpoints','Checkpoints','circle-check'],['p-account','Account','refresh']]}
+};
+var BB_SEC={};Object.keys(BB).forEach(function(s){BB[s].items.forEach(function(i){BB_SEC['p-'+i[0]]=s;});});
+function bbToast(t){var el=document.getElementById('toast');if(!el)return;el.textContent=t;el.classList.add('on');setTimeout(function(){el.classList.remove('on');},1800);}
+function bbHighlight(){var cur=document.querySelector('.panel.on'),id=cur?cur.id:'',sec=id==='p-protocol'?'today':BB_SEC[id]||'';
+  [].forEach.call(document.querySelectorAll('.bbar button'),function(b){b.classList.toggle('on',b.dataset.sec===sec);});}
+function bbGoPanel(pid,focus){setAppMode('protocol');go(pid,document.querySelector('[data-pillar="'+pid+'"]'));bbClose();window.scrollTo(0,0);
+  if(focus)setTimeout(function(){var el=document.querySelector(focus);if(el){el.scrollIntoView({block:'center'});if(el.focus&&el.tagName==='INPUT')el.focus();}},120);}
+function bbGo(s){if(s==='today'){bbGoPanel('protocol');tdRender();}}
+function bbOpen(s){var g=document.getElementById('sheet-g'),items;
+  if(s==='quick'){document.getElementById('sheet-t').textContent='Quick log';var f=faGet();
+    items=[['q-weight','Weight','scale'],['q-checkin','Check-in','heart-handshake'],['q-sleep','Sleep','moon']];
+    items.push(f?['q-water','+ Water (fast)','droplet']:['q-fast','Start a fast','clock']);
+    g.innerHTML=items.map(function(i){return '<button onclick="bbQuick(\''+i[0]+'\')"><i class="ti ti-'+i[2]+'"></i>'+i[1]+'</button>';}).join('');}
+  else{document.getElementById('sheet-t').textContent=BB[s].t;
+    g.innerHTML=BB[s].items.map(function(i){return '<button onclick="bbGoPanel(\''+i[0]+'\')"><i class="ti ti-'+i[2]+'"></i>'+i[1]+'</button>';}).join('');}
+  document.getElementById('sheet').classList.add('on');document.getElementById('sheet-bg').classList.add('on');}
+function bbClose(){document.getElementById('sheet').classList.remove('on');document.getElementById('sheet-bg').classList.remove('on');}
+function bbQuick(q){
+  if(q==='q-weight')bbGoPanel('p-weight','#wt-val');
+  else if(q==='q-checkin')bbGoPanel('p-mind','.mh-scale[data-q="mood"]');
+  else if(q==='q-sleep')bbGoPanel('p-mind','.mh-scale[data-q="sleepH"]');
+  else if(q==='q-fast')bbGoPanel('p-fast','#fa-type');
+  else if(q==='q-water'){faAdd('water');bbClose();var f=faGet();bbToast('Water logged · '+(f.water*0.25)+' L this fast');}
+}
+(function(){var _go=go;go=function(id,btn){_go(id,btn);bbHighlight();};
+  var _sm=setAppMode;setAppMode=function(m){_sm(m);document.body.classList.toggle('has-bbar',m==='protocol');
+    var cur=document.querySelector('.panel.on'),cid=cur?cur.id:'',isP=cid==='p-protocol'||cid.indexOf('p-p-')===0;
+    if(m==='protocol'&&!isP)go('protocol',document.querySelector('[data-pillar="protocol"]'));
+    else if(m==='charter'&&isP){var cb=document.querySelector('#charter-nav .nb');if(cb)go(cb.getAttribute('data-pillar'),cb);}
+    bbHighlight();};
+  document.body.classList.toggle('has-bbar',document.getElementById('protocol-nav').style.display==='flex');bbHighlight();})();
+document.addEventListener('DOMContentLoaded',bbHighlight);
 /* ---------- Fasting tracker ---------- */
 var FA_ACT='tareeq-fast-active', FA_LOG='tareeq-fasts';
 var FA_NAMES={'24':'24-hour water fast','ramadan':'Ramadan day','ext':'Extended water fast'};
@@ -2348,5 +2514,15 @@ window.acPasskey=acPasskey;window.acPassword=acPassword;window.acRegister=acRegi
 /* Offline: save the app on first visit so it opens without internet */
 if('serviceWorker' in navigator){window.addEventListener('load',function(){navigator.serviceWorker.register('sw.js').catch(function(){});});}
 </script>
+  <nav class="bbar" id="bbar" aria-label="Sections">
+    <button data-sec="today" onclick="bbGo('today')"><i class="ti ti-home"></i><span>Today</span></button>
+    <button data-sec="log" onclick="bbOpen('log')"><i class="ti ti-pencil"></i><span>Log</span></button>
+    <button data-sec="plan" onclick="bbOpen('plan')"><i class="ti ti-calendar"></i><span>Plan</span></button>
+    <button data-sec="health" onclick="bbOpen('health')"><i class="ti ti-heartbeat"></i><span>Health</span></button>
+  </nav>
+  <button class="fab" id="fab" onclick="bbOpen('quick')" aria-label="Quick log"><i class="ti ti-plus"></i></button>
+  <div class="sheet-bg" id="sheet-bg" onclick="bbClose()"></div>
+  <div class="sheet" id="sheet" role="dialog" aria-modal="true"><div class="sheet-h"><span id="sheet-t"></span><button onclick="bbClose()" aria-label="Close"><i class="ti ti-x"></i></button></div><div class="sheet-g" id="sheet-g"></div></div>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
 </body>
 </html>
