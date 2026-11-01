@@ -438,6 +438,13 @@ body.has-bbar .fab{display:flex}
   .kpi{padding:12px 12px}
   .kpi-n{font-size:21px}
 }
+.pl-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:8px;margin-bottom:1rem}
+.pl-row{display:flex;gap:12px;align-items:center}
+.pl-svg{width:104px;height:104px;flex:0 0 104px}
+.pl-leg{display:flex;flex-direction:column;gap:6px;min-width:0;font-size:12.5px;color:var(--ink2);line-height:1.4}
+.pl-l{display:flex;gap:7px;align-items:flex-start}.pl-l i{width:10px;height:10px;border-radius:3px;flex:0 0 10px;margin-top:4px}
+.pl-l b{color:var(--ink);font-weight:600}
+@media(max-width:380px){.pl-row{flex-direction:column;align-items:flex-start}.pl-svg{width:96px;height:96px;flex-basis:auto}}
 </style>
 </head>
 <body>
@@ -1256,9 +1263,33 @@ body.has-bbar .fab{display:flex}
       <div class="card"><div class="ch"><div class="ci" style="background:var(--fuel-bg)"><i class="ti ti-sun" style="color:var(--fuel-dk)"></i></div><div><div class="ct">~1 pm — first meal</div><div class="cs">The bigger, recovery meal</div></div></div><div class="cb">Grilled or baked protein, a plate of vegetables, then a small handful of berries or a fruit after the protein. This is the meal that carries the training.</div></div>
       <div class="card"><div class="ch"><div class="ci" style="background:var(--fuel-bg)"><i class="ti ti-moon-stars" style="color:var(--fuel-dk)"></i></div><div><div class="ct">7 to 8 pm — last meal</div><div class="cs">Lighter, 3 to 4 hours before bed</div></div></div><div class="cb">Protein and fat forward: fish or meat, leafy greens, avocado, olive oil. Lighter than the first. Or the occasional smoothie swap when Mae's having pasta: milk, banana, avocado, mushroom powder, collagen, vanilla protein, plus grilled chicken or fish for the real protein.</div></div>
 
-      <div class="ew">Portion by hand — no scale</div>
+      <div class="ew">Rules of thumb, no counting</div>
       <div class="card">
-        <div class="ex"><span class="exn">Protein</span><span class="exs">1 to 2 palms per meal, lean to 2</span></div>
+        <div class="ex"><span class="exn">Protein, daily</span><span class="exs" id="nu-pro">1.4 to 2.0 g per kg of goal weight</span></div>
+        <div class="ex"><span class="exn">Protein, per feeding</span><span class="exs">3 feedings inside the eating window: 2 palms at each meal, plus a Greek yogurt bowl around 4 to 5 pm. Muscle responds best to protein spread out, not loaded into one big dinner</span></div>
+        <div class="ex"><span class="exn">Quality</span><span class="exs">Eggs, meat, fish and dairy are complete proteins. On a mostly plant day (beans, lentils, tofu), eat 10 to 20% more and mix sources</span></div>
+        <div class="ex"><span class="exn">Fat</span><span class="exs">1 thumb per meal: olive oil, avocado, nut butter. Fish oil covers omega-3</span></div>
+        <div class="ex"><span class="exn">Colors</span><span class="exs">2 plant colors per meal, leafy greens daily. That&#8217;s where most of the micronutrients and fiber come from</span></div>
+        <div class="cd-legend" style="margin-top:8px">
+          <span class="cd-legend-item"><span class="etag est"><i class="ti ti-flask"></i>Established</span> Protein 1.4 to 2.0 g/kg/day, 20 to 40 g per dose, spread every 3 to 4 hours (ISSN position stand, 2017); half the plate vegetables and fruit (Harvard Healthy Eating Plate)</span>
+          <span class="cd-legend-item"><span class="etag emrg"><i class="ti ti-sparkles"></i>Judgment</span> Hand portions (a palm is roughly 25 to 30 g of protein, varies by food), goal weight instead of current weight while above the band, carbs weighted to the post-training meal, the color rule</span>
+        </div>
+      </div>
+
+      <div class="ew">The two plates</div>
+      <div class="pl-grid">
+        <div class="card"><div class="ct">~1 pm, first meal</div><div class="cs" style="margin-bottom:8px">After training, the bigger plate. Carbs go here.</div>
+          <div class="pl-row"><svg viewBox="0 0 120 120" class="pl-svg" role="img" aria-label="~1 pm, first meal plate"><circle cx="60" cy="60" r="58" fill="var(--bg3)" stroke="var(--bdr2)"/><path d="M60,60 L60.0,8.0 A52,52 0 0 1 60.0,112.0 Z" fill="var(--repair)" stroke="var(--bg)" stroke-width="2"/><path d="M60,60 L60.0,112.0 A52,52 0 0 1 8.0,60.0 Z" fill="var(--fire)" stroke="var(--bg)" stroke-width="2"/><path d="M60,60 L8.0,60.0 A52,52 0 0 1 60.0,8.0 Z" fill="var(--fuel)" stroke="var(--bg)" stroke-width="2"/></svg>
+          <div class="pl-leg"><div class="pl-l"><i style="background:var(--repair)"></i><span><b>Half: vegetables</b>, 2 fists; fruit on the side</span></div><div class="pl-l"><i style="background:var(--fire)"></i><span><b>Quarter: protein</b>, 2 palms</span></div><div class="pl-l"><i style="background:var(--fuel)"></i><span><b>Quarter: whole-food carbs</b>, 1 to 2 cupped hands</span></div></div></div></div>
+        <div class="card"><div class="ct">7 to 8 pm, last meal</div><div class="cs" style="margin-bottom:8px">Lighter. Same protein, fewer carbs.</div>
+          <div class="pl-row"><svg viewBox="0 0 120 120" class="pl-svg" role="img" aria-label="7 to 8 pm, last meal plate"><circle cx="60" cy="60" r="58" fill="var(--bg3)" stroke="var(--bdr2)"/><path d="M60,60 L60.0,8.0 A52,52 0 1 1 43.9,109.5 Z" fill="var(--repair)" stroke="var(--bg)" stroke-width="2"/><path d="M60,60 L43.9,109.5 A52,52 0 0 1 29.4,17.9 Z" fill="var(--fire)" stroke="var(--bg)" stroke-width="2"/><path d="M60,60 L29.4,17.9 A52,52 0 0 1 60.0,8.0 Z" fill="var(--fuel)" stroke="var(--bg)" stroke-width="2"/></svg>
+          <div class="pl-leg"><div class="pl-l"><i style="background:var(--repair)"></i><span><b>Over half: vegetables</b>, 2 fists</span></div><div class="pl-l"><i style="background:var(--fire)"></i><span><b>A third: protein</b>, 2 palms</span></div><div class="pl-l"><i style="background:var(--fuel)"></i><span><b>Little or no carbs</b>, up to 1 cupped hand</span></div></div></div></div>
+      </div>
+      <p class="muted" style="margin:-4px 0 1rem">Hungry an hour later? Next time add protein or vegetables, not carbs. Still full at dinner? Keep the protein, shrink the rest.</p>
+
+      <div class="ew">Portion by hand, no scale</div>
+      <div class="card">
+        <div class="ex"><span class="exn">Protein</span><span class="exs">2 palms per meal</span></div>
         <div class="ex"><span class="exn">Vegetables</span><span class="exs">A fist or more</span></div>
         <div class="ex"><span class="exn">Whole-food carbs</span><span class="exs">A cupped hand, if you want them</span></div>
         <div class="ex"><span class="exn">Fats (olive oil, nut butter)</span><span class="exs">A thumb</span></div>
@@ -1274,7 +1305,7 @@ body.has-bbar .fab{display:flex}
       </div>
 
       <div class="ew">What's in season — Pacific Northwest</div>
-      <div class="ibar"><i class="ti ti-info-circle"></i><span>Right now, summer: berries, cherries, apricots, and the first peaches and nectarines. Enjoy the season. Anchor fruit to a meal when you can.</span></div>
+      <div class="ibar"><i class="ti ti-info-circle"></i><span id="nu-season"></span></div>
       <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-bottom:1rem">
         <div class="card"><div class="ph-eyebrow" style="color:var(--fuel-dk);font-size:9.5px">Spring · Mar–May</div><div class="cb">Strawberries (late), rhubarb, asparagus, peas, radishes, spring greens.</div></div>
         <div class="card"><div class="ph-eyebrow" style="color:var(--fire-dk);font-size:9.5px">Summer · Jun–Aug</div><div class="cb">Blueberries, strawberries, raspberries, blackberries, cherries, apricots, peaches, nectarines, plums, tomatoes, zucchini, cucumbers.</div></div>
@@ -2249,7 +2280,7 @@ function wtDel(d){lsSet(WT_KEY,wtData().filter(function(e){return e.d!==d;}));wt
 function wtAvg(data,endKey,days){var end=pd(endKey),start=new Date(end);start.setDate(start.getDate()-(days-1));
   var xs=data.filter(function(e){var t=pd(e.d);return t>=start&&t<=end;}).map(function(e){return e.lb;});
   return xs.length?xs.reduce(function(a,b){return a+b;},0)/xs.length:null;}
-function wtRender(){
+function wtRender(){if(typeof nuRender==='function')nuRender();
   var data=wtData(), st=document.getElementById('wt-stats'); if(!st)return;
   var di=document.getElementById('wt-date'); if(di&&!di.value)di.value=ymd(new Date());
   var last=data[data.length-1];
@@ -2657,6 +2688,12 @@ if(SB){
 acUI();
 window.acPasskey=acPasskey;window.acPassword=acPassword;window.acRegister=acRegister;window.acSignOut=acSignOut;window.acSync=acSync;
 });
+/* Nutrition: protein target from the 7-day weight, current season */
+function nuRender(){try{var d=lsGet('tareeq-weight',[]).slice().sort(function(a,b){return a.d<b.d?-1:1;}).slice(-7);
+  var el=document.getElementById('nu-pro');if(el){var avg=d.length?d.reduce(function(s,e){return s+e.lb;},0)/d.length:null,mid=(WT_BAND[0]+WT_BAND[1])/2,base=avg&&avg<mid?avg:mid,kg=base/2.2046,lo=Math.round(kg*1.4/5)*5,hi=Math.round(kg*2/5)*5;
+  el.textContent='1.4 to 2.0 g per kg of goal weight ('+Math.round(base)+' lb), about '+lo+' to '+hi+' g a day, or '+Math.round(lo/3/5)*5+' to '+Math.round(hi/3/5)*5+' g per feeding. Goal weight, because current weight overstates need while body fat is higher';}
+  var m=new Date().getMonth(),s=document.getElementById('nu-season');if(s)s.textContent=m>=2&&m<=4?'Right now, spring: asparagus, peas, greens, rhubarb, and strawberries late in the season.':m>=5&&m<=7?'Right now, summer: berries, cherries, stone fruit, tomatoes and zucchini. Anchor fruit to a meal.':m>=8&&m<=10?'Right now, fall: apples, pears, winter squash, Brussels sprouts, kale and beets.':'Right now, winter: stored apples and pears, kale, chard, cabbage, leeks and root vegetables.';}catch(e){}}
+nuRender();
 /* Connection pill: shows while offline, flashes when you're back */
 (function(){var p=document.getElementById('net-pill'),t=document.getElementById('net-txt'),h=null;if(!p)return;
   function off(){clearTimeout(h);p.classList.remove('ok');t.textContent='Offline · saved on device';p.classList.add('show');}
