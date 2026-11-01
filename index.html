@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
 <title>Tareeq — A Charter for Body, Mind, and Soul</title>
 <link rel="stylesheet" href="fonts/fonts.css">
+<script src="vendor/supabase.js" defer></script>
 <link rel="manifest" href="manifest.webmanifest">
 <meta name="theme-color" content="#f8f7f4">
 <meta name="apple-mobile-web-app-capable" content="yes">
@@ -409,6 +410,7 @@ nav.pillar-nav::-webkit-scrollbar{display:none}
       <button class="nb" data-pillar="p-prevent" onclick="go('p-prevent',this)"><span class="nb-dot"></span>Preventive</button>
       <button class="nb" data-pillar="p-checkpoints" onclick="go('p-checkpoints',this)"><span class="nb-dot"></span>Checkpoints</button>
       <button class="nb" data-pillar="p-travel" onclick="go('p-travel',this)"><span class="nb-dot"></span>Travel</button>
+      <button class="nb" data-pillar="p-account" onclick="go('p-account',this)"><span class="nb-dot"></span>Account</button>
     </nav>
   </header>
 
@@ -1488,6 +1490,48 @@ nav.pillar-nav::-webkit-scrollbar{display:none}
       </div>
     </div>
 
+    <!-- ═══════════ PROTOCOL: ACCOUNT & SYNC ═══════════ -->
+    <div id="p-p-account" class="panel">
+      <div class="ibar"><i class="ti ti-info-circle"></i><span>Sign in once and everything you log here syncs to your private cloud copy. Face ID after that.</span></div>
+
+      <div class="ew">Status</div>
+      <div class="card"><div class="cb" id="ac-status">Checking…</div><div class="cs" id="ac-msg" style="margin-top:6px"></div></div>
+
+      <div id="ac-out">
+        <div class="card">
+          <div class="wt-form"><button class="btn pr" onclick="acPasskey()"><i class="ti ti-circle-check"></i> Sign in with Face ID</button></div>
+          <div class="cs" style="margin-top:8px">First time on this device? Use your SafJob email and password once, then turn on Face ID.</div>
+          <div class="wt-form" style="margin-top:10px">
+            <input type="email" id="ac-email" autocomplete="username webauthn" placeholder="email" aria-label="Email" value="baza.a.yassir@gmail.com" style="flex:1;min-width:180px">
+            <input type="password" id="ac-pass" autocomplete="current-password" placeholder="password" aria-label="Password" style="flex:1;min-width:140px">
+            <button class="btn" onclick="acPassword()">Sign in</button>
+          </div>
+        </div>
+      </div>
+
+      <div id="ac-in" style="display:none">
+        <div class="card">
+          <div class="wt-form">
+            <button class="btn pr" onclick="acSync(true)"><i class="ti ti-refresh"></i> Sync now</button>
+            <button class="btn" onclick="acRegister()"><i class="ti ti-plus"></i> Turn on Face ID for this device</button>
+            <button class="btn" onclick="acSignOut()">Sign out</button>
+          </div>
+          <div class="cs" style="margin-top:8px">Syncs weight, milestones, check-ins, sleep, reflections, connection and fasts. Travel mode and the alert you dismissed stay on each device.</div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="cb"><strong>Where it lives.</strong> In the SafJob Supabase project for now, in its own table that only your account can read or write. No SafJob user or client can see it.</div>
+        <div class="cs" style="margin-top:6px"><strong>Flag:</strong> move it to its own project before SafJob takes on clients.</div>
+      </div>
+      <div class="card"><div class="cb">The monthly export (Weight tab) still matters: it&#8217;s your copy that doesn&#8217;t depend on any service.</div></div>
+
+      <div class="ctarow">
+        <button class="btn pr" onclick="go('p-weight',document.querySelector('[data-pillar=p-weight]'))"><i class="ti ti-arrow-down"></i> Export a backup</button>
+        <button class="btn" onclick="go('protocol',document.querySelector('[data-pillar=protocol]'))"><i class="ti ti-arrow-left"></i> Back to my protocol</button>
+      </div>
+    </div>
+
     <!-- ═══════════ PROTOCOL: BASELINE (physician tracker) ═══════════ -->
     <div id="p-p-baseline" class="panel">
       <div class="ibar"><i class="ti ti-info-circle"></i><span>The gate on extended fasting opens here, or it holds. One honest baseline this year, so next year's numbers mean something.</span></div>
@@ -2208,6 +2252,62 @@ function tvRender(){var on=tvOn(),b=document.getElementById('tv-banner'),btn=doc
 function tvToggle(){try{if(tvOn()){localStorage.removeItem('tareeq-travel');}else{localStorage.setItem('tareeq-travel','1');localStorage.setItem('tareeq-travel-since',ymd(new Date()));}}catch(e){} tvRender();}
 tvRender();
 
+window.addEventListener('DOMContentLoaded',function(){
+/* ---------- Cloud sync (Supabase, owner-only table) ---------- */
+var SB_URL='https://nvacylouzxbahpnwqcrc.supabase.co', SB_KEY='sb_publishable_lXCUQY2DzL0UhY8Pm-n3YQ_-WO6KS0E';
+var SYNC_KEYS=['tareeq-weight','tareeq-milestones','tareeq-checkin','tareeq-reflect','tareeq-connect','tareeq-fasts'];
+var SB=null, SB_USER=null, acQ={}, acT=null, acLast=lsGet('tareeq-sync-last',null);
+try{ if(window.supabase&&window.supabase.createClient) SB=window.supabase.createClient(SB_URL,SB_KEY,{auth:{persistSession:true,autoRefreshToken:true,detectSessionInUrl:false,experimental:{passkey:true}}}); }catch(e){SB=null;}
+function acStamps(){return lsGet('tareeq-sync-stamps',{});}
+var _lsSetRaw=lsSet;
+lsSet=function(k,v){var ok=_lsSetRaw(k,v);if(ok&&SYNC_KEYS.indexOf(k)>-1){var st=acStamps();st[k]=Date.now();_lsSetRaw('tareeq-sync-stamps',st);acQ[k]=1;clearTimeout(acT);acT=setTimeout(acPush,1500);}return ok;};
+function acMsg(t){var el=document.getElementById('ac-msg');if(el)el.textContent=t||'';}
+function acUI(){
+  var st=document.getElementById('ac-status');if(!st)return;
+  document.getElementById('ac-in').style.display=SB_USER?'':'none';
+  document.getElementById('ac-out').style.display=SB_USER?'none':'';
+  if(!SB){st.textContent='Sync isn’t available right now (the sync library didn’t load). Everything still saves on this device.';return;}
+  st.innerHTML=SB_USER?('Signed in as <strong>'+SB_USER.email+'</strong>. '+(acLast?'Last synced '+new Date(acLast).toLocaleString([], {month:'short',day:'numeric',hour:'numeric',minute:'2-digit'})+'.':'Not synced yet.')+(navigator.onLine?'':' Offline: changes will sync when you’re back online.')):'Not signed in. Everything still saves on this device.';
+}
+function acRenderAll(){try{wtRender();}catch(e){}try{buRender();}catch(e){}try{mhRender();}catch(e){}try{faRender();}catch(e){}}
+async function acPush(){
+  if(!SB||!SB_USER||!navigator.onLine)return; var keys=Object.keys(acQ); if(!keys.length)return; acQ={};
+  var st=acStamps(), rows=keys.map(function(k){return {user_id:SB_USER.id,key:k,value:lsGet(k,null),updated_at:new Date(st[k]||Date.now()).toISOString()};}).filter(function(r){return r.value!==null;});
+  if(!rows.length)return;
+  var r=await SB.from('tareeq_store').upsert(rows,{onConflict:'user_id,key'});
+  if(r.error){keys.forEach(function(k){acQ[k]=1;});acMsg('Sync failed: '+r.error.message);return;}
+  acLast=Date.now();_lsSetRaw('tareeq-sync-last',acLast);acUI();
+}
+async function acSync(manual){
+  if(!SB||!SB_USER)return; if(!navigator.onLine){acUI();return;}
+  var r=await SB.from('tareeq_store').select('key,value,updated_at');
+  if(r.error){acMsg('Sync failed: '+r.error.message);return;}
+  var remote={};(r.data||[]).forEach(function(x){remote[x.key]=x;});
+  var st=acStamps(), changed=false;
+  SYNC_KEYS.forEach(function(k){var rm=remote[k], lt=st[k]||0, rt=rm?Date.parse(rm.updated_at):0, hasLocal=lsGet(k,null)!==null;
+    if(rm&&rt>lt){_lsSetRaw(k,rm.value);st[k]=rt;changed=true;}
+    else if(hasLocal&&(!rm||lt>rt)){if(!st[k])st[k]=Date.now();acQ[k]=1;}});
+  _lsSetRaw('tareeq-sync-stamps',st);
+  if(changed)acRenderAll();
+  await acPush(); acLast=Date.now();_lsSetRaw('tareeq-sync-last',acLast); acUI(); if(manual)acMsg('Synced.');
+}
+async function acPasskey(){if(!SB)return;acMsg('Waiting for Face ID…');var r=await SB.auth.signInWithPasskey();if(r.error){acMsg(r.error.message.indexOf('disabled')>-1?'Face ID sign-in isn’t switched on in Supabase yet. Use email and password for now.':'Face ID sign-in didn’t work: '+r.error.message+'. If this device has no passkey yet, sign in with email and password first.');return;}acMsg('');}
+async function acPassword(){if(!SB)return;var e=document.getElementById('ac-email').value.trim(),p=document.getElementById('ac-pass').value;if(!e||!p){acMsg('Enter your email and password.');return;}
+  acMsg('Signing in…');var r=await SB.auth.signInWithPassword({email:e,password:p});document.getElementById('ac-pass').value='';
+  if(r.error){acMsg('Sign-in failed: '+r.error.message);return;}acMsg('Signed in. Turn on Face ID below so you don’t need the password again.');}
+async function acRegister(){if(!SB||!SB_USER)return;acMsg('Follow the Face ID prompt…');var r=await SB.auth.registerPasskey();
+  if(r.error){acMsg(r.error.message.indexOf('disabled')>-1?'Face ID isn’t switched on in Supabase yet (Authentication, Passkeys). Your data still syncs.':(r.error.message.indexOf('exists')>-1?'Face ID is already set up on this device.':'Couldn’t set up Face ID: '+r.error.message));return;}
+  acMsg('Face ID is on. Next time, tap “Sign in with Face ID.”');}
+async function acSignOut(){if(!SB)return;await SB.auth.signOut();acMsg('Signed out. Your entries stay on this device.');}
+if(SB){
+  SB.auth.onAuthStateChange(function(ev,session){SB_USER=session&&session.user?session.user:null;acUI();if(SB_USER&&(ev==='SIGNED_IN'||ev==='INITIAL_SESSION'))setTimeout(function(){acSync(false);},0);});
+  window.addEventListener('online',function(){acUI();acSync(false);});
+  window.addEventListener('offline',acUI);
+  document.addEventListener('visibilitychange',function(){if(document.visibilityState==='visible')acSync(false);});
+}
+acUI();
+window.acPasskey=acPasskey;window.acPassword=acPassword;window.acRegister=acRegister;window.acSignOut=acSignOut;window.acSync=acSync;
+});
 /* Offline: save the app on first visit so it opens without internet */
 if('serviceWorker' in navigator){window.addEventListener('load',function(){navigator.serviceWorker.register('sw.js').catch(function(){});});}
 </script>
