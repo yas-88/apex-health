@@ -332,6 +332,24 @@ nav.pillar-nav::-webkit-scrollbar{display:none}
 .cp-alert .cp-x{margin-left:auto;background:none;border:none;color:var(--ink3);cursor:pointer;font-size:16px;line-height:1;padding:2px}
 @keyframes cp-in{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:none}}
 @media (prefers-reduced-motion:reduce){.cp-alert.on{animation:none}}
+
+.muted{color:var(--ink3)}
+.wt-form{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.wt-form input{font:inherit;font-size:14px;padding:9px 12px;border-radius:var(--rmd);border:0.5px solid var(--bdr2);background:var(--bg);color:var(--ink);min-width:0}
+.wt-form input[type=number]{width:110px}
+.wt-row{display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:0.5px solid var(--bdr);font-size:13px}
+.wt-row:last-child{border-bottom:none}
+.wt-row button{background:none;border:none;color:var(--ink4);cursor:pointer;font-size:13px;padding:2px 6px}
+.chart svg{width:100%;height:auto;display:block}
+.chart text{font-family:Inter,system-ui,sans-serif;font-size:9px;fill:var(--ink3)}
+.bu-row{display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:0.5px solid var(--bdr);font-size:13px;cursor:pointer}
+.bu-row:last-child{border-bottom:none}
+.bu-row input{width:18px;height:18px;accent-color:var(--repair);flex-shrink:0}
+.bu-row .bu-d{color:var(--ink3);font-size:11.5px;min-width:52px}
+.bu-row.done .bu-t{color:var(--ink3);text-decoration:line-through}
+.legend{display:flex;gap:14px;flex-wrap:wrap;font-size:11px;color:var(--ink3);margin-top:8px}
+.legend span{display:inline-flex;align-items:center;gap:5px}
+.legend i.sw{display:inline-block;width:14px;height:2px;border-radius:1px}
 </style>
 </head>
 <body>
@@ -375,6 +393,7 @@ nav.pillar-nav::-webkit-scrollbar{display:none}
       <button class="nb" data-pillar="p-supplements" onclick="go('p-supplements',this)"><span class="nb-dot"></span>Supplements</button>
       <button class="nb" data-pillar="p-calendar" onclick="go('p-calendar',this)"><span class="nb-dot"></span>Calendar</button>
       <button class="nb" data-pillar="p-baseline" onclick="go('p-baseline',this)"><span class="nb-dot"></span>Baseline</button>
+      <button class="nb" data-pillar="p-weight" onclick="go('p-weight',this)"><span class="nb-dot"></span>Weight</button>
       <button class="nb" data-pillar="p-checkpoints" onclick="go('p-checkpoints',this)"><span class="nb-dot"></span>Checkpoints</button>
     </nav>
   </header>
@@ -1174,6 +1193,14 @@ nav.pillar-nav::-webkit-scrollbar{display:none}
         <div class="ex"><span class="exn">Vitamin K2 MK-7 100 mcg</span><span class="exs">Directs calcium to bone; pairs with D3</span></div>
         <div class="ex"><span class="exn">Creatine monohydrate 5 g</span><span class="exs">Timing flexible</span></div>
         <div class="ex"><span class="exn">Calcium hydroxyapatite 250 mg</span><span class="exs">Half dose</span></div>
+        <div class="ex"><span class="exn">Probiotic, Physician&#8217;s Choice 60 Billion CFU <span class="tag tag-n" style="margin-left:4px">New</span></span><span class="exs">1 capsule. 10 strains plus prebiotic fiber</span></div>
+      </div>
+      <div class="card">
+        <div class="ch"><div class="ci" style="background:var(--ground-bg)"><i class="ti ti-soup" style="color:var(--ground-dk)"></i></div><div><div class="ct">Dinner — with the last meal</div></div></div>
+        <div class="ex"><span class="exn">Avmacol (Nutramax), sulforaphane-producing <span class="tag tag-n" style="margin-left:4px">New</span></span><span class="exs">Dose per your bottle, with the meal</span></div>
+        <div class="cd-legend" style="margin-top:8px">
+          <span class="cd-legend-item"><span class="etag emrg"><i class="ti ti-sparkles"></i>Emerging</span> Probiotics for general gut health in healthy adults; sulforaphane for &#8220;detox&#8221;</span>
+        </div>
       </div>
       <div class="card">
         <div class="ch"><div class="ci" style="background:var(--ground-bg)"><i class="ti ti-moon" style="color:var(--ground-dk)"></i></div><div><div class="ct">Bedtime — 30–60 min before sleep</div></div></div>
@@ -1356,9 +1383,56 @@ nav.pillar-nav::-webkit-scrollbar{display:none}
       </div>
     </div>
 
+    <!-- ═══════════ PROTOCOL: WEIGHT (manual log) ═══════════ -->
+    <div id="p-p-weight" class="panel">
+      <div class="ibar"><i class="ti ti-info-circle"></i><span>A log with no target. The 7-day average shows direction; any single morning is mostly water and timing.</span></div>
+
+      <div class="ew">Log a weigh-in</div>
+      <div class="card">
+        <div class="wt-form">
+          <input type="date" id="wt-date" aria-label="Date">
+          <input type="number" id="wt-val" step="0.1" min="60" max="500" inputmode="decimal" placeholder="lb" aria-label="Weight in pounds">
+          <button class="btn pr" onclick="wtAdd()"><i class="ti ti-plus"></i> Save</button>
+        </div>
+        <div class="cs" id="wt-msg" style="margin-top:6px"></div>
+      </div>
+
+      <div class="ew">Trend</div>
+      <div class="kpis" id="wt-stats"></div>
+      <div class="card chart"><div id="wt-chart"></div>
+        <div class="legend"><span><i class="sw" style="background:var(--ink4)"></i>Daily</span><span><i class="sw" style="background:var(--repair)"></i>7-day average</span></div>
+      </div>
+
+      <div class="ew">Entries</div>
+      <div class="card"><div id="wt-list"></div></div>
+
+      <div class="card">
+        <div class="cb">Saved on this device only. Export a backup now and then, and import it on a new phone.</div>
+        <div class="wt-form" style="margin-top:10px">
+          <button class="btn" onclick="wtExport()"><i class="ti ti-arrow-down"></i> Export backup</button>
+          <label class="btn"><i class="ti ti-arrow-up"></i> Import backup<input type="file" accept="application/json,.json" hidden onchange="wtImport(this)"></label>
+        </div>
+      </div>
+      <div class="wbar"><i class="ti ti-alert-circle"></i><span>Weigh under the same conditions each time, for example first thing in the morning. Same scale, same spot on the floor.</span></div>
+
+      <div class="ctarow">
+        <button class="btn pr" onclick="go('p-checkpoints',document.querySelector('[data-pillar=p-checkpoints]'))"><i class="ti ti-calendar-event"></i> Checkpoints</button>
+        <button class="btn" onclick="go('protocol',document.querySelector('[data-pillar=protocol]'))"><i class="ti ti-arrow-left"></i> Back to my protocol</button>
+      </div>
+    </div>
+
     <!-- ═══════════ PROTOCOL: CHECKPOINTS (3-year tracker) ═══════════ -->
     <div id="p-p-checkpoints" class="panel">
       <div class="ibar"><i class="ti ti-info-circle"></i><span>Every review point through Oct 2029, in one place. Quarterly checkpoints count from the July 20, 2026 training start. Each one ends the same way: send the notes to Claude and update Tareeq.</span></div>
+
+      <div class="ew">3-year burn-up</div>
+      <div class="kpis" id="bu-stats"></div>
+      <div class="card chart"><div id="bu-chart"></div>
+        <div class="legend"><span><i class="sw" style="background:var(--ink4)"></i>Planned</span><span><i class="sw" style="background:var(--repair)"></i>Done</span><span><i class="sw" style="background:var(--fire)"></i>Today</span></div>
+      </div>
+
+      <div class="ew">Check off milestones</div>
+      <div class="card" id="bu-list"></div>
 
       <div class="ew">Next 12 months</div>
       <div class="card tl">
@@ -1612,6 +1686,116 @@ function cpDismiss(){
   function once(){ if(played) return; played=true; cpChime(); document.removeEventListener('pointerdown',once,true); }
   document.addEventListener('pointerdown',once,true);
 })();
+
+/* Shared local store (device only) */
+function lsGet(k,d){try{var v=localStorage.getItem(k);return v?JSON.parse(v):d;}catch(e){return d;}}
+function lsSet(k,v){try{localStorage.setItem(k,JSON.stringify(v));return true;}catch(e){return false;}}
+function ymd(d){return d.getFullYear()+'-'+('0'+(d.getMonth()+1)).slice(-2)+'-'+('0'+d.getDate()).slice(-2);}
+function pd(k){var p=k.split('-');return new Date(+p[0],+p[1]-1,+p[2]);}
+var MON=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+function fmtD(k){var d=pd(k);return MON[d.getMonth()]+' '+d.getDate()+(d.getFullYear()!==new Date().getFullYear()?', '+d.getFullYear():'');}
+
+/* Line chart helper: series = [{pts:[[Date,val]], color, dash, dots, step}] */
+function drawChart(el,series,opt){
+  var W=340,H=170,L=34,R=8,T=10,B=22;
+  var all=[];series.forEach(function(s){s.pts.forEach(function(p){all.push(p);});});
+  if(!all.length){el.innerHTML='<div class="cs" style="padding:20px 0;text-align:center">Nothing logged yet.</div>';return;}
+  var x0=opt.x0||Math.min.apply(null,all.map(function(p){return +p[0];})), x1=opt.x1||Math.max.apply(null,all.map(function(p){return +p[0];}));
+  if(x1===x0)x1=x0+86400000;
+  var ys=all.map(function(p){return p[1];}), y0=opt.y0!=null?opt.y0:Math.min.apply(null,ys), y1=opt.y1!=null?opt.y1:Math.max.apply(null,ys);
+  if(opt.y0==null){var pad=Math.max(1,(y1-y0)*0.15);y0=Math.floor(y0-pad);y1=Math.ceil(y1+pad);}
+  if(y1===y0)y1=y0+1;
+  function X(t){return L+(t-x0)/(x1-x0)*(W-L-R);} function Y(v){return T+(1-(v-y0)/(y1-y0))*(H-T-B);}
+  var g='';
+  for(var i=0;i<=4;i++){var v=y0+(y1-y0)*i/4, y=Y(v);
+    g+='<line x1="'+L+'" x2="'+(W-R)+'" y1="'+y+'" y2="'+y+'" style="stroke:var(--bdr);stroke-width:0.5"/>';
+    g+='<text x="'+(L-4)+'" y="'+(y+3)+'" text-anchor="end">'+(opt.intY?Math.round(v):Math.round(v*10)/10)+'</text>';}
+  (opt.ticks||[]).forEach(function(t){g+='<text x="'+X(+t[0])+'" y="'+(H-6)+'" text-anchor="middle">'+t[1]+'</text>';});
+  if(opt.today){var tx=X(+opt.today);if(tx>=L&&tx<=W-R)g+='<line x1="'+tx+'" x2="'+tx+'" y1="'+T+'" y2="'+(H-B)+'" style="stroke:var(--fire);stroke-width:1;stroke-dasharray:2 2"/>';}
+  series.forEach(function(s){
+    if(!s.pts.length)return; var d='';
+    s.pts.forEach(function(p,j){var x=X(+p[0]),y=Y(p[1]);
+      if(j===0)d='M'+x+' '+y; else if(s.step){d+=' H'+x+' V'+y;} else d+=' L'+x+' '+y;});
+    if(s.extendTo){d+=' H'+X(+s.extendTo);}
+    if(s.line!==false)g+='<path d="'+d+'" fill="none" style="stroke:'+s.color+';stroke-width:'+(s.w||1.8)+(s.dash?';stroke-dasharray:'+s.dash:'')+';stroke-linejoin:round"/>';
+    if(s.dots)s.pts.forEach(function(p){g+='<circle cx="'+X(+p[0])+'" cy="'+Y(p[1])+'" r="2.2" style="fill:'+s.color+'"/>';});
+  });
+  el.innerHTML='<svg viewBox="0 0 '+W+' '+H+'" role="img" aria-label="'+(opt.label||'Chart')+'">'+g+'</svg>';
+}
+
+/* ---------- Weight log ---------- */
+var WT_KEY='tareeq-weight';
+function wtData(){return lsGet(WT_KEY,[]).sort(function(a,b){return a.d<b.d?-1:1;});}
+function wtAdd(){
+  var d=document.getElementById('wt-date').value, v=parseFloat(document.getElementById('wt-val').value), m=document.getElementById('wt-msg');
+  if(!d||!(v>60&&v<500)){m.textContent='Add a date and a weight in pounds.';return;}
+  var data=wtData().filter(function(e){return e.d!==d;}); data.push({d:d,lb:Math.round(v*10)/10});
+  if(!lsSet(WT_KEY,data)){m.textContent='Couldn’t save on this device. Private browsing blocks storage.';return;}
+  document.getElementById('wt-val').value=''; m.textContent='Saved for '+fmtD(d)+'.'; wtRender();
+}
+function wtDel(d){lsSet(WT_KEY,wtData().filter(function(e){return e.d!==d;}));wtRender();}
+function wtAvg(data,endKey,days){var end=pd(endKey),start=new Date(end);start.setDate(start.getDate()-(days-1));
+  var xs=data.filter(function(e){var t=pd(e.d);return t>=start&&t<=end;}).map(function(e){return e.lb;});
+  return xs.length?xs.reduce(function(a,b){return a+b;},0)/xs.length:null;}
+function wtRender(){
+  var data=wtData(), st=document.getElementById('wt-stats'); if(!st)return;
+  var di=document.getElementById('wt-date'); if(di&&!di.value)di.value=ymd(new Date());
+  var last=data[data.length-1];
+  var a7=last?wtAvg(data,last.d,7):null;
+  var prior=null; if(last){var p=pd(last.d);p.setDate(p.getDate()-28);prior=wtAvg(data,ymd(p),7);}
+  function kpi(n,u,l){return '<div class="kpi"><div class="kpi-n">'+n+'<span class="kpi-u">'+u+'</span></div><div class="kpi-l">'+l+'</div></div>';}
+  st.innerHTML=kpi(last?last.lb:'–','lb',last?'Latest, '+fmtD(last.d):'Latest')+kpi(a7!=null?a7.toFixed(1):'–','lb','7-day average')+kpi((a7!=null&&prior!=null)?((a7-prior>0?'+':'')+(a7-prior).toFixed(1)):'–','lb','vs 4 weeks ago');
+  var daily=data.map(function(e){return [pd(e.d),e.lb];});
+  var avg=data.map(function(e){return [pd(e.d),wtAvg(data,e.d,7)];});
+  var ticks=[]; if(daily.length){var a=+daily[0][0],b=+daily[daily.length-1][0];[0,0.5,1].forEach(function(f){var t=new Date(a+(b-a)*f);ticks.push([t,MON[t.getMonth()]+' '+t.getDate()]);});}
+  drawChart(document.getElementById('wt-chart'),[{pts:daily,color:'var(--ink4)',line:false,dots:true},{pts:avg,color:'var(--repair)',w:2}],{ticks:ticks,label:'Weight trend'});
+  var li=document.getElementById('wt-list');
+  li.innerHTML=data.length?data.slice().reverse().slice(0,30).map(function(e){return '<div class="wt-row"><span>'+fmtD(e.d)+'</span><span><strong>'+e.lb+'</strong> lb <button onclick="wtDel(\''+e.d+'\')" aria-label="Delete entry">✕</button></span></div>';}).join(''):'<div class="cs">No entries yet.</div>';
+}
+function wtExport(){
+  var blob=new Blob([JSON.stringify({weight:wtData(),milestones:lsGet(BU_KEY,{})},null,1)],{type:'application/json'});
+  var a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='tareeq-backup-'+ymd(new Date())+'.json';document.body.appendChild(a);a.click();setTimeout(function(){URL.revokeObjectURL(a.href);a.remove();},500);
+}
+function wtImport(inp){
+  var f=inp.files&&inp.files[0]; if(!f)return; var r=new FileReader();
+  r.onload=function(){try{var j=JSON.parse(r.result);var w=Array.isArray(j)?j:(j.weight||[]);
+    var map={};wtData().concat(w).forEach(function(e){if(e&&e.d&&e.lb)map[e.d]=e;});lsSet(WT_KEY,Object.keys(map).map(function(k){return map[k];}));
+    if(j.milestones){var m=lsGet(BU_KEY,{});Object.keys(j.milestones).forEach(function(k){m[k]=j.milestones[k];});lsSet(BU_KEY,m);}
+    document.getElementById('wt-msg').textContent='Backup imported.';wtRender();buRender();}catch(e){document.getElementById('wt-msg').textContent='That file isn’t a Tareeq backup.';}};
+  r.readAsText(f); inp.value='';
+}
+
+/* ---------- 3-year burn-up ---------- */
+var BU_KEY='tareeq-milestones';
+var BU_PAST=[['2026-07-20','Training start'],['2026-07-21','Baseline labs drawn'],['2026-10-20','3-month checkpoint'],['2026-10-22','Hormone draw']];
+var BU_SEED={'2026-07-20':'2026-07-20','2026-07-21':'2026-07-21','2026-10-20':'2026-10-29','2026-10-22':'2026-10-22'};
+function buItems(){
+  var items=BU_PAST.map(function(e){return {k:e[0],t:e[1]};});
+  CP.forEach(function(c){items.push({k:c.k,t:c.t});});
+  return items.sort(function(a,b){return a.k<b.k?-1:1;});
+}
+function buDone(){var m=lsGet(BU_KEY,null);if(!m){m=BU_SEED;lsSet(BU_KEY,m);}return m;}
+function buToggle(k,el){var m=buDone();if(el.checked)m[k]=ymd(new Date());else delete m[k];lsSet(BU_KEY,m);buRender();}
+function buRender(){
+  var st=document.getElementById('bu-stats'); if(!st)return;
+  var items=buItems(), done=buDone(), today=new Date(); today.setHours(0,0,0,0); var tk=ymd(today);
+  var x0=pd('2026-07-01'), x1=pd('2029-11-01');
+  var planned=[[x0,0]],n=0; items.forEach(function(i){n++;planned.push([pd(i.k),n]);});
+  var dk=items.filter(function(i){return done[i.k];}).map(function(i){return done[i.k];}).sort();
+  var actual=[[x0,0]]; dk.forEach(function(d,j){actual.push([pd(d),j+1]);});
+  var dueNow=items.filter(function(i){return i.k<=tk;}).length;
+  var behind=items.filter(function(i){return i.k<=tk&&!done[i.k];}).length;
+  var pct=Math.round(dk.length/items.length*100);
+  function kpi(n,u,l){return '<div class="kpi"><div class="kpi-n">'+n+'<span class="kpi-u">'+u+'</span></div><div class="kpi-l">'+l+'</div></div>';}
+  st.innerHTML=kpi(dk.length,'/'+items.length,'Milestones done')+kpi(pct,'%','Of the 3 years')+kpi(behind===0?'On':behind,behind===0?' track':' open',behind===0?'Nothing overdue':'Due and not checked');
+  var ticks=[];[2026,2027,2028,2029].forEach(function(y){var t=new Date(y,0,1);if(t>=x0)ticks.push([t,String(y)]);});ticks.unshift([pd('2026-07-20'),'Jul 26']);ticks=ticks.filter(function(t){return t[1]!=='2026';});
+  drawChart(document.getElementById('bu-chart'),[{pts:planned,color:'var(--ink4)',dash:'3 3',step:true,w:1.4},{pts:actual,color:'var(--repair)',step:true,w:2.2,extendTo:today}],{x0:+x0,x1:+x1,y0:0,y1:items.length,ticks:ticks,today:today,intY:true,label:'Milestone burn-up, July 2026 to October 2029'});
+  var soon=new Date(today);soon.setDate(soon.getDate()+14);var sk=ymd(soon);
+  var show=items.filter(function(i){return i.k<=sk;}).reverse();
+  document.getElementById('bu-list').innerHTML=show.map(function(i){var d=!!done[i.k];
+    return '<label class="bu-row'+(d?' done':'')+'"><input type="checkbox"'+(d?' checked':'')+' onchange="buToggle(\''+i.k+'\',this)"><span class="bu-d">'+fmtD(i.k)+'</span><span class="bu-t">'+i.t.replace(/&/g,'&amp;')+'</span></label>';}).join('')+'<div class="cs" style="padding-top:8px">Milestones appear here 2 weeks before they&#8217;re due.</div>';
+}
+wtRender(); buRender();
 
 /* Offline: save the app on first visit so it opens without internet */
 if('serviceWorker' in navigator){window.addEventListener('load',function(){navigator.serviceWorker.register('sw.js').catch(function(){});});}
