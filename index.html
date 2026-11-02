@@ -32,8 +32,9 @@
   try{
     var sc='classic'; try{sc=localStorage.getItem('tareeq-scheme')||'classic';}catch(e){}
     var d=new Date(), md=(d.getMonth()+1)*100+d.getDate();
-    document.documentElement.setAttribute('data-scheme', sc);
-    document.documentElement.setAttribute('data-tq-season', (md>=320&&md<922)?'ss':'fw');
+    var se=(sc==='ss'||sc==='fw')?sc:((md>=320&&md<922)?'ss':'fw');
+    document.documentElement.setAttribute('data-scheme', (sc==='ss'||sc==='fw')?'seasonal':sc);
+    document.documentElement.setAttribute('data-tq-season', se);
   }catch(e){}
 })();
 </script>
@@ -587,6 +588,8 @@ body.has-bbar .fab{display:flex}
               <button class="sm-opt" data-sc="classic" role="menuitemradio" onclick="setScheme('classic')"><span class="sm-sw"><span style="background:#C8512A"></span><span style="background:#5046B8"></span><span style="background:#B8720F"></span><span style="background:#1D9E75"></span></span><span><div class="sm-t">Classic</div><div class="sm-s">The original Tareeq colors</div></span><i class="ti ti-check"></i></button>
               <button class="sm-opt" data-sc="neutral" role="menuitemradio" onclick="setScheme('neutral')"><span class="sm-sw"><span style="background:#E7E7E4;border:0.5px solid rgba(0,0,0,.15)"></span><span style="background:#9C9A93"></span><span style="background:#41413E"></span><span style="background:#2B2B29"></span></span><span><div class="sm-t">Neutral</div><div class="sm-s">Stone by day, graphite by night</div></span><i class="ti ti-check"></i></button>
               <button class="sm-opt" data-sc="seasonal" role="menuitemradio" onclick="setScheme('seasonal')"><span class="sm-sw" id="sm-season-sw"></span><span><div class="sm-t">Seasonal</div><div class="sm-s" id="sm-season-sub">Follows the equinoxes</div></span><i class="ti ti-check"></i></button>
+              <button class="sm-opt" data-sc="ss" role="menuitemradio" onclick="setScheme('ss')"><span class="sm-sw"><span style="background:#FF4A1C"></span><span style="background:#5B4BFF"></span><span style="background:#FFB300"></span><span style="background:#00C48C"></span></span><span><div class="sm-t">Spring/Summer</div><div class="sm-s">Bright and warm, all year</div></span><i class="ti ti-check"></i></button>
+              <button class="sm-opt" data-sc="fw" role="menuitemradio" onclick="setScheme('fw')"><span class="sm-sw"><span style="background:#A8431F"></span><span style="background:#4A3F8C"></span><span style="background:#A86A12"></span><span style="background:#2F6E5C"></span></span><span><div class="sm-t">Fall/Winter</div><div class="sm-s">Ember and pine, all year</div></span><i class="ti ti-check"></i></button>
             </div>
           </div>
           <button class="tt-btn" id="refresh-btn" onclick="refreshPage()" title="Refresh" aria-label="Load the latest version"><i class="ti ti-refresh"></i></button>
@@ -2257,13 +2260,14 @@ var SCHEME_BAR={classic:'#f8f7f4',neutral:['#E7E7E4','#2B2B29'],ss:['#FFF1D6','#
 function seasonNow(){var d=new Date(),md=(d.getMonth()+1)*100+d.getDate();return(md>=320&&md<922)?'ss':'fw';}
 function getScheme(){try{return localStorage.getItem(SCHEME_KEY)||'classic';}catch(e){return 'classic';}}
 function applyScheme(){
-  var sc=getScheme(),root=document.documentElement,se=seasonNow();
-  root.setAttribute('data-scheme',sc);root.setAttribute('data-tq-season',se);
+  var sc=getScheme(),root=document.documentElement,auto=seasonNow();
+  var fixed=(sc==='ss'||sc==='fw'),se=fixed?sc:auto;
+  root.setAttribute('data-scheme',fixed?'seasonal':sc);root.setAttribute('data-tq-season',se);
   document.querySelectorAll('.sm-opt').forEach(function(b){var on=b.getAttribute('data-sc')===sc;b.classList.toggle('on',on);b.setAttribute('aria-checked',on?'true':'false');});
   var sw=document.getElementById('sm-season-sw'),sub=document.getElementById('sm-season-sub');
-  var cols=se==='ss'?['#FF4A1C','#5B4BFF','#FFB300','#00C48C']:['#A8431F','#4A3F8C','#A86A12','#2F6E5C'];
+  var cols=auto==='ss'?['#FF4A1C','#5B4BFF','#FFB300','#00C48C']:['#A8431F','#4A3F8C','#A86A12','#2F6E5C'];
   if(sw)sw.innerHTML=cols.map(function(c){return '<span style="background:'+c+'"></span>';}).join('');
-  if(sub)sub.textContent=(se==='ss'?'Spring/Summer':'Fall/Winter')+' now, switches at the equinox';
+  if(sub)sub.textContent=(auto==='ss'?'Spring/Summer':'Fall/Winter')+' now, switches at the equinox';
   var dark=root.getAttribute('data-theme')==='dark',m=document.querySelector('meta[name="theme-color"]');
   if(m){var v=sc==='classic'?(dark?'#201f1c':'#f8f7f4'):sc==='neutral'?SCHEME_BAR.neutral[dark?1:0]:SCHEME_BAR[se][dark?1:0];m.setAttribute('content',v);}
 }
