@@ -217,7 +217,16 @@ html[data-theme="dark"] img.brand-wordmark{filter:brightness(1.5) saturate(.88)}
 .mode-btn i{font-size:13px}
 .mode-btn.on{background:var(--bg);color:var(--ink);box-shadow:0 1px 3px rgba(0,0,0,0.08)}
 
-nav.pillar-nav{display:flex;gap:0;overflow-x:auto;scrollbar-width:none;margin-top:1.4rem}
+nav.pillar-nav{display:flex;gap:0;overflow-x:auto;scrollbar-width:none;scroll-behavior:smooth}
+/* Tab arrows: shown on computers (mouse/trackpad) when the row has more tabs off to that side */
+.nav-wrap{position:relative;margin-top:1.4rem}
+.nav-arr{position:absolute;top:0;bottom:2px;width:44px;display:none;align-items:center;border:none;cursor:pointer;color:var(--ink2);z-index:2;padding:0}
+.nav-arr.l{left:0;justify-content:flex-start;background:linear-gradient(to right,var(--bg2) 55%,transparent)}
+.nav-arr.r{right:0;justify-content:flex-end;background:linear-gradient(to left,var(--bg2) 55%,transparent)}
+.nav-arr span{width:28px;height:28px;border-radius:50%;background:var(--bg);border:0.5px solid var(--bdr2);display:flex;align-items:center;justify-content:center;transition:color .15s,border-color .15s}
+.nav-arr:hover span{color:var(--ink);border-color:var(--ink3)}
+.nav-arr i{font-size:15px}
+@media (hover:hover) and (pointer:fine){.nav-arr.show{display:flex}}
 nav.pillar-nav::-webkit-scrollbar{display:none}
 .nb{padding:12px 17px;font-size:12.5px;font-weight:500;color:var(--ink3);border:none;background:none;cursor:pointer;white-space:nowrap;border-bottom:2px solid transparent;letter-spacing:.01em;transition:color .15s,border-color .15s;font-family:inherit;display:flex;align-items:center;gap:6px}
 .nb:hover{color:var(--ink)}
@@ -597,6 +606,8 @@ body.has-bbar .fab{display:flex}
       </div>
     </div>
 
+    <div class="nav-wrap" id="nav-wrap">
+    <button class="nav-arr l" id="nav-arr-l" onclick="navStep(-1)" aria-label="Scroll tabs left" title="Previous tabs"><span><i class="ti ti-chevron-left"></i></span></button>
     <nav class="pillar-nav" id="charter-nav">
       <button class="nb on" data-pillar="overview" onclick="go('overview',this)"><span class="nb-dot"></span>The Charter</button>
       <button class="nb" data-pillar="fire" onclick="go('fire',this)"><span class="nb-dot"></span>Fire</button>
@@ -621,6 +632,8 @@ body.has-bbar .fab{display:flex}
       <button class="nb" data-pillar="p-travel" onclick="go('p-travel',this)"><span class="nb-dot"></span>Travel</button>
       <button class="nb" data-pillar="p-account" onclick="go('p-account',this)"><span class="nb-dot"></span>Account</button>
     </nav>
+    <button class="nav-arr r" id="nav-arr-r" onclick="navStep(1)" aria-label="Scroll tabs right" title="More tabs"><span><i class="ti ti-chevron-right"></i></span></button>
+    </div>
   </header>
 
   <!-- THE PATH — visual spine -->
@@ -2279,6 +2292,19 @@ document.addEventListener('keydown',function(e){if(e.key==='Escape')closeSchemeM
 new MutationObserver(function(){applyScheme();}).observe(document.documentElement,{attributes:true,attributeFilter:['data-theme']});
 setInterval(function(){if(document.documentElement.getAttribute('data-tq-season')!==seasonNow())applyScheme();},60*60*1000);
 applyScheme();
+/* Tab arrows */
+function navVisible(){var a=document.getElementById('charter-nav'),b=document.getElementById('protocol-nav');return (b&&b.style.display!=='none')?b:a;}
+function navArrows(){
+  var n=navVisible();if(!n)return;
+  var max=n.scrollWidth-n.clientWidth;
+  document.getElementById('nav-arr-l').classList.toggle('show',n.scrollLeft>4);
+  document.getElementById('nav-arr-r').classList.toggle('show',n.scrollLeft<max-4);
+}
+function navStep(d){var n=navVisible();if(n)n.scrollBy({left:d*Math.max(160,n.clientWidth*0.6),behavior:'smooth'});}
+['charter-nav','protocol-nav'].forEach(function(id){var n=document.getElementById(id);if(n){n.addEventListener('scroll',navArrows,{passive:true});
+  n.addEventListener('click',function(e){var b=e.target.closest('.nb');if(b)b.scrollIntoView({inline:'nearest',block:'nearest',behavior:'smooth'});});
+  new MutationObserver(navArrows).observe(n,{attributes:true,attributeFilter:['style']});}});
+window.addEventListener('resize',navArrows);window.addEventListener('load',navArrows);navArrows();
 (function initTheme(){
   var mode=getMode();
   updateToggleUI(mode);
