@@ -29,6 +29,12 @@
     document.documentElement.setAttribute('data-theme', resolved);
     document.documentElement.setAttribute('data-theme-mode', mode);
   }catch(e){}
+  try{
+    var sc='classic'; try{sc=localStorage.getItem('tareeq-scheme')||'classic';}catch(e){}
+    var d=new Date(), md=(d.getMonth()+1)*100+d.getDate();
+    document.documentElement.setAttribute('data-scheme', sc);
+    document.documentElement.setAttribute('data-tq-season', (md>=320&&md<922)?'ss':'fw');
+  }catch(e){}
 })();
 </script>
 <style>
@@ -78,6 +84,100 @@ html[data-theme="dark"]{
   --shell-shadow:0 4px 24px rgba(0,0,0,0.35);
   color-scheme:dark;
 }
+
+
+/* ══════════════════════════════════════════════════════
+   COLOR SCHEMES — a second axis beside light/dark.
+   classic = tokens above. neutral = Stone (light) / Graphite (dark).
+   seasonal = Spring/Summer (Mar 20 to Sep 21) or Fall/Winter, each light + dark.
+   Pillar hues keep their identity in every scheme; the logo PNG never changes.
+   ══════════════════════════════════════════════════════ */
+html[data-scheme="neutral"]:not([data-theme="dark"]){
+  --ink:#1E1E1C;--ink2:#45453F;--ink3:#6E6E69;--ink4:#A4A49E;
+  --bg:#F5F5F3;--bg2:#E7E7E4;--bg3:#DEDEDA;--bg4:#D3D3CE;
+  --bdr:rgba(0,0,0,0.08);--bdr2:rgba(0,0,0,0.13);
+  --fire:#A9573A;--fire-dk:#7E3F28;--fire-bg:#EDE3DD;--fire-mid:#D59C84;
+  --ground:#5A5594;--ground-dk:#403C70;--ground-bg:#E6E5EF;--ground-mid:#A9A5D2;
+  --fuel:#9A7230;--fuel-dk:#6E5020;--fuel-bg:#EEE8DC;--fuel-mid:#D3B67F;
+  --repair:#2E7F68;--repair-dk:#1F5C4B;--repair-bg:#DFEAE5;--repair-mid:#93C7B6;
+  --ev-est:#2E5A44;--ev-est-bg:#DCE5DF;--ev-trad:#6B5130;--ev-trad-bg:#ECE6DB;--ev-emrg:#545270;--ev-emrg-bg:#E5E4EC;
+  --gold:#9A7230;--gold-bg:#EEE8DC;--gold-mid:#D3B67F;
+  --shell-shadow:0 4px 24px rgba(0,0,0,0.07);color-scheme:light;
+}
+html[data-scheme="neutral"][data-theme="dark"]{
+  --ink:#ECEAE4;--ink2:#C9C6BE;--ink3:#9C9A93;--ink4:#66655F;
+  --bg:#363634;--bg2:#2B2B29;--bg3:#41413E;--bg4:#4C4C49;
+  --bdr:rgba(255,255,255,0.08);--bdr2:rgba(255,255,255,0.14);
+  --fire:#E08A68;--fire-dk:#F0A685;--fire-bg:#45342C;--fire-mid:#B4613F;
+  --ground:#A39DE6;--ground-dk:#C1BCF2;--ground-bg:#36344A;--ground-mid:#6B64B0;
+  --fuel:#E3A94A;--fuel-dk:#F2C77E;--fuel-bg:#463C2A;--fuel-mid:#A97A2C;
+  --repair:#6CC9A8;--repair-dk:#A2E0C9;--repair-bg:#2C403A;--repair-mid:#2E8A6C;
+  --ev-est:#9FC9B1;--ev-est-bg:#2F3B34;--ev-trad:#D6BB86;--ev-trad-bg:#403927;--ev-emrg:#B4B0DC;--ev-emrg-bg:#36354A;
+  --gold:#E3A94A;--gold-bg:#463C2A;--gold-mid:#A97A2C;
+  --shell-shadow:0 4px 24px rgba(0,0,0,0.32);color-scheme:dark;
+}
+html[data-scheme="seasonal"][data-tq-season="ss"]:not([data-theme="dark"]){
+  --ink:#16150F;--ink2:#3E3B33;--ink3:#6A6455;--ink4:#A9A291;
+  --bg:#FFFFFF;--bg2:#FFF1D6;--bg3:#FFE9C2;--bg4:#FBDFAE;
+  --bdr:rgba(0,0,0,0.07);--bdr2:rgba(0,0,0,0.12);
+  --fire:#FF4A1C;--fire-dk:#B02A0C;--fire-bg:#FFE0D3;--fire-mid:#FF9C7E;
+  --ground:#5B4BFF;--ground-dk:#3A2BC9;--ground-bg:#ECE9FF;--ground-mid:#A79FFF;
+  --fuel:#FFB300;--fuel-dk:#8A5A00;--fuel-bg:#FFF0C7;--fuel-mid:#FFD466;
+  --repair:#00C48C;--repair-dk:#00714E;--repair-bg:#D6F7E9;--repair-mid:#7EE3BF;
+  --ev-est:#00714E;--ev-est-bg:#C6F5DF;--ev-trad:#8A5A00;--ev-trad-bg:#FFEDC2;--ev-emrg:#4A3FB8;--ev-emrg-bg:#E9E6FF;
+  --gold:#FFB300;--gold-bg:#FFF0C7;--gold-mid:#FFD466;
+  --shell-shadow:0 4px 24px rgba(0,0,0,0.07);color-scheme:light;
+}
+html[data-scheme="seasonal"][data-tq-season="ss"][data-theme="dark"]{
+  --ink:#F5F1E8;--ink2:#D2CCBE;--ink3:#9E978A;--ink4:#5E594F;
+  --bg:#1C1B24;--bg2:#15141C;--bg3:#26252F;--bg4:#31303B;
+  --bdr:rgba(255,255,255,0.08);--bdr2:rgba(255,255,255,0.14);
+  --fire:#FF7A52;--fire-dk:#FFA285;--fire-bg:#3A1A10;--fire-mid:#E0451E;
+  --ground:#8F84FF;--ground-dk:#B4ACFF;--ground-bg:#221D4D;--ground-mid:#5B4BFF;
+  --fuel:#FFC233;--fuel-dk:#FFD873;--fuel-bg:#3A2A05;--fuel-mid:#D99A00;
+  --repair:#2EE0A6;--repair-dk:#8CF0CD;--repair-bg:#06342A;--repair-mid:#00A877;
+  --ev-est:#8CF0CD;--ev-est-bg:#0F2E24;--ev-trad:#FFD873;--ev-trad-bg:#33270A;--ev-emrg:#B4ACFF;--ev-emrg-bg:#221E3F;
+  --gold:#FFC233;--gold-bg:#3A2A05;--gold-mid:#D99A00;
+  --shell-shadow:0 4px 24px rgba(0,0,0,0.32);color-scheme:dark;
+}
+html[data-scheme="seasonal"][data-tq-season="fw"]:not([data-theme="dark"]){
+  --ink:#231E19;--ink2:#4A4239;--ink3:#75695C;--ink4:#ACA294;
+  --bg:#FBF8F3;--bg2:#F3ECE2;--bg3:#EAE1D4;--bg4:#DFD3C3;
+  --bdr:rgba(60,40,20,0.09);--bdr2:rgba(60,40,20,0.15);
+  --fire:#A8431F;--fire-dk:#7A2F14;--fire-bg:#F2DDD0;--fire-mid:#D88F6E;
+  --ground:#4A3F8C;--ground-dk:#342B66;--ground-bg:#E6E2F0;--ground-mid:#9D95CC;
+  --fuel:#A86A12;--fuel-dk:#7A4C0B;--fuel-bg:#F3E5CC;--fuel-mid:#D9AE68;
+  --repair:#2F6E5C;--repair-dk:#1F4E41;--repair-bg:#DDE9E3;--repair-mid:#8DBBAA;
+  --ev-est:#2C5A47;--ev-est-bg:#DDE6DE;--ev-trad:#6E4E22;--ev-trad-bg:#EFE2CC;--ev-emrg:#4E4878;--ev-emrg-bg:#E6E3EE;
+  --gold:#A86A12;--gold-bg:#F3E5CC;--gold-mid:#D9AE68;
+  --shell-shadow:0 4px 24px rgba(0,0,0,0.07);color-scheme:light;
+}
+html[data-scheme="seasonal"][data-tq-season="fw"][data-theme="dark"]{
+  --ink:#EFE7DC;--ink2:#CABFB1;--ink3:#A2968A;--ink4:#615850;
+  --bg:#2D2824;--bg2:#221E1B;--bg3:#37312C;--bg4:#423B35;
+  --bdr:rgba(255,240,220,0.08);--bdr2:rgba(255,240,220,0.14);
+  --fire:#D9774E;--fire-dk:#EDA07D;--fire-bg:#3E2A20;--fire-mid:#A8431F;
+  --ground:#9C93D9;--ground-dk:#BDB6EA;--ground-bg:#2C2840;--ground-mid:#5A4FA8;
+  --fuel:#D9A04A;--fuel-dk:#EBC27F;--fuel-bg:#3D2F1A;--fuel-mid:#A86A12;
+  --repair:#5FAF93;--repair-dk:#93D1BB;--repair-bg:#1F332B;--repair-mid:#2F6E5C;
+  --ev-est:#93C2AA;--ev-est-bg:#26332C;--ev-trad:#D9B983;--ev-trad-bg:#3A2F1E;--ev-emrg:#B2ACDC;--ev-emrg-bg:#2D2A40;
+  --gold:#D9A04A;--gold-bg:#3D2F1A;--gold-mid:#A86A12;
+  --shell-shadow:0 4px 24px rgba(0,0,0,0.32);color-scheme:dark;
+}
+
+/* Scheme picker */
+.tt-wrap{position:relative;display:flex}
+.scheme-menu{position:absolute;top:calc(100% + 8px);right:-6px;z-index:60;min-width:210px;background:var(--bg);border:0.5px solid var(--bdr2);border-radius:var(--rlg);box-shadow:var(--shell-shadow);padding:6px;display:none}
+.scheme-menu.op{display:block}
+.sm-opt{display:flex;align-items:center;gap:10px;width:100%;padding:8px 9px;border:none;background:none;border-radius:var(--rmd);cursor:pointer;font-family:inherit;text-align:left;color:var(--ink)}
+.sm-opt:hover{background:var(--bg2)}
+.sm-opt.on{background:var(--bg3)}
+.sm-sw{display:flex;gap:2px;flex-shrink:0}
+.sm-sw span{width:9px;height:18px;border-radius:3px}
+.sm-t{font-size:12.5px;font-weight:500;line-height:1.3}
+.sm-s{font-size:11px;color:var(--ink3);line-height:1.3}
+.sm-opt .ti-check{margin-left:auto;font-size:14px;color:var(--ink3);visibility:hidden}
+.sm-opt.on .ti-check{visibility:visible}
 
 html{font-size:15px}
 body{font-family:'Inter',system-ui,sans-serif;background:var(--bg2);color:var(--ink);line-height:1.65;min-height:100vh;padding:2rem 1rem 4rem;transition:background-color .3s ease,color .3s ease}
@@ -318,6 +418,18 @@ nav.pillar-nav::-webkit-scrollbar{display:none}
   .tt-btn{width:26px}
   .tt-sep{margin:0 2px}
 }
+@media(max-width:420px){
+  .mode-btn i{display:none}
+  .mode-btn{padding:7px 9px}
+  .theme-toggle{padding:2px;gap:1px}
+  .tt-btn{width:24px;height:26px}
+  .tt-sep{margin:0 1px}
+}
+@media(max-width:350px){.tt-btn{width:22px}.hdr-controls{gap:4px}.mode-btn{padding:7px 7px}}
+/* Bright summer: amber and coral are too light for small text on white, so labels use the deep stop */
+html[data-scheme="seasonal"][data-tq-season="ss"]:not([data-theme="dark"]) .path-lbl.fuel{color:var(--fuel-dk)}
+html[data-scheme="seasonal"][data-tq-season="ss"]:not([data-theme="dark"]) .path-lbl.repair{color:var(--repair-dk)}
+html[data-scheme="seasonal"][data-tq-season="ss"]:not([data-theme="dark"]) .path-lbl.fire{color:var(--fire-dk)}
 /* Logo home button — press the mark to return to the top */
 .home-return{display:flex;justify-content:center;padding:1.4rem 1rem 2.2rem;background:var(--bg2)}
 .home-btn{background:none;border:none;cursor:pointer;padding:8px 12px;border-radius:14px;display:flex;align-items:center;transition:opacity .15s,transform .15s}
@@ -469,6 +581,14 @@ body.has-bbar .fab{display:flex}
           <button class="tt-btn" id="tt-auto" onclick="setTheme('auto')" title="Auto" aria-label="Automatic mode"><i class="ti ti-sun-moon"></i></button>
           <button class="tt-btn" id="tt-dark" onclick="setTheme('dark')" title="Dark" aria-label="Dark mode"><i class="ti ti-moon"></i></button>
           <span class="tt-sep" aria-hidden="true"></span>
+          <div class="tt-wrap">
+            <button class="tt-btn" id="scheme-btn" onclick="toggleSchemeMenu(event)" title="Color scheme" aria-label="Color scheme" aria-haspopup="true" aria-expanded="false"><i class="ti ti-palette"></i></button>
+            <div class="scheme-menu" id="scheme-menu" role="menu">
+              <button class="sm-opt" data-sc="classic" role="menuitemradio" onclick="setScheme('classic')"><span class="sm-sw"><span style="background:#C8512A"></span><span style="background:#5046B8"></span><span style="background:#B8720F"></span><span style="background:#1D9E75"></span></span><span><div class="sm-t">Classic</div><div class="sm-s">The original Tareeq colors</div></span><i class="ti ti-check"></i></button>
+              <button class="sm-opt" data-sc="neutral" role="menuitemradio" onclick="setScheme('neutral')"><span class="sm-sw"><span style="background:#E7E7E4;border:0.5px solid rgba(0,0,0,.15)"></span><span style="background:#9C9A93"></span><span style="background:#41413E"></span><span style="background:#2B2B29"></span></span><span><div class="sm-t">Neutral</div><div class="sm-s">Stone by day, graphite by night</div></span><i class="ti ti-check"></i></button>
+              <button class="sm-opt" data-sc="seasonal" role="menuitemradio" onclick="setScheme('seasonal')"><span class="sm-sw" id="sm-season-sw"></span><span><div class="sm-t">Seasonal</div><div class="sm-s" id="sm-season-sub">Follows the equinoxes</div></span><i class="ti ti-check"></i></button>
+            </div>
+          </div>
           <button class="tt-btn" id="refresh-btn" onclick="refreshPage()" title="Refresh" aria-label="Load the latest version"><i class="ti ti-refresh"></i></button>
         </div>
       </div>
@@ -2131,6 +2251,30 @@ function scheduleThemeRecheck(){
   },5*60*1000);
 }
 document.addEventListener('DOMContentLoaded', restorePanel);
+/* Color scheme: classic | neutral | seasonal. Saved on this device. */
+var SCHEME_KEY='tareeq-scheme';
+var SCHEME_BAR={classic:'#f8f7f4',neutral:['#E7E7E4','#2B2B29'],ss:['#FFF1D6','#15141C'],fw:['#F3ECE2','#221E1B']};
+function seasonNow(){var d=new Date(),md=(d.getMonth()+1)*100+d.getDate();return(md>=320&&md<922)?'ss':'fw';}
+function getScheme(){try{return localStorage.getItem(SCHEME_KEY)||'classic';}catch(e){return 'classic';}}
+function applyScheme(){
+  var sc=getScheme(),root=document.documentElement,se=seasonNow();
+  root.setAttribute('data-scheme',sc);root.setAttribute('data-tq-season',se);
+  document.querySelectorAll('.sm-opt').forEach(function(b){var on=b.getAttribute('data-sc')===sc;b.classList.toggle('on',on);b.setAttribute('aria-checked',on?'true':'false');});
+  var sw=document.getElementById('sm-season-sw'),sub=document.getElementById('sm-season-sub');
+  var cols=se==='ss'?['#FF4A1C','#5B4BFF','#FFB300','#00C48C']:['#A8431F','#4A3F8C','#A86A12','#2F6E5C'];
+  if(sw)sw.innerHTML=cols.map(function(c){return '<span style="background:'+c+'"></span>';}).join('');
+  if(sub)sub.textContent=(se==='ss'?'Spring/Summer':'Fall/Winter')+' now, switches at the equinox';
+  var dark=root.getAttribute('data-theme')==='dark',m=document.querySelector('meta[name="theme-color"]');
+  if(m){var v=sc==='classic'?(dark?'#201f1c':'#f8f7f4'):sc==='neutral'?SCHEME_BAR.neutral[dark?1:0]:SCHEME_BAR[se][dark?1:0];m.setAttribute('content',v);}
+}
+function setScheme(sc){try{localStorage.setItem(SCHEME_KEY,sc);}catch(e){}applyScheme();closeSchemeMenu();}
+function toggleSchemeMenu(e){if(e)e.stopPropagation();var m=document.getElementById('scheme-menu'),b=document.getElementById('scheme-btn');var op=!m.classList.contains('op');m.classList.toggle('op',op);b.setAttribute('aria-expanded',op?'true':'false');}
+function closeSchemeMenu(){var m=document.getElementById('scheme-menu'),b=document.getElementById('scheme-btn');if(m)m.classList.remove('op');if(b)b.setAttribute('aria-expanded','false');}
+document.addEventListener('click',function(e){var m=document.getElementById('scheme-menu');if(m&&m.classList.contains('op')&&!m.contains(e.target))closeSchemeMenu();});
+document.addEventListener('keydown',function(e){if(e.key==='Escape')closeSchemeMenu();});
+new MutationObserver(function(){applyScheme();}).observe(document.documentElement,{attributes:true,attributeFilter:['data-theme']});
+setInterval(function(){if(document.documentElement.getAttribute('data-tq-season')!==seasonNow())applyScheme();},60*60*1000);
+applyScheme();
 (function initTheme(){
   var mode=getMode();
   updateToggleUI(mode);
