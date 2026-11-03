@@ -567,6 +567,42 @@ body.has-bbar .fab{display:flex}
 .pl-l{display:flex;gap:7px;align-items:flex-start}.pl-l i{width:10px;height:10px;border-radius:3px;flex:0 0 10px;margin-top:4px}
 .pl-l b{color:var(--ink);font-weight:600}
 @media(max-width:380px){.pl-row{flex-direction:column;align-items:flex-start}.pl-svg{width:96px;height:96px;flex-basis:auto}}
+/* Anchor tab: speaking, leadership, self-mastery */
+.pillar-hero.anchor{background:var(--gold-bg)}
+.pillar-hero.anchor .ph-eyebrow{color:var(--fuel-dk)}
+.an-quote{font-family:'DM Serif Display',Georgia,serif;font-size:25px;line-height:1.3;color:var(--ink);margin:4px 0 10px;letter-spacing:-.01em}
+.an-by{font-size:12px;color:var(--fuel-dk);font-weight:600;letter-spacing:.02em}
+.an-chips{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:1.2rem}
+.an-chips .ptab.on{background:var(--gold-bg);color:var(--fuel-dk);border-color:var(--gold-mid)}
+.an-check{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-bottom:10px}
+.an-check div{background:var(--bg2);border:0.5px solid var(--bdr);border-radius:var(--rmd);padding:10px 12px;font-size:12.5px;color:var(--ink2);line-height:1.5}
+.an-check b{display:block;color:var(--ink);font-weight:600;font-size:13px;margin-bottom:2px}
+.an-q{border-left:2px solid var(--gold-mid);padding:4px 0 4px 12px;margin:10px 0;font-family:'DM Serif Display',Georgia,serif;font-size:16px;color:var(--ink);line-height:1.45}
+.an-q span{display:block;font-family:'Inter',system-ui,sans-serif;font-size:11px;color:var(--ink3);margin-top:3px}
+.an-link{display:flex;gap:10px;align-items:flex-start;padding:10px 0;border-bottom:0.5px solid var(--bdr);text-decoration:none;color:var(--ink)}
+.an-link:last-child{border-bottom:none}
+.an-link i{font-size:16px;color:var(--fuel-dk);margin-top:2px;flex-shrink:0}
+.an-link .t{font-size:13px;font-weight:500}
+.an-link .s{font-size:11.5px;color:var(--ink3);line-height:1.5}
+.an-timer{display:flex;align-items:center;gap:12px;flex-wrap:wrap;background:var(--bg2);border:0.5px solid var(--bdr);border-radius:var(--rmd);padding:12px 14px;margin-bottom:10px}
+.an-clock{font-size:26px;font-weight:600;letter-spacing:-.02em;color:var(--ink);min-width:72px;font-variant-numeric:tabular-nums}
+.an-now{flex:1;min-width:120px;font-size:12.5px;color:var(--ink2)}
+.an-now b{display:block;color:var(--ink);font-size:13px}
+.an-step{padding:10px 0;border-bottom:0.5px solid var(--bdr);display:flex;gap:10px;align-items:flex-start;transition:background .2s}
+.an-step:last-child{border-bottom:none}
+.an-step.live{background:var(--gold-bg);border-radius:var(--rsm);margin:0 -8px;padding:10px 8px}
+.an-step .m{font-size:10.5px;font-weight:600;color:var(--fuel-dk);min-width:46px;padding-top:2px}
+.an-step .t{font-size:13px;font-weight:500;color:var(--ink);margin-bottom:2px}
+.an-step .d{font-size:12px;color:var(--ink2);line-height:1.6}
+.an-topic{font-family:'DM Serif Display',Georgia,serif;font-size:18px;color:var(--ink);margin:6px 0 4px}
+.an-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-bottom:10px}
+.an-grid .card{margin-bottom:0}
+.an-sl{display:flex;gap:10px;padding:9px 0;border-bottom:0.5px solid var(--bdr);align-items:flex-start}
+.an-sl:last-child{border-bottom:none}
+.an-sl .n{width:22px;height:22px;border-radius:50%;background:var(--gold-bg);color:var(--fuel-dk);font-size:10.5px;font-weight:600;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px}
+.an-sl .t{font-size:13px;font-weight:500;color:var(--ink)}
+.an-sl .d{font-size:12px;color:var(--ink2);line-height:1.6}
+@media(max-width:420px){.an-check,.an-grid{grid-template-columns:1fr}.an-quote{font-size:22px}}
 </style>
 </head>
 <body>
@@ -617,6 +653,7 @@ body.has-bbar .fab{display:flex}
     </nav>
     <nav class="pillar-nav" id="protocol-nav" style="display:none">
       <button class="nb on" data-pillar="protocol" onclick="go('protocol',this)"><span class="nb-dot"></span>Overview</button>
+      <button class="nb" data-pillar="p-anchor" onclick="go('p-anchor',this)"><span class="nb-dot"></span>Anchor</button>
       <button class="nb" data-pillar="p-training" onclick="go('p-training',this)"><span class="nb-dot"></span>Training</button>
       <button class="nb" data-pillar="p-nutrition" onclick="go('p-nutrition',this)"><span class="nb-dot"></span>Nutrition</button>
       <button class="nb" data-pillar="p-supplements" onclick="go('p-supplements',this)"><span class="nb-dot"></span>Supplements</button>
@@ -1139,6 +1176,148 @@ body.has-bbar .fab{display:flex}
     </div>
 
     <!-- ═══════════ PROTOCOL: TRAINING ═══════════ -->
+    <!-- ═══════════ PROTOCOL: ANCHOR (speaking, leadership, self-mastery) ═══════════ -->
+    <div id="p-p-anchor" class="panel">
+      <div class="pillar-hero anchor">
+        <div class="ph-eyebrow"><i class="ti ti-sunrise"></i> Anchor <span class="ar">مرساة</span></div>
+        <div class="an-quote">&#8220;Our rewards will always be in exact proportion to our service.&#8221;</div>
+        <div class="an-by">Earl Nightingale</div>
+        <div class="ph-lede" style="margin-top:12px">Read this before work or before a meeting that matters. Contribution first, attitude second: what you put in is what comes back.</div>
+      </div>
+
+      <div class="an-chips">
+        <button class="ptab" onclick="anJump('an-walk')">Before you walk in</button>
+        <button class="ptab" onclick="anJump('an-earl')">Earl</button>
+        <button class="ptab" onclick="anJump('an-voice')">Voice drill</button>
+        <button class="ptab" onclick="anJump('an-lead')">Lead</button>
+        <button class="ptab" onclick="anJump('an-self')">Self-mastery</button>
+      </div>
+
+      <!-- Before you walk in -->
+      <div class="ew" id="an-walk">Before you walk in · 60 seconds</div>
+      <div class="an-check">
+        <div><b>Posture tall</b>Shoulders back, feet planted, chin level.</div>
+        <div><b>Breathe</b>In through the nose for 4, out through the mouth for 6. Three rounds.</div>
+        <div><b>Speak slower</b>Slower than feels natural. It reads as calm.</div>
+        <div><b>End downward</b>Let sentences land low at the end, the way Obama closes a point. Rising endings sound like questions.</div>
+      </div>
+      <div class="card">
+        <div class="ex"><span class="exn">One sentence</span><span class="exs">Who do I want to be in this room, and what one thing matters most?</span></div>
+        <div class="ex"><span class="exn">Listen first</span><span class="exs">Give it one beat longer than feels natural before you answer.</span></div>
+        <div class="ex"><span class="exn">Structure</span><span class="exs">Point, reason, example, point.</span></div>
+        <div class="ex"><span class="exn">Raise it early</span><span class="exs">If there&#8217;s a problem, name it while it&#8217;s still small.</span></div>
+        <div class="ex"><span class="exn">Your name</span><span class="exs">&#8220;By the way, it&#8217;s pronounced Yah-seer. I know it&#8217;s a tricky one.&#8221; Said with a smile, once, early.</span></div>
+      </div>
+
+      <!-- Earl -->
+      <div class="ew" id="an-earl">Earl Nightingale</div>
+      <div class="card">
+        <div class="cb" style="margin-bottom:6px">The law he came back to again and again is cause and effect. Look after the contribution and the rewards follow. Keep a good attitude, because it sets how people respond to you.</div>
+        <div class="an-q">&#8220;We become what we think about.&#8221;<span>The Strangest Secret, 1956</span></div>
+        <div class="an-q">&#8220;Our attitude toward life determines life&#8217;s attitude towards us.&#8221;</div>
+        <div class="an-q">&#8220;Success is the progressive realization of a worthy goal or ideal.&#8221;</div>
+        <div class="an-q">&#8220;We tend to live up to our expectations.&#8221;</div>
+        <div class="an-q">&#8220;Whenever we&#8217;re afraid, it&#8217;s because we don&#8217;t know enough.&#8221;<span>For meeting nerves: the fix is preparation.</span></div>
+      </div>
+      <div class="card">
+        <div class="ex"><span class="exn">Morning question</span><span class="exs">How can I increase my service today?</span></div>
+      </div>
+
+      <div class="ew">Hear him</div>
+      <div class="card">
+        <a class="an-link" href="https://youtu.be/QoDsC4zZ0uc" target="_blank" rel="noopener"><i class="ti ti-chevron-right"></i><div><div class="t">Train Your Mind to Achieve Anything You Desire</div><div class="s">YouTube · Depths of the Subconscious (a compilation channel, May 2025)</div></div></a>
+        <a class="an-link" href="https://archive.org/details/50764-the-strangest-secret-in-the-world" target="_blank" rel="noopener"><i class="ti ti-chevron-right"></i><div><div class="t">The Strangest Secret in the World (film)</div><div class="s">Internet Archive · Earl on camera, about 29 minutes, likely mid-1960s. Free to stream.</div></div></a>
+        <a class="an-link" href="https://www.nightingale.com/socialnews/the-strangest-secret" target="_blank" rel="noopener"><i class="ti ti-chevron-right"></i><div><div class="t">The Strangest Secret, free download</div><div class="s">Nightingale-Conant official site</div></div></a>
+      </div>
+
+      <!-- Voice drill -->
+      <div class="ew" id="an-voice">Voice drill · 10 minutes, daily</div>
+      <div class="card">
+        <div class="an-timer">
+          <div class="an-clock" id="an-clock">10:00</div>
+          <div class="an-now" id="an-now"><b>Ready</b>Start when you&#8217;re standing.</div>
+          <button class="btn pr" id="an-go" onclick="anToggle()">Start</button>
+          <button class="btn" onclick="anReset()">Reset</button>
+        </div>
+        <div class="an-step" data-i="0"><span class="m">Min 1</span><div><div class="t">Breath and posture</div><div class="d">Stand tall, shoulders back. In through the nose for 4, out through the mouth for 6, five times. Belly breathing gives the voice a lower, steadier base.</div></div></div>
+        <div class="an-step" data-i="1"><span class="m">Min 2</span><div><div class="t">Face and jaw</div><div class="d">3 big yawns. Small circles on the jaw hinge. Then A, E, I, O, U with exaggerated mouth movement.</div></div></div>
+        <div class="an-step" data-i="2"><span class="m">Min 3&#8211;4</span><div><div class="t">Diction</div><div class="d">Pick 2 or 3. Slowly first, then full speed three times. Crisp beats fast.<br>&#8226; Red leather, yellow leather<br>&#8226; Unique New York, you know you need unique New York<br>&#8226; She sells seashells by the seashore<br>&#8226; A proper copper coffee pot</div></div></div>
+        <div class="an-step" data-i="3"><span class="m">Min 5&#8211;6</span><div><div class="t">Resonance and projection</div><div class="d">Hum low and feel it in the chest. Then say &#8220;I have something important to say&#8221; three ways: whisper, conversation, back of the room. Get louder by opening up, with no strain in the throat.</div></div></div>
+        <div class="an-step" data-i="4"><span class="m">Min 7&#8211;8</span><div><div class="t">The pause</div><div class="d">Read a paragraph aloud. Mark a pause every 6 to 8 words and read it again. A deliberate pause tells the room you&#8217;re in control of it.</div></div></div>
+        <div class="an-step" data-i="5"><span class="m">Min 9&#8211;10</span><div><div class="t">Impromptu</div><div class="d">60 seconds on a topic with no &#8220;um,&#8221; &#8220;uh,&#8221; &#8220;like,&#8221; or &#8220;so.&#8221; Second round: point, reason, example, point.</div>
+          <div class="an-topic" id="an-topic">Tap for a topic</div>
+          <button class="btn" style="padding:6px 12px;font-size:11.5px" onclick="anTopic()">New topic</button></div></div>
+      </div>
+      <div class="card">
+        <div class="ex"><span class="exn">2&#8211;3&#215; a week</span><span class="exs">Record a 90-second answer to a question you might get at work. Watch it once.</span></div>
+        <div class="ex"><span class="exn">After a real meeting</span><span class="exs">Replay one moment. What would you say differently?</span></div>
+        <div class="ex"><span class="exn">Judge it at</span><span class="exs">3 weeks of consistency. The first half trains the instrument, the second half trains thinking on your feet.</span></div>
+      </div>
+
+      <!-- Lead -->
+      <div class="ew" id="an-lead">How I lead</div>
+      <div class="card">
+        <div class="ex"><span class="exn">Lead, then manage</span><span class="exs">Managing covers tasks. Leading sets direction, trust, and tone. People need clarity and steadiness from you.</span></div>
+        <div class="ex"><span class="exn">Listen more than you talk</span><span class="exs">Give people room and they&#8217;ll tell you what&#8217;s really going on. Understand first, then decide.</span></div>
+        <div class="ex"><span class="exn">Handle issues early</span><span class="exs">Small problems grow when ignored. Have the uncomfortable conversation while it&#8217;s still manageable.</span></div>
+        <div class="ex"><span class="exn">Keep it quiet until it&#8217;s real</span><span class="exs">Plans, good news, money, relationships. Unfinished things need room. Do the work and let the outcome speak.</span></div>
+      </div>
+
+      <div class="ew">Servant leadership · 10 characteristics</div>
+      <div class="card">
+        <div class="cs" style="margin-bottom:6px">Larry Spears drew these from Robert Greenleaf&#8217;s writing. Greenleaf coined the term in 1970. The second line is how each one shows up on a project.</div>
+        <div class="an-sl"><span class="n">1</span><div><div class="t">Listening</div><div class="d">Let the GC finish the whole explanation in the OAC meeting before you respond. Notice what goes unsaid.</div></div></div>
+        <div class="an-sl"><span class="n">2</span><div><div class="t">Empathy</div><div class="d">Restate a clinical lead&#8217;s concern about a shutdown in their words before you solve it.</div></div></div>
+        <div class="an-sl"><span class="n">3</span><div><div class="t">Healing</div><div class="d">After a hard change order conversation, check in the next day on the relationship, apart from the money.</div></div></div>
+        <div class="an-sl"><span class="n">4</span><div><div class="t">Awareness</div><div class="d">Read your own state before a tense meeting, then read the room.</div></div></div>
+        <div class="an-sl"><span class="n">5</span><div><div class="t">Persuasion</div><div class="d">Win agreement with the contract and clear reasoning. Rank is the last resort.</div></div></div>
+        <div class="an-sl"><span class="n">6</span><div><div class="t">Conceptualization</div><div class="d">Hold the whole picture (budget, schedule, clinical operations) while the team works the details.</div></div></div>
+        <div class="an-sl"><span class="n">7</span><div><div class="t">Foresight</div><div class="d">Read the float, the open RFIs, and the submittal log for what they say about next month.</div></div></div>
+        <div class="an-sl"><span class="n">8</span><div><div class="t">Growth of people</div><div class="d">Give someone one thing to own this month and coach them through it.</div></div></div>
+        <div class="an-sl"><span class="n">9</span><div><div class="t">Stewardship</div><div class="d">You&#8217;re spending the clinic&#8217;s money and patients&#8217; time. Every decision answers to that.</div></div></div>
+        <div class="an-sl"><span class="n">10</span><div><div class="t">Building community</div><div class="d">Make the job a place where trades, designers, and clinical staff know each other&#8217;s names.</div></div></div>
+      </div>
+
+      <div class="ew">Emotional intelligence · 4 parts</div>
+      <div class="an-grid">
+        <div class="card"><div class="ct">Self-awareness</div><div class="cb">How do you affect the team? How does the team affect you?</div></div>
+        <div class="card"><div class="ct">Self-management</div><div class="cb">Think before you act. Build trust.</div></div>
+        <div class="card"><div class="ct">Social awareness</div><div class="cb">Be empathetic. Listen actively.</div></div>
+        <div class="card"><div class="ct">Social skill</div><div class="cb">Build rapport. Build effective teams. Manage attitude.</div></div>
+      </div>
+
+      <!-- Self-mastery -->
+      <div class="ew" id="an-self">Self-mastery · 10 areas</div>
+      <div class="card">
+        <div class="an-sl"><span class="n">1</span><div><div class="t">Self-awareness</div><div class="d">Know your patterns, triggers, strengths, and blind spots. Reflect, journal, and ask people who&#8217;ll tell you the truth.</div></div></div>
+        <div class="an-sl"><span class="n">2</span><div><div class="t">Emotional regulation</div><div class="d">Feel it fully and let judgment make the call. The pause between what happens and how you respond is where maturity lives.</div></div></div>
+        <div class="an-sl"><span class="n">3</span><div><div class="t">Sleep, movement, food</div><div class="d">Discipline, mood, and focus all run on biology. The rest of Tareeq covers this one.</div></div></div>
+        <div class="an-sl"><span class="n">4</span><div><div class="t">Attention</div><div class="d">Hold one thing at a time. Deep work blocks, fewer inputs, some deliberate boredom.</div></div></div>
+        <div class="an-sl"><span class="n">5</span><div><div class="t">Discipline over motivation</div><div class="d">Motivation is a feeling and discipline is a system. Small daily commitments, kept regardless of mood.</div></div></div>
+        <div class="an-sl"><span class="n">6</span><div><div class="t">Honest self-talk</div><div class="d">Accurate, compassionate, forward-looking. Speak to yourself the way a great coach would.</div></div></div>
+        <div class="an-sl"><span class="n">7</span><div><div class="t">Time and energy</div><div class="d">Know your peak hours and give them to the hardest work. Saying no is part of the skill.</div></div></div>
+        <div class="an-sl"><span class="n">8</span><div><div class="t">Communication and listening</div><div class="d">Most people are waiting to talk. Be fully in the exchange.</div></div></div>
+        <div class="an-sl"><span class="n">9</span><div><div class="t">Learning and adaptability</div><div class="d">Read widely, stay curious, and change your mind when the evidence does. Ego blocks growth.</div></div></div>
+        <div class="an-sl"><span class="n">10</span><div><div class="t">Purpose and values</div><div class="d">Know what you stand for. Decisions get easier when most things are a clear yes or no.</div></div></div>
+        <div class="cs" style="margin-top:8px">All ten in one line: become someone whose inner world you can trust.</div>
+      </div>
+
+      <div class="ew">Daily practice · about 30 minutes, spread out</div>
+      <div class="card">
+        <div class="ex"><span class="exn">Morning · 15 min</span><span class="exs">5 min stillness and the one-sentence intention. 5 min movement. 5 min day design: top 1 to 3 priorities, peak hours blocked for the hardest one, and what you&#8217;re saying no to.</span></div>
+        <div class="ex"><span class="exn">Midday · 5 min</span><span class="exs">Step away from screens. Three breaths. Body, mind, mood? Adjust with water, a walk, food, or quiet.</span></div>
+        <div class="ex"><span class="exn">Through the day</span><span class="exs">One task at a time, phone face down. Listen one beat longer. When the inner critic speaks, ask: would I say this to someone I respect?</span></div>
+        <div class="ex"><span class="exn">Evening · 10 min</span><span class="exs">What went well? Where did I fall short of who I want to be? What did I learn? Then 5 pages of something that stretches you.</span></div>
+        <div class="ex"><span class="exn">Weekly · 30 min</span><span class="exs">Check the week against your values and priorities. Adjust the system along with the schedule.</span></div>
+      </div>
+      <div class="ibar"><i class="ti ti-info-circle"></i><span>Start with the morning 15 and the evening reflection. Those two carry most of the weight. A B-grade routine done daily for a year changes you; an A-grade routine for two weeks does little.</span></div>
+
+      <div class="ctarow">
+        <button class="btn pr" onclick="anJump('an-walk')"><i class="ti ti-arrow-up"></i> Back to the top</button>
+        <button class="btn" onclick="go('protocol',document.querySelector('[data-pillar=protocol]'))"><i class="ti ti-arrow-left"></i> Back to my protocol</button>
+      </div>
+    </div>
+
     <div id="p-p-training" class="panel">
       <div class="ibar"><i class="ti ti-info-circle"></i><span>Drawn from <span class="charter-link" onclick="setAppMode('charter');go('fire',document.querySelector('[data-pillar=fire]'))"><i class="ti ti-flame"></i>Fire</span> — the full reasoning lives there. This is how the week actually runs.</span></div>
 
@@ -2728,13 +2907,13 @@ var BB={
   plan:{t:'Plan',items:[['p-training','Training','flame'],['p-nutrition','Nutrition','soup'],['p-supplements','Supplements','pill'],['p-calendar','Daily timeline','calendar-event'],['p-rhythm','Rhythm','sun'],['p-travel','Travel','run']]},
   health:{t:'Health',items:[['p-baseline','Labs and trends','clipboard-list'],['p-prevent','Preventive','heartbeat'],['p-checkpoints','Checkpoints','circle-check'],['p-account','Account','refresh']]}
 };
-var BB_SEC={};Object.keys(BB).forEach(function(s){BB[s].items.forEach(function(i){BB_SEC['p-'+i[0]]=s;});});
+var BB_SEC={};Object.keys(BB).forEach(function(s){BB[s].items.forEach(function(i){BB_SEC['p-'+i[0]]=s;});});BB_SEC['p-p-anchor']='anchor';
 function bbToast(t){var el=document.getElementById('toast');if(!el)return;el.textContent=t;el.classList.add('on');setTimeout(function(){el.classList.remove('on');},1800);}
 function bbHighlight(){var cur=document.querySelector('.panel.on'),id=cur?cur.id:'',sec=id==='p-protocol'?'today':BB_SEC[id]||'';
   [].forEach.call(document.querySelectorAll('.bbar button'),function(b){b.classList.toggle('on',b.dataset.sec===sec);});}
 function bbGoPanel(pid,focus){setAppMode('protocol');go(pid,document.querySelector('[data-pillar="'+pid+'"]'));bbClose();window.scrollTo(0,0);
   if(focus)setTimeout(function(){var el=document.querySelector(focus);if(el){el.scrollIntoView({block:'center'});if(el.focus&&el.tagName==='INPUT')el.focus();}},120);}
-function bbGo(s){if(s==='today'){bbGoPanel('protocol');tdRender();}}
+function bbGo(s){if(s==='today'){bbGoPanel('protocol');tdRender();}else if(s==='anchor')bbGoPanel('p-anchor');}
 function bbOpen(s){var g=document.getElementById('sheet-g'),items;
   if(s==='quick'){document.getElementById('sheet-t').textContent='Quick log';var f=faGet();
     items=[['q-weight','Weight','scale'],['q-checkin','Check-in','heart-handshake'],['q-sleep','Sleep','moon']];
@@ -2886,11 +3065,35 @@ nuRender();
     else{el.style.transition='opacity .2s,transform .2s';set(0);setTimeout(function(){el.style.transition='';},220);}},{passive:true});
 })();
 
+/* ---------- Anchor: jump links, 10-minute voice drill timer, impromptu topics ---------- */
+function anJump(id){var el=document.getElementById(id);if(el)el.scrollIntoView({behavior:'smooth',block:'start'});}
+var AN_BLOCKS=[[60,'Breath and posture'],[60,'Face and jaw'],[120,'Diction'],[120,'Resonance and projection'],[120,'The pause'],[120,'Impromptu']];
+var anLeft=600,anTimer=null;
+function anIdx(){var used=600-anLeft,t=0;for(var i=0;i<AN_BLOCKS.length;i++){t+=AN_BLOCKS[i][0];if(used<t)return i;}return AN_BLOCKS.length-1;}
+function anPaint(){var m=Math.floor(anLeft/60),s=anLeft%60;document.getElementById('an-clock').textContent=m+':'+(s<10?'0':'')+s;
+  var i=anIdx(),run=!!anTimer,done=anLeft<=0;
+  document.getElementById('an-now').innerHTML=done?'<b>Done</b>Ten minutes in. Good rep.':(run||anLeft<600)?'<b>'+AN_BLOCKS[i][1]+'</b>Block '+(i+1)+' of 6':'<b>Ready</b>Start when you&#8217;re standing.';
+  document.getElementById('an-go').textContent=run?'Pause':(anLeft<600&&!done?'Resume':'Start');
+  [].forEach.call(document.querySelectorAll('.an-step'),function(el){el.classList.toggle('live',(run||anLeft<600)&&!done&&+el.dataset.i===i);});}
+function anToggle(){
+  if(anTimer){clearInterval(anTimer);anTimer=null;anPaint();return;}
+  if(anLeft<=0)anLeft=600;
+  anTimer=setInterval(function(){var before=anIdx();anLeft--;
+    if(anLeft<=0){clearInterval(anTimer);anTimer=null;anLeft=0;try{if(navigator.vibrate)navigator.vibrate([30,80,30,80,30]);}catch(e){}}
+    else if(anIdx()!==before){try{if(navigator.vibrate)navigator.vibrate(25);}catch(e){}}
+    anPaint();},1000);
+  anPaint();}
+function anReset(){if(anTimer){clearInterval(anTimer);anTimer=null;}anLeft=600;anPaint();}
+var AN_TOPICS=['The coffee in your hand','The last RFI you answered','Why sleep matters','A building you admire','What makes a good handoff','How a clinic stays open during construction','One thing you would change about meetings','A lesson from Saturday soccer','The weather this morning','The best advice you were ever given','A tool on your desk','Why a schedule needs float','What good service looks like','Your favorite place to walk','How to say no without burning a bridge'];
+var anLastTopic=-1;
+function anTopic(){var i;do{i=Math.floor(Math.random()*AN_TOPICS.length);}while(i===anLastTopic&&AN_TOPICS.length>1);anLastTopic=i;document.getElementById('an-topic').textContent=AN_TOPICS[i];}
+
 /* Offline: save the app on first visit so it opens without internet */
 if('serviceWorker' in navigator){window.addEventListener('load',function(){navigator.serviceWorker.register('sw.js').catch(function(){});});}
 </script>
   <nav class="bbar" id="bbar" aria-label="Sections">
     <button data-sec="today" onclick="bbGo('today')"><i class="ti ti-home"></i><span>Today</span></button>
+    <button data-sec="anchor" onclick="bbGo('anchor')"><i class="ti ti-sunrise"></i><span>Anchor</span></button>
     <button data-sec="log" onclick="bbOpen('log')"><i class="ti ti-pencil"></i><span>Log</span></button>
     <button data-sec="plan" onclick="bbOpen('plan')"><i class="ti ti-calendar"></i><span>Plan</span></button>
     <button data-sec="health" onclick="bbOpen('health')"><i class="ti ti-heartbeat"></i><span>Health</span></button>
