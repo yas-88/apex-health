@@ -2851,7 +2851,8 @@ var BR_SC={gad:{n:'GAD-7',c:[[0,'Minimal'],[5,'Mild'],[10,'Moderate'],[15,'Sever
  anx:{n:'Anxiety',c:[[0,'Normal'],[8,'Mild'],[10,'Moderate'],[15,'Severe'],[20,'Extremely severe']]},
  str:{n:'Stress',c:[[0,'Normal'],[15,'Mild'],[19,'Moderate'],[26,'Severe'],[34,'Extremely severe']]}};
 var BR_SESS=[{n:1,d:'',rec:false},{n:2,d:'',rec:true},{n:3,d:'',rec:true},{n:4,d:'',rec:true},{n:5,d:'2026-11-06',rec:true}];
-function brData(){var d=lsGet(BR_KEY,null);if(!d){d=[{r:'base',d:'2026-09-13',gad:14,dep:16,anx:20,str:32}];lsSet(BR_KEY,d);}return d;}
+var BR_SEED=[{r:'base',d:'2026-09-13',gad:14,dep:16,anx:20,str:32},{r:'post',d:'2026-11-09',gad:6,dep:4,anx:10,str:16}];
+function brData(){var d=lsGet(BR_KEY,null)||[],add=BR_SEED.filter(function(x){return !d.some(function(y){return y.r===x.r;});});if(add.length){d=d.concat(add);lsSet(BR_KEY,d);}return d;}
 function brBand(k,v){var c=BR_SC[k].c,l=c[0][1];c.forEach(function(x){if(v>=x[0])l=x[1];});return l;}
 function brAdd(){var r=document.getElementById('br-round').value,d=document.getElementById('br-date').value,msg=document.getElementById('br-msg'),e={r:r,d:d},ok=true;
   ['gad','dep','anx','str'].forEach(function(k){var v=parseInt(document.getElementById('br-'+k).value,10);if(isNaN(v)||v<0||v>(k==='gad'?21:42))ok=false;e[k]=v;});
@@ -2868,7 +2869,7 @@ function brRender(){
   var h='<div class="ex" style="font-weight:600"><span class="exn">Scale</span><span class="exs">'+cols.map(function(r){return BR_ROUNDS[r]+(by[r].d?' <span class="cs">('+fmtD(by[r].d)+')</span>':'');}).join(' &middot; ')+'</span></div>';
   Object.keys(BR_SC).forEach(function(k){
     var vals=cols.map(function(r){return by[r][k];}), first=vals[0], last=vals[vals.length-1];
-    var ch=vals.length>1?' <span class="cs">'+(last-first<=0?'':'+')+(last-first)+' from baseline</span>':'';
+    var ch=vals.length>1?' <span class="cs">'+(last-first<=0?'':'+')+(last-first)+' from baseline ('+(first?Math.round((first-last)/first*100):0)+'% lower)</span>':'';
     h+='<div class="ex"><span class="exn">'+BR_SC[k].n+'</span><span class="exs"><strong>'+vals.join(' &rarr; ')+'</strong>'+ch+'<br>'+brBand(k,last)+'</span></div>';});
   if(!by.post)h+='<div class="cs" style="margin-top:8px">Post-treatment scores go here. Enter them from the portal summary below.</div>';
   t.innerHTML=h;
