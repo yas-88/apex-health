@@ -664,6 +664,7 @@ body.has-bbar .fab{display:flex}
       <button class="nb" data-pillar="p-week" onclick="go('p-week',this)"><span class="nb-dot"></span>Weekly review</button>
       <button class="nb" data-pillar="p-weight" onclick="go('p-weight',this)"><span class="nb-dot"></span>Weight</button>
       <button class="nb" data-pillar="p-mind" onclick="go('p-mind',this)"><span class="nb-dot"></span>Mental health</button>
+      <button class="nb" data-pillar="p-brain" onclick="go('p-brain',this)"><span class="nb-dot"></span>Brain</button>
       <button class="nb" data-pillar="p-prevent" onclick="go('p-prevent',this)"><span class="nb-dot"></span>Preventive</button>
       <button class="nb" data-pillar="p-checkpoints" onclick="go('p-checkpoints',this)"><span class="nb-dot"></span>Checkpoints</button>
       <button class="nb" data-pillar="p-travel" onclick="go('p-travel',this)"><span class="nb-dot"></span>Travel</button>
@@ -2207,6 +2208,58 @@ body.has-bbar .fab{display:flex}
       </div>
     </div>
 
+    <!-- ═══════════ PROTOCOL: BRAIN (Neurogen study) ═══════════ -->
+    <div id="p-p-brain" class="panel">
+      <div class="ibar"><i class="ti ti-info-circle"></i><span>Neurogen Brain Balancing anxiety study with Doug Wingate. 5 sessions, fall 2026. The surveys are the scoreboard; the EEG files add the brain-wave picture when Doug sends them.</span></div>
+
+      <div class="ew">Survey scores</div>
+      <div class="card">
+        <div id="br-table"></div>
+        <div class="cs" style="margin-top:8px">Lower is better on every scale. GAD-7 runs 0 to 21; the three DASS-21 scales are doubled sums, 0 to 42. Severity bands: GAD-7 (Spitzer et al. 2006) and DASS (Lovibond &amp; Lovibond 1995).</div>
+      </div>
+      <div class="card chart" id="br-chart-card" style="display:none"><div id="br-chart"></div>
+        <div class="legend"><span><i class="sw" style="background:var(--fire)"></i>GAD-7</span><span><i class="sw" style="background:var(--ground)"></i>Depression</span><span><i class="sw" style="background:var(--fuel)"></i>Anxiety</span><span><i class="sw" style="background:var(--repair)"></i>Stress</span></div>
+      </div>
+      <div class="card">
+        <div class="ct" style="margin-bottom:6px">Add a survey round</div>
+        <div class="wt-form" style="flex-wrap:wrap">
+          <select id="br-round" class="fa-sel" aria-label="Round"><option value="post">Post-treatment</option><option value="m6">6-month follow-up</option><option value="base">Baseline</option></select>
+          <input type="date" id="br-date" aria-label="Date">
+        </div>
+        <div class="wt-form" style="flex-wrap:wrap;margin-top:8px">
+          <input type="number" id="br-gad" min="0" max="21" inputmode="numeric" placeholder="GAD-7" aria-label="GAD-7" style="width:78px">
+          <input type="number" id="br-dep" min="0" max="42" inputmode="numeric" placeholder="Depr." aria-label="DASS depression" style="width:72px">
+          <input type="number" id="br-anx" min="0" max="42" inputmode="numeric" placeholder="Anx." aria-label="DASS anxiety" style="width:72px">
+          <input type="number" id="br-str" min="0" max="42" inputmode="numeric" placeholder="Stress" aria-label="DASS stress" style="width:72px">
+          <button class="btn pr" onclick="brAdd()"><i class="ti ti-plus"></i> Save</button>
+        </div>
+        <div class="cs" id="br-msg" style="margin-top:6px">Enter the doubled DASS-21 scores, the way the study portal shows them. Saving the same round again replaces it.</div>
+      </div>
+
+      <div class="ew">Sessions</div>
+      <div class="card">
+        <div class="cb" style="margin-bottom:8px">About 20 minutes each, 10 to 10:30 am, intensity raised every session. A few sips of the usual coffee (cardamom, cinnamon, L-theanine) before each. Eyes open or closed, sometimes talking.</div>
+        <div id="br-sessions"></div>
+        <div class="cs" style="margin-top:6px">How each session felt, in a line or two. Write what you remember now; it fades fast.</div>
+      </div>
+
+      <div class="ew">EEG recordings</div>
+      <div class="card">
+        <div class="ch"><div class="ci" style="background:var(--ground-bg)"><i class="ti ti-hourglass" style="color:var(--ground-dk)"></i></div><div><div class="ct">Waiting on Doug</div><div class="cs">Sessions 2 to 5 recorded. Session 1 was not.</div></div></div>
+        <div class="ex"><span class="exn">Files or session reports</span><span class="exs">Requested</span></div>
+        <div class="ex"><span class="exn">Electrode sites</span><span class="exs">Requested</span></div>
+        <div class="ex"><span class="exn">Intensity settings per session</span><span class="exs">Requested</span></div>
+        <div class="cb" style="margin-top:10px">When they land, this card becomes band trends (alpha, beta, theta) by session and site. Two things to read around: the EEG baseline is session 2, after one round of training, and intensity rose each time, so changes mix your response with the setting change.</div>
+      </div>
+
+      <div class="wbar"><i class="ti ti-sparkles"></i><span><strong>Emerging.</strong> EEG neurofeedback for anxiety is promising and still early in the research. Read your own direction across rounds, and remember breathwork, training and sleep changes started in July too.</span></div>
+
+      <div class="ctarow">
+        <button class="btn pr" onclick="go('p-mind',document.querySelector('[data-pillar=p-mind]'))"><i class="ti ti-heart-handshake"></i> Mental health</button>
+        <button class="btn" onclick="go('protocol',document.querySelector('[data-pillar=protocol]'))"><i class="ti ti-arrow-left"></i> Back to my protocol</button>
+      </div>
+    </div>
+
     <!-- ═══════════ PROTOCOL: PREVENTIVE CARE ═══════════ -->
     <div id="p-p-prevent" class="panel">
       <div class="ibar"><i class="ti ti-info-circle"></i><span>The care that catches things early. Every dated item here is also on your Google Calendar.</span></div>
@@ -2654,13 +2707,14 @@ function wtRender(){if(typeof nuRender==='function')nuRender();
   li.innerHTML=data.length?data.slice().reverse().slice(0,30).map(function(e){return '<div class="wt-row"><span>'+fmtD(e.d)+'</span><span><strong>'+e.lb+'</strong> lb'+(e.waist?' · '+e.waist+' in':'')+' <button onclick="wtDel(\''+e.d+'\')" aria-label="Delete entry">✕</button></span></div>';}).join(''):'<div class="cs">No entries yet.</div>';
 }
 function wtExport(){
-  var blob=new Blob([JSON.stringify({weight:wtData(),milestones:lsGet(BU_KEY,{}),checkin:lsGet(MH_KEY,{}),reflect:lsGet(MH_R,{}),connect:lsGet(MH_C,{}),fasts:lsGet('tareeq-fasts',[]),labs:lsGet('tareeq-labs',[])},null,1)],{type:'application/json'});
+  var blob=new Blob([JSON.stringify({weight:wtData(),milestones:lsGet(BU_KEY,{}),checkin:lsGet(MH_KEY,{}),reflect:lsGet(MH_R,{}),connect:lsGet(MH_C,{}),fasts:lsGet('tareeq-fasts',[]),labs:lsGet('tareeq-labs',[]),brain:lsGet('tareeq-brain',[]),brainNotes:lsGet('tareeq-brain-notes',{})},null,1)],{type:'application/json'});
   var a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='tareeq-backup-'+ymd(new Date())+'.json';document.body.appendChild(a);a.click();setTimeout(function(){URL.revokeObjectURL(a.href);a.remove();},500);
 }
 function wtImport(inp){
   var f=inp.files&&inp.files[0]; if(!f)return; var r=new FileReader();
   r.onload=function(){try{var j=JSON.parse(r.result);var w=Array.isArray(j)?j:(j.weight||[]);
     var map={};wtData().concat(w).forEach(function(e){if(e&&e.d&&e.lb)map[e.d]=e;});lsSet(WT_KEY,Object.keys(map).map(function(k){return map[k];}));
+    if(Array.isArray(j.brain)&&j.brain.length)lsSet('tareeq-brain',j.brain);if(j.brainNotes&&typeof j.brainNotes==='object')lsSet('tareeq-brain-notes',j.brainNotes);
     if(Array.isArray(j.labs)){var lm={};lbData().concat(j.labs).forEach(function(e){if(e&&e.d&&e.m)lm[e.d+'|'+e.m]=e;});lsSet('tareeq-labs',Object.keys(lm).map(function(k){return lm[k];}));}
     if(Array.isArray(j.fasts)){var fl=lsGet('tareeq-fasts',[]),seen={};fl.forEach(function(f){seen[f.start]=1;});j.fasts.forEach(function(f){if(f&&f.start&&!seen[f.start])fl.push(f);});lsSet('tareeq-fasts',fl);}
     [['milestones',BU_KEY],['checkin',MH_KEY],['reflect',MH_R],['connect',MH_C]].forEach(function(p){if(j[p[0]]){var m=lsGet(p[1],{});Object.keys(j[p[0]]).forEach(function(k){m[k]=j[p[0]][k];});lsSet(p[1],m);}});
@@ -2788,6 +2842,47 @@ function lbRender(){
     drawChart(el,[{pts:pts,color:'var(--repair)',dots:true,w:2}],{x0:x0,x1:x1,y0:Math.max(0,lo-pad),y1:hi+pad,band:M.r||null,intY:(hi-lo)>20,ticks:tk,label:M.n+' over time'});});
 }
 lbRender();
+
+/* ---------- Brain: Neurogen study ---------- */
+var BR_KEY='tareeq-brain', BRN_KEY='tareeq-brain-notes';
+var BR_ROUNDS={base:'Baseline',post:'Post-treatment',m6:'6-month'};
+var BR_SC={gad:{n:'GAD-7',c:[[0,'Minimal'],[5,'Mild'],[10,'Moderate'],[15,'Severe']]},
+ dep:{n:'Depression',c:[[0,'Normal'],[10,'Mild'],[14,'Moderate'],[21,'Severe'],[28,'Extremely severe']]},
+ anx:{n:'Anxiety',c:[[0,'Normal'],[8,'Mild'],[10,'Moderate'],[15,'Severe'],[20,'Extremely severe']]},
+ str:{n:'Stress',c:[[0,'Normal'],[15,'Mild'],[19,'Moderate'],[26,'Severe'],[34,'Extremely severe']]}};
+var BR_SESS=[{n:1,d:'',rec:false},{n:2,d:'',rec:true},{n:3,d:'',rec:true},{n:4,d:'',rec:true},{n:5,d:'2026-11-06',rec:true}];
+function brData(){var d=lsGet(BR_KEY,null);if(!d){d=[{r:'base',d:'2026-09-13',gad:14,dep:16,anx:20,str:32}];lsSet(BR_KEY,d);}return d;}
+function brBand(k,v){var c=BR_SC[k].c,l=c[0][1];c.forEach(function(x){if(v>=x[0])l=x[1];});return l;}
+function brAdd(){var r=document.getElementById('br-round').value,d=document.getElementById('br-date').value,msg=document.getElementById('br-msg'),e={r:r,d:d},ok=true;
+  ['gad','dep','anx','str'].forEach(function(k){var v=parseInt(document.getElementById('br-'+k).value,10);if(isNaN(v)||v<0||v>(k==='gad'?21:42))ok=false;e[k]=v;});
+  if(!d||!ok){msg.textContent='Add the date and all four scores (GAD-7 0 to 21, DASS 0 to 42).';return;}
+  lsSet(BR_KEY,brData().filter(function(x){return x.r!==r;}).concat([e]));
+  ['gad','dep','anx','str'].forEach(function(k){document.getElementById('br-'+k).value='';});
+  msg.textContent='Saved the '+BR_ROUNDS[r].toLowerCase()+' round.';brRender();}
+function brNote(n,el){var o=lsGet(BRN_KEY,{});o[n]=el.value;lsSet(BRN_KEY,o);}
+function brRender(){
+  var t=document.getElementById('br-table');if(!t)return;
+  var di=document.getElementById('br-date');if(di&&!di.value)di.value=ymd(new Date());
+  var data=brData(), by={};data.forEach(function(x){by[x.r]=x;});
+  var order=['base','post','m6'], cols=order.filter(function(r){return by[r];});
+  var h='<div class="ex" style="font-weight:600"><span class="exn">Scale</span><span class="exs">'+cols.map(function(r){return BR_ROUNDS[r]+(by[r].d?' <span class="cs">('+fmtD(by[r].d)+')</span>':'');}).join(' &middot; ')+'</span></div>';
+  Object.keys(BR_SC).forEach(function(k){
+    var vals=cols.map(function(r){return by[r][k];}), first=vals[0], last=vals[vals.length-1];
+    var ch=vals.length>1?' <span class="cs">'+(last-first<=0?'':'+')+(last-first)+' from baseline</span>':'';
+    h+='<div class="ex"><span class="exn">'+BR_SC[k].n+'</span><span class="exs"><strong>'+vals.join(' &rarr; ')+'</strong>'+ch+'<br>'+brBand(k,last)+'</span></div>';});
+  if(!by.post)h+='<div class="cs" style="margin-top:8px">Post-treatment scores go here. Enter them from the portal summary below.</div>';
+  t.innerHTML=h;
+  var cc=document.getElementById('br-chart-card');
+  if(cols.length>1){cc.style.display='';var pts=function(k){return cols.map(function(r){return [pd(by[r].d),by[r][k]];});};
+    var x0=+pd(by[cols[0]].d)-20*86400000,x1=+pd(by[cols[cols.length-1]].d)+20*86400000;
+    drawChart(document.getElementById('br-chart'),[{pts:pts('gad'),color:'var(--fire)',dots:true,w:2},{pts:pts('dep'),color:'var(--ground)',dots:true},{pts:pts('anx'),color:'var(--fuel)',dots:true},{pts:pts('str'),color:'var(--repair)',dots:true}],
+      {x0:x0,x1:x1,y0:0,y1:42,intY:true,ticks:cols.map(function(r,i){return [pd(by[r].d),BR_ROUNDS[r],i===0?'start':i===cols.length-1?'end':'middle'];}),label:'Survey scores by round'});}
+  else cc.style.display='none';
+  var notes=lsGet(BRN_KEY,{}), sb=document.getElementById('br-sessions');
+  if(sb&&!sb.dataset.built){sb.dataset.built=1;sb.innerHTML=BR_SESS.map(function(x){
+    return '<div style="padding:6px 0;border-bottom:0.5px solid var(--bdr)"><div class="cs" style="margin-bottom:4px"><strong style="color:var(--ink)">Session '+x.n+'</strong>'+(x.d?' &middot; '+fmtD(x.d):'')+' &middot; '+(x.rec?'Recorded':'Not recorded')+'</div><textarea class="mh-ta" rows="2" oninput="brNote('+x.n+',this)" aria-label="Session '+x.n+' notes">'+(notes[x.n]||'').replace(/</g,'&lt;')+'</textarea></div>';}).join('');}
+}
+brRender();
 
 /* ---------- Weekly review ---------- */
 var wkOff=0;
@@ -2984,7 +3079,7 @@ tvRender();
 window.addEventListener('DOMContentLoaded',function(){
 /* ---------- Cloud sync (Supabase, owner-only table) ---------- */
 var SB_URL='https://nvacylouzxbahpnwqcrc.supabase.co', SB_KEY='sb_publishable_lXCUQY2DzL0UhY8Pm-n3YQ_-WO6KS0E';
-var SYNC_KEYS=['tareeq-weight','tareeq-milestones','tareeq-checkin','tareeq-reflect','tareeq-connect','tareeq-fasts','tareeq-labs'];
+var SYNC_KEYS=['tareeq-weight','tareeq-milestones','tareeq-checkin','tareeq-reflect','tareeq-connect','tareeq-fasts','tareeq-labs','tareeq-brain','tareeq-brain-notes'];
 var SB=null, SB_USER=null, acQ={}, acT=null, acLast=lsGet('tareeq-sync-last',null);
 try{ if(window.supabase&&window.supabase.createClient) SB=window.supabase.createClient(SB_URL,SB_KEY,{auth:{persistSession:true,autoRefreshToken:true,detectSessionInUrl:false,experimental:{passkey:true}}}); }catch(e){SB=null;}
 function acStamps(){return lsGet('tareeq-sync-stamps',{});}
