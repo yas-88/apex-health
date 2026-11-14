@@ -17,7 +17,7 @@
 <script>
 (function(){
   try{
-    var saved = sessionStorage.getItem('tareeq-theme-mode');
+    var saved = null; try{saved = localStorage.getItem('tareeq-theme-mode');}catch(e){} if(!saved) saved = sessionStorage.getItem('tareeq-theme-mode');
     var mode = saved || 'auto';
     var resolved;
     if(mode === 'light' || mode === 'dark'){
@@ -35,6 +35,11 @@
     var se=(sc==='ss'||sc==='fw')?sc:((md>=320&&md<922)?'ss':'fw');
     document.documentElement.setAttribute('data-scheme', (sc==='ss'||sc==='fw')?'seasonal':sc);
     document.documentElement.setAttribute('data-tq-season', se);
+  }catch(e){}
+  try{
+    var mo=null; try{mo=localStorage.getItem('tareeq-motion');}catch(e){}
+    if(mo!=='full'&&mo!=='calm'&&mo!=='off') mo=(window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches)?'calm':'full';
+    document.documentElement.setAttribute('data-motion', mo);
   }catch(e){}
 })();
 </script>
@@ -603,6 +608,211 @@ body.has-bbar .fab{display:flex}
 .an-sl .t{font-size:13px;font-weight:500;color:var(--ink)}
 .an-sl .d{font-size:12px;color:var(--ink2);line-height:1.6}
 @media(max-width:420px){.an-check,.an-grid{grid-template-columns:1fr}.an-quote{font-size:22px}}
+
+/* ══════════════════════════════════════════════════════
+   DAILY LOOP + MOTION (Nov 2026)
+   Tickable day, Path progress, 18:6 dial, session mode, rest timer,
+   Eat block, new bottom bar, motion levels (html[data-motion]).
+   ══════════════════════════════════════════════════════ */
+:root{--tq-spring:cubic-bezier(.2,.9,.3,1.25);--tq-ease:cubic-bezier(.3,.7,.2,1)}
+html[data-motion="calm"]{--tq-spring:ease}
+@keyframes tq-rise{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+@keyframes tq-panel{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+@keyframes tq-tick{0%{transform:scale(.7)}60%{transform:scale(1.18)}100%{transform:scale(1)}}
+@keyframes tq-draw{from{stroke-dashoffset:101}to{stroke-dashoffset:0}}
+@keyframes tq-pop{from{transform:scale(0)}to{transform:scale(1)}}
+@keyframes tq-eye{0%{transform:scale(1)}40%{transform:scale(1.9)}100%{transform:scale(1)}}
+@keyframes tq-pulse{0%,100%{box-shadow:0 0 0 0 color-mix(in srgb,var(--pc) 45%,transparent)}50%{box-shadow:0 0 0 6px transparent}}
+@keyframes tq-plate{from{opacity:0;transform:scale(.2) rotate(-40deg)}to{opacity:1;transform:none}}
+
+/* Tabs and presses */
+.panel.on{animation:tq-panel .24s var(--tq-ease)}
+.btn{transition:background .15s,color .15s,transform .12s}
+.btn:active,.ptab:active,.sheet-g button:active,.mh-scale button:active,.tt-btn:active,.mode-btn:active{transform:scale(.95)}
+.mh-scale button{transition:background .15s,color .15s,border-color .15s,transform .12s}
+.mh-scale button.on{animation:tq-tick .3s var(--tq-spring)}
+.sheet-g button{transition:transform .12s}
+
+/* Path rail as today's progress (My Protocol only) */
+.path-svg{overflow:visible}
+.path-svg .tq-prg{display:none;stroke-dasharray:100 110;stroke-dashoffset:101;transition:stroke-dashoffset .6s var(--tq-ease)}
+body.has-bbar .path-svg .tq-prg{display:inline}
+body.has-bbar .path-svg .tq-trk{opacity:.22}
+.path-svg circle{transform-box:fill-box;transform-origin:center}
+body.has-bbar .path-svg circle{fill:var(--bg2);stroke:var(--gold);stroke-width:2.5;transition:fill .3s}
+body.has-bbar .path-svg circle.lit{fill:var(--gold)}
+body.has-bbar .path-svg circle.lit.tq-go{animation:tq-eye .9s var(--tq-ease)}
+.path-lbl span{display:none}
+body.has-bbar .path-lbl span{display:block;font-weight:500;letter-spacing:0;text-transform:none;color:var(--ink3);font-size:10px;font-variant-numeric:tabular-nums}
+body.tq-launch .path-svg .tq-trk{stroke-dasharray:100 110;animation:tq-draw .34s var(--tq-ease) backwards}
+body.tq-launch .path-svg .tq-trk:nth-of-type(2){animation-delay:.3s}
+body.tq-launch .path-svg .tq-trk:nth-of-type(3){animation-delay:.6s}
+body.tq-launch .path-svg .tq-trk:nth-of-type(4){animation-delay:.9s;animation-duration:.5s}
+body.tq-launch .path-svg circle{animation:tq-pop .4s var(--tq-spring) 1.35s backwards}
+body.tq-launch #today{animation:tq-rise .42s var(--tq-ease) .3s backwards}
+
+/* 18:6 dial */
+.tq-dial{display:flex;align-items:center;gap:14px;background:var(--bg);border:0.5px solid var(--bdr);border-radius:var(--rlg);padding:12px 14px;margin-top:12px}
+#tq-eat .tq-dial{margin:0 0 8px}
+.tq-dial svg{width:104px;height:104px;flex:0 0 104px}
+.tq-dial circle{fill:none;stroke-width:9}
+.tq-dial .d-fast{stroke:var(--bg4)}
+.tq-dial .d-eat{stroke:var(--repair);stroke-dasharray:0 100;transition:stroke-dasharray .9s var(--tq-ease) .15s}
+.tq-dial.drawn .d-eat{stroke-dasharray:25 100}
+.tq-dial .d-now{transform-origin:60px 60px;transition:transform .7s var(--tq-ease)}
+.tq-dial .d-now circle{fill:var(--ink);stroke:var(--bg);stroke-width:2.5}
+.tq-dial text{font-family:Inter,system-ui,sans-serif;font-size:8.5px;fill:var(--ink3);font-weight:500}
+.tq-dk{font-size:10px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--ink3)}
+.tq-dk.eat{color:var(--repair-dk)}
+.tq-dbig{font-family:'DM Serif Display',Georgia,serif;font-size:25px;line-height:1.1;color:var(--ink);font-variant-numeric:tabular-nums;margin:2px 0 3px;white-space:nowrap}
+.tq-dsub{font-size:12px;color:var(--ink2);line-height:1.45}
+
+/* Tickable day */
+.tq-sech{display:flex;justify-content:space-between;align-items:baseline}
+.tq-sech span:last-child{letter-spacing:0;text-transform:none;font-size:11px}
+.p-fire{--pc:var(--fire)}.p-ground{--pc:var(--ground)}.p-fuel{--pc:var(--fuel)}.p-repair{--pc:var(--repair)}
+.tq-it{display:flex;align-items:center;gap:6px;border-bottom:0.5px solid var(--bdr)}
+.tq-tog{flex:1;min-width:0;display:flex;align-items:center;gap:11px;background:none;border:none;text-align:left;padding:8px 2px;min-height:46px;font:inherit;color:inherit;cursor:pointer;border-radius:10px}
+.tq-box{width:24px;height:24px;flex:0 0 24px;border-radius:50%;border:1.5px solid var(--ink4);display:grid;place-items:center;transition:background .2s,border-color .2s}
+.tq-box svg{width:13px;height:13px}
+.tq-box path{fill:none;stroke:var(--bg);stroke-width:2.6;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:20;stroke-dashoffset:20;transition:stroke-dashoffset .26s var(--tq-ease) .06s}
+.tq-it.done .tq-box{background:var(--pc);border-color:var(--pc)}
+.tq-it.done .tq-box path{stroke-dashoffset:0}
+.tq-pop{animation:tq-tick .34s var(--tq-spring)}
+.tq-tm{font-size:12px;font-weight:500;color:var(--ink);min-width:44px;font-variant-numeric:tabular-nums}
+.tq-tx{font-size:13px;color:var(--ink2);line-height:1.4;text-decoration:line-through;text-decoration-color:transparent;transition:text-decoration-color .3s,color .2s}
+.tq-it.done .tq-tx{color:var(--ink3);text-decoration-color:var(--ink4)}
+.tq-it.done .tq-tm{color:var(--ink3)}
+.tq-pd{width:6px;height:6px;border-radius:50%;background:var(--pc);flex:0 0 6px;margin-right:2px}
+.tq-it.now .tq-pd{animation:tq-pulse 1.8s ease-in-out infinite}
+.tq-next{font-size:9.5px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--pc);margin-left:6px;white-space:nowrap}
+.tq-it.done .tq-next,.tq-it.done .tq-chip{display:none}
+.tq-chip{border:none;background:var(--fire-bg);color:var(--fire-dk);font:inherit;font-size:11.5px;font-weight:600;border-radius:999px;padding:0 12px;min-height:32px;display:inline-flex;align-items:center;gap:5px;cursor:pointer;transition:transform .12s;white-space:nowrap}
+.tq-chip:active{transform:scale(.94)}
+.tq-chip svg{width:11px;height:11px;fill:currentColor}
+.tq-donebar{display:none;font-size:13px;color:var(--repair-dk);font-weight:500;padding:10px 2px 2px}
+.tq-alldone .tq-donebar{display:block}
+.tq-wk{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;margin:6px 0 8px}
+.tq-wk div{display:flex;flex-direction:column;align-items:center;gap:4px;font-size:10px;color:var(--ink3)}
+.tq-wk i{width:18px;height:18px;border-radius:50%;border:1.5px solid var(--ink4);display:block}
+.tq-wk .f i{background:var(--repair);border-color:var(--repair)}
+.tq-wk .t i{border-color:var(--repair);box-shadow:0 0 0 3px var(--repair-bg)}
+
+/* Session mode */
+.tq-days{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:4px;margin-bottom:10px}
+.tq-days button{border:0.5px solid var(--bdr2);background:var(--bg);border-radius:10px;padding:6px 0 5px;font:inherit;font-size:10.5px;color:var(--ink3);min-height:44px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1px;cursor:pointer;transition:background .18s,color .18s,transform .12s}
+.tq-days button b{font-weight:600;font-size:10px;letter-spacing:.02em}
+.tq-days button:active{transform:scale(.94)}
+.tq-days button.on{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.tq-days button.tq-today:not(.on){border-color:var(--repair);color:var(--repair-dk)}
+.tq-ses{margin-bottom:1.4rem}
+.tq-h2{font-family:'DM Serif Display',Georgia,serif;font-size:22px;line-height:1.2;color:var(--ink);letter-spacing:-.01em}
+.tq-bar{height:6px;border-radius:3px;background:var(--bg3);overflow:hidden;margin:10px 0 4px}
+.tq-bar i{display:block;height:100%;width:0;background:var(--fire);border-radius:3px;transition:width .45s var(--tq-ease)}
+.tq-count{font-size:11.5px;color:var(--ink3);font-variant-numeric:tabular-nums;margin-bottom:4px}
+.tq-exr{padding:10px 0;border-bottom:0.5px solid var(--bdr)}
+.tq-exn{font-size:13px;font-weight:500;color:var(--ink);display:flex;justify-content:space-between;gap:10px;align-items:baseline}
+.tq-exn span{font-size:11.5px;font-weight:400;color:var(--ink3);text-align:right}
+.tq-exr.full .tq-exn{color:var(--ink3)}
+.tq-sets{display:flex;gap:6px;margin-top:7px;flex-wrap:wrap}
+.tq-set{width:44px;height:38px;border-radius:10px;border:1.5px solid var(--ink4);background:none;font:inherit;font-size:12px;font-weight:600;color:var(--ink3);display:grid;place-items:center;cursor:pointer;transition:background .18s,border-color .18s,color .18s,transform .12s}
+.tq-set.opt{border-style:dashed}
+.tq-set:active{transform:scale(.92)}
+.tq-set.on{background:var(--fire);border-color:var(--fire);color:var(--bg)}
+.tq-set:disabled{opacity:.45;cursor:default}
+.tq-fin{font-size:10px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--fire-dk);margin:12px 0 0}
+.tq-sesdone{display:none;background:var(--fire-bg);border-radius:12px;padding:12px 14px;margin-top:12px;font-size:13px;color:var(--ink)}
+.tq-sesdone b{font-family:'DM Serif Display',Georgia,serif;font-weight:400;font-size:19px;display:block;margin-bottom:2px}
+.tq-ses.isdone .tq-sesdone{display:block}
+.tq-ses.isdone .tq-sesdone.tq-in{animation:tq-rise .45s var(--tq-ease)}
+.tq-single{width:100%;margin-top:12px;min-height:44px;border-radius:12px;border:0.5px solid var(--bdr2);background:var(--bg);font:inherit;font-size:13px;font-weight:500;color:var(--ink);cursor:pointer;transition:background .2s,color .2s,transform .12s}
+.tq-single:active{transform:scale(.97)}
+.tq-single.on{background:var(--fire);border-color:var(--fire);color:var(--bg)}
+.tq-note{font-size:11.5px;color:var(--ink3);line-height:1.5;margin-top:10px}
+
+/* Rest timer */
+.tq-rest{position:fixed;left:12px;right:12px;bottom:calc(70px + env(safe-area-inset-bottom,0px));z-index:902;max-width:420px;margin:0 auto;background:var(--ink);color:var(--bg);border-radius:18px;padding:10px 12px;display:flex;align-items:center;gap:12px;transform:translateY(220%);transition:transform .36s var(--tq-spring);box-shadow:0 6px 20px rgba(0,0,0,.25)}
+.tq-rest.on{transform:none}
+.tq-rest svg{width:42px;height:42px;flex:0 0 42px;transform:rotate(-90deg)}
+.tq-rest circle{fill:none;stroke-width:4}
+.tq-rest .r-t{stroke:color-mix(in srgb,var(--bg) 22%,transparent)}
+.tq-rest .r-p{stroke:var(--fire);stroke-linecap:round;stroke-dasharray:100 100;transition:stroke-dashoffset .25s linear}
+.tq-rn{font-size:22px;font-weight:600;font-variant-numeric:tabular-nums;line-height:1;letter-spacing:-.02em}
+.tq-rl{font-size:11px;opacity:.7;margin-top:2px}
+.tq-rest .sp{flex:1}
+.tq-rest button{background:color-mix(in srgb,var(--bg) 16%,transparent);border:none;color:var(--bg);border-radius:999px;min-height:36px;padding:0 12px;font:inherit;font-size:12px;font-weight:600;cursor:pointer}
+.tq-rest.go{background:var(--fire)}
+.tq-rest.go .tq-rn{animation:tq-tick .4s var(--tq-spring)}
+body.tq-resting .fab{bottom:calc(144px + env(safe-area-inset-bottom,0px))}
+
+/* Eat block */
+.tq-meal{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:8px 0;border-bottom:0.5px solid var(--bdr)}
+.tq-meal:last-child{border-bottom:none}
+.tq-meal .t{font-size:13px;font-weight:500;color:var(--ink)}
+.tq-meal .s{font-size:11.5px;color:var(--ink3);line-height:1.4}
+.tq-ate{border:1.5px solid var(--ink4);background:none;border-radius:999px;min-height:36px;padding:0 13px;font:inherit;font-size:12px;font-weight:600;color:var(--ink2);cursor:pointer;white-space:nowrap;transition:background .2s,color .2s,border-color .2s,transform .12s}
+.tq-ate:active{transform:scale(.94)}
+.tq-ate.on{background:var(--fuel);border-color:var(--fuel);color:var(--bg)}
+.tq-ch{display:flex;justify-content:space-between;align-items:baseline;font-size:9.5px;font-weight:600;text-transform:uppercase;letter-spacing:.09em;color:var(--ink4);margin-bottom:6px}
+.tq-ch span:last-child{letter-spacing:0;text-transform:none;font-size:11px;font-weight:500;color:var(--ink3);font-variant-numeric:tabular-nums}
+.tq-stk{margin-bottom:12px}.tq-stk:last-child{margin-bottom:0}
+.tq-stkh{font-size:12px;font-weight:500;color:var(--ink);margin-bottom:6px;display:flex;justify-content:space-between}
+.tq-stkh span{color:var(--ink3);font-weight:400;font-variant-numeric:tabular-nums}
+.tq-pills{display:flex;flex-wrap:wrap;gap:6px}
+.tq-pill{border:1px solid var(--bdr2);background:var(--bg);border-radius:999px;min-height:36px;padding:0 12px;font:inherit;font-size:12px;color:var(--ink2);cursor:pointer;transition:background .18s,color .18s,border-color .18s,transform .12s}
+.tq-pill:active{transform:scale(.94)}
+.tq-pill.on{background:var(--ground-bg);border-color:var(--ground);color:var(--ground-dk)}
+#tq-eat,#tq-stack2{margin-bottom:1.4rem}
+@media(max-width:380px){.tq-dial{gap:10px;padding:10px}.tq-dial svg{width:84px;height:84px;flex-basis:84px}.tq-dbig{font-size:20px}.tq-set{width:40px}}
+@media(max-width:350px){.tq-dial svg{width:72px;height:72px;flex-basis:72px}.tq-dbig{font-size:18px}}
+.panel.on .pl-svg path{transform-origin:60px 60px;animation:tq-plate .5s var(--tq-ease) .1s backwards}
+.panel.on .pl-svg path:nth-of-type(2){animation-delay:.2s}
+.panel.on .pl-svg path:nth-of-type(3){animation-delay:.3s}
+
+/* Bottom bar: sliding highlight, press feedback, More sheet */
+.bbar::before{content:"";position:absolute;top:5px;left:6px;width:calc((100% - 12px)/5);height:30px;border-radius:15px;background:var(--repair-bg);transform:translateX(calc(var(--i,0)*100%)) scaleX(.6);transition:transform .34s var(--tq-spring)}
+.bbar button{position:relative;min-height:46px;transition:color .2s}
+.bbar button i,.bbar button svg{transition:transform .28s var(--tq-spring)}
+.bbar button svg{width:21px;height:21px;fill:currentColor;display:block}
+.bbar button:active i,.bbar button:active svg{transform:scale(.8)}
+.bbar button.on i,.bbar button.on svg{transform:translateY(-1px) scale(1.06)}
+.fab{transition:transform .3s var(--tq-spring),bottom .3s var(--tq-ease)}
+.fab:active{transform:scale(.9)}
+.fab.x{transform:rotate(45deg);z-index:952}
+.sheet{transition:transform .36s var(--tq-spring);max-height:84vh;overflow-y:auto;box-shadow:0 40px 0 var(--bg)}
+.sheet.on .sheet-g>button{animation:tq-rise .34s var(--tq-ease) backwards}
+.sheet.on .sheet-g>button:nth-of-type(2){animation-delay:.03s}.sheet.on .sheet-g>button:nth-of-type(3){animation-delay:.06s}
+.sheet.on .sheet-g>button:nth-of-type(4){animation-delay:.09s}.sheet.on .sheet-g>button:nth-of-type(5){animation-delay:.12s}
+.sheet.on .sheet-g>button:nth-of-type(n+6){animation-delay:.15s}
+.sheet-lbl{grid-column:1/-1;font-size:9.5px;font-weight:600;text-transform:uppercase;letter-spacing:.09em;color:var(--ink4);margin-top:6px}
+.sheet-lbl:first-child{margin-top:0}
+.sheet-g.more button{padding:11px 6px}
+
+/* Motion setting in the palette menu */
+.sm-div{height:0.5px;background:var(--bdr2);margin:6px 3px}
+.sm-lbl{font-size:9.5px;font-weight:600;text-transform:uppercase;letter-spacing:.09em;color:var(--ink4);padding:2px 9px 6px}
+.sm-mo{display:flex;gap:2px;background:var(--bg3);border-radius:999px;padding:3px;margin:0 6px 4px}
+.sm-mo button{flex:1;border:none;background:none;border-radius:999px;min-height:30px;font:inherit;font-size:12px;font-weight:500;color:var(--ink3);cursor:pointer}
+.sm-mo button.on{background:var(--bg);color:var(--ink);box-shadow:0 1px 3px rgba(0,0,0,.1)}
+
+/* Phone, My Protocol: a shorter header so Today starts higher */
+@media(max-width:560px){
+  body.has-bbar{padding-top:.6rem}
+  body.has-bbar .hdr{padding-top:1rem}
+  body.has-bbar .hdr-top{margin-bottom:.7rem;gap:.6rem}
+  body.has-bbar img.brand-wordmark{width:150px}
+  body.has-bbar .brand-tag{display:none}
+  body.has-bbar .nav-wrap{margin-top:.5rem}
+  body.has-bbar .path-rail{padding-top:.55rem;padding-bottom:.6rem}
+  body.has-bbar .content{padding-top:1.1rem}
+  .tq-wx{display:none}
+}
+@media(min-width:561px){.tq-wn{display:none}}
+@media(max-width:350px){.tq-wn{display:none}}
+
+/* Motion levels */
+html[data-motion="calm"] .panel.on,html[data-motion="calm"] .tq-pop,html[data-motion="calm"] .tq-it.now .tq-pd,html[data-motion="calm"] .mh-scale button.on,html[data-motion="calm"] .sheet.on .sheet-g>button,html[data-motion="calm"] .panel.on .pl-svg path,html[data-motion="calm"] body.tq-launch #today,html[data-motion="calm"] .path-svg circle{animation:none!important}
+html[data-motion="off"] *,html[data-motion="off"] *::before,html[data-motion="off"] *::after{animation:none!important;transition:none!important}
 </style>
 </head>
 <body>
@@ -635,6 +845,8 @@ body.has-bbar .fab{display:flex}
               <button class="sm-opt" data-sc="seasonal" role="menuitemradio" onclick="setScheme('seasonal')"><span class="sm-sw" id="sm-season-sw"></span><span><div class="sm-t">Seasonal</div><div class="sm-s" id="sm-season-sub">Follows the equinoxes</div></span><i class="ti ti-check"></i></button>
               <button class="sm-opt" data-sc="ss" role="menuitemradio" onclick="setScheme('ss')"><span class="sm-sw"><span style="background:#FF4A1C"></span><span style="background:#5B4BFF"></span><span style="background:#FFB300"></span><span style="background:#00C48C"></span></span><span><div class="sm-t">Spring/Summer</div><div class="sm-s">Bright and warm, all year</div></span><i class="ti ti-check"></i></button>
               <button class="sm-opt" data-sc="fw" role="menuitemradio" onclick="setScheme('fw')"><span class="sm-sw"><span style="background:#A8431F"></span><span style="background:#4A3F8C"></span><span style="background:#A86A12"></span><span style="background:#2F6E5C"></span></span><span><div class="sm-t">Fall/Winter</div><div class="sm-s">Ember and pine, all year</div></span><i class="ti ti-check"></i></button>
+              <div class="sm-div"></div><div class="sm-lbl">Motion</div>
+              <div class="sm-mo" role="group" aria-label="Motion"><button data-mo="full" onclick="tqMotion('full')">Full</button><button data-mo="calm" onclick="tqMotion('calm')">Calm</button><button data-mo="off" onclick="tqMotion('off')">Off</button></div>
             </div>
           </div>
           <button class="tt-btn" id="refresh-btn" onclick="refreshPage()" title="Refresh" aria-label="Load the latest version"><i class="ti ti-refresh"></i></button>
@@ -754,7 +966,7 @@ body.has-bbar .fab{display:flex}
 
       <div class="ctarow">
         <button class="btn pr" onclick="go('fire',document.querySelector('[data-pillar=fire]'))"><i class="ti ti-flame"></i> Begin with Fire</button>
-        <button class="btn" onclick="setAppMode('protocol')"><i class="ti ti-clipboard-list"></i> See my 90-day protocol</button>
+        <button class="btn" onclick="setAppMode('protocol')"><i class="ti ti-clipboard-list"></i> See my protocol</button>
       </div>
     </div>
 
@@ -1133,9 +1345,11 @@ body.has-bbar .fab{display:flex}
         <div class="td-row" id="td-light"></div>
         <div class="td-chips" id="td-chips"></div>
         <div id="td-tips"></div>
-        <div class="td-sec">Your day</div>
+        <div id="tq-dial-today"></div>
+        <div class="td-sec tq-sech"><span>Your day</span><span>Tap to tick</span></div>
         <div id="td-day"></div>
         <div class="td-sec">This week</div>
+        <div id="tq-week"></div>
         <div class="cs" id="td-week"></div>
         <div class="td-foot" id="td-foot"></div>
       </div>
@@ -1162,12 +1376,12 @@ body.has-bbar .fab{display:flex}
       <div class="ew">This week, at a glance</div>
       <div style="display:grid;grid-template-columns:repeat(7,1fr);gap:5px;margin-bottom:1.5rem">
         <div class="card" style="padding:9px 4px;text-align:center"><div style="font-size:10px;color:var(--ink4);margin-bottom:4px">Mon</div><div style="font-size:9.5px;font-weight:600;color:var(--fire-dk)">Push</div></div>
-        <div class="card" style="padding:9px 4px;text-align:center"><div style="font-size:10px;color:var(--ink4);margin-bottom:4px">Tue</div><div style="font-size:9.5px;font-weight:600;color:var(--fire-dk)">Pull+Mob</div></div>
+        <div class="card" style="padding:9px 4px;text-align:center"><div style="font-size:10px;color:var(--ink4);margin-bottom:4px">Tue</div><div style="font-size:9.5px;font-weight:600;color:var(--fire-dk)">Pull<span class="tq-wx">+Mob</span></div></div>
         <div class="card" style="padding:9px 4px;text-align:center"><div style="font-size:10px;color:var(--ink4);margin-bottom:4px">Wed</div><div style="font-size:9.5px;font-weight:600;color:var(--fire-dk)">Lower</div></div>
-        <div class="card" style="padding:9px 4px;text-align:center"><div style="font-size:10px;color:var(--ink4);margin-bottom:4px">Thu</div><div style="font-size:9.5px;font-weight:600;color:var(--fire-dk)">Full+Bag</div></div>
-        <div class="card" style="padding:9px 4px;text-align:center"><div style="font-size:10px;color:var(--ink4);margin-bottom:4px">Fri</div><div style="font-size:9.5px;font-weight:600;color:var(--ink3)">Outdoors</div></div>
+        <div class="card" style="padding:9px 4px;text-align:center"><div style="font-size:10px;color:var(--ink4);margin-bottom:4px">Thu</div><div style="font-size:9.5px;font-weight:600;color:var(--fire-dk)">Full<span class="tq-wx">+Bag</span></div></div>
+        <div class="card" style="padding:9px 4px;text-align:center"><div style="font-size:10px;color:var(--ink4);margin-bottom:4px">Fri</div><div style="font-size:9.5px;font-weight:600;color:var(--ink3)">Out<span class="tq-wx">doors</span><span class="tq-wn">side</span></div></div>
         <div class="card" style="padding:9px 4px;text-align:center"><div style="font-size:10px;color:var(--ink4);margin-bottom:4px">Sat</div><div style="font-size:9.5px;font-weight:600;color:var(--ground-dk)">Soccer</div></div>
-        <div class="card" style="padding:9px 4px;text-align:center"><div style="font-size:10px;color:var(--ink4);margin-bottom:4px">Sun</div><div style="font-size:9.5px;font-weight:600;color:var(--ink3)">Outdoors</div></div>
+        <div class="card" style="padding:9px 4px;text-align:center"><div style="font-size:10px;color:var(--ink4);margin-bottom:4px">Sun</div><div style="font-size:9.5px;font-weight:600;color:var(--ink3)">Out<span class="tq-wx">doors</span><span class="tq-wn">side</span></div></div>
       </div>
 
       <div class="ctarow">
@@ -1320,6 +1534,7 @@ body.has-bbar .fab{display:flex}
     </div>
 
     <div id="p-p-training" class="panel">
+      <div id="tq-ses"></div>
       <div class="ibar"><i class="ti ti-info-circle"></i><span>Drawn from <span class="charter-link" onclick="setAppMode('charter');go('fire',document.querySelector('[data-pillar=fire]'))"><i class="ti ti-flame"></i>Fire</span> — the full reasoning lives there. This is how the week actually runs.</span></div>
 
       <div class="ew">The training week</div>
@@ -1564,6 +1779,7 @@ body.has-bbar .fab{display:flex}
 
     <!-- ═══════════ PROTOCOL: NUTRITION ═══════════ -->
     <div id="p-p-nutrition" class="panel">
+      <div id="tq-eat"></div>
       <div class="ibar"><i class="ti ti-info-circle"></i><span>Drawn from <span class="charter-link" onclick="setAppMode('charter');go('fuel',document.querySelector('[data-pillar=fuel]'))"><i class="ti ti-soup"></i>Fuel</span> — the timing logic and food energetics live there.</span></div>
 
       <div class="ew">The shape</div>
@@ -1637,6 +1853,7 @@ body.has-bbar .fab{display:flex}
 
     <!-- ═══════════ PROTOCOL: SUPPLEMENTS ═══════════ -->
     <div id="p-p-supplements" class="panel">
+      <div id="tq-stack2"></div>
       <div class="ibar"><i class="ti ti-info-circle"></i><span>Drawn from <span class="charter-link" onclick="setAppMode('charter');go('ground',document.querySelector('[data-pillar=ground]'))"><i class="ti ti-leaf"></i>Ground</span> — the absorption science and the timing logic live there.</span></div>
 
       <div class="wbar"><i class="ti ti-alert-circle"></i><span>Calcium and magnesium compete for the same intestinal transporters. Separate by at least 2 hours.</span></div>
@@ -2423,8 +2640,9 @@ function setAppMode(mode){
 
 /* Theme engine (unchanged from prior build) */
 var THEME_KEY='tareeq-theme-mode', COORDS_KEY='tareeq-theme-coords', themeCheckTimer=null;
-function getMode(){return sessionStorage.getItem(THEME_KEY)||'auto';}
+function getMode(){var m=null;try{m=localStorage.getItem(THEME_KEY);}catch(e){}return m||sessionStorage.getItem(THEME_KEY)||'auto';}
 function setTheme(mode){
+  try{localStorage.setItem(THEME_KEY,mode);}catch(e){}
   sessionStorage.setItem(THEME_KEY,mode);
   document.documentElement.setAttribute('data-theme-mode',mode);
   if(mode==='auto'){requestLocationAndApply();}else{applyResolved(mode);}
@@ -2989,7 +3207,7 @@ function tdRender(){
   var mins=now.getHours()*60+now.getMinutes(), S=tdSched(now), next=S.filter(function(s){return s[0]>=mins-10;}).slice(0,3);
   var d=now.getDay(), hair=(d===1||d===4)?'Shampoo day: onion during training, wash, stamp at 8:30':d===6?'Nexxus wash after soccer':(d===2||d===5)?'Rinse and conditioner. Oil blend off the scalp today':'Rinse and conditioner on the lengths';
   var nxt=null;for(var i=0;i<ALERTS.length;i++){if(ALERTS[i].d>=new Date(now.getFullYear(),now.getMonth(),now.getDate())&&ALERTS[i].k.slice(-2)!=='-b'){nxt=ALERTS[i];break;}}
-  document.getElementById('td-day').innerHTML=(next.length?next.map(function(s){return '<div class="td-item"><b>'+s[1]+'</b><span>'+s[2]+'</span></div>';}).join(''):'<div class="td-item"><span>Done for today. Rest well.</span></div>')+'<div class="td-item"><b>Hair</b><span>'+hair+'</span></div>'+(nxt?'<div class="td-item"><b>Next</b><span>'+fmtD(nxt.k.slice(0,10))+': '+nxt.t+'</span></div>':'');
+  if(window.TQ_SES)tqDayRender(hair,nxt);
   var ci=lsGet(MH_KEY,{}), w7=0, s7=[], wt=0;for(var j=0;j<7;j++){var t=new Date();t.setDate(t.getDate()-j);var e=ci[ymd(t)];if(e&&(e.mood||e.energy||e.stress))w7++;if(e&&e.sleepH)s7.push(e.sleepH);}
   var wl=lsGet('tareeq-weight',[]), cut=ymd(new Date(Date.now()-6*86400000));wl.forEach(function(e){if(e.d>=cut)wt++;});
   document.getElementById('td-week').textContent='Check-ins on '+w7+' of the last 7 days · '+wt+' weigh-in'+(wt===1?'':'s')+(s7.length?' · sleep about '+(s7.reduce(function(x,y){return x+y;},0)/s7.length).toFixed(1)+' h':'')+'. Every bit counts.';
@@ -3000,21 +3218,27 @@ window.addEventListener('online',function(){tdFetch(true);});
 /* ---------- Bottom bar, section sheets, quick log ---------- */
 var BB={
   log:{t:'Log',items:[['p-weight','Weight','scale'],['p-mind','Check-in and sleep','heart-handshake'],['p-fast','Fasting','clock'],['p-week','Weekly review','calendar-event']]},
-  plan:{t:'Plan',items:[['p-training','Training','flame'],['p-nutrition','Nutrition','soup'],['p-supplements','Supplements','pill'],['p-calendar','Daily timeline','calendar-event'],['p-rhythm','Rhythm','sun'],['p-travel','Travel','run']]},
-  health:{t:'Health',items:[['p-baseline','Labs and trends','clipboard-list'],['p-prevent','Preventive','heartbeat'],['p-checkpoints','Checkpoints','circle-check'],['p-account','Account','refresh']]}
+  plan:{t:'Plan',items:[['p-supplements','Supplements','pill'],['p-calendar','Daily timeline','calendar-event'],['p-rhythm','Rhythm','sun'],['p-travel','Travel','run']]},
+  health:{t:'Health',items:[['p-baseline','Labs and trends','clipboard-list'],['p-prevent','Preventive','heartbeat'],['p-checkpoints','Checkpoints','circle-check'],['p-brain','Brain','sparkles'],['p-account','Account','refresh']]}
 };
 var BB_SEC={};Object.keys(BB).forEach(function(s){BB[s].items.forEach(function(i){BB_SEC['p-'+i[0]]=s;});});BB_SEC['p-p-anchor']='anchor';
 function bbToast(t){var el=document.getElementById('toast');if(!el)return;el.textContent=t;el.classList.add('on');setTimeout(function(){el.classList.remove('on');},1800);}
-function bbHighlight(){var cur=document.querySelector('.panel.on'),id=cur?cur.id:'',sec=id==='p-protocol'?'today':BB_SEC[id]||'';
-  [].forEach.call(document.querySelectorAll('.bbar button'),function(b){b.classList.toggle('on',b.dataset.sec===sec);});}
+function bbHighlight(){var cur=document.querySelector('.panel.on'),id=cur?cur.id:'',sec=id==='p-protocol'?'today':id==='p-p-anchor'?'anchor':id==='p-p-training'?'train':id==='p-p-nutrition'?'eat':'more';
+  var bar=document.getElementById('bbar');
+  [].forEach.call(document.querySelectorAll('.bbar button'),function(b,i){var on=b.dataset.sec===sec;b.classList.toggle('on',on);if(on&&bar)bar.style.setProperty('--i',i);});}
 function bbGoPanel(pid,focus){setAppMode('protocol');go(pid,document.querySelector('[data-pillar="'+pid+'"]'));bbClose();window.scrollTo(0,0);
   if(focus)setTimeout(function(){var el=document.querySelector(focus);if(el){el.scrollIntoView({block:'center'});if(el.focus&&el.tagName==='INPUT')el.focus();}},120);}
-function bbGo(s){if(s==='today'){bbGoPanel('protocol');tdRender();}else if(s==='anchor')bbGoPanel('p-anchor');}
+function bbGo(s){if(s==='today'){bbGoPanel('protocol');tdRender();}else if(s==='anchor')bbGoPanel('p-anchor');else if(s==='train')bbGoPanel('p-training');else if(s==='eat')bbGoPanel('p-nutrition');}
 function bbOpen(s){var g=document.getElementById('sheet-g'),items;
   if(s==='quick'){document.getElementById('sheet-t').textContent='Quick log';var f=faGet();
     items=[['q-weight','Weight','scale'],['q-checkin','Check-in','heart-handshake'],['q-sleep','Sleep','moon']];
     items.push(f?['q-water','+ Water (fast)','droplet']:['q-fast','Start a fast','clock']);
     g.innerHTML=items.map(function(i){return '<button onclick="bbQuick(\''+i[0]+'\')"><i class="ti ti-'+i[2]+'"></i>'+i[1]+'</button>';}).join('');}
+  g.className='sheet-g'+(s==='more'?' more':'');
+  if(s==='quick'){}
+  else if(s==='more'){document.getElementById('sheet-t').textContent='More';
+    g.innerHTML=['log','plan','health'].map(function(k){return '<div class="sheet-lbl">'+BB[k].t+'</div>'+BB[k].items.map(function(i){return '<button onclick="bbGoPanel(\''+i[0]+'\')"><i class="ti ti-'+i[2]+'"></i>'+i[1]+'</button>';}).join('');}).join('')+
+      '<div class="sheet-lbl">Read</div><button onclick="bbClose();setAppMode(\'charter\');window.scrollTo(0,0)"><i class="ti ti-book"></i>The Charter</button>';}
   else{document.getElementById('sheet-t').textContent=BB[s].t;
     g.innerHTML=BB[s].items.map(function(i){return '<button onclick="bbGoPanel(\''+i[0]+'\')"><i class="ti ti-'+i[2]+'"></i>'+i[1]+'</button>';}).join('');}
   document.getElementById('sheet').classList.add('on');document.getElementById('sheet-bg').classList.add('on');}
@@ -3080,7 +3304,7 @@ tvRender();
 window.addEventListener('DOMContentLoaded',function(){
 /* ---------- Cloud sync (Supabase, owner-only table) ---------- */
 var SB_URL='https://nvacylouzxbahpnwqcrc.supabase.co', SB_KEY='sb_publishable_lXCUQY2DzL0UhY8Pm-n3YQ_-WO6KS0E';
-var SYNC_KEYS=['tareeq-weight','tareeq-milestones','tareeq-checkin','tareeq-reflect','tareeq-connect','tareeq-fasts','tareeq-labs','tareeq-brain','tareeq-brain-notes'];
+var SYNC_KEYS=['tareeq-weight','tareeq-milestones','tareeq-checkin','tareeq-reflect','tareeq-connect','tareeq-fasts','tareeq-labs','tareeq-brain','tareeq-brain-notes','tareeq-daily'];
 var SB=null, SB_USER=null, acQ={}, acT=null, acLast=lsGet('tareeq-sync-last',null);
 try{ if(window.supabase&&window.supabase.createClient) SB=window.supabase.createClient(SB_URL,SB_KEY,{auth:{persistSession:true,autoRefreshToken:true,detectSessionInUrl:false,experimental:{passkey:true}}}); }catch(e){SB=null;}
 function acStamps(){return lsGet('tareeq-sync-stamps',{});}
@@ -3098,7 +3322,7 @@ async function acPasskeyState(){var b=document.getElementById('ac-reg');if(!b||!
   try{var r=await SB.auth.passkey.list();var n=(r&&r.data&&r.data.length)||0;
     if(n){b.innerHTML='<i class="ti ti-circle-check"></i> Face ID is on'+(n>1?' ('+n+' devices)':'');b.title='Tap to add Face ID on another device';}
     else{b.innerHTML='<i class="ti ti-plus"></i> Turn on Face ID for this device';}}catch(e){}}
-function acRenderAll(){try{lbRender();}catch(e){}try{wkRender();}catch(e){}try{wtRender();}catch(e){}try{buRender();}catch(e){}try{mhRender();}catch(e){}try{faRender();}catch(e){}}
+function acRenderAll(){try{lbRender();}catch(e){}try{wkRender();}catch(e){}try{wtRender();}catch(e){}try{buRender();}catch(e){}try{mhRender();}catch(e){}try{faRender();}catch(e){}try{tqAll();}catch(e){}}
 async function acPush(){
   if(!SB||!SB_USER||!navigator.onLine)return; var keys=Object.keys(acQ); if(!keys.length)return; acQ={};
   var st=acStamps(), rows=keys.map(function(k){return {user_id:SB_USER.id,key:k,value:lsGet(k,null),updated_at:new Date(st[k]||Date.now()).toISOString()};}).filter(function(r){return r.value!==null;});
@@ -3186,17 +3410,270 @@ function anTopic(){var i;do{i=Math.floor(Math.random()*AN_TOPICS.length);}while(
 
 /* Offline: save the app on first visit so it opens without internet */
 if('serviceWorker' in navigator){window.addEventListener('load',function(){navigator.serviceWorker.register('sw.js').catch(function(){});});}
+
+/* ══════════════════════════════════════════════════════
+   DAILY LOOP + MOTION (Nov 2026)
+   One synced key, tareeq-daily: { 'YYYY-MM-DD': { d:{item:1}, s:{'ex:set':1}, k:{supp:1} } }, last 60 days kept.
+   Sessions and the stack below mirror the Training and Supplements tabs. Change them there, change them here.
+   ══════════════════════════════════════════════════════ */
+var TQ_KEY='tareeq-daily', TQ_PIL=['fire','ground','fuel','repair'];
+var TQ_DN=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'], TQ_DF=['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+/* [name, prescription, required sets, optional sets] */
+var TQ_SES={
+ 1:{n:'Push',c:'Push',s:'Chest, shoulders, triceps',ex:[['DB floor or incline press','3–4 × 8–12',3,1],['DB shoulder press','3–4 × 8–12',3,1],['Floor flyes','3 × 10–15',3,0],['Overhead triceps extension','3 × 10–15',3,0],['Lateral raise','3 × 12–15',3,0],['Push-ups to failure','1 × max',1,0]],f:'Finisher: neck',fx:[['Neck flexion','2 × 15–20, 2–3 RIR',2,0],['Neck extension','2 × 15–20, 2–3 RIR',2,0]]},
+ 2:{n:'Pull + Mobility',c:'Pull',s:'Back, biceps, core, then the flow',ex:[['Single-arm row, the 30','3–4 × 8–12 each',3,1],['Bent-over row','3 × 8–12',3,0],['Curl','3 × 10–12',3,0],['Plank','3 × 30–45 sec',3,0],['Hollow hold','3 × 20–30 sec',3,0],['Sun salutation flow','3–5 slow rounds',3,2],['Roller work','about 5 min',1,0]],f:'Finisher: traps + forearms',fx:[['DB shrug','3 × 12–15, 2 RIR',3,0],['Hammer curl','3 × 10–12, 2 RIR',3,0],['Behind-the-back wrist curl','3 × 12–15, 2 RIR',3,0]]},
+ 3:{n:'Lower',c:'Lower',s:'Quads, hamstrings, glutes, calves',ex:[['Goblet squat, the 30','3–4 × 12–15',3,1],['Bulgarian split squat','3 × 8–12 each',3,0],['Single-leg RDL','3 × 8–10 each',3,0],['Walking lunge','3 × 10–12 each',3,0],['Glute bridge','3 × 15–20',3,0],['Single-leg calf raise','3 × 12–15 each',3,0]],f:'Finisher: neck',fx:[['Neck flexion','2 × 15–20, 2–3 RIR',2,0],['Neck extension','2 × 15–20, 2–3 RIR',2,0]]},
+ 4:{n:'Full body + bag',c:'Full',s:'Compounds, then conditioning',ex:[['Thruster','3 × 10',3,0],['Clean to press','3–4 × 6–8',3,1],['Renegade row','3–4 × 8 each',3,1],['Punching bag, rounds','3–5 × 2–3 min',3,2]],f:'Finisher: forearms + grip',fx:[['Reverse curl','3 × 10–12, 2 RIR',3,0],['Static hold','3 × 30–45 sec',3,0]]}
+};
+var TQ_OFF={5:['Outdoors','Play','Nothing structured','Longboard, bike, tennis, or a walk. Roller and stretch if the legs need it.','Got outside'],
+            6:['Soccer','Match','The week’s hardest cardio','Full match with friends. Already handled, no need to stack conditioning on top.','Played the match'],
+            0:['Outdoors + reset','Play','Hike or an easy day','A hike or an easy day outside. The weekly 24-hour fast lands here.','Got outside']};
+var TQ_STK=[['Morning, in coffee',[['lth','L-theanine 200 mg']]],['All day, sipped',[['cre','Creatine 10 g in electrolytes']]],
+  ['Midday, with food',[['mv','Multivitamin with D3'],['fo','Fish oil'],['k2','Vitamin K2'],['ca','Calcium'],['pro','Probiotic']]],
+  ['After dinner',[['avm','Avmacol'],['mg','Magnesium glycinate'],['ash','Ashwagandha'],['mt','Milk thistle'],['gar','Aged garlic'],['bso','Black seed oil']]]];
+var TQ_MEALS=[['m1','About 1 pm, first meal','After training, the bigger plate. Carbs go here.'],['snk','About 4 pm, Greek yogurt bowl','The third protein feeding inside the window.'],['m2','6 to 7 pm, last meal','Lighter. Same protein, fewer carbs.']];
+var TQ_CHECK='<span class="tq-box"><svg viewBox="0 0 14 14" aria-hidden="true"><path d="M2.5 7.5l3 3 6-7"/></svg></span>';
+
+function tqGet(day){var a=lsGet(TQ_KEY,{}),e=a[day]||{};return {d:e.d||{},s:e.s||{},k:e.k||{}};}
+function tqPut(day,e){var a=lsGet(TQ_KEY,{});a[day]=e;var ks=Object.keys(a).sort();while(ks.length>60){delete a[ks.shift()];}lsSet(TQ_KEY,a);}
+function tqToday(){return ymd(new Date());}
+function tqBuzz(p){try{if(navigator.vibrate)navigator.vibrate(p);}catch(e){}}
+function tqPop(el){if(!el)return;el.classList.remove('tq-pop');void el.offsetWidth;el.classList.add('tq-pop');}
+function tqFmt(m){var h=Math.floor(m/60),x=Math.round(m%60);return h?(h+' h '+(x<10?'0':'')+x):(x+' min');}
+
+/* The day's items: the same schedule the Today card already used, each tagged to a pillar */
+function tqSched(d){
+  var wk=d>=1&&d<=5,tr=d>=1&&d<=4,stamp=d===1||d===4,L=[];
+  if(wk)L.push(['beats',540,'9:00','Binaural beats, then shake plate','ground']);
+  if(wk)L.push(['st1',630,'10:30','Stand and stretch, 2 min','ground']);
+  if(tr)L.push(['train',720,'12:00',stamp?'Train with onion on: '+TQ_SES[d].n+', then Nizoral wash':'Train, fasted: '+TQ_SES[d].n,'fire']);
+  else L.push(['train',720,d===6?'Midday':'Today',d===6?'Soccer, then Nexxus wash (optional onion first)':TQ_OFF[d][0],'fire']);
+  L.push(['m1',780,'1:00',wk?'Shake plate flush, then first meal':'First meal','fuel']);
+  if(wk)L.push(['st2',870,'2:30','Stand and stretch, 2 min','ground']);
+  if(wk)L.push(['plate',960,'4:00','Shake plate desk break','ground']);
+  else L.push(['walk',960,'Today','Daily walk','ground']);
+  L.push(['snk',965,'~4:00','Greek yogurt bowl','fuel']);
+  L.push(['m2',1080,'6:00','Last meal, done by 7','fuel']);
+  if(stamp)L.push(['stamp',1230,'8:30','Derma stamp, scalp and beard','repair']);
+  L.push(['bed',1320,'10:00','Wind down, bed by 11','repair']);
+  return L;
+}
+function tqSetInfo(dow,E){var s=TQ_SES[dow];if(!s)return null;var all=s.ex.concat(s.fx),req=0,got=0;
+  all.forEach(function(e,i){req+=e[2];for(var k=0;k<e[2];k++)if(E.s[i+':'+k])got++;});return {req:req,got:got};}
+
+/* Path rail */
+var tqRailReady=false, tqWasAll=null;
+function tqRailInit(){
+  var svg=document.querySelector('.path-svg');if(!svg||tqRailReady)return;
+  var ps=svg.querySelectorAll('path'),c=svg.querySelector('circle');if(ps.length!==4)return;
+  [].forEach.call(ps,function(p,i){p.classList.add('tq-trk');p.setAttribute('pathLength','100');
+    var o=p.cloneNode(false);o.setAttribute('class','tq-prg');o.id='tq-g-'+TQ_PIL[i];svg.insertBefore(o,c);});
+  [].forEach.call(document.querySelectorAll('.path-lbl'),function(l,i){var s=document.createElement('span');s.id='tq-c-'+TQ_PIL[i];l.appendChild(s);});
+  tqRailReady=true;
+}
+function tqPaint(){
+  if(!tqRailReady)return;
+  var now=new Date(),dow=now.getDay(),E=tqGet(tqToday()),L=tqSched(dow),o={},all=true;
+  TQ_PIL.forEach(function(p){o[p]=[0,0];});
+  L.forEach(function(i){o[i[4]][1]++;if(E.d[i[0]])o[i[4]][0]++;});
+  var si=tqSetInfo(dow,E);
+  TQ_PIL.forEach(function(p){var r=o[p][1]?o[p][0]/o[p][1]:0;
+    if(p==='fire'&&si&&!E.d.train)r=Math.max(r,si.got/si.req*0.999);
+    if(r<1)all=false;
+    var g=document.getElementById('tq-g-'+p),c=document.getElementById('tq-c-'+p);
+    if(g)g.style.strokeDashoffset=r<=0?101:100-r*100;
+    if(c)c.textContent=o[p][0]+' of '+o[p][1];});
+  var eye=document.querySelector('.path-svg circle');
+  if(eye){eye.classList.toggle('lit',all);if(all&&tqWasAll===false){eye.classList.remove('tq-go');void eye.getBoundingClientRect();eye.classList.add('tq-go');tqBuzz([20,60,20]);}}
+  tqWasAll=all;
+  var t=document.getElementById('today');if(t)t.classList.toggle('tq-alldone',all);
+}
+
+/* 18:6 dial */
+function tqDialHTML(){return '<div class="tq-dial"><svg viewBox="0 0 120 120" role="img" aria-label="18:6 fasting clock"><circle class="d-fast" cx="60" cy="60" r="44"/><circle class="d-eat" cx="60" cy="60" r="44" pathLength="100" transform="rotate(105 60 60)"/><text x="52" y="93" text-anchor="middle">1 pm</text><text x="35" y="56" text-anchor="middle">7 pm</text><g class="d-now"><circle cx="60" cy="16" r="6.5"/></g></svg><div><div class="tq-dk"></div><div class="tq-dbig"></div><div class="tq-dsub"></div></div></div>';}
+function tqDialPaint(){
+  var n=new Date(),m=n.getHours()*60+n.getMinutes(),eat=m>=780&&m<1140;
+  var big=eat?tqFmt(1140-m)+' left':tqFmt((m-1140+1440)%1440), sub=eat?'Closes at 7 pm.':'Window opens in '+tqFmt((780-m+1440)%1440)+', at 1 pm.';
+  [].forEach.call(document.querySelectorAll('.tq-dial'),function(d){
+    d.querySelector('.d-now').style.transform='rotate('+(m/1440*360)+'deg)';
+    var k=d.querySelector('.tq-dk');k.textContent=eat?'Eating window':'Fasting';k.classList.toggle('eat',eat);
+    d.querySelector('.tq-dbig').textContent=big;d.querySelector('.tq-dsub').textContent=sub;
+    if(!d.classList.contains('drawn'))requestAnimationFrame(function(){requestAnimationFrame(function(){d.classList.add('drawn');});});});
+}
+
+/* Today: the tickable day */
+var tqDayArgs=[null,null];
+function tqDayRender(hair,nxt){
+  if(arguments.length){tqDayArgs=[hair,nxt];}else{hair=tqDayArgs[0];nxt=tqDayArgs[1];}
+  var box=document.getElementById('td-day');if(!box)return;
+  var now=new Date(),dow=now.getDay(),m=now.getHours()*60+now.getMinutes(),E=tqGet(tqToday()),L=tqSched(dow),nx=null;
+  for(var i=0;i<L.length;i++){if(L[i][1]>=m-10&&!E.d[L[i][0]]&&L[i][2]!=='Today'){nx=L[i][0];break;}}
+  box.innerHTML=L.map(function(it){var dn=!!E.d[it[0]],go=it[0]==='train'&&TQ_SES[dow];
+    return '<div class="tq-it p-'+it[4]+(dn?' done':'')+(it[0]===nx?' now':'')+'"><button class="tq-tog" aria-pressed="'+dn+'" onclick="tqTick(\''+it[0]+'\',this)">'+TQ_CHECK+'<span class="tq-tm">'+it[2]+'</span><span class="tq-tx">'+it[3]+'</span>'+(it[0]===nx?'<span class="tq-next">Next</span>':'')+'</button>'+(go?'<button class="tq-chip" onclick="bbGoPanel(\'p-training\')"><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M3 1.5v9l7-4.5z"/></svg>Start</button>':'<span class="tq-pd"></span>')+'</div>';}).join('')+
+    '<div class="tq-donebar">Done for today. Rest well.</div>'+
+    (hair?'<div class="td-item"><b>Hair</b><span>'+hair+'</span></div>':'')+(nxt?'<div class="td-item"><b>Next</b><span>'+fmtD(nxt.k.slice(0,10))+': '+nxt.t+'</span></div>':'');
+  var h=document.getElementById('tq-dial-today');if(h&&!h.firstChild)h.innerHTML=tqDialHTML();
+  tqDialPaint();tqPaint();
+}
+function tqTick(id,btn){
+  var day=tqToday(),E=tqGet(day);if(E.d[id])delete E.d[id];else E.d[id]=1;tqPut(day,E);
+  var row=btn.parentNode,dn=!!E.d[id];row.classList.toggle('done',dn);row.classList.remove('now');btn.setAttribute('aria-pressed',dn);
+  if(dn){tqPop(btn.querySelector('.tq-box'));tqBuzz(12);}
+  tqPaint();tqWeek();tqEat();tqSes();
+}
+function tqWeek(){
+  var el=document.getElementById('tq-week');if(!el)return;
+  var n=new Date(),cur=(n.getDay()+6)%7,all=lsGet(TQ_KEY,{}),ci=lsGet(MH_KEY,{}),h='';
+  for(var i=0;i<7;i++){var d=new Date(n.getFullYear(),n.getMonth(),n.getDate()+(i-cur)),k=ymd(d),e=all[k]||{},c=ci[k];
+    var f=(e.d&&Object.keys(e.d).length)||(e.s&&Object.keys(e.s).length)||(e.k&&Object.keys(e.k).length)||(c&&(c.mood||c.energy||c.stress));
+    h+='<div class="'+(f?'f':'')+(i===cur?' t':'')+'"><i></i>'+TQ_DN[d.getDay()].charAt(0)+'</div>';}
+  el.innerHTML='<div class="tq-wk" role="img" aria-label="Days with anything logged this week">'+h+'</div>';
+}
+
+/* Train: session mode */
+var tqDow=null;
+function tqWeekDate(dow){var n=new Date();return new Date(n.getFullYear(),n.getMonth(),n.getDate()+(((dow+6)%7)-((n.getDay()+6)%7)));}
+function tqSesDay(d){tqDow=d;tqSes();}
+function tqSes(){
+  var el=document.getElementById('tq-ses');if(!el)return;
+  var real=new Date().getDay();if(tqDow===null)tqDow=real;
+  var d=tqDow,date=tqWeekDate(d),day=ymd(date),E=tqGet(day),fut=day>tqToday(),s=TQ_SES[d];
+  var when=d===real?'Today':date.toLocaleDateString([], {weekday:'short',month:'short',day:'numeric'});
+  var h='<div class="ew">Session</div><div class="tq-days" role="group" aria-label="Day of the week">'+[1,2,3,4,5,6,0].map(function(x){
+    return '<button class="'+(x===d?'on ':'')+(x===real?'tq-today':'')+'" onclick="tqSesDay('+x+')" aria-pressed="'+(x===d)+'"><b>'+TQ_DN[x].toUpperCase()+'</b>'+(TQ_SES[x]?TQ_SES[x].c:TQ_OFF[x][1])+'</button>';}).join('')+'</div>';
+  if(s){var si=tqSetInfo(d,E),fin=si.got>=si.req;
+    var rows=function(list,off){return list.map(function(e,j){var i=j+off,b='',c=0;
+      for(var k=0;k<e[2]+e[3];k++){var on=!!E.s[i+':'+k];if(on&&k<e[2])c++;
+        b+='<button class="tq-set'+(k>=e[2]?' opt':'')+(on?' on':'')+'"'+(fut?' disabled':'')+' onclick="tqSet('+i+','+k+',this)" aria-pressed="'+on+'" aria-label="'+e[0]+', set '+(k+1)+(k>=e[2]?', optional':'')+'">'+(k+1)+'</button>';}
+      return '<div class="tq-exr'+(c>=e[2]?' full':'')+'" data-req="'+e[2]+'"><div class="tq-exn">'+e[0]+'<span>'+e[1]+'</span></div><div class="tq-sets">'+b+'</div></div>';}).join('');};
+    h+='<div class="card tq-ses'+(fin?' isdone':'')+'" id="tq-sescard"><div class="tq-h2">'+TQ_DN[d]+' · '+s.n+'</div><div class="cs">'+s.s+' · '+when+'</div>'+
+      '<div class="tq-bar"><i id="tq-sesbar" style="width:'+(si.got/si.req*100)+'%"></i></div><div class="tq-count" id="tq-sescount">'+si.got+' of '+si.req+' sets</div>'+
+      rows(s.ex,0)+'<div class="tq-fin">'+s.f+'</div>'+rows(s.fx,s.ex.length)+
+      '<div class="tq-sesdone"><b>Session done.</b>'+si.req+' sets logged for '+TQ_DF[d]+'.</div>'+
+      '<div class="tq-note">'+(fut?'This day hasn’t come yet, so sets can’t be ticked.':'Tap a set when you finish it and the rest timer starts. Dashed sets are the optional ones in your ranges. The how-to for each movement is in the week below.')+'</div></div>';
+  } else {var o=TQ_OFF[d],on=!!E.d.train;
+    h+='<div class="card tq-ses"><div class="tq-h2">'+TQ_DN[d]+' · '+o[0]+'</div><div class="cs">'+o[2]+' · '+when+'</div><div class="cb" style="margin-top:8px">'+o[3]+'</div>'+
+      '<button class="tq-single'+(on?' on':'')+'"'+(fut?' disabled':'')+' onclick="tqSingle(this)" aria-pressed="'+on+'">'+(on?'Done':o[4])+'</button></div>';}
+  el.innerHTML=h;
+}
+function tqSet(i,k,btn){
+  tqAudio();
+  var d=tqDow,day=ymd(tqWeekDate(d)),E=tqGet(day),key=i+':'+k,b0=tqSetInfo(d,E),was=b0.got>=b0.req;
+  if(E.s[key])delete E.s[key];else E.s[key]=1;
+  var si=tqSetInfo(d,E),fin=si.got>=si.req,on=!!E.s[key];
+  if(fin)E.d.train=1;else if(was)delete E.d.train;
+  tqPut(day,E);
+  btn.classList.toggle('on',on);btn.setAttribute('aria-pressed',on);if(on){tqPop(btn);tqBuzz(12);}
+  var ex=btn.closest('.tq-exr');ex.classList.toggle('full',ex.querySelectorAll('.tq-set.on:not(.opt)').length>=+ex.getAttribute('data-req'));
+  document.getElementById('tq-sesbar').style.width=(si.got/si.req*100)+'%';
+  document.getElementById('tq-sescount').textContent=si.got+' of '+si.req+' sets';
+  var card=document.getElementById('tq-sescard'),sd=card.querySelector('.tq-sesdone');card.classList.toggle('isdone',fin);
+  if(fin&&!was){tqRestStop();sd.classList.add('tq-in');tqBuzz([20,60,20,60,40]);tqBeep();}
+  else if(on&&!fin)tqRest(60);
+  tqDayRender();tqWeek();
+}
+function tqSingle(btn){
+  var d=tqDow,day=ymd(tqWeekDate(d)),E=tqGet(day);if(E.d.train)delete E.d.train;else E.d.train=1;tqPut(day,E);
+  var on=!!E.d.train;btn.classList.toggle('on',on);btn.setAttribute('aria-pressed',on);btn.textContent=on?'Done':TQ_OFF[d][4];if(on){tqPop(btn);tqBuzz(12);}
+  tqDayRender();tqWeek();
+}
+
+/* Rest timer: runs off the clock, so it stays right if the screen sleeps */
+var tqR={end:0,total:0,iv:null,hide:null}, tqCtx=null;
+function tqAudio(){try{var A=window.AudioContext||window.webkitAudioContext;if(!A)return;if(!tqCtx)tqCtx=new A();if(tqCtx.state==='suspended')tqCtx.resume();}catch(e){}}
+function tqBeep(){try{if(!tqCtx||tqCtx.state!=='running')return;var t=tqCtx.currentTime;
+  [[523.25,0],[659.25,0.16]].forEach(function(n){var o=tqCtx.createOscillator(),g=tqCtx.createGain();o.type='sine';o.frequency.value=n[0];
+    g.gain.setValueAtTime(0.0001,t+n[1]);g.gain.exponentialRampToValueAtTime(0.12,t+n[1]+0.04);g.gain.exponentialRampToValueAtTime(0.0001,t+n[1]+0.9);
+    o.connect(g);g.connect(tqCtx.destination);o.start(t+n[1]);o.stop(t+n[1]+1);});}catch(e){}}
+function tqRest(sec){
+  var el=document.getElementById('tq-rest');if(!el)return;
+  clearInterval(tqR.iv);clearTimeout(tqR.hide);tqR.total=sec;tqR.end=Date.now()+sec*1000;
+  el.classList.remove('go');el.classList.add('on');document.body.classList.add('tq-resting');
+  document.getElementById('tq-rl').textContent='Rest';
+  tqR.iv=setInterval(tqRestTick,250);tqRestTick();
+}
+function tqRestTick(){
+  var ms=tqR.end-Date.now(),left=Math.max(0,Math.ceil(ms/1000));
+  document.getElementById('tq-rn').textContent=Math.floor(left/60)+':'+(left%60<10?'0':'')+(left%60);
+  document.getElementById('tq-rp').style.strokeDashoffset=100-Math.max(0,ms)/(tqR.total*1000)*100;
+  if(ms<=0){clearInterval(tqR.iv);tqR.iv=null;var el=document.getElementById('tq-rest');el.classList.add('go');
+    document.getElementById('tq-rn').textContent='Go';document.getElementById('tq-rl').textContent='Next set';
+    tqBeep();tqBuzz([30,80,30]);tqR.hide=setTimeout(tqRestStop,1800);}
+}
+function tqRestStop(){clearInterval(tqR.iv);clearTimeout(tqR.hide);tqR.iv=null;var el=document.getElementById('tq-rest');if(el)el.classList.remove('on');document.body.classList.remove('tq-resting');}
+function tqRestAdd(){if(!tqR.iv)return;tqR.end+=15000;tqR.total=Math.max(tqR.total,Math.ceil((tqR.end-Date.now())/1000));tqRestTick();}
+
+/* Eat: dial, the three feedings, the stack */
+function tqStackHTML(E){var tot=0,got=0;
+  var g=TQ_STK.map(function(grp){var c=0,b=grp[1].map(function(p){var on=!!E.k[p[0]];tot++;if(on){c++;got++;}
+      return '<button class="tq-pill'+(on?' on':'')+'" data-pill="'+p[0]+'" onclick="tqPill(\''+p[0]+'\',this)" aria-pressed="'+on+'">'+p[1]+'</button>';}).join('');
+    return '<div class="tq-stk"><div class="tq-stkh">'+grp[0]+'<span>'+c+' of '+grp[1].length+'</span></div><div class="tq-pills">'+b+'</div></div>';}).join('');
+  return '<div class="card"><div class="tq-ch"><span>Today’s stack</span><span class="tq-stkt">'+got+' of '+tot+'</span></div>'+g+'</div>';}
+function tqEat(){
+  var E=tqGet(tqToday()),el=document.getElementById('tq-eat'),s2=document.getElementById('tq-stack2');
+  if(el){var n=0;TQ_MEALS.forEach(function(m){if(E.d[m[0]])n++;});
+    el.innerHTML='<div class="ew">Today</div>'+tqDialHTML()+
+      '<div class="card"><div class="tq-ch"><span>Three protein feedings</span><span id="tq-mealn">'+n+' of 3</span></div>'+TQ_MEALS.map(function(m){var on=!!E.d[m[0]];
+        return '<div class="tq-meal"><div><div class="t">'+m[1]+'</div><div class="s">'+m[2]+'</div></div><button class="tq-ate'+(on?' on':'')+'" onclick="tqMeal(\''+m[0]+'\',this)" aria-pressed="'+on+'">'+(on?'Eaten':'Mark eaten')+'</button></div>';}).join('')+'</div>'+tqStackHTML(E);}
+  if(s2)s2.innerHTML='<div class="ew">Today</div>'+tqStackHTML(E);
+  tqDialPaint();
+}
+function tqMeal(id,btn){
+  var day=tqToday(),E=tqGet(day);if(E.d[id])delete E.d[id];else E.d[id]=1;tqPut(day,E);
+  var on=!!E.d[id],n=0;TQ_MEALS.forEach(function(m){if(E.d[m[0]])n++;});
+  btn.classList.toggle('on',on);btn.textContent=on?'Eaten':'Mark eaten';btn.setAttribute('aria-pressed',on);if(on){tqPop(btn);tqBuzz(12);}
+  var c=document.getElementById('tq-mealn');if(c)c.textContent=n+' of 3';
+  tqDayRender();tqWeek();
+}
+function tqPill(id,btn){
+  var day=tqToday(),E=tqGet(day);if(E.k[id])delete E.k[id];else E.k[id]=1;tqPut(day,E);
+  var on=!!E.k[id];
+  [].forEach.call(document.querySelectorAll('[data-pill="'+id+'"]'),function(b){b.classList.toggle('on',on);b.setAttribute('aria-pressed',on);});
+  if(on){tqPop(btn);tqBuzz(10);}
+  [].forEach.call(document.querySelectorAll('.tq-stk'),function(g){g.querySelector('.tq-stkh span').textContent=g.querySelectorAll('.tq-pill.on').length+' of '+g.querySelectorAll('.tq-pill').length;});
+  var tot=0;TQ_STK.forEach(function(g){tot+=g[1].length;});
+  [].forEach.call(document.querySelectorAll('.tq-stkt'),function(t){t.textContent=Object.keys(E.k).length+' of '+tot;});
+  tqWeek();
+}
+
+/* Motion setting */
+function tqMotion(m){try{localStorage.setItem('tareeq-motion',m);}catch(e){}document.documentElement.setAttribute('data-motion',m);tqMotionUI();}
+function tqMotionUI(){var m=document.documentElement.getAttribute('data-motion')||'full';[].forEach.call(document.querySelectorAll('.sm-mo button'),function(b){b.classList.toggle('on',b.getAttribute('data-mo')===m);b.setAttribute('aria-pressed',b.getAttribute('data-mo')===m);});}
+
+/* Wiring */
+function tqAll(){tqDayRender();tqWeek();tqSes();tqEat();}
+function tqLaunch(){document.body.classList.add('tq-launch');setTimeout(function(){document.body.classList.remove('tq-launch');},2300);}
+(function(){
+  var restoring=null;try{restoring=sessionStorage.getItem('tareeq-panel');}catch(e){}
+  var _go=go;go=function(id,btn){_go(id,btn);if(id==='p-training'){tqDow=null;tqSes();}else if(id==='p-nutrition'||id==='p-supplements')tqEat();};
+  var _bo=bbOpen;bbOpen=function(s){_bo(s);var f=document.getElementById('fab'),sh=document.getElementById('sheet');
+    if(s==='quick'&&f){f.classList.add('x');f.style.bottom=(sh.offsetHeight+14)+'px';f.setAttribute('aria-label','Close');}};
+  var _bc=bbClose;bbClose=function(){_bc();var f=document.getElementById('fab');if(f){f.classList.remove('x');f.style.bottom='';f.setAttribute('aria-label','Quick log');}};
+  tqRailInit();tqMotionUI();
+  document.addEventListener('DOMContentLoaded',function(){
+    var fab=document.getElementById('fab');if(fab)fab.onclick=function(){if(fab.classList.contains('x'))bbClose();else bbOpen('quick');};
+    if(!restoring){setAppMode('protocol');tqLaunch();}
+    tdRender();tqAll();
+  });
+  document.addEventListener('visibilitychange',function(){if(document.visibilityState==='visible'){tqAll();if(tqR.iv)tqRestTick();}});
+  setInterval(tqDialPaint,30000);
+})();
 </script>
   <nav class="bbar" id="bbar" aria-label="Sections">
     <button data-sec="today" onclick="bbGo('today')"><i class="ti ti-home"></i><span>Today</span></button>
     <button data-sec="anchor" onclick="bbGo('anchor')"><i class="ti ti-sunrise"></i><span>Anchor</span></button>
-    <button data-sec="log" onclick="bbOpen('log')"><i class="ti ti-pencil"></i><span>Log</span></button>
-    <button data-sec="plan" onclick="bbOpen('plan')"><i class="ti ti-calendar"></i><span>Plan</span></button>
-    <button data-sec="health" onclick="bbOpen('health')"><i class="ti ti-heartbeat"></i><span>Health</span></button>
+    <button data-sec="train" onclick="bbGo('train')"><i class="ti ti-flame"></i><span>Train</span></button>
+    <button data-sec="eat" onclick="bbGo('eat')"><i class="ti ti-soup"></i><span>Eat</span></button>
+    <button data-sec="more" onclick="bbOpen('more')" aria-haspopup="dialog"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="5" cy="12" r="1.7"/><circle cx="12" cy="12" r="1.7"/><circle cx="19" cy="12" r="1.7"/></svg><span>More</span></button>
   </nav>
   <button class="fab" id="fab" onclick="bbOpen('quick')" aria-label="Quick log"><i class="ti ti-plus"></i></button>
   <div class="sheet-bg" id="sheet-bg" onclick="bbClose()"></div>
   <div class="sheet" id="sheet" role="dialog" aria-modal="true"><div class="sheet-h"><span id="sheet-t"></span><button onclick="bbClose()" aria-label="Close"><i class="ti ti-x"></i></button></div><div class="sheet-g" id="sheet-g"></div></div>
+  <div class="tq-rest" id="tq-rest" role="timer">
+    <svg viewBox="0 0 42 42" aria-hidden="true"><circle class="r-t" cx="21" cy="21" r="15.9"/><circle class="r-p" id="tq-rp" cx="21" cy="21" r="15.9" pathLength="100"/></svg>
+    <div><div class="tq-rn" id="tq-rn">1:00</div><div class="tq-rl" id="tq-rl">Rest</div></div><span class="sp"></span>
+    <button onclick="tqRestAdd()">+15 s</button><button onclick="tqRestStop()">Skip</button>
+  </div>
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
 </body>
 </html>
