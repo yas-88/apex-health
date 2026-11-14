@@ -667,6 +667,16 @@ body.tq-launch #today{animation:tq-rise .42s var(--tq-ease) .3s backwards}
 .tq-dbig{font-family:'DM Serif Display',Georgia,serif;font-size:25px;line-height:1.1;color:var(--ink);font-variant-numeric:tabular-nums;margin:2px 0 3px;white-space:nowrap}
 .tq-dsub{font-size:12px;color:var(--ink2);line-height:1.45}
 
+/* Training clock (Train tab): time since the Jul 20, 2026 start */
+.tq-clock{margin:0 0 10px}
+.tq-clock .c-trk{stroke:var(--bg4)}
+.tq-clock .c-arc{stroke:var(--fire);stroke-linecap:round;stroke-dasharray:0 100;transition:stroke-dasharray .9s var(--tq-ease) .15s}
+.tq-clock line{stroke:var(--bg);stroke-width:2}
+.tq-clock text.c-pct{font-size:19px;font-weight:600;fill:var(--ink);letter-spacing:-.02em}
+.tq-clock text.c-of{font-size:11px;fill:var(--ink3)}
+.tq-clock .tq-dk{color:var(--fire-dk)}
+html[data-motion="calm"] .tq-clock .c-arc,html[data-motion="calm"] .tq-clock .d-now{transition:none}
+
 /* Tickable day */
 .tq-sech{display:flex;justify-content:space-between;align-items:baseline}
 .tq-sech span:last-child{letter-spacing:0;text-transform:none;font-size:11px}
@@ -1534,6 +1544,7 @@ html[data-motion="off"] *,html[data-motion="off"] *::before,html[data-motion="of
     </div>
 
     <div id="p-p-training" class="panel">
+      <div id="tq-clock"></div>
       <div id="tq-ses"></div>
       <div class="ibar"><i class="ti ti-info-circle"></i><span>Drawn from <span class="charter-link" onclick="setAppMode('charter');go('fire',document.querySelector('[data-pillar=fire]'))"><i class="ti ti-flame"></i>Fire</span> — the full reasoning lives there. This is how the week actually runs.</span></div>
 
@@ -3494,7 +3505,7 @@ function tqDialHTML(){return '<div class="tq-dial"><svg viewBox="0 0 120 120" ro
 function tqDialPaint(){
   var n=new Date(),m=n.getHours()*60+n.getMinutes(),eat=m>=780&&m<1140;
   var big=eat?tqFmt(1140-m)+' left':tqFmt((m-1140+1440)%1440), sub=eat?'Closes at 7 pm.':'Window opens in '+tqFmt((780-m+1440)%1440)+', at 1 pm.';
-  [].forEach.call(document.querySelectorAll('.tq-dial'),function(d){
+  [].forEach.call(document.querySelectorAll('.tq-dial:not(.tq-clock)'),function(d){
     d.querySelector('.d-now').style.transform='rotate('+(m/1440*360)+'deg)';
     var k=d.querySelector('.tq-dk');k.textContent=eat?'Eating window':'Fasting';k.classList.toggle('eat',eat);
     d.querySelector('.tq-dbig').textContent=big;d.querySelector('.tq-dsub').textContent=sub;
@@ -3640,12 +3651,33 @@ function tqPill(id,btn){
 function tqMotion(m){try{localStorage.setItem('tareeq-motion',m);}catch(e){}document.documentElement.setAttribute('data-motion',m);tqMotionUI();}
 function tqMotionUI(){var m=document.documentElement.getAttribute('data-motion')||'full';[].forEach.call(document.querySelectorAll('.sm-mo button'),function(b){b.classList.toggle('on',b.getAttribute('data-mo')===m);b.setAttribute('aria-pressed',b.getAttribute('data-mo')===m);});}
 
+/* Training clock: ring fills over each training year; notches are the quarterly checkpoints */
+var TQ_START=[2026,6,20];
+function tqClock(){
+  var el=document.getElementById('tq-clock');if(!el)return;
+  var D=86400000,n=new Date(),t=Date.UTC(n.getFullYear(),n.getMonth(),n.getDate()),s=Date.UTC(TQ_START[0],TQ_START[1],TQ_START[2]);
+  var days=Math.round((t-s)/D);if(days<0){el.innerHTML='';return;}
+  var yr=0;while(Date.UTC(TQ_START[0]+yr+1,TQ_START[1],TQ_START[2])<=t)yr++;
+  var y0=Date.UTC(TQ_START[0]+yr,TQ_START[1],TQ_START[2]),y1=Date.UTC(TQ_START[0]+yr+1,TQ_START[1],TQ_START[2]);
+  var p=Math.round((t-y0)/(y1-y0)*100),k=1,c;
+  while((c=Date.UTC(TQ_START[0],TQ_START[1]+3*k,TQ_START[2]))<=t)k++;
+  var left=Math.round((c-t)/D),mo=3*k,cd=new Date(c);
+  var lbl=mo%12===0?(mo/12)+'-year review':mo+'-month checkpoint';
+  var when=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'][cd.getUTCMonth()]+' '+cd.getUTCDate();
+  var sub=days===0?'Day one.':days+(days===1?' day in. ':' days in. ')+lbl+(left===1?' tomorrow, ':' in '+left+' days, ')+when+'.';
+  if(!el.firstChild)el.innerHTML='<div class="tq-dial tq-clock"><svg viewBox="0 0 120 120" role="img" aria-label="Training clock"><circle class="c-trk" cx="60" cy="60" r="44"/><circle class="c-arc" cx="60" cy="60" r="44" pathLength="100" transform="rotate(-90 60 60)"/><line x1="60" y1="10" x2="60" y2="22"/><line x1="110" y1="60" x2="98" y2="60"/><line x1="60" y1="110" x2="60" y2="98"/><line x1="10" y1="60" x2="22" y2="60"/><g class="d-now"><circle cx="60" cy="16" r="6.5"/></g><text class="c-pct" x="60" y="62" text-anchor="middle"></text><text class="c-of" x="60" y="77" text-anchor="middle"></text></svg><div><div class="tq-dk">Since Jul 20, 2026</div><div class="tq-dbig"></div><div class="tq-dsub"></div></div></div>';
+  el.querySelector('.c-pct').textContent=p+'%';el.querySelector('.c-of').textContent='of year '+(yr+1);
+  el.querySelector('.tq-dbig').textContent='Week '+(Math.floor(days/7)+1);el.querySelector('.tq-dsub').textContent=sub;
+  var arc=el.querySelector('.c-arc'),dot=el.querySelector('.d-now');
+  requestAnimationFrame(function(){requestAnimationFrame(function(){arc.style.strokeDasharray=p+' 100';dot.style.transform='rotate('+(p*3.6)+'deg)';});});
+}
+
 /* Wiring */
-function tqAll(){tqDayRender();tqWeek();tqSes();tqEat();}
+function tqAll(){tqDayRender();tqWeek();tqClock();tqSes();tqEat();}
 function tqLaunch(){document.body.classList.add('tq-launch');setTimeout(function(){document.body.classList.remove('tq-launch');},2300);}
 (function(){
   var restoring=null;try{restoring=sessionStorage.getItem('tareeq-panel');}catch(e){}
-  var _go=go;go=function(id,btn){_go(id,btn);if(id==='p-training'){tqDow=null;tqSes();}else if(id==='p-nutrition'||id==='p-supplements')tqEat();};
+  var _go=go;go=function(id,btn){_go(id,btn);if(id==='p-training'){tqDow=null;tqClock();tqSes();}else if(id==='p-nutrition'||id==='p-supplements')tqEat();};
   var _bo=bbOpen;bbOpen=function(s){_bo(s);var f=document.getElementById('fab'),sh=document.getElementById('sheet');
     if(s==='quick'&&f){f.classList.add('x');f.style.bottom=(sh.offsetHeight+14)+'px';f.setAttribute('aria-label','Close');}};
   var _bc=bbClose;bbClose=function(){_bc();var f=document.getElementById('fab');if(f){f.classList.remove('x');f.style.bottom='';f.setAttribute('aria-label','Quick log');}};
