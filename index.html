@@ -2334,6 +2334,9 @@ html[data-motion="off"] *,html[data-motion="off"] *::before,html[data-motion="of
         <div class="cs" id="wt-msg" style="margin-top:6px"></div>
       </div>
 
+      <div class="ew">Check-ins</div>
+      <div class="card" id="wt-due"></div>
+
       <div class="ew">Trend</div>
       <div class="kpis" id="wt-stats"></div>
       <div class="card chart"><div id="wt-chart"></div>
@@ -2917,8 +2920,29 @@ function wtDel(d){lsSet(WT_KEY,wtData().filter(function(e){return e.d!==d;}));wt
 function wtAvg(data,endKey,days){var end=pd(endKey),start=new Date(end);start.setDate(start.getDate()-(days-1));
   var xs=data.filter(function(e){var t=pd(e.d);return t>=start&&t<=end;}).map(function(e){return e.lb;});
   return xs.length?xs.reduce(function(a,b){return a+b;},0)/xs.length:null;}
+/* Check-in cadence: weight 2 mornings a week (7-day average needs 2+ points), waist every 4 weeks */
+var WT_PER_WEEK=2, WT_WAIST_DAYS=28;
+function wtDue(data){var el=document.getElementById('wt-due');if(!el)return;
+  var today=pd(ymd(new Date())),DAY=86400000;
+  function ago(k){return Math.round((today-pd(k))/DAY);}
+  function pill(t,due){return '<span style="font-size:11.5px;font-weight:600;white-space:nowrap;padding:3px 10px;border-radius:999px;background:var(--'+(due?'fire':'repair')+'-bg);color:var(--'+(due?'fire':'repair')+'-dk)">'+t+'</span>';}
+  var wk=data.filter(function(e){var a=ago(e.d);return a>=0&&a<7;}).length;
+  var lastW=data.length?data[data.length-1]:null, wDays=lastW?ago(lastW.d):null;
+  var wDue=(wk===0)||(wk<WT_PER_WEEK&&wDays>=3);
+  var wTxt=wk>=WT_PER_WEEK?'Done for the week':(wDue?'Due today':'One more this week');
+  var wSub=wk+' of '+WT_PER_WEEK+' this week'+(lastW?'. Last: '+fmtD(lastW.d)+'.':'.');
+  var lastT=data.filter(function(e){return e.waist;}).pop(), tDays=lastT?ago(lastT.d):null;
+  var tDue=tDays===null||tDays>=WT_WAIST_DAYS, tTxt, tSub;
+  if(tDays===null){tTxt='First one due';tSub='No waist logged yet.';}
+  else if(tDue){tTxt='Due now';tSub='Last: '+fmtD(lastT.d)+', '+tDays+' days ago.';}
+  else{var nx=pd(lastT.d);nx.setDate(nx.getDate()+WT_WAIST_DAYS);var left=WT_WAIST_DAYS-tDays;tTxt='In '+left+' day'+(left===1?'':'s');tSub='Last: '+fmtD(lastT.d)+'. Next: '+fmtD(ymd(nx))+'.';}
+  el.innerHTML='<div class="wt-row" style="flex-wrap:wrap;gap:6px 10px;align-items:flex-start"><span style="flex:1 1 170px;min-width:0"><strong>Weight</strong><div class="cs">Two mornings a week, after the bathroom, before food. '+wSub+'</div></span>'+pill(wTxt,wDue)+'</div>'
+    +'<div class="wt-row" style="flex-wrap:wrap;gap:6px 10px;align-items:flex-start"><span style="flex:1 1 170px;min-width:0"><strong>Waist</strong><div class="cs">Every 4 weeks, same morning as a weigh-in. '+tSub+'</div></span>'+pill(tTxt,tDue)+'</div>'
+    +'<div class="cb" style="margin-top:8px">Tape at the navel, relaxed, at the end of a normal exhale, snug but not pressing. Take it twice and log the average.</div>';
+}
 function wtRender(){if(typeof nuRender==='function')nuRender();
   var data=wtData(), st=document.getElementById('wt-stats'); if(!st)return;
+  try{wtDue(data);}catch(e){}
   var di=document.getElementById('wt-date'); if(di&&!di.value)di.value=ymd(new Date());
   var last=data[data.length-1];
   var a7=last?wtAvg(data,last.d,7):null;
