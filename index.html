@@ -1009,6 +1009,7 @@ html[data-motion="off"] *,html[data-motion="off"] *::before,html[data-motion="of
   <div class="ptr" id="ptr" aria-hidden="true"><i class="ti ti-refresh"></i></div>
   <div class="net-pill" id="net-pill" role="status" aria-live="polite"><span class="dot"></span><span id="net-txt"></span></div>
   <div class="content">
+    <div class="cp-alert on" id="si-banner" role="status" style="display:none;background:var(--repair-bg);border-color:var(--repair-mid)"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" style="flex:0 0 20px;fill:none;stroke:var(--repair-dk);stroke-width:2;stroke-linecap:round;stroke-linejoin:round"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg><div><div class="cp-t">You&#8217;re signed out</div><div class="cp-s">Everything still saves on this phone. Sign in to sync and load Vitals.</div><button class="cp-go" style="color:var(--repair-dk)" onclick="window.acPasskey&&acPasskey()">Sign in with Face ID</button> <button class="cp-go" style="color:var(--ink3);margin-left:10px" onclick="setAppMode('protocol');go('p-account',document.querySelector('[data-pillar=p-account]'))">Use password</button></div></div>
     <div class="cp-alert on" id="tv-banner" style="display:none;background:var(--fuel-bg);border-color:var(--fuel-mid)"><i class="ti ti-run" style="color:var(--fuel-dk)"></i><div><div class="cp-t">Travel mode is on</div><div class="cp-s">Light, move, water, check-in. The rest can wait until you&#8217;re home.</div><button class="cp-go" style="color:var(--fuel-dk)" onclick="setAppMode('protocol');go('p-travel',document.querySelector('[data-pillar=p-travel]'))">Open travel mode</button></div></div>
     <div class="cp-alert" id="cp-alert" role="status" aria-live="polite">
       <i class="ti ti-calendar-event"></i>
@@ -3573,7 +3574,7 @@ async function acRegister(){if(!SB||!SB_USER)return;acMsg('Follow the Face ID pr
   acMsg('Face ID is on. Next time, tap “Sign in with Face ID.”');acPasskeyState();}
 async function acSignOut(){if(!SB)return;await SB.auth.signOut();acMsg('Signed out. Your entries stay on this device.');}
 if(SB){
-  SB.auth.onAuthStateChange(function(ev,session){SB_USER=session&&session.user?session.user:null;acUI();if(SB_USER)acPasskeyState();if(SB_USER&&(ev==='SIGNED_IN'||ev==='INITIAL_SESSION'))setTimeout(function(){acSync(false);},0);if(SB_USER){var vp=document.getElementById('p-p-vitals');if(vp&&vp.classList.contains('on')&&window.vtLoad)setTimeout(function(){vtLoad(false);},0);}});
+  SB.auth.onAuthStateChange(function(ev,session){SB_USER=session&&session.user?session.user:null;acUI();var sib=document.getElementById('si-banner');if(sib)sib.style.display=(!SB_USER&&ev!=='TOKEN_REFRESHED')?'':'none';if(SB_USER)acPasskeyState();if(SB_USER&&(ev==='SIGNED_IN'||ev==='INITIAL_SESSION'))setTimeout(function(){acSync(false);},0);if(SB_USER){var vp=document.getElementById('p-p-vitals');if(vp&&vp.classList.contains('on')&&window.vtLoad)setTimeout(function(){vtLoad(false);},0);}});
   window.addEventListener('online',function(){acUI();acSync(false);});
   window.addEventListener('offline',acUI);
   document.addEventListener('visibilitychange',function(){if(document.visibilityState==='visible')acSync(false);});
