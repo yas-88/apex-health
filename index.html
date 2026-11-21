@@ -969,6 +969,7 @@ html[data-motion="off"] *,html[data-motion="off"] *::before,html[data-motion="of
       <button class="nb" data-pillar="p-baseline" onclick="go('p-baseline',this)"><span class="nb-dot"></span>Baseline</button>
       <button class="nb" data-pillar="p-week" onclick="go('p-week',this)"><span class="nb-dot"></span>Weekly review</button>
       <button class="nb" data-pillar="p-weight" onclick="go('p-weight',this)"><span class="nb-dot"></span>Weight</button>
+      <button class="nb" data-pillar="p-vitals" onclick="go('p-vitals',this)"><span class="nb-dot"></span>Vitals</button>
       <button class="nb" data-pillar="p-mind" onclick="go('p-mind',this)"><span class="nb-dot"></span>Mental health</button>
       <button class="nb" data-pillar="p-brain" onclick="go('p-brain',this)"><span class="nb-dot"></span>Brain</button>
       <button class="nb" data-pillar="p-prevent" onclick="go('p-prevent',this)"><span class="nb-dot"></span>Preventive</button>
@@ -1850,7 +1851,7 @@ html[data-motion="off"] *,html[data-motion="off"] *::before,html[data-motion="of
       </div>
       <div class="card">
         <div class="ch"><div class="ci" style="background:var(--ground-bg)"><i class="ti ti-mountain" style="color:var(--ground-dk)"></i></div><div><div class="ct">Sat — Long session</div><div class="cs">Soccer in season, walk, hike or swim off season</div></div><span class="tag tag-ground" style="margin-left:auto">Cardio</span></div>
-        <div class="cb"><strong>November to spring:</strong> a long walk, a hike, a short run or a bike ride, 45 to 90 minutes at a pace you could talk through. The pool counts too if you join a gym. The fields are cold, wet and slippery, so soccer waits.</div>
+        <div class="cb"><strong>November to spring:</strong> a long walk, a hike, a short run, a bike ride, or laps at the pool, 45 to 90 minutes at a pace you could talk through. Swimming is the one to work toward. The fields are cold, wet and slippery, so soccer waits.</div>
         <div class="cb" style="margin-top:6px"><strong>When the fields dry out (usually mid to late spring):</strong> full match with friends. Already handled, no need to stack conditioning on top.</div>
         <div class="cb" style="margin-top:6px"><strong>Mobility, ~10 min, after:</strong> hip flexor lunge stretch and hamstring stretch (45 sec a side), open-book thoracic rotations (8 a side), a 60-second deep squat hold, calf stretch on a step.</div>
         <div class="cb" style="margin-top:6px"><strong>Steam, optional:</strong> the garage enclosure, 10 to 15 minutes. A big glass of water before and after, no alcohol beforehand, and out right away if you feel dizzy. Saturday only; Sunday is the fast day.</div>
@@ -2512,6 +2513,32 @@ html[data-motion="off"] *,html[data-motion="off"] *::before,html[data-motion="of
       </div>
     </div>
 
+
+    <!-- ═══════════ PROTOCOL: VITALS (Apple Health via Shortcut) ═══════════ -->
+    <div id="p-p-vitals" class="panel">
+      <div class="ibar"><i class="ti ti-info-circle"></i><span>From your iPhone&#8217;s Health app, sent once a day by a Shortcut. Read the direction over weeks; one night or one day is noise.</span></div>
+      <div class="ew">Latest <span class="muted" id="vt-when" style="text-transform:none;letter-spacing:0;margin-left:6px"></span></div>
+      <div class="kpis" id="vt-kpis"></div>
+      <div class="cs" id="vt-msg" style="margin:6px 2px 0"></div>
+      <div class="ew">Resting heart rate</div>
+      <div class="card chart"><div id="vt-c-rhr"></div><div class="cs" style="margin-top:6px">Drifting down over months usually tracks better fitness. A jump of 5 or more for several days can mean poor sleep, stress or a cold coming. <span class="etag est">Established</span></div></div>
+      <div class="ew">Heart rate variability (HRV)</div>
+      <div class="card chart"><div id="vt-c-hrv"></div><div class="cs" style="margin-top:6px">Very personal: compare only to your own average. A run of low days is a cue to keep training easy and protect sleep. <span class="etag emrg">Emerging</span></div></div>
+      <div class="ew">Steps</div>
+      <div class="card chart"><div id="vt-c-steps"></div></div>
+      <div class="ew">Sleep</div>
+      <div class="card chart"><div id="vt-c-sleep_h"></div><div class="cs" style="margin-top:6px">Only shows on nights the watch is worn to bed. Target 7 to 8 hours.</div></div>
+      <details class="exd card">
+        <summary><i class="ti ti-chevron-right"></i> How the data gets here</summary>
+        <div class="cb">Apple only lets native iPhone apps read Health, so a Shortcut on your phone reads the numbers and sends them to Tareeq&#8217;s database with a private key. It runs on its own at 9:30 pm, or tap it any time; running it again the same day just updates that day.</div>
+        <div class="cb">Only you can read these rows. The key can only add numbers, never read anything. If the phone is ever lost, ask Claude to revoke the key and make a new one.</div>
+      </details>
+      <div class="ctarow">
+        <button class="btn pr" onclick="vtLoad(true)"><i class="ti ti-refresh"></i> Refresh</button>
+        <button class="btn" onclick="go('protocol',document.querySelector('[data-pillar=protocol]'))"><i class="ti ti-arrow-left"></i> Back to my protocol</button>
+      </div>
+    </div>
+
     <!-- ═══════════ PROTOCOL: MENTAL HEALTH ═══════════ -->
     <div id="p-p-mind" class="panel">
       <div class="ibar"><i class="ti ti-info-circle"></i><span>Speak to yourself like someone you&#8217;re helping. Everything on this tab stays on this phone.</span></div>
@@ -2706,7 +2733,7 @@ html[data-motion="off"] *,html[data-motion="off"] *::before,html[data-motion="of
         <div class="ex"><span class="exn"><span class="tag tag-n" style="margin-right:6px">Nov 2</span>Hair &amp; beard photos<span class="tag tag-repair" style="margin-left:6px">On calendar</span></span><span class="exs">Day 1 of the consistent onion run. Repeats Nov 30, Dec 28, Jan 25</span></div>
         <div class="ex"><span class="exn"><span class="tag tag-n" style="margin-right:6px">Nov 23</span>Nizoral step-down check<span class="tag tag-repair" style="margin-left:6px">On calendar</span></span><span class="exs">Scalp stable? Phase 2: Nizoral Mon, Nexxus Thu, onion Mon and Thu</span></div>
         <div class="ex"><span class="exn"><span class="tag tag-ground" style="margin-right:6px">Dec 14</span>Message Dr. Chikere<span class="tag tag-repair" style="margin-left:6px">On calendar</span></span><span class="exs">Ask him to place the Jan and Apr lab orders</span></div>
-        <div class="ex"><span class="exn"><span class="tag tag-fire" style="margin-right:6px">Jan 20</span>6-month checkpoint<span class="tag tag-repair" style="margin-left:6px">On calendar</span></span><span class="exs">First strict pull-up is the target. Review, list the stalled lifts, and draft the new week: swap exercises, change rep ranges, build in a deload, plan past the 30 lb dumbbell</span></div>
+        <div class="ex"><span class="exn"><span class="tag tag-fire" style="margin-right:6px">Jan 20</span>6-month checkpoint<span class="tag tag-repair" style="margin-left:6px">On calendar</span></span><span class="exs">Dead hang progress is the target; pull-up work joins the new week in March. Review, list the stalled lifts, and draft the new week: swap exercises, change rep ranges, build in a deload, plan past the 30 lb dumbbell</span></div>
         <div class="ex"><span class="exn"><span class="tag tag-ground" style="margin-right:6px">Jan 26</span>Lab draw window<span class="tag tag-repair" style="margin-left:6px">On calendar</span></span><span class="exs">Fasted, before 10 am. Lipids, vitamin D, A1c, estradiol, hs-CRP, iron, folate, fasting insulin</span></div>
         <div class="ex"><span class="exn"><span class="tag tag-n" style="margin-right:6px">Jan 31</span>Hair &amp; beard verdict<span class="tag tag-repair" style="margin-left:6px">On calendar</span></span><span class="exs">Day 90. Compare Nov 2 and Jan 25 photos. Keep, change or drop the onion treatment</span></div>
 
@@ -2726,7 +2753,7 @@ html[data-motion="off"] *,html[data-motion="off"] *::before,html[data-motion="of
       <div class="ew">What every checkpoint reviews</div>
       <div class="card">
         <div class="steps">
-          <div class="step"><div class="step-n" style="background:var(--fire-bg);color:var(--fire-dk)">1</div><div class="step-t"><strong>Strength:</strong> max push-ups, dead hang time, pull-up progress, top weight and reps on rows, goblet squat, shrugs, static holds.</div></div>
+          <div class="step"><div class="step-n" style="background:var(--fire-bg);color:var(--fire-dk)">1</div><div class="step-t"><strong>Strength:</strong> the monthly benchmarks (push-ups, dead hang, row, goblet squat, toe touch, balance, squat hold), plus top weight and reps on rows, goblet squat, shrugs, static holds.</div></div>
           <div class="step"><div class="step-n" style="background:var(--repair-bg);color:var(--repair-dk)">2</div><div class="step-t"><strong>Sleep:</strong> the 7-day sleep log in Mental health. How rested you wake, how steady the timing has been.</div></div>
           <div class="step"><div class="step-n" style="background:var(--ground-bg);color:var(--ground-dk)">3</div><div class="step-t"><strong>Self-relationship:</strong> how you talk to yourself about training. Check the mood trend and your Sunday reflections in Mental health.</div></div>
           <div class="step"><div class="step-n" style="background:var(--fuel-bg);color:var(--fuel-dk)">4</div><div class="step-t"><strong>Labs:</strong> any results since the last checkpoint. Direction over any single reading.</div></div>
@@ -2952,7 +2979,7 @@ var CP=(function(){
   for(var y=2027;y<=yEnd;y++){[1,4,7,10].forEach(function(m){
     var mo=(m<10?'0':'')+m, months=(y-2026)*12+m-7;
     var t=months%12===0?(months/12)+'-year checkpoint + program review':months===6?'6-month checkpoint: review and draft the new week':'Tareeq checkpoint, '+months+' months';
-    L.push([y+'-'+mo+'-20',t,months===6?'Strength, sleep, self-relationship, labs. Then draft the new week with Claude: new exercises, rep ranges and a deload. It starts Mar 15, after Ramadan.':'Strength, sleep, self-relationship, labs, routines.']);
+    L.push([y+'-'+mo+'-20',t,months===6?'Strength, sleep, self-relationship, labs. Then draft the new week with Claude: new exercises, rep ranges and a deload. It starts Mar 15, after Ramadan.':'Strength, sleep, self-relationship, labs, routines. Share this month’s body photos and the ones from 3 months back with Claude to check the body map.']);
   });}
   return L.map(function(e){var p=e[0].split('-');return {d:new Date(+p[0],+p[1]-1,+p[2]),k:e[0],t:e[1],s:e[2]};}).sort(function(a,b){return a.d-b.d;});
 })();
@@ -3093,7 +3120,7 @@ function wtDue(data){var el=document.getElementById('wt-due');if(!el)return;
   else{var l2=Math.round((fs-today)/DAY);tTxt='In '+l2+' day'+(l2===1?'':'s');tSub=(lastT?'Last: '+fmtD(lastT.d)+'. ':'')+'Next: '+fmtD(ymd(fs))+'.';}
   var row='<div class="wt-row" style="flex-wrap:wrap;gap:6px 10px;align-items:flex-start"><span style="flex:1 1 170px;min-width:0"><strong>';
   el.innerHTML=row+'Weight</strong><div class="cs">Every Sunday morning, after the bathroom, before food. '+wSub+'</div></span>'+pill(wTxt,wDue)+'</div>'
-    +row+'Waist + benchmarks</strong><div class="cs">First Sunday of the month, same morning as the weigh-in. Then the 7 benchmarks below, about 15 minutes. '+tSub+'</div></span>'+pill(tTxt,tDue)+'</div>'
+    +row+'Waist, photos + benchmarks</strong><div class="cs">First Sunday of the month, same morning as the weigh-in. Body photos (front, side, back; same light, kept in your Photos app), then the 7 benchmarks below. About 20 minutes. '+tSub+'</div></span>'+pill(tTxt,tDue)+'</div>'
     +'<div class="cb" style="margin-top:8px">Tape at the navel, relaxed, at the end of a normal exhale, snug but not pressing. Take it twice and log the average.</div>';
 }
 function wtRender(){if(typeof nuRender==='function')nuRender();if(typeof bnRender==='function')setTimeout(bnRender,0);
@@ -3357,7 +3384,7 @@ function tdSched(now){
   if(wk)L.push([9*60,'9:00','Binaural beats, then shake plate']);
   if(wk)L.push([10*60+30,'10:30','Stand and stretch, 2 min']);
   if(tr)L.push([12*60,'12:00',stamp?'Train with onion on, then Nizoral wash':'Train, fasted']);
-  if(d===6)L.push([12*60,'Midday',tqSoccer()?'Soccer, then Nexxus wash (optional onion first)':'Long walk, hike, run or ride, then mobility and Nexxus wash']);
+  if(d===6)L.push([12*60,'Midday',tqSoccer()?'Soccer, then Nexxus wash (optional onion first)':'Long walk, hike, run, ride or swim, then mobility and Nexxus wash']);
   L.push([13*60,'1:00',wk?'Shake plate flush, then first meal':'First meal']);
   if(wk)L.push([14*60+30,'2:30','Stand and stretch, 2 min']);
   if(wk)L.push([16*60,'4:00','Shake plate desk break']);
@@ -3412,7 +3439,7 @@ window.addEventListener('online',function(){tdFetch(true);});
 var BB={
   log:{t:'Log',items:[['p-weight','Weight','scale'],['p-mind','Check-in and sleep','heart-handshake'],['p-fast','Fasting','clock'],['p-week','Weekly review','calendar-event']]},
   plan:{t:'Plan',items:[['p-supplements','Supplements','pill'],['p-calendar','Daily timeline','calendar-event'],['p-rhythm','Rhythm','sun'],['p-travel','Travel','run']]},
-  health:{t:'Health',items:[['p-baseline','Labs and trends','clipboard-list'],['p-prevent','Preventive','heartbeat'],['p-checkpoints','Checkpoints','circle-check'],['p-brain','Brain','sparkles'],['p-account','Account','refresh']]}
+  health:{t:'Health',items:[['p-baseline','Labs and trends','clipboard-list'],['p-vitals','Vitals from Apple Health','heartbeat'],['p-prevent','Preventive','heart-handshake'],['p-checkpoints','Checkpoints','circle-check'],['p-brain','Brain','sparkles'],['p-account','Account','refresh']]}
 };
 var BB_SEC={};Object.keys(BB).forEach(function(s){BB[s].items.forEach(function(i){BB_SEC['p-'+i[0]]=s;});});BB_SEC['p-p-anchor']='anchor';
 function bbToast(t){var el=document.getElementById('toast');if(!el)return;el.textContent=t;el.classList.add('on');setTimeout(function(){el.classList.remove('on');},1800);}
@@ -3552,6 +3579,7 @@ if(SB){
   document.addEventListener('visibilitychange',function(){if(document.visibilityState==='visible')acSync(false);});
 }
 acUI();
+window.tqSB=function(){return SB&&SB_USER?SB:null;};
 window.acPasskey=acPasskey;window.acPassword=acPassword;window.acRegister=acRegister;window.acSignOut=acSignOut;window.acSync=acSync;
 });
 /* Nutrition: protein target from the 7-day weight, current season */
@@ -3621,7 +3649,7 @@ var TQ_SES={
 function tqSoccer(d){var m=(d||new Date()).getMonth();return m>=4&&m<=9;}
 var TQ_OFF={5:['Outdoors','Play','Nothing structured','Longboard, bike, tennis, or a walk. Roller and stretch if the legs need it.','Got outside'],
             6:tqSoccer()?['Soccer','Match','The week’s hardest cardio','Full match with friends. Already handled, no need to stack conditioning on top.','Played the match']
-              :['Long walk, hike, run or ride','Move','Soccer is off until spring','45 to 90 minutes at a pace you could talk through: a long walk, a hike, a short run or a bike ride. The pool if you join a gym. Then 10 minutes of easy mobility: hip flexor lunge stretch and hamstring stretch (45 sec a side), open-book thoracic rotations (8 a side), a 60-second deep squat hold, and a calf stretch on a step. Steam afterward is optional.','Got the long session in'],
+              :['Long walk, hike, run, ride or swim','Move','Soccer is off until spring','45 to 90 minutes at a pace you could talk through: a long walk, a hike, a short run, a bike ride, or laps at the pool. Then 10 minutes of easy mobility: hip flexor lunge stretch and hamstring stretch (45 sec a side), open-book thoracic rotations (8 a side), a 60-second deep squat hold, and a calf stretch on a step. Steam afterward is optional.','Got the long session in'],
             0:['Outdoors + reset','Play','Hike or an easy day','A hike or an easy day outside. The weekly 24-hour fast lands here. Then 10 minutes of easy mobility: hip flexor lunge stretch and hamstring stretch (45 sec a side), open-book thoracic rotations (8 a side), a 60-second deep squat hold, and a calf stretch on a step. Skip the steam today while fasting.','Got outside']};
 var TQ_STK=[['Morning, in coffee',[['lth','L-theanine 200 mg']]],['All day, sipped',[['cre','Creatine 10 g in electrolytes']]],
   ['Midday, with food',[['mv','Multivitamin with D3'],['fo','Fish oil'],['k2','Vitamin K2'],['ca','Calcium'],['pro','Probiotic']]],
@@ -3642,7 +3670,7 @@ function tqSched(d){
   if(wk)L.push(['beats',540,'9:00','Binaural beats, then shake plate','ground']);
   if(wk)L.push(['st1',630,'10:30','Stand and stretch, 2 min','ground']);
   if(tr)L.push(['train',720,'12:00',stamp?'Train with onion on: '+TQ_SES[d].n+', then Nizoral wash':'Train, fasted: '+TQ_SES[d].n,'fire']);
-  else L.push(['train',720,d===6?'Midday':'Today',d===6?(tqSoccer()?'Soccer, then Nexxus wash (optional onion first)':'Long walk, hike, run or ride, then mobility and Nexxus wash'):TQ_OFF[d][0],'fire']);
+  else L.push(['train',720,d===6?'Midday':'Today',d===6?(tqSoccer()?'Soccer, then Nexxus wash (optional onion first)':'Long walk, hike, run, ride or swim, then mobility and Nexxus wash'):TQ_OFF[d][0],'fire']);
   L.push(['m1',780,'1:00',wk?'Shake plate flush, then first meal':'First meal','fuel']);
   if(wk)L.push(['st2',870,'2:30','Stand and stretch, 2 min','ground']);
   if(wk)L.push(['plate',960,'4:00','Shake plate desk break','ground']);
@@ -3861,6 +3889,29 @@ function tqClock(){
 }
 
 
+/* ---------- Vitals: rows in tareeq_health, written by the iPhone Shortcut via the tareeq-health edge function ---------- */
+var VT_KEY='tareeq-vitals', VT_M=[['rhr','Resting HR','bpm','var(--fire)'],['hrv','HRV','ms','var(--ground)'],['steps','Steps','','var(--repair)'],['sleep_h','Sleep','h','var(--fuel)']];
+async function vtLoad(manual){var m=document.getElementById('vt-msg');var sb=window.tqSB&&window.tqSB();
+  if(!sb){vtRender();if(m)m.textContent='Sign in on the Account tab to load your Health data.';return;}
+  if(manual&&m)m.textContent='Loading…';
+  var since=new Date();since.setDate(since.getDate()-90);
+  var r=await sb.from('tareeq_health').select('d,metric,value').gte('d',ymd(since)).order('d');
+  if(r.error){if(m)m.textContent='Couldn’t load: '+r.error.message;return;}
+  lsSet(VT_KEY,r.data||[]);if(m)m.textContent=manual?'Up to date.':'';vtRender();}
+function vtRender(){var rows=lsGet(VT_KEY,[]),k=document.getElementById('vt-kpis');if(!k)return;
+  var by={};rows.forEach(function(x){(by[x.metric]=by[x.metric]||[]).push(x);});
+  var last=rows.length?rows[rows.length-1].d:null;document.getElementById('vt-when').textContent=last?fmtD(last):'';
+  function kpi(n,u,l){return '<div class="kpi"><div class="kpi-n">'+n+'<span class="kpi-u">'+u+'</span></div><div class="kpi-l">'+l+'</div></div>';}
+  k.innerHTML=VT_M.map(function(m){var xs=by[m[0]]||[],v=xs.length?xs[xs.length-1].value:null;
+    var a=xs.slice(-28).map(function(x){return +x.value;}),avg=a.length?a.reduce(function(s,y){return s+y;},0)/a.length:null;
+    var f=function(z){return m[0]==='steps'?Math.round(z).toLocaleString():m[0]==='sleep_h'?(+z).toFixed(1):Math.round(z);};
+    return kpi(v!=null?f(v):'–',m[2]?' '+m[2]:'',m[1]+(avg!=null?', 4-wk avg '+f(avg):''));}).join('');
+  if(!rows.length){var mm=document.getElementById('vt-msg');if(mm&&!mm.textContent)mm.textContent='Nothing yet. Once the Shortcut runs, numbers show up here.';}
+  VT_M.forEach(function(m){var el=document.getElementById('vt-c-'+m[0]);if(!el)return;
+    drawChart(el,[{pts:(by[m[0]]||[]).map(function(x){return [pd(x.d).getTime(),+x.value];}),color:m[3],dots:true}],m[0]==='steps'?{label:m[1],y0:0,y1:Math.max(4000,Math.ceil(Math.max.apply(null,(by.steps||[]).map(function(x){return +x.value;}).concat([0]))/4000)*4000)}:{label:m[1]});});}
+(function(){var _go=go;go=function(id,btn){_go(id,btn);if(id==='p-vitals'){vtRender();vtLoad(false);}};})();
+document.addEventListener('visibilitychange',function(){if(document.visibilityState==='visible'){var p=document.getElementById('p-p-vitals');if(p&&p.classList.contains('on'))vtLoad(false);}});
+
 /* ---------- Monthly benchmarks: strength + flexibility/balance, first Sunday with the waist ---------- */
 var BN_KEY='tareeq-bench';
 var BN_F=[['pu','Push-ups','reps'],['hang','Dead hang','sec'],['row','Row, 30 lb','reps'],['gob','Goblet, 30 lb','reps'],['toe','Toe touch','in'],['bal','Balance','sec'],['sq','Squat hold','sec']];
@@ -3991,7 +4042,7 @@ function bmDefaultCap(){
   if(BM.v==='build'){
     var tr=Object.keys(BM_PLAN).filter(function(m){return BM_PLAN[m][1].indexOf(s.dow)>-1;}).map(function(m){return BM_PLAN[m][0].toLowerCase();});
     var day=(typeof TQ_SES!=='undefined'&&TQ_SES[s.dow])?TQ_SES[s.dow].n:null;
-    return '<b>Week '+s.wk+' of training.</b> '+(day?'Today is '+day+''+': '+tr.join(', ')+'.':s.dow===6?(tqSoccer()?'Soccer today: legs, lungs and the visceral fat.':'Long walk, hike, run or ride today: steady cardio that works on the visceral fat.'):'No lifting today. Walks and play still count toward the visceral fat.')
+    return '<b>Week '+s.wk+' of training.</b> '+(day?'Today is '+day+''+': '+tr.join(', ')+'.':s.dow===6?(tqSoccer()?'Soccer today: legs, lungs and the visceral fat.':'Long walk, hike, run, ride or swim today: steady cardio that works on the visceral fat.'):'No lifting today. Walks and play still count toward the visceral fat.')
       +' <span class="muted">Tap a muscle for its days.</span>';
   }
   var pct=Math.round(BM.p*100),lb=bmLb(BM.p);
