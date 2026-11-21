@@ -467,6 +467,15 @@ html[data-scheme="seasonal"][data-tq-season="ss"]:not([data-theme="dark"]) .path
 .wt-form{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
 .wt-form input{font:inherit;font-size:14px;padding:9px 12px;border-radius:var(--rmd);border:0.5px solid var(--bdr2);background:var(--bg);color:var(--ink);min-width:0}
 .wt-form input[type=number]{width:110px}
+.mv{position:relative;overflow:hidden;margin:0 0 10px;padding:12px 40px 12px 16px;border-radius:var(--rlg);background:var(--bg2);border:0.5px solid var(--bdr);cursor:pointer;-webkit-tap-highlight-color:transparent}
+.mv-t{position:relative;font-family:'DM Serif Display',Georgia,serif;font-size:16px;line-height:1.35;color:var(--ink);transition:opacity .9s ease,transform .9s ease}
+.mv-t.out{opacity:0;transform:translateY(4px)}
+.mv-t small{display:block;font-family:Inter,system-ui,sans-serif;font-size:11.5px;color:var(--ink3);margin-top:3px}
+.mv-glow{position:absolute;inset:-40%;background:radial-gradient(circle at 30% 50%,var(--repair-bg),transparent 55%),radial-gradient(circle at 75% 40%,var(--gold-bg),transparent 50%);opacity:.9;animation:mv-drift 18s ease-in-out infinite alternate;pointer-events:none}
+.mv-x{position:absolute;top:6px;right:8px;border:none;background:none;font-size:18px;line-height:1;color:var(--ink4);padding:6px;cursor:pointer}
+@keyframes mv-drift{from{transform:translate(-6%,0) rotate(0deg)}to{transform:translate(6%,3%) rotate(8deg)}}
+html[data-motion="calm"] .mv-glow{animation-duration:40s}
+.vt-now{width:100%;justify-content:center}
 .bn-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px 10px}
 .bn-grid label{display:flex;flex-direction:column;gap:4px;font-size:11.5px;font-weight:500;color:var(--ink3);min-width:0}
 .bn-grid input{font:inherit;font-size:14px;padding:9px 10px;border-radius:var(--rmd);border:0.5px solid var(--bdr2);background:var(--bg);color:var(--ink);min-width:0;width:100%}
@@ -1433,6 +1442,7 @@ html[data-motion="off"] *,html[data-motion="off"] *::before,html[data-motion="of
 
     <!-- ═══════════ PROTOCOL: OVERVIEW ═══════════ -->
     <div id="p-protocol" class="panel">
+      <div class="mv" id="mv" role="status" aria-live="polite" style="display:none"><div class="mv-glow"></div><div class="mv-t" id="mv-t"></div><button class="mv-x" onclick="mvHide()" aria-label="Hide for today">&#215;</button></div>
       <div class="today" id="today">
         <div class="td-top">
           <div><div class="td-time" id="td-time">--:--</div><div class="td-date" id="td-date"></div></div>
@@ -2519,6 +2529,8 @@ html[data-motion="off"] *,html[data-motion="off"] *::before,html[data-motion="of
     <div id="p-p-vitals" class="panel">
       <div class="ibar"><i class="ti ti-info-circle"></i><span>From your iPhone&#8217;s Health app, sent once a day by a Shortcut. Read the direction over weeks; one night or one day is noise.</span></div>
       <div class="ew">Latest <span class="muted" id="vt-when" style="text-transform:none;letter-spacing:0;margin-left:6px"></span></div>
+      <button class="btn pr vt-now" onclick="vtRunShortcut()"><i class="ti ti-refresh"></i> Update now from Apple Health</button>
+      <div class="cs" style="margin:6px 2px 10px">Opens the Shortcuts app for a second, sends today&#8217;s numbers, then comes back here.</div>
       <div class="kpis" id="vt-kpis"></div>
       <div class="cs" id="vt-msg" style="margin:6px 2px 0"></div>
       <div class="ew">Resting heart rate</div>
@@ -3895,11 +3907,14 @@ function tqClock(){
 /* ---------- Vitals: rows in tareeq_health, written by the iPhone Shortcut via the tareeq-health edge function ---------- */
 var VT_KEY='tareeq-vitals', VT_M=[['rhr','Resting HR','bpm','var(--fire)'],['hrv','HRV','ms','var(--ground)'],['steps','Steps','','var(--repair)'],['sleep_h','Sleep','h','var(--fuel)'],['exercise_min','Exercise','min','var(--fire)']];
 window.vtLoad=vtLoad;
+function vtRunShortcut(){location.href='shortcuts://x-callback-url/run-shortcut?name=Tareeq%20Health&x-success='+encodeURIComponent(location.origin+location.pathname+'?from=health')+'&x-error='+encodeURIComponent(location.origin+location.pathname+'?from=health')+'';}
+/* Back from the Shortcut: open Vitals and load the fresh numbers */
+(function(){try{if(/[?&]from=health/.test(location.search)){history.replaceState(null,'',location.pathname);document.addEventListener('DOMContentLoaded',function(){setTimeout(function(){setAppMode('protocol');go('p-vitals',document.querySelector('[data-pillar=p-vitals]'));},300);});}}catch(e){}})();
 async function vtLoad(manual){var m=document.getElementById('vt-msg');var sb=window.tqSB&&window.tqSB();
   if(!sb){vtRender();if(m)m.innerHTML='You&#8217;re signed out on this device, so Health data can&#8217;t load. <button class="bn-del" onclick="go(\'p-account\',document.querySelector(\'[data-pillar=p-account]\'))">Sign in on the Account tab</button>';return;}
   if(manual&&m)m.textContent='Loading…';
   var since=new Date();since.setDate(since.getDate()-90);
-  var r=await sb.from('tareeq_health').select('d,metric,value').gte('d',ymd(since)).order('d');
+  var r=await sb.from('tareeq_health').select('d,metric,value,updated_at').gte('d',ymd(since)).order('d');
   if(r.error){if(m)m.textContent='Couldn’t load: '+r.error.message;return;}
   lsSet(VT_KEY,r.data||[]);if(m)m.textContent=manual?'Up to date.':'';vtAutoTrain(r.data||[]);vtRender();}
 /* Mark a day trained from the watch: 20+ exercise minutes or a 15+ minute workout. Never un-marks. Last 14 days only. */
@@ -3914,12 +3929,48 @@ function vtRender(){var rows=lsGet(VT_KEY,[]),k=document.getElementById('vt-kpis
   k.innerHTML=VT_M.map(function(m){var xs=by[m[0]]||[],v=xs.length?xs[xs.length-1].value:null;
     var a=xs.slice(-28).map(function(x){return +x.value;}),avg=a.length?a.reduce(function(s,y){return s+y;},0)/a.length:null;
     var f=function(z){return m[0]==='steps'?Math.round(z).toLocaleString():m[0]==='sleep_h'?(+z).toFixed(1):Math.round(z);};
-    var ld=xs.length?xs[xs.length-1].d:null,lab=ld?(ld===ymd(new Date())?'today':fmtD(ld)):'';return kpi(v!=null?f(v):'–',m[2]?' '+m[2]:'',m[1]+(lab?', '+lab:'')+(avg!=null?'<br><span class="muted">4-wk avg '+f(avg)+(m[2]?' '+m[2]:'')+'</span>':''));}).join('');
+    var lx=xs.length?xs[xs.length-1]:null,ld=lx?lx.d:null,lab=ld?(ld===ymd(new Date())?'today'+(lx.updated_at?', as of '+new Date(lx.updated_at).toLocaleTimeString([],{hour:'numeric',minute:'2-digit'}):''):fmtD(ld)):'';return kpi(v!=null?f(v):'–',m[2]?' '+m[2]:'',m[1]+(lab?', '+lab:'')+(avg!=null?'<br><span class="muted">4-wk avg '+f(avg)+(m[2]?' '+m[2]:'')+'</span>':''));}).join('');
   if(!rows.length){var mm=document.getElementById('vt-msg');if(mm&&!mm.textContent)mm.textContent='Nothing yet. Once the Shortcut runs, numbers show up here.';}
   VT_M.forEach(function(m){var el=document.getElementById('vt-c-'+m[0]);if(!el)return;
     drawChart(el,[{pts:(by[m[0]]||[]).map(function(x){return [pd(x.d).getTime(),+x.value];}),color:m[3],dots:true}],m[0]==='steps'?{label:m[1],y0:0,y1:Math.max(4000,Math.ceil(Math.max.apply(null,(by.steps||[]).map(function(x){return +x.value;}).concat([0]))/4000)*4000)}:{label:m[1]});});}
 (function(){var _go=go;go=function(id,btn){_go(id,btn);if(id==='p-vitals'){vtRender();vtLoad(false);}};})();
 document.addEventListener('visibilitychange',function(){if(document.visibilityState==='visible'){var p=document.getElementById('p-p-vitals');if(p&&p.classList.contains('on'))vtLoad(false);}});
+
+/* ---------- Motivation banner: one calm line at a time, drawn from what actually went right ---------- */
+var MV={i:0,lines:[],t:null};
+function mvLines(){
+  var L=[],now=new Date(),h=now.getHours(),dow=now.getDay();
+  try{var st=bmState();
+    L.push(['Week '+st.wk+' on the path.','Every week you show up counts, including the easy ones.']);
+    if(st.p>0.01){var lost=Math.round((st.lb0-st.lb)*10)/10;if(lost>0)L.push([lost+' lb lighter than where you started.','Slow and steady keeps the muscle.']);}
+    if(st.wk>=8)L.push(['Two months of consistency builds real change.','The visceral fat usually goes first, before the mirror shows it.']);
+  }catch(e){}
+  try{var v=lsGet('tareeq-vitals',[]),td=ymd(now),stp=v.filter(function(x){return x.metric==='steps';}),tod=stp.filter(function(x){return x.d===td;})[0];
+    if(tod){var a=stp.slice(-28).map(function(x){return +x.value;}),avg=a.reduce(function(p,c){return p+c;},0)/a.length;
+      L.push([Math.round(tod.value).toLocaleString()+' steps so far today.',+tod.value>=avg?'Ahead of your usual pace.':'Plenty of day left for a walk if it feels good.']);}
+    var r=v.filter(function(x){return x.metric==='rhr';});if(r.length>=14){var f=r.slice(0,7),l=r.slice(-7),av=function(z){return z.reduce(function(p,c){return p+(+c.value);},0)/z.length;};
+      if(av(l)<av(f)-1)L.push(['Resting heart rate is easing down.','That usually tracks better fitness.']);}
+  }catch(e){}
+  try{var b=bnData();if(b.length>=2){var A=b[b.length-2],B=b[b.length-1];[['pu','push-ups'],['hang','seconds of dead hang'],['sq','seconds in the squat hold']].forEach(function(f){if(A[f[0]]!=null&&B[f[0]]!=null&&B[f[0]]>A[f[0]])L.push(['+'+(B[f[0]]-A[f[0]])+' '+f[1]+' since last month.','Strength first, as planned.']);});}}catch(e){}
+  var ses=(typeof TQ_SES!=='undefined'&&TQ_SES[dow])?TQ_SES[dow].n:null;
+  if(ses&&h<12)L.push(['Today is '+ses+'.','Show up, do the work, let it be enough.']);
+  if(!ses&&(dow===5||dow===0))L.push(['A lighter day.','Rest is part of the plan, and part of the progress.']);
+  if(h>=20)L.push(['Winding down soon.','Sleep is where today&#8217;s training turns into muscle.']);
+  L.push(['Speak to yourself like someone you&#8217;re helping.','']);
+  return L;
+}
+function mvShow(){var el=document.getElementById('mv'),t=document.getElementById('mv-t');if(!el||!t)return;
+  try{if(lsGet('tareeq-mv-hide','')===ymd(new Date())){el.style.display='none';return;}}catch(e){}
+  MV.lines=mvLines();if(!MV.lines.length)return;el.style.display='';
+  var draw=function(){var x=MV.lines[MV.i%MV.lines.length];t.innerHTML=x[0]+(x[1]?'<small>'+x[1]+'</small>':'');};
+  draw();clearInterval(MV.t);
+  var mo=document.documentElement.getAttribute('data-motion')||'full';if(mo==='off')return;
+  MV.t=setInterval(function(){t.classList.add('out');setTimeout(function(){MV.i++;draw();t.classList.remove('out');},900);},14000);
+  el.onclick=function(e){if(e.target.classList.contains('mv-x'))return;t.classList.add('out');setTimeout(function(){MV.i++;draw();t.classList.remove('out');},450);};
+}
+function mvHide(){try{lsSet('tareeq-mv-hide',ymd(new Date()));}catch(e){}var el=document.getElementById('mv');if(el)el.style.display='none';clearInterval(MV.t);}
+document.addEventListener('DOMContentLoaded',function(){setTimeout(mvShow,600);});
+document.addEventListener('visibilitychange',function(){if(document.visibilityState==='visible')setTimeout(mvShow,600);});
 
 /* ---------- Monthly benchmarks: strength + flexibility/balance, first Sunday with the waist ---------- */
 var BN_KEY='tareeq-bench';
