@@ -2423,7 +2423,7 @@ html[data-motion="off"] *,html[data-motion="off"] *::before,html[data-motion="of
           <div class="cb"><span class="etag est">Established</span> Visceral fat, the fat around the organs and in the liver, usually drops first. A review of 61 studies found it goes proportionally faster with modest weight loss, and the edge narrows as loss grows (Chaston and Dixon, 2008).</div>
           <div class="cb"><span class="etag est">Established</span> Training trims visceral fat even when the scale barely moves: about 6% with no weight loss, against roughly 1% for diet alone (Verheggen, 2016). Soccer (or the long Saturday walk, hike or swim off season), the bag rounds and daily walks all count here.</div>
           <div class="cb"><span class="etag emrg">Emerging</span> The order of the outer zones is a typical pattern for men, and it varies person to person: face, chest and arms early, lower belly, flanks and lower back last.</div>
-          <div class="cb"><span class="etag est">Established</span> Training a muscle at least twice a week grows it more than once a week (Schoenfeld, 2016 meta-analysis). The map brightens muscles by how often the plan hits them and how many of those sessions you ticked off in the last 4 weeks.</div>
+          <div class="cb"><span class="etag est">Established</span> Training a muscle at least twice a week grows it more than once a week (Schoenfeld, 2016 meta-analysis). The map brightens muscles by how often the plan hits them and, once there are at least 4 of their sessions in the log, how many you ticked off in the last 4 weeks. A missed tick dims that day&#8217;s muscles.</div>
           <div class="cb"><span class="etag est">Established</span> Building muscle while losing fat is well documented in people newer to lifting or with fat to lose, and it slows with time (Barakat, 2020 review).</div>
           <div class="cb"><span class="muted">The map itself is an illustration built from your weigh-ins, waist, training plan and daily log. It can&#8217;t see inside you; a DEXA scan is the tool that measures where fat and muscle actually changed. The zone order and timings are judgment.</span></div>
         </details>
@@ -3883,7 +3883,7 @@ function bmState(){
     if(e){used[k]=d.getDay();if(e.d&&e.d.train)done[k]=1;}}
   s.adh={};Object.keys(BM_PLAN).forEach(function(m){var days=BM_PLAN[m][1],exp=0,hit=0;
     Object.keys(used).forEach(function(k){if(days.indexOf(used[k])>-1&&k!==ymd(today)){exp++;if(done[k])hit++;}});
-    s.adh[m]=exp?[hit,exp]:null;});
+    s.adh[m]=exp?[hit,exp]:null;s.adhOn=s.adhOn||{};s.adhOn[m]=exp>=4;});
   s.dow=today.getDay(); s.trainedToday=!!(log[ymd(today)]&&log[ymd(today)].d&&log[ymd(today)].d.train);
   return s;
 }
@@ -3891,7 +3891,7 @@ function bmState(){
 function bmPaintMuscle(){
   var s=BM.st,root=document.getElementById('bm');if(!root||!s)return;
   Object.keys(BM_PLAN).forEach(function(m){
-    var days=BM_PLAN[m][1],f=days.length>=2?1:.72,a=s.adh[m],adh=a?a[0]/a[1]:1;
+    var days=BM_PLAN[m][1],f=days.length>=2?1:.72,a=s.adh[m],adh=(a&&s.adhOn[m])?a[0]/a[1]:1;
     var o=bmClamp(.14+.5*s.built*f+.26*adh*f);
     [].forEach.call(root.querySelectorAll('.bm-m[data-m="'+m+'"]'),function(el){el.style.setProperty('--o',o.toFixed(2));el.classList.toggle('now',days.indexOf(s.dow)>-1);});
   });
@@ -3914,7 +3914,7 @@ function bmSliderUI(){
 function bmLegend(){
   var L=document.getElementById('bm-leg');if(!L)return;
   var sw=function(c,t,x){return '<span><i style="background:'+c+(x||'')+'"></i>'+t+'</span>';};
-  L.innerHTML=BM.v==='build'?sw('var(--fire)','Trained often, building')+sw('var(--fire)','Once a week',';opacity:.45')+'<span class="muted">Pulsing: on today&#8217;s plan</span>'
+  L.innerHTML=BM.v==='build'?sw('var(--fire)','Twice a week, sessions ticked')+sw('var(--fire)','Once a week, or sessions missed',';opacity:.45')+'<span class="muted">Pulsing: on today&#8217;s plan</span>'
     :BM.v==='shed'?sw('var(--fuel)','Fat still to clear')+'<span class="muted">Zones fade in the order they usually go</span>'
     :sw('var(--fuel)','Visceral fat')+sw('var(--fire-dk)','Liver',';opacity:.55')+sw('var(--repair)','Stomach and gut',';opacity:.5');
 }
@@ -3945,7 +3945,7 @@ function bmTap(ev){
   if(m&&BM.v==='build'){var k=m.getAttribute('data-m'),P=BM_PLAN[k],a=s.adh[k];bmSel('.bm-m[data-m="'+k+'"]');
     bmCap('<b>'+P[0]+'</b> &#183; '+P[1].map(function(d){return BM_DN[d];}).join(' + ')+'. '+P[2]+'. '
       +(P[1].length>=2?'Twice a week, the frequency research links to more growth.':'Once a week directly, so it grows slower than the twice-a-week groups.')
-      +(a?' <span class="muted">Last 4 weeks: '+a[0]+' of '+a[1]+' sessions ticked.</span>':' <span class="muted">No ticks logged yet, so this follows the plan.</span>'));return;}
+      +(a?' <span class="muted">Last 4 weeks: '+a[0]+' of '+a[1]+' sessions ticked'+(s.adhOn[k]?'.':', too few to shade yet, so the color follows the plan.')+'</span>':' <span class="muted">No ticks logged yet, so this follows the plan.</span>'));return;}
   if(z&&BM.v==='shed'){var f=z.getAttribute('data-f'),Z=BM_FAT[f],r=bmRem(Z[1],Z[2],BM.p);bmSel('.bm-z[data-f="'+f+'"]');
     bmCap('<b>'+Z[0]+'</b> &#183; '+(r<.02?'cleared at this point.':r>.98?'not started yet; usually begins around '+bmLb(Z[1])+' lb.':'about '+Math.round((1-r)*100)+'% cleared.')
       +(Z[2]>=1?' One of the last to go for most men. Lifting and walking keep working on it; ab work alone does not target it.':'')
