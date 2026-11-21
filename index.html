@@ -2525,6 +2525,8 @@ html[data-motion="off"] *,html[data-motion="off"] *::before,html[data-motion="of
       <div class="card chart"><div id="vt-c-rhr"></div><div class="cs" style="margin-top:6px">Drifting down over months usually tracks better fitness. A jump of 5 or more for several days can mean poor sleep, stress or a cold coming. <span class="etag est">Established</span></div></div>
       <div class="ew">Heart rate variability (HRV)</div>
       <div class="card chart"><div id="vt-c-hrv"></div><div class="cs" style="margin-top:6px">Very personal: compare only to your own average. A run of low days is a cue to keep training easy and protect sleep. <span class="etag emrg">Emerging</span></div></div>
+      <div class="ew">Exercise minutes</div>
+      <div class="card chart"><div id="vt-c-exercise_min"></div><div class="cs" style="margin-top:6px">The watch counts these on its own whenever you move briskly, plus any workout you start. A day with 20 or more, or a 15-minute workout, is marked trained on Today automatically. <span class="muted">The 20 and 15 are judgment.</span></div></div>
       <div class="ew">Steps</div>
       <div class="card chart"><div id="vt-c-steps"></div></div>
       <div class="ew">Sleep</div>
@@ -3574,7 +3576,7 @@ async function acRegister(){if(!SB||!SB_USER)return;acMsg('Follow the Face ID pr
   acMsg('Face ID is on. Next time, tap “Sign in with Face ID.”');acPasskeyState();}
 async function acSignOut(){if(!SB)return;await SB.auth.signOut();acMsg('Signed out. Your entries stay on this device.');}
 if(SB){
-  SB.auth.onAuthStateChange(function(ev,session){SB_USER=session&&session.user?session.user:null;acUI();var sib=document.getElementById('si-banner');if(sib)sib.style.display=(!SB_USER&&ev!=='TOKEN_REFRESHED')?'':'none';if(SB_USER)acPasskeyState();if(SB_USER&&(ev==='SIGNED_IN'||ev==='INITIAL_SESSION'))setTimeout(function(){acSync(false);},0);if(SB_USER){var vp=document.getElementById('p-p-vitals');if(vp&&vp.classList.contains('on')&&window.vtLoad)setTimeout(function(){vtLoad(false);},0);}});
+  SB.auth.onAuthStateChange(function(ev,session){SB_USER=session&&session.user?session.user:null;acUI();var sib=document.getElementById('si-banner');if(sib)sib.style.display=(!SB_USER&&ev!=='TOKEN_REFRESHED')?'':'none';if(SB_USER)acPasskeyState();if(SB_USER&&(ev==='SIGNED_IN'||ev==='INITIAL_SESSION'))setTimeout(function(){acSync(false);},0);if(SB_USER&&window.vtLoad)setTimeout(function(){vtLoad(false);},400);});
   window.addEventListener('online',function(){acUI();acSync(false);});
   window.addEventListener('offline',acUI);
   document.addEventListener('visibilitychange',function(){if(document.visibilityState==='visible')acSync(false);});
@@ -3891,7 +3893,7 @@ function tqClock(){
 
 
 /* ---------- Vitals: rows in tareeq_health, written by the iPhone Shortcut via the tareeq-health edge function ---------- */
-var VT_KEY='tareeq-vitals', VT_M=[['rhr','Resting HR','bpm','var(--fire)'],['hrv','HRV','ms','var(--ground)'],['steps','Steps','','var(--repair)'],['sleep_h','Sleep','h','var(--fuel)']];
+var VT_KEY='tareeq-vitals', VT_M=[['rhr','Resting HR','bpm','var(--fire)'],['hrv','HRV','ms','var(--ground)'],['steps','Steps','','var(--repair)'],['sleep_h','Sleep','h','var(--fuel)'],['exercise_min','Exercise','min','var(--fire)']];
 window.vtLoad=vtLoad;
 async function vtLoad(manual){var m=document.getElementById('vt-msg');var sb=window.tqSB&&window.tqSB();
   if(!sb){vtRender();if(m)m.innerHTML='You&#8217;re signed out on this device, so Health data can&#8217;t load. <button class="bn-del" onclick="go(\'p-account\',document.querySelector(\'[data-pillar=p-account]\'))">Sign in on the Account tab</button>';return;}
@@ -3899,7 +3901,12 @@ async function vtLoad(manual){var m=document.getElementById('vt-msg');var sb=win
   var since=new Date();since.setDate(since.getDate()-90);
   var r=await sb.from('tareeq_health').select('d,metric,value').gte('d',ymd(since)).order('d');
   if(r.error){if(m)m.textContent='Couldn’t load: '+r.error.message;return;}
-  lsSet(VT_KEY,r.data||[]);if(m)m.textContent=manual?'Up to date.':'';vtRender();}
+  lsSet(VT_KEY,r.data||[]);if(m)m.textContent=manual?'Up to date.':'';vtAutoTrain(r.data||[]);vtRender();}
+/* Mark a day trained from the watch: 20+ exercise minutes or a 15+ minute workout. Never un-marks. Last 14 days only. */
+function vtAutoTrain(rows){try{var cut=new Date();cut.setDate(cut.getDate()-14);var ck=ymd(cut),by={},n=0;
+  rows.forEach(function(x){if(x.d<ck)return;var o=by[x.d]=by[x.d]||{};o[x.metric]=+x.value;});
+  Object.keys(by).forEach(function(d){var o=by[d];if((o.exercise_min||0)>=20||(o.workout_min||0)>=15){var E=tqGet(d);if(!E.d.train){E.d.train=1;E.auto=1;tqPut(d,E);n++;}}});
+  if(n&&typeof tqAll==='function')tqAll();}catch(e){}}
 function vtRender(){var rows=lsGet(VT_KEY,[]),k=document.getElementById('vt-kpis');if(!k)return;
   var by={};rows.forEach(function(x){(by[x.metric]=by[x.metric]||[]).push(x);});
   var last=rows.length?rows[rows.length-1].d:null;document.getElementById('vt-when').textContent=last?fmtD(last):'';
