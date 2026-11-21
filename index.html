@@ -3914,7 +3914,7 @@ function vtRender(){var rows=lsGet(VT_KEY,[]),k=document.getElementById('vt-kpis
   k.innerHTML=VT_M.map(function(m){var xs=by[m[0]]||[],v=xs.length?xs[xs.length-1].value:null;
     var a=xs.slice(-28).map(function(x){return +x.value;}),avg=a.length?a.reduce(function(s,y){return s+y;},0)/a.length:null;
     var f=function(z){return m[0]==='steps'?Math.round(z).toLocaleString():m[0]==='sleep_h'?(+z).toFixed(1):Math.round(z);};
-    return kpi(v!=null?f(v):'–',m[2]?' '+m[2]:'',m[1]+(avg!=null?', 4-wk avg '+f(avg):''));}).join('');
+    var ld=xs.length?xs[xs.length-1].d:null,lab=ld?(ld===ymd(new Date())?'today':fmtD(ld)):'';return kpi(v!=null?f(v):'–',m[2]?' '+m[2]:'',m[1]+(lab?', '+lab:'')+(avg!=null?'<br><span class="muted">4-wk avg '+f(avg)+(m[2]?' '+m[2]:'')+'</span>':''));}).join('');
   if(!rows.length){var mm=document.getElementById('vt-msg');if(mm&&!mm.textContent)mm.textContent='Nothing yet. Once the Shortcut runs, numbers show up here.';}
   VT_M.forEach(function(m){var el=document.getElementById('vt-c-'+m[0]);if(!el)return;
     drawChart(el,[{pts:(by[m[0]]||[]).map(function(x){return [pd(x.d).getTime(),+x.value];}),color:m[3],dots:true}],m[0]==='steps'?{label:m[1],y0:0,y1:Math.max(4000,Math.ceil(Math.max.apply(null,(by.steps||[]).map(function(x){return +x.value;}).concat([0]))/4000)*4000)}:{label:m[1]});});}
