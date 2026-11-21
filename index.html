@@ -2665,10 +2665,11 @@ html[data-motion="off"] *,html[data-motion="off"] *::before,html[data-motion="of
         <div class="ex"><span class="exn"><span class="tag tag-n" style="margin-right:6px">Nov 2</span>Hair &amp; beard photos<span class="tag tag-repair" style="margin-left:6px">On calendar</span></span><span class="exs">Day 1 of the consistent onion run. Repeats Nov 30, Dec 28, Jan 25</span></div>
         <div class="ex"><span class="exn"><span class="tag tag-n" style="margin-right:6px">Nov 23</span>Nizoral step-down check<span class="tag tag-repair" style="margin-left:6px">On calendar</span></span><span class="exs">Scalp stable? Phase 2: Nizoral Mon, Nexxus Thu, onion Mon and Thu</span></div>
         <div class="ex"><span class="exn"><span class="tag tag-ground" style="margin-right:6px">Dec 14</span>Message Dr. Chikere<span class="tag tag-repair" style="margin-left:6px">On calendar</span></span><span class="exs">Ask him to place the Jan and Apr lab orders</span></div>
-        <div class="ex"><span class="exn"><span class="tag tag-fire" style="margin-right:6px">Jan 20</span>6-month checkpoint + new training week<span class="tag tag-repair" style="margin-left:6px">On calendar</span></span><span class="exs">First strict pull-up is the target. Then rewrite the whole week so muscles keep getting challenged: swap exercises, change rep ranges, build in a deload, and plan past the 30 lb dumbbell</span></div>
+        <div class="ex"><span class="exn"><span class="tag tag-fire" style="margin-right:6px">Jan 20</span>6-month checkpoint<span class="tag tag-repair" style="margin-left:6px">On calendar</span></span><span class="exs">First strict pull-up is the target. Review, list the stalled lifts, and draft the new week: swap exercises, change rep ranges, build in a deload, plan past the 30 lb dumbbell</span></div>
         <div class="ex"><span class="exn"><span class="tag tag-ground" style="margin-right:6px">Jan 26</span>Lab draw window<span class="tag tag-repair" style="margin-left:6px">On calendar</span></span><span class="exs">Fasted, before 10 am. Lipids, vitamin D, A1c, estradiol, hs-CRP, iron, folate, fasting insulin</span></div>
         <div class="ex"><span class="exn"><span class="tag tag-n" style="margin-right:6px">Jan 31</span>Hair &amp; beard verdict<span class="tag tag-repair" style="margin-left:6px">On calendar</span></span><span class="exs">Day 90. Compare Nov 2 and Jan 25 photos. Keep, change or drop the onion treatment</span></div>
 
+        <div class="ex"><span class="exn"><span class="tag tag-fire" style="margin-right:6px">Mar 15</span>New training week starts<span class="tag tag-repair" style="margin-left:6px">On calendar</span></span><span class="exs">First Monday after Eid (expected Mar 9 or 10). The current week runs through Ramadan, lighter, then the new one begins fresh</span></div>
         <div class="ex"><span class="exn"><span class="tag tag-ground" style="margin-right:6px">Apr 15</span>Soccer back yet?<span class="tag tag-repair" style="margin-left:6px">On calendar</span></span><span class="exs">Usually mid to late spring, once the fields dry out. Saturday switches back from the long walk, hike or swim</span></div>
         <div class="ex"><span class="exn"><span class="tag tag-fire" style="margin-right:6px">Apr 20</span>9-month checkpoint<span class="tag tag-repair" style="margin-left:6px">On calendar</span></span><span class="exs">Quarterly review</span></div>
         <div class="ex"><span class="exn"><span class="tag tag-ground" style="margin-right:6px">Apr 27</span>Hormone draw window<span class="tag tag-repair" style="margin-left:6px">On calendar</span></span><span class="exs">Total and free T, SHBG, LH, FSH. Pause the multivitamin 3 days before</span></div>
@@ -2899,6 +2900,7 @@ var CP=(function(){
     ['2027-01-25','Hair & beard photos','Last set before the day-90 verdict.'],
     ['2034-09-16','Tdap booster due','10 years since Sep 16, 2024. Ask at your next visit.'],
     ['2027-01-26','Lab draw window','Fasted, before 10 am. Garlic and black seed since Nov 2026; your doctor should know.'],
+    ['2027-03-15','New training week starts','First Monday after Eid. The current week ran through Ramadan; the lighter month doubles as a deload.'],
     ['2027-04-15','Soccer back yet?','If the fields are dry and the group is playing, Saturday goes back to soccer. Tell Claude the date.'],
     ['2027-01-31','Hair & beard verdict','Compare Nov 2 and Jan 25. Keep, change or drop the onion.'],
     ['2027-04-27','Hormone draw window','Fasted, before 10 am. Multivitamin paused 3 days before.'],
@@ -2908,8 +2910,8 @@ var CP=(function(){
   for(var yy=2027;yy<=yEnd;yy++)L.push([yy+'-07-21','Annual physical + yearly labs','Book the physical and lab orders with Dr. Chikere.']);
   for(var y=2027;y<=yEnd;y++){[1,4,7,10].forEach(function(m){
     var mo=(m<10?'0':'')+m, months=(y-2026)*12+m-7;
-    var t=months%12===0?(months/12)+'-year checkpoint + program review':months===6?'6-month checkpoint + new training week':'Tareeq checkpoint, '+months+' months';
-    L.push([y+'-'+mo+'-20',t,months===6?'Strength, sleep, self-relationship, labs. Then rewrite the week so every muscle keeps progressing: new exercises, rep ranges and a deload.':'Strength, sleep, self-relationship, labs, routines.']);
+    var t=months%12===0?(months/12)+'-year checkpoint + program review':months===6?'6-month checkpoint: review and draft the new week':'Tareeq checkpoint, '+months+' months';
+    L.push([y+'-'+mo+'-20',t,months===6?'Strength, sleep, self-relationship, labs. Then draft the new week with Claude: new exercises, rep ranges and a deload. It starts Mar 15, after Ramadan.':'Strength, sleep, self-relationship, labs, routines.']);
   });}
   return L.map(function(e){var p=e[0].split('-');return {d:new Date(+p[0],+p[1]-1,+p[2]),k:e[0],t:e[1],s:e[2]};}).sort(function(a,b){return a.d-b.d;});
 })();
