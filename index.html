@@ -467,6 +467,17 @@ html[data-scheme="seasonal"][data-tq-season="ss"]:not([data-theme="dark"]) .path
 .wt-form{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
 .wt-form input{font:inherit;font-size:14px;padding:9px 12px;border-radius:var(--rmd);border:0.5px solid var(--bdr2);background:var(--bg);color:var(--ink);min-width:0}
 .wt-form input[type=number]{width:110px}
+.bn-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px 10px}
+.bn-grid label{display:flex;flex-direction:column;gap:4px;font-size:11.5px;font-weight:500;color:var(--ink3);min-width:0}
+.bn-grid input{font:inherit;font-size:14px;padding:9px 10px;border-radius:var(--rmd);border:0.5px solid var(--bdr2);background:var(--bg);color:var(--ink);min-width:0;width:100%}
+.bn-t{width:100%;border-collapse:collapse;font-size:12.5px}
+.bn-t th{font-size:10px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;color:var(--ink4);text-align:right;padding:4px 0 6px 10px;white-space:nowrap}
+.bn-t td+td{padding-left:10px;white-space:nowrap}
+.bn-del{background:none;border:none;font:inherit;font-size:12px;color:var(--ink3);text-decoration:underline;cursor:pointer;padding:0}
+.bn-t th:first-child,.bn-t td:first-child{text-align:left}
+.bn-t td{padding:7px 0;border-top:0.5px solid var(--bdr);text-align:right;font-variant-numeric:tabular-nums;color:var(--ink2)}
+.bn-t td:first-child{color:var(--ink)}
+.bn-up{color:var(--repair-dk);font-weight:600}.bn-dn{color:var(--fire-dk);font-weight:600}
 .wt-row{display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:0.5px solid var(--bdr);font-size:13px}
 .wt-row:last-child{border-bottom:none}
 .wt-row button{background:none;border:none;color:var(--ink4);cursor:pointer;font-size:13px;padding:2px 6px}
@@ -1839,13 +1850,15 @@ html[data-motion="off"] *,html[data-motion="off"] *::before,html[data-motion="of
       </div>
       <div class="card">
         <div class="ch"><div class="ci" style="background:var(--ground-bg)"><i class="ti ti-mountain" style="color:var(--ground-dk)"></i></div><div><div class="ct">Sat — Long session</div><div class="cs">Soccer in season, walk, hike or swim off season</div></div><span class="tag tag-ground" style="margin-left:auto">Cardio</span></div>
-        <div class="cb"><strong>November to spring:</strong> a longer walk, a hike, or easy laps at the gym pool, 45 to 90 minutes at a pace you could talk through. The fields are cold, wet and slippery, so soccer waits.</div>
+        <div class="cb"><strong>November to spring:</strong> a long walk, a hike, a short run or a bike ride, 45 to 90 minutes at a pace you could talk through. The pool counts too if you join a gym. The fields are cold, wet and slippery, so soccer waits.</div>
         <div class="cb" style="margin-top:6px"><strong>When the fields dry out (usually mid to late spring):</strong> full match with friends. Already handled, no need to stack conditioning on top.</div>
-        <div class="cb" style="margin-top:6px"><span class="muted">After the pool, rinse your hair with fresh water before the Nexxus wash.</span></div>
+        <div class="cb" style="margin-top:6px"><strong>Mobility, ~10 min, after:</strong> hip flexor lunge stretch and hamstring stretch (45 sec a side), open-book thoracic rotations (8 a side), a 60-second deep squat hold, calf stretch on a step.</div>
+        <div class="cb" style="margin-top:6px"><strong>Steam, optional:</strong> the garage enclosure, 10 to 15 minutes. A big glass of water before and after, no alcohol beforehand, and out right away if you feel dizzy. Saturday only; Sunday is the fast day.</div>
       </div>
       <div class="card">
         <div class="ch"><div class="ci" style="background:var(--bg3)"><i class="ti ti-mountain" style="color:var(--ink3)"></i></div><div><div class="ct">Sun — Outdoors + reset</div><div class="cs">Hike or an easy day</div></div><span class="tag tag-n" style="margin-left:auto">Play</span></div>
         <div class="cb">A hike or an easy day outside. The weekly 24-hour fast lands here. Water, salt, electrolytes maintained.</div>
+        <div class="cb" style="margin-top:6px"><strong>Mobility, ~10 min:</strong> the same short sequence as Saturday. No steam while fasting; heat plus no food or fluids is the wrong mix.</div>
       </div>
 
       <div class="ew">Progression — before buying anything</div>
@@ -2442,6 +2455,34 @@ html[data-motion="off"] *,html[data-motion="off"] *::before,html[data-motion="of
 
       <div class="ew">Check-ins</div>
       <div class="card" id="wt-due"></div>
+
+      <div class="ew">Monthly benchmarks</div>
+      <div class="card">
+        <div class="cs" style="margin-bottom:8px">First Sunday of the month, same morning as the waist. About 15 minutes. Leave blank anything you skip.</div>
+        <div class="bn-grid">
+          <label>Push-ups, max<input type="number" id="bn-pu" inputmode="numeric" min="0" max="200" placeholder="reps"></label>
+          <label>Dead hang<input type="number" id="bn-hang" inputmode="numeric" min="0" max="600" placeholder="sec"></label>
+          <label>Row, the 30, weaker arm<input type="number" id="bn-row" inputmode="numeric" min="0" max="100" placeholder="reps"></label>
+          <label>Goblet squat, the 30<input type="number" id="bn-gob" inputmode="numeric" min="0" max="200" placeholder="reps"></label>
+          <label>Toe touch, + past toes<input type="number" id="bn-toe" inputmode="decimal" step="0.5" min="-20" max="20" placeholder="in"></label>
+          <label>Balance, weaker leg<input type="number" id="bn-bal" inputmode="numeric" min="0" max="60" placeholder="sec"></label>
+          <label>Deep squat hold<input type="number" id="bn-sq" inputmode="numeric" min="0" max="300" placeholder="sec"></label>
+        </div>
+        <div class="wt-form" style="margin-top:10px"><input type="date" id="bn-date" aria-label="Date"><button class="btn pr" onclick="bnAdd()"><i class="ti ti-plus"></i> Save</button></div>
+        <div class="cs" id="bn-msg" style="margin-top:6px"></div>
+      </div>
+      <div class="card"><div id="bn-tbl"></div></div>
+      <details class="exd card">
+        <summary><i class="ti ti-chevron-right"></i> How to run each test the same way every month</summary>
+        <div class="cb"><strong>Push-ups:</strong> Monday&#8217;s standard. Chest to the floor, one line head to heels; stop when form breaks.</div>
+        <div class="cb"><strong>Dead hang:</strong> overhand grip on the pull-up bar, arms straight, feet off the floor. Time until you let go. This is the base for a first pull-up.</div>
+        <div class="cb"><strong>Row, the 30:</strong> single-arm row with the 30 lb dumbbell, strict, no torso twist. Each arm to failure; log the weaker side.</div>
+        <div class="cb"><strong>Goblet squat, the 30:</strong> full depth, steady tempo, to 1 rep short of failure.</div>
+        <div class="cb"><strong>Toe touch:</strong> sit, legs straight, feet against a wall or box, reach forward with one hand over the other. Inches past the toes is positive, short of them is negative. Warm up with the walk first.</div>
+        <div class="cb"><strong>Balance:</strong> stand on one leg, hands on hips, eyes closed. Time until the foot moves or touches down; cap at 60 sec. Log the weaker leg. Stand near a wall.</div>
+        <div class="cb"><strong>Deep squat hold:</strong> heels down, as deep as is comfortable, chest up. Time until you need to stand.</div>
+        <div class="cb"><span class="muted">These are home versions of common field tests, chosen so the same conditions repeat each month. The comparison that matters is you against your last entry. Judgment.</span></div>
+      </details>
 
       <div class="ew">Trend</div>
       <div class="kpis" id="wt-stats"></div>
@@ -3052,10 +3093,10 @@ function wtDue(data){var el=document.getElementById('wt-due');if(!el)return;
   else{var l2=Math.round((fs-today)/DAY);tTxt='In '+l2+' day'+(l2===1?'':'s');tSub=(lastT?'Last: '+fmtD(lastT.d)+'. ':'')+'Next: '+fmtD(ymd(fs))+'.';}
   var row='<div class="wt-row" style="flex-wrap:wrap;gap:6px 10px;align-items:flex-start"><span style="flex:1 1 170px;min-width:0"><strong>';
   el.innerHTML=row+'Weight</strong><div class="cs">Every Sunday morning, after the bathroom, before food. '+wSub+'</div></span>'+pill(wTxt,wDue)+'</div>'
-    +row+'Waist</strong><div class="cs">First Sunday of the month, same morning as the weigh-in. '+tSub+'</div></span>'+pill(tTxt,tDue)+'</div>'
+    +row+'Waist + benchmarks</strong><div class="cs">First Sunday of the month, same morning as the weigh-in. Then the 7 benchmarks below, about 15 minutes. '+tSub+'</div></span>'+pill(tTxt,tDue)+'</div>'
     +'<div class="cb" style="margin-top:8px">Tape at the navel, relaxed, at the end of a normal exhale, snug but not pressing. Take it twice and log the average.</div>';
 }
-function wtRender(){if(typeof nuRender==='function')nuRender();
+function wtRender(){if(typeof nuRender==='function')nuRender();if(typeof bnRender==='function')setTimeout(bnRender,0);
   var data=wtData(), st=document.getElementById('wt-stats'); if(!st)return;
   try{wtDue(data);}catch(e){}
   var di=document.getElementById('wt-date'); if(di&&!di.value)di.value=ymd(new Date());
@@ -3316,7 +3357,7 @@ function tdSched(now){
   if(wk)L.push([9*60,'9:00','Binaural beats, then shake plate']);
   if(wk)L.push([10*60+30,'10:30','Stand and stretch, 2 min']);
   if(tr)L.push([12*60,'12:00',stamp?'Train with onion on, then Nizoral wash':'Train, fasted']);
-  if(d===6)L.push([12*60,'Midday',tqSoccer()?'Soccer, then Nexxus wash (optional onion first)':'Long walk, hike or swim, then Nexxus wash']);
+  if(d===6)L.push([12*60,'Midday',tqSoccer()?'Soccer, then Nexxus wash (optional onion first)':'Long walk, hike, run or ride, then mobility and Nexxus wash']);
   L.push([13*60,'1:00',wk?'Shake plate flush, then first meal':'First meal']);
   if(wk)L.push([14*60+30,'2:30','Stand and stretch, 2 min']);
   if(wk)L.push([16*60,'4:00','Shake plate desk break']);
@@ -3456,7 +3497,7 @@ tvRender();
 window.addEventListener('DOMContentLoaded',function(){
 /* ---------- Cloud sync (Supabase, owner-only table) ---------- */
 var SB_URL='https://nvacylouzxbahpnwqcrc.supabase.co', SB_KEY='sb_publishable_lXCUQY2DzL0UhY8Pm-n3YQ_-WO6KS0E';
-var SYNC_KEYS=['tareeq-weight','tareeq-milestones','tareeq-checkin','tareeq-reflect','tareeq-connect','tareeq-fasts','tareeq-labs','tareeq-brain','tareeq-brain-notes','tareeq-daily'];
+var SYNC_KEYS=['tareeq-weight','tareeq-bench','tareeq-milestones','tareeq-checkin','tareeq-reflect','tareeq-connect','tareeq-fasts','tareeq-labs','tareeq-brain','tareeq-brain-notes','tareeq-daily'];
 var SB=null, SB_USER=null, acQ={}, acT=null, acLast=lsGet('tareeq-sync-last',null);
 try{ if(window.supabase&&window.supabase.createClient) SB=window.supabase.createClient(SB_URL,SB_KEY,{auth:{persistSession:true,autoRefreshToken:true,detectSessionInUrl:false,experimental:{passkey:true}}}); }catch(e){SB=null;}
 function acStamps(){return lsGet('tareeq-sync-stamps',{});}
@@ -3580,8 +3621,8 @@ var TQ_SES={
 function tqSoccer(d){var m=(d||new Date()).getMonth();return m>=4&&m<=9;}
 var TQ_OFF={5:['Outdoors','Play','Nothing structured','Longboard, bike, tennis, or a walk. Roller and stretch if the legs need it.','Got outside'],
             6:tqSoccer()?['Soccer','Match','The week’s hardest cardio','Full match with friends. Already handled, no need to stack conditioning on top.','Played the match']
-              :['Long walk, hike or swim','Move','Soccer is off until spring','45 to 90 minutes at a pace you could talk through: a long walk, a hike, or easy laps at the gym pool.','Got the long session in'],
-            0:['Outdoors + reset','Play','Hike or an easy day','A hike or an easy day outside. The weekly 24-hour fast lands here.','Got outside']};
+              :['Long walk, hike, run or ride','Move','Soccer is off until spring','45 to 90 minutes at a pace you could talk through: a long walk, a hike, a short run or a bike ride. The pool if you join a gym. Then 10 minutes of easy mobility: hip flexor lunge stretch and hamstring stretch (45 sec a side), open-book thoracic rotations (8 a side), a 60-second deep squat hold, and a calf stretch on a step. Steam afterward is optional.','Got the long session in'],
+            0:['Outdoors + reset','Play','Hike or an easy day','A hike or an easy day outside. The weekly 24-hour fast lands here. Then 10 minutes of easy mobility: hip flexor lunge stretch and hamstring stretch (45 sec a side), open-book thoracic rotations (8 a side), a 60-second deep squat hold, and a calf stretch on a step. Skip the steam today while fasting.','Got outside']};
 var TQ_STK=[['Morning, in coffee',[['lth','L-theanine 200 mg']]],['All day, sipped',[['cre','Creatine 10 g in electrolytes']]],
   ['Midday, with food',[['mv','Multivitamin with D3'],['fo','Fish oil'],['k2','Vitamin K2'],['ca','Calcium'],['pro','Probiotic']]],
   ['After dinner',[['avm','Avmacol'],['mg','Magnesium glycinate'],['ash','Ashwagandha'],['mt','Milk thistle'],['gar','Aged garlic'],['bso','Black seed oil']]]];
@@ -3601,7 +3642,7 @@ function tqSched(d){
   if(wk)L.push(['beats',540,'9:00','Binaural beats, then shake plate','ground']);
   if(wk)L.push(['st1',630,'10:30','Stand and stretch, 2 min','ground']);
   if(tr)L.push(['train',720,'12:00',stamp?'Train with onion on: '+TQ_SES[d].n+', then Nizoral wash':'Train, fasted: '+TQ_SES[d].n,'fire']);
-  else L.push(['train',720,d===6?'Midday':'Today',d===6?(tqSoccer()?'Soccer, then Nexxus wash (optional onion first)':'Long walk, hike or swim, then Nexxus wash'):TQ_OFF[d][0],'fire']);
+  else L.push(['train',720,d===6?'Midday':'Today',d===6?(tqSoccer()?'Soccer, then Nexxus wash (optional onion first)':'Long walk, hike, run or ride, then mobility and Nexxus wash'):TQ_OFF[d][0],'fire']);
   L.push(['m1',780,'1:00',wk?'Shake plate flush, then first meal':'First meal','fuel']);
   if(wk)L.push(['st2',870,'2:30','Stand and stretch, 2 min','ground']);
   if(wk)L.push(['plate',960,'4:00','Shake plate desk break','ground']);
@@ -3820,6 +3861,27 @@ function tqClock(){
 }
 
 
+/* ---------- Monthly benchmarks: strength + flexibility/balance, first Sunday with the waist ---------- */
+var BN_KEY='tareeq-bench';
+var BN_F=[['pu','Push-ups','reps'],['hang','Dead hang','sec'],['row','Row, 30 lb','reps'],['gob','Goblet, 30 lb','reps'],['toe','Toe touch','in'],['bal','Balance','sec'],['sq','Squat hold','sec']];
+function bnData(){return lsGet(BN_KEY,[]).sort(function(a,b){return a.d<b.d?-1:1;});}
+function bnAdd(){var m=document.getElementById('bn-msg'),d=document.getElementById('bn-date').value;if(!d){m.textContent='Pick a date.';return;}
+  var e={d:d},n=0;BN_F.forEach(function(f){var el=document.getElementById('bn-'+f[0]),v=parseFloat(el.value);if(!isNaN(v)){e[f[0]]=v;n++;}});
+  if(!n){m.textContent='Add at least one result.';return;}
+  var data=bnData().filter(function(x){return x.d!==d;});data.push(e);
+  if(!lsSet(BN_KEY,data)){m.textContent='Couldn’t save on this device.';return;}
+  BN_F.forEach(function(f){document.getElementById('bn-'+f[0]).value='';});m.textContent='Saved for '+fmtD(d)+'.';bnRender();}
+function bnDel(d){lsSet(BN_KEY,bnData().filter(function(x){return x.d!==d;}));bnRender();}
+function bnRender(){var el=document.getElementById('bn-tbl');if(!el)return;var di=document.getElementById('bn-date');if(di&&!di.value)di.value=ymd(new Date());
+  var data=bnData();if(!data.length){el.innerHTML='<div class="cs">No benchmarks yet. The first one sets your baseline; every month after shows the change.</div>';return;}
+  var h='<table class="bn-t"><tr><th>Test</th><th>Latest</th><th>vs last</th><th>vs first</th></tr>';
+  BN_F.forEach(function(f){var xs=data.filter(function(x){return x[f[0]]!=null;});if(!xs.length)return;
+    var L=xs[xs.length-1][f[0]],P=xs.length>1?xs[xs.length-2][f[0]]:null,F=xs[0][f[0]];
+    function dl(v){if(v==null||xs.length<2)return '<span class="muted">–</span>';var x=Math.round((L-v)*10)/10;return x===0?'0':'<span class="'+(x>0?'bn-up':'bn-dn')+'">'+(x>0?'+':'')+x+'</span>';}
+    h+='<tr><td>'+f[1]+'</td><td>'+L+' '+f[2]+'</td><td>'+dl(P)+'</td><td>'+dl(F)+'</td></tr>';});
+  h+='</table><div class="cs" style="margin-top:8px">'+data.length+' session'+(data.length===1?'':'s')+', last '+fmtD(data[data.length-1].d)+'. <button class="bn-del" onclick="if(confirm(\'Delete the '+fmtD(data[data.length-1].d)+' entry?\'))bnDel(\''+data[data.length-1].d+'\')">Delete last</button></div>';
+  el.innerHTML=h;}
+
 /* ══════════════════════════════════════════════════════
    BODY MAP (Nov 2026) — Weight tab, linked from the Train tab.
    BM_PLAN mirrors TQ_SES and TQ_OFF. Change the training week there, change it here.
@@ -3929,7 +3991,7 @@ function bmDefaultCap(){
   if(BM.v==='build'){
     var tr=Object.keys(BM_PLAN).filter(function(m){return BM_PLAN[m][1].indexOf(s.dow)>-1;}).map(function(m){return BM_PLAN[m][0].toLowerCase();});
     var day=(typeof TQ_SES!=='undefined'&&TQ_SES[s.dow])?TQ_SES[s.dow].n:null;
-    return '<b>Week '+s.wk+' of training.</b> '+(day?'Today is '+day+''+': '+tr.join(', ')+'.':s.dow===6?(tqSoccer()?'Soccer today: legs, lungs and the visceral fat.':'Long walk, hike or swim today: steady cardio that works on the visceral fat.'):'No lifting today. Walks and play still count toward the visceral fat.')
+    return '<b>Week '+s.wk+' of training.</b> '+(day?'Today is '+day+''+': '+tr.join(', ')+'.':s.dow===6?(tqSoccer()?'Soccer today: legs, lungs and the visceral fat.':'Long walk, hike, run or ride today: steady cardio that works on the visceral fat.'):'No lifting today. Walks and play still count toward the visceral fat.')
       +' <span class="muted">Tap a muscle for its days.</span>';
   }
   var pct=Math.round(BM.p*100),lb=bmLb(BM.p);
