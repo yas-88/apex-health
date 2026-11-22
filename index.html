@@ -562,6 +562,20 @@ body.has-bbar .fab{display:flex}
 .toast{position:fixed;left:50%;bottom:calc(140px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);z-index:960;background:var(--ink);color:var(--bg);font-size:12.5px;padding:8px 14px;border-radius:999px;opacity:0;transition:opacity .2s;pointer-events:none;white-space:nowrap}
 .toast.on{opacity:1}
 @media (prefers-reduced-motion:reduce){.sheet,.sheet-bg{transition:none}}
+/* ---------- Ramadan, voice log, review signals, EEG ---------- */
+.rm-b{display:flex;align-items:center;gap:12px;padding:12px 14px;border-radius:var(--rlg);background:linear-gradient(135deg,color-mix(in srgb,var(--ground) 18%,var(--bg2)),var(--bg2));border:0.5px solid var(--bdr2);margin-bottom:10px}
+.rm-b.fast{background:linear-gradient(135deg,color-mix(in srgb,var(--fuel) 16%,var(--bg2)),var(--bg2))}
+.rm-moon{width:30px;height:30px;border-radius:50%;flex:0 0 30px;box-shadow:inset -8px -3px 0 0 #E8B64C;transform:rotate(-20deg);animation:rmGlow 4s ease-in-out infinite}
+@keyframes rmGlow{0%,100%{filter:drop-shadow(0 0 0 transparent)}50%{filter:drop-shadow(0 0 6px rgba(232,182,76,.6))}}
+.rm-t{font-weight:600;font-size:14.5px;color:var(--ink)}
+.rm-s{font-size:12.5px;color:var(--ink3);margin-top:2px}
+.rm-cd{text-align:right}.rm-cd b{display:block;font-size:20px;color:var(--ink);font-variant-numeric:tabular-nums}.rm-cd span{font-size:11px;color:var(--ink3)}
+.rm-go{background:var(--ink);color:var(--bg);border:none;border-radius:16px;padding:7px 12px;font:inherit;font-size:13px;cursor:pointer}
+.be-row{padding:8px 0;border-bottom:0.5px solid var(--bdr)}
+.be-row:last-child{border-bottom:none}
+.vx-step{display:flex;gap:10px;padding:6px 0;font-size:13.5px;color:var(--ink2);line-height:1.45}
+.vx-step b{flex:0 0 22px;height:22px;border-radius:50%;background:var(--repair-bg);color:var(--repair-dk);display:flex;align-items:center;justify-content:center;font-size:12px}
+.vx-code{font-family:ui-monospace,Menlo,monospace;font-size:11.5px;background:var(--bg3);padding:2px 5px;border-radius:5px;word-break:break-all}
 /* ---------- Play: games ---------- */
 .ti.ti-dice::before{content:'';display:inline-block;width:1em;height:1em;vertical-align:-.125em;background:currentColor;-webkit-mask:var(--pg-dice) center/contain no-repeat;mask:var(--pg-dice) center/contain no-repeat}
 :root{--pg-dice:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round'%3E%3Crect x='4' y='4' width='16' height='16' rx='3.5'/%3E%3Ccircle cx='9' cy='9' r='.9' fill='black'/%3E%3Ccircle cx='15' cy='15' r='.9' fill='black'/%3E%3Ccircle cx='15' cy='9' r='.9' fill='black'/%3E%3Ccircle cx='9' cy='15' r='.9' fill='black'/%3E%3C/svg%3E")}
@@ -1150,6 +1164,7 @@ html[data-motion="off"] *,html[data-motion="off"] *::before,html[data-motion="of
       <button class="nb" data-pillar="p-mind" onclick="go('p-mind',this)"><span class="nb-dot"></span>Mental health</button>
       <button class="nb" data-pillar="p-brain" onclick="go('p-brain',this)"><span class="nb-dot"></span>Brain</button>
       <button class="nb" data-pillar="p-prevent" onclick="go('p-prevent',this)"><span class="nb-dot"></span>Preventive</button>
+      <button class="nb" data-pillar="p-ramadan" onclick="go('p-ramadan',this)"><span class="nb-dot"></span>Ramadan</button>
       <button class="nb" data-pillar="p-play" onclick="go('p-play',this)"><span class="nb-dot"></span>Play</button>
       <button class="nb" data-pillar="p-checkpoints" onclick="go('p-checkpoints',this)"><span class="nb-dot"></span>Checkpoints</button>
       <button class="nb" data-pillar="p-travel" onclick="go('p-travel',this)"><span class="nb-dot"></span>Travel</button>
@@ -1189,6 +1204,7 @@ html[data-motion="off"] *,html[data-motion="off"] *::before,html[data-motion="of
   <div class="content">
     <div class="cp-alert on" id="si-banner" role="status" style="display:none;background:var(--repair-bg);border-color:var(--repair-mid)"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" style="flex:0 0 20px;fill:none;stroke:var(--repair-dk);stroke-width:2;stroke-linecap:round;stroke-linejoin:round"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg><div><div class="cp-t">You&#8217;re signed out</div><div class="cp-s">Everything still saves on this phone. Sign in to sync and load Vitals.</div><button class="cp-go" style="color:var(--repair-dk)" onclick="window.acPasskey&&acPasskey()">Sign in with Face ID</button> <button class="cp-go" style="color:var(--ink3);margin-left:10px" onclick="setAppMode('protocol');go('p-account',document.querySelector('[data-pillar=p-account]'))">Use password</button></div></div>
     <div class="cp-alert on" id="tv-banner" style="display:none;background:var(--fuel-bg);border-color:var(--fuel-mid)"><i class="ti ti-run" style="color:var(--fuel-dk)"></i><div><div class="cp-t">Travel mode is on</div><div class="cp-s">Light, move, water, check-in. The rest can wait until you&#8217;re home.</div><button class="cp-go" style="color:var(--fuel-dk)" onclick="setAppMode('protocol');go('p-travel',document.querySelector('[data-pillar=p-travel]'))">Open travel mode</button></div></div>
+    <div id="rm-banner" style="display:none"></div>
     <div class="cp-alert" id="cp-alert" role="status" aria-live="polite">
       <i class="ti ti-calendar-event"></i>
       <div><div class="cp-t" id="cp-title"></div><div class="cp-s" id="cp-sub"></div>
@@ -2474,6 +2490,15 @@ html[data-motion="off"] *,html[data-motion="off"] *::before,html[data-motion="of
         </div>
       </div>
 
+      <div class="ew">Log by voice with Siri</div>
+      <div class="card">
+        <div class="cb" style="margin-bottom:6px">Say &#8220;Hey Siri, log to Tareeq&#8221;, then something like &#8220;weight 194&#8221;, &#8220;slept 7 and a half hours&#8221;, &#8220;stress 3&#8221;, &#8220;waist 36&#8221; or &#8220;note left knee felt tight&#8221;. Anything else is saved as a note. It shows up here the next time Tareeq opens.</div>
+        <div class="vx-step"><b>1</b><span>In Shortcuts, tap + and name the shortcut <b style="all:unset;font-weight:600;color:var(--ink)">Log to Tareeq</b>.</span></div>
+        <div class="vx-step"><b>2</b><span>Add <b style="all:unset;font-weight:600;color:var(--ink)">Dictate Text</b>. Set Stop Listening to After Pause.</span></div>
+        <div class="vx-step"><b>3</b><span>Add <b style="all:unset;font-weight:600;color:var(--ink)">Get Contents of URL</b>: <span class="vx-code">https://nvacylouzxbahpnwqcrc.supabase.co/functions/v1/tareeq-voice</span>. Method POST. Header <span class="vx-code">x-tareeq-token</span> with the same key your Tareeq Health shortcut uses. Request Body JSON, one Text field named <span class="vx-code">text</span> set to Dictated Text.</span></div>
+        <div class="vx-step"><b>4</b><span>Add <b style="all:unset;font-weight:600;color:var(--ink)">Get Dictionary Value</b> for key <span class="vx-code">say</span>, then <b style="all:unset;font-weight:600;color:var(--ink)">Speak Text</b> with it, so Siri reads back what was saved.</span></div>
+        <div class="cs" style="margin-top:6px">The key can only add entries, never read anything back.</div>
+      </div>
       <div class="card">
         <div class="cb"><strong>Where it lives.</strong> In the SafJob Supabase project for now, in its own table that only your account can read or write. No SafJob user or client can see it.</div>
         <div class="cs" style="margin-top:6px"><strong>Flag:</strong> move it to its own project before SafJob takes on clients.</div>
@@ -2584,6 +2609,12 @@ html[data-motion="off"] *,html[data-motion="off"] *::before,html[data-motion="of
       <div class="card" id="wk-mind"></div>
       <div class="ew">Body</div>
       <div class="card" id="wk-body"></div>
+      <div class="ew">Signals from the watch and Play</div>
+      <div class="card" id="wk-sig"></div>
+      <div class="ew">A pattern</div>
+      <div class="card" id="wk-pat"></div>
+      <div class="ew" style="display:none">Notes you spoke</div>
+      <div class="card" style="display:none"><div id="wk-notes"></div></div>
       <div class="ew">Reflection</div>
       <div class="card" id="wk-ref"></div>
       <div class="ew">Coming up</div>
@@ -2796,6 +2827,8 @@ html[data-motion="off"] *,html[data-motion="off"] *::before,html[data-motion="of
       <div class="ew">Connection, this week</div>
       <div class="card" id="mh-conn"></div>
 
+      <div class="ew">Notes you spoke</div>
+      <div class="card" id="vx-notes"></div>
       <div class="ctarow">
         <button class="btn pr" onclick="go('p-checkpoints',document.querySelector('[data-pillar=p-checkpoints]'))"><i class="ti ti-calendar-event"></i> Checkpoints</button>
         <button class="btn" onclick="go('protocol',document.querySelector('[data-pillar=protocol]'))"><i class="ti ti-arrow-left"></i> Back to my protocol</button>
@@ -2839,17 +2872,65 @@ html[data-motion="off"] *,html[data-motion="off"] *::before,html[data-motion="of
 
       <div class="ew">EEG recordings</div>
       <div class="card">
-        <div class="ch"><div class="ci" style="background:var(--ground-bg)"><i class="ti ti-hourglass" style="color:var(--ground-dk)"></i></div><div><div class="ct">Waiting on Doug</div><div class="cs">Sessions 2 to 5 recorded. Session 1 was not.</div></div></div>
-        <div class="ex"><span class="exn">Files or session reports</span><span class="exs">Requested</span></div>
-        <div class="ex"><span class="exn">Electrode sites</span><span class="exs">Requested</span></div>
-        <div class="ex"><span class="exn">Intensity settings per session</span><span class="exs">Requested</span></div>
-        <div class="cb" style="margin-top:10px">When they land, this card becomes band trends (alpha, beta, theta) by session and site. Two things to read around: the EEG baseline is session 2, after one round of training, and intensity rose each time, so changes mix your response with the setting change.</div>
+        <div class="ch"><div class="ci" style="background:var(--ground-bg)"><i class="ti ti-clock" style="color:var(--ground-dk)"></i></div><div><div class="ct">Waiting on Doug</div><div class="cs">Requested Nov 9: files or reports for sessions 2 to 5, electrode sites, intensity settings. Session 1 was not recorded.</div></div></div>
+      </div>
+      <div class="card">
+        <div class="ct" style="margin-bottom:4px">Session details</div>
+        <div class="cs">Fill these in from Doug&#8217;s reports. They save as you type and sync.</div>
+        <div id="be-sess"></div>
+      </div>
+      <div class="card chart">
+        <div class="ct" style="margin-bottom:6px">Brain-wave bands by session</div>
+        <div id="be-chart"></div><div class="legend" id="be-legend"></div>
+        <div class="wt-form" style="margin-top:10px;flex-wrap:wrap"><label class="btn"><i class="ti ti-arrow-down"></i> Import a CSV or JSON<input type="file" accept=".csv,.tsv,.txt,.json,.pdf,.edf" style="display:none" onchange="beImport(this)"></label></div>
+        <div class="cs" id="be-msg" style="margin-top:6px">CSV with a session column and band columns (delta, theta, alpha, SMR, beta, high beta) works. PDFs and raw EEG files: send them to Claude in chat and the numbers get entered here.</div>
+        <div class="cb" style="margin-top:10px">Read around two things: session 2 is the first recording, after one round of training, and intensity rose every session, so changes mix the training and the dose. Your survey scores above stay the main scoreboard, with the 6-month follow-up in March.</div>
       </div>
 
       <div class="wbar"><i class="ti ti-sparkles"></i><span><strong>Emerging.</strong> EEG neurofeedback for anxiety is promising and still early in the research. Read your own direction across rounds, and remember breathwork, training and sleep changes started in July too.</span></div>
 
       <div class="ctarow">
         <button class="btn pr" onclick="go('p-mind',document.querySelector('[data-pillar=p-mind]'))"><i class="ti ti-heart-handshake"></i> Mental health</button>
+        <button class="btn" onclick="go('protocol',document.querySelector('[data-pillar=protocol]'))"><i class="ti ti-arrow-left"></i> Back to my protocol</button>
+      </div>
+    </div>
+
+    <!-- ═══════════ PROTOCOL: RAMADAN ═══════════ -->
+    <div id="p-p-ramadan" class="panel">
+      <div class="pillar-hero" style="background:linear-gradient(160deg,color-mix(in srgb,var(--ground) 16%,var(--bg2)),var(--bg2))">
+        <div class="ph-eyebrow"><i class="ti ti-moon-stars"></i> Ramadan <span class="ar">رمضان</span></div>
+        <div class="ph-title" style="font-size:26px" id="rm-head"></div>
+        <div class="ph-lede" style="margin-top:8px">The training week keeps running, lighter. Meals, supplements and water move into the night, and training moves to after iftar.</div>
+      </div>
+      <div id="rm-body"></div>
+      <div class="ew">Supplements, moved into the eating window</div>
+      <div class="card">
+        <div class="ex"><span class="exn">Suhoor</span><span class="exs">L-theanine in your coffee, if you keep coffee at suhoor</span></div>
+        <div class="ex"><span class="exn">Iftar meal</span><span class="exs">Multivitamin with D3, fish oil, K2, calcium, probiotic (the midday group, with food and fat)</span></div>
+        <div class="ex"><span class="exn">Last meal</span><span class="exs">Avmacol, magnesium glycinate, ashwagandha, milk thistle, aged garlic, black seed oil</span></div>
+        <div class="ex"><span class="exn">Iftar to bed</span><span class="exs">Creatine 10 g in electrolytes, sipped through the evening</span></div>
+        <div class="cs" style="margin-top:6px">Same doses, new times. My judgment, not a medical rule; ask Dr. Chikere if anything should change while fasting.</div>
+      </div>
+      <div class="ew">Water</div>
+      <div class="card">
+        <div class="cb">Aim to fit your usual daily water between iftar and suhoor: 2 glasses at iftar, about 1 an hour through the evening, 2 to 3 at suhoor. Electrolytes in one of them. Pale yellow by mid-afternoon is the check.</div>
+        <div class="cs" style="margin-top:6px">Train after iftar, not before: the session lands after water and food. Stop and sit if you get dizzy, shaky or a racing heart, and break the fast if it doesn&#8217;t pass.</div>
+      </div>
+      <div class="ew">Settings</div>
+      <div class="card">
+        <div class="ex"><span class="exn">Ramadan mode</span><span class="exs"><span class="pg-seg" id="rm-mode" style="display:inline-flex"><button data-v="auto" onclick="rmSet('mode','auto')">Auto</button><button data-v="on" onclick="rmSet('mode','on')">On</button><button data-v="off" onclick="rmSet('mode','off')">Off</button></span></span></div>
+        <div class="ex"><span class="exn">Fajr convention</span><span class="exs"><span class="pg-seg" id="rm-method" style="display:inline-flex"><button data-v="ISNA" onclick="rmSet('method','ISNA')">ISNA 15&#176;</button><button data-v="MWL" onclick="rmSet('method','MWL')">MWL 18&#176;</button></span></span></div>
+        <div class="wt-form" style="flex-wrap:wrap;margin-top:8px">
+          <label class="cs">First day <input type="date" id="rm-start" onchange="rmSet('start',this.value)"></label>
+          <label class="cs">Days <select id="rm-days" class="fa-sel" onchange="rmSet('days',+this.value)"><option value="29">29</option><option value="30">30</option></select></label>
+        </div>
+        <div class="wt-form" style="flex-wrap:wrap;margin-top:8px">
+          <label class="cs">Fajr &#177; min <input type="number" id="rm-fa" style="width:64px" onchange="rmSet('fajrAdj',+this.value||0)"></label>
+          <label class="cs">Iftar &#177; min <input type="number" id="rm-ma" style="width:64px" onchange="rmSet('magAdj',+this.value||0)"></label>
+        </div>
+        <div class="cs" style="margin-top:8px">Auto turns on for the dates above and off after. The Fiqh Council of North America lists 1 Ramadan 1448 as Monday, February 8, 2027; confirm the first day once it&#8217;s announced.</div>
+      </div>
+      <div class="ctarow">
         <button class="btn" onclick="go('protocol',document.querySelector('[data-pillar=protocol]'))"><i class="ti ti-arrow-left"></i> Back to my protocol</button>
       </div>
     </div>
@@ -4762,7 +4843,7 @@ function alEnd(){var r=AL.rts.slice().sort(function(a,b){return a-b;}),med=r.len
 function pgAlertChart(id){var el=pgEl(id);if(!el||typeof drawChart!=='function')return;var a=lsGet(AL_KEY,[]).slice(-60);
   if(!a.length){el.innerHTML='<div class="cs" style="padding:18px 0;text-align:center">Run the Alertness Check to start your trend.</div>';return;}
   var pts=a.map(function(x){return [pd(x.d),x.med];}),avg=pts.map(function(p,i){var w=pts.slice(Math.max(0,i-6),i+1);return [p[0],w.reduce(function(s,q){return s+q[1];},0)/w.length];});
-  var f=pd(a[0].d),l=pd(a[a.length-1].d);drawChart(el,[{pts:pts,color:'var(--ink4)',line:false,dots:true},{pts:avg,color:'var(--fire)',w:2}],{intY:true,x1:+l===+f?+f+86400000:undefined,ticks:+f===+l?[[f,MON[f.getMonth()]+' '+f.getDate(),'start']]:[[f,MON[f.getMonth()]+' '+f.getDate(),'start'],[l,'Latest','end']],label:'Alertness median reaction time'});}
+  var f=pd(a[0].d),l=pd(a[a.length-1].d);var fp=a.filter(function(x){return x.fast;}).map(function(x){return [pd(x.d),x.med];});drawChart(el,[{pts:pts,color:'var(--ink4)',line:false,dots:true},{pts:fp,color:'var(--fuel)',line:false,dots:true},{pts:avg,color:'var(--fire)',w:2}],{intY:true,x1:+l===+f?+f+86400000:undefined,ticks:+f===+l?[[f,MON[f.getMonth()]+' '+f.getDate(),'start']]:[[f,MON[f.getMonth()]+' '+f.getDate(),'start'],[l,'Latest','end']],label:'Alertness median reaction time'});}
 
 /* ===== Memory Grid ===== */
 var MG=null;
@@ -4842,6 +4923,152 @@ function brEnd(ms){var d=pgData();d.breath=(d.breath||0)+ms/60000;pgSave(d);var 
   if(typeof SR_P!=='undefined')SR_P.splice(SR_P.length-5,0,['p-play','Play: games','dice','protocol','play games game checkers kalah mancala speed spot alertness reaction memory grid word sprint anagram breath garden breathing brain']);
   if(typeof vtRender==='function'){var _vr=vtRender;vtRender=function(){_vr.apply(this,arguments);pgAlertChart('vt-c-alert');};}
   if(typeof SYNC_KEYS!=='undefined'){[PG_KEY,AL_KEY].forEach(function(k){if(SYNC_KEYS.indexOf(k)<0)SYNC_KEYS.push(k);});}
+})();
+</script>
+<script>
+/* ---------- Ramadan mode: suhoor and iftar from the sun, a night-shaped day ---------- */
+var RM_KEY='tareeq-ramadan';
+function rmCfg(){var c=lsGet(RM_KEY,{});return {start:c.start||'2027-02-08',days:c.days||29,method:c.method||'ISNA',mode:c.mode||'auto',fajrAdj:+c.fajrAdj||0,magAdj:+c.magAdj||0};}
+function rmSave(c){lsSet(RM_KEY,c);}
+function rmEnd(c){var e=pd(c.start);e.setDate(e.getDate()+c.days-1);return e;}
+function rmActive(d){var c=rmCfg();if(c.mode==='off')return false;if(c.mode==='on')return true;var k=ymd(d||new Date());return k>=c.start&&k<=ymd(rmEnd(c));}
+function rmDayN(d){var c=rmCfg();return Math.floor((pd(ymd(d||new Date()))-pd(c.start))/86400000)+1;}
+/* Solar times (praytimes.org method): Fajr at the sun 15° (ISNA) or 18° (MWL) below the horizon, Maghrib at sunset (0.833°). */
+function rmSun(day,lat,lon,angle){var y=day.getFullYear(),m=day.getMonth()+1,dd=day.getDate();
+  var Y=y,M=m;if(M<=2){Y--;M+=12;}var A=Math.floor(Y/100),B=2-A+Math.floor(A/4),jd=Math.floor(365.25*(Y+4716))+Math.floor(30.6001*(M+1))+dd+B-1524.5-lon/(15*24);
+  var rad=Math.PI/180,D=jd+0.5-2451545,g=(357.529+0.98560028*D)*rad,q=280.459+0.98564736*D,L=(q+1.915*Math.sin(g)+0.020*Math.sin(2*g))*rad,e=(23.439-0.00000036*D)*rad;
+  var RA=Math.atan2(Math.cos(e)*Math.sin(L),Math.cos(L))/rad/15;RA=((RA%24)+24)%24;var dec=Math.asin(Math.sin(e)*Math.sin(L)),eq=q/15-RA;eq=eq-24*Math.round(eq/24);
+  var noon=12-eq-lon/15,T=function(a){return Math.acos((-Math.sin(a*rad)-Math.sin(dec)*Math.sin(lat*rad))/(Math.cos(dec)*Math.cos(lat*rad)))/rad/15;};
+  var base=Date.UTC(y,m-1,dd);function at(h){return new Date(base+h*3600000);}
+  return {fajr:at(noon-T(angle)),sunrise:at(noon-T(0.833)),maghrib:at(noon+T(0.833)),noon:at(noon)};}
+function rmTimes(d){var c=rmCfg(),h=(typeof TD_HOME!=='undefined')?TD_HOME:{lat:45.6387,lon:-122.6615},s=rmSun(d||new Date(),h.lat,h.lon,c.method==='MWL'?18:15);
+  s.fajr=new Date(+s.fajr+c.fajrAdj*60000);s.maghrib=new Date(+s.maghrib+c.magAdj*60000);return s;}
+function rmHM(dt){var h=dt.getHours(),m=dt.getMinutes();return (h%12||12)+':'+(m<10?'0':'')+m+(h<12?' am':' pm');}
+function rmMins(dt){return dt.getHours()*60+dt.getMinutes();}
+function rmSched(now){var t=rmTimes(now),f=rmMins(t.fajr),i=rmMins(t.maghrib),d=now.getDay(),wk=d>=1&&d<=5,tr=d>=1&&d<=4,stamp=d===1||d===4,L=[];
+  function hm(m){return rmHM(new Date(now.getFullYear(),now.getMonth(),now.getDate(),Math.floor(m/60),m%60));}
+  L.push([f-40,hm(f-40),'Suhoor: protein, slow carbs, salt, 2 to 3 glasses of water. Morning supplements here.']);
+  L.push([f,hm(f),'Fajr. Eating and drinking stop']);
+  if(wk)L.push([9*60,'9:00','Binaural beats, then shake plate']);
+  if(wk)L.push([10*60+30,'10:30','Stand and stretch, 2 min']);
+  if(wk)L.push([14*60+30,'2:30','Stand and stretch, 2 min. A 20-minute nap is fine']);
+  L.push([i,hm(i),'Iftar: water and dates, then a real meal. Midday supplements with it']);
+  if(tr)L.push([i+90,hm(i+90),(stamp?'Train lighter (onion on, then Nizoral wash)':'Train lighter')+', about 90 min after iftar']);
+  if(d===6)L.push([i+90,hm(i+90),'Easy walk or light movement after iftar']);
+  L.push([i+150,hm(i+150),'Last meal or yogurt bowl. Evening supplements. Creatine in your water']);
+  if(stamp)L.push([i+210,hm(i+210),'Derma stamp, scalp and beard']);
+  L.push([22*60,'10:00','Wind down. Alarm set for suhoor']);
+  return L.sort(function(a,b){return a[0]-b[0];});}
+function rmBanner(){var el=document.getElementById('rm-banner');if(!el)return;var now=new Date(),c=rmCfg();
+  if(!rmActive(now)){var st=pd(c.start),days=Math.ceil((st-pd(ymd(now)))/86400000);
+    if(c.mode!=='off'&&days>0&&days<=14){el.style.display='';el.innerHTML='<div class="rm-b"><div class="rm-moon"></div><div style="flex:1"><div class="rm-t">Ramadan in '+days+' day'+(days===1?'':'s')+'</div><div class="rm-s">Expected '+fmtD(c.start)+'. Ramadan mode turns on by itself.</div></div><button class="rm-go" onclick="bbGoPanel(\'p-ramadan\')">Plan</button></div>';}
+    else el.style.display='none';return;}
+  var t=rmTimes(now),fast=now>=t.fajr&&now<t.maghrib,next=fast?t.maghrib:(now<t.fajr?t.fajr:rmTimes(new Date(now.getTime()+86400000)).fajr),left=Math.max(0,next-now),h=Math.floor(left/3600000),m=Math.floor(left%3600000/60000);
+  el.style.display='';el.innerHTML='<div class="rm-b'+(fast?' fast':'')+'"><div class="rm-moon"></div><div style="flex:1"><div class="rm-t">'+(rmDayN(now)>=1&&rmDayN(now)<=rmCfg().days?'Ramadan, day '+rmDayN(now):'Ramadan mode (turned on by hand)')+'</div><div class="rm-s">Suhoor ends '+rmHM(t.fajr)+' · Iftar '+rmHM(t.maghrib)+'</div></div><div class="rm-cd"><b>'+h+':'+(m<10?'0':'')+m+'</b><span>'+(fast?'to iftar':'to suhoor ends')+'</span></div></div>';}
+function rmRender(){var c=rmCfg(),el=document.getElementById('rm-body');if(!el)return;var now=new Date(),act=rmActive(now),st=pd(c.start),en=rmEnd(c);
+  var t=rmTimes(act?now:st),fh=(t.maghrib-t.fajr)/3600000;
+  document.getElementById('rm-head').innerHTML=act?(rmDayN(now)>=1&&rmDayN(now)<=c.days?'Day '+rmDayN(now)+' of '+c.days:'On by hand, for practice'):(now<st?('Expected '+fmtD(c.start)+' to '+fmtD(ymd(en))):'Ramadan mode is off');
+  var rows='';for(var i=0;i<c.days;i+=(i<2?1:7)){var d=new Date(st);d.setDate(d.getDate()+i);var x=rmTimes(d);rows+='<div class="ex"><span class="exn">Day '+(i+1)+' · '+fmtD(ymd(d))+'</span><span class="exs">Suhoor ends '+rmHM(x.fajr)+' · Iftar '+rmHM(x.maghrib)+'</span></div>';}
+  var dl=new Date(en),xl=rmTimes(dl);rows+='<div class="ex"><span class="exn">Day '+c.days+' · '+fmtD(ymd(dl))+'</span><span class="exs">Suhoor ends '+rmHM(xl.fajr)+' · Iftar '+rmHM(xl.maghrib)+'</span></div>';
+  el.innerHTML='<div class="kpis"><div class="kpi"><div class="kpi-n" style="font-size:20px">'+rmHM(t.fajr)+'</div><div class="kpi-l">Suhoor ends'+(act?' today':', day 1')+'</div></div><div class="kpi"><div class="kpi-n" style="font-size:20px">'+rmHM(t.maghrib)+'</div><div class="kpi-l">Iftar'+(act?' today':', day 1')+'</div></div><div class="kpi"><div class="kpi-n">'+fh.toFixed(1)+'<span class="kpi-u">h</span></div><div class="kpi-l">Fasting</div></div></div>'+
+   '<div class="ew">Your day, Ramadan shape</div><div class="card">'+rmSched(act?now:st).map(function(s){return '<div class="ex"><span class="exn">'+s[1]+'</span><span class="exs">'+s[2]+'</span></div>';}).join('')+'</div>'+
+   '<div class="ew">Times through the month</div><div class="card">'+rows+'<div class="cs" style="margin-top:6px">Calculated for '+((typeof TD_HOME!=='undefined')?TD_HOME.name:'Vancouver, WA')+' with the '+(c.method==='MWL'?'Muslim World League (Fajr at 18°)':'ISNA (Fajr at 15°)')+' convention. Your masjid’s timetable wins; nudge the minutes below to match it.</div></div>';
+  ['mode','method'].forEach(function(k){[].forEach.call(document.querySelectorAll('#rm-'+k+' button'),function(b){b.classList.toggle('on',b.dataset.v===c[k]);});});
+  document.getElementById('rm-start').value=c.start;document.getElementById('rm-days').value=c.days;document.getElementById('rm-fa').value=c.fajrAdj;document.getElementById('rm-ma').value=c.magAdj;}
+function rmSet(k,v){var c=rmCfg();c[k]=v;rmSave(c);rmRender();rmBanner();if(window.tdRender)tdRender();}
+
+/* ---------- Voice log: merge what Siri sent into the right places ---------- */
+var VX_NOTES='tareeq-notes';
+async function vxPull(){var sb=window.tqSB&&window.tqSB();if(!sb||vxPull.busy)return;vxPull.busy=true;
+  try{var r=await sb.from('tareeq_inbox').select('id,d,kind,value,txt,created_at').order('created_at');if(r.error||!r.data||!r.data.length)return;
+    var ci=lsGet(MH_KEY,{}),wt=wtData(),notes=lsGet(VX_NOTES,[]),ids=[],n=0,said=[];
+    r.data.forEach(function(x){var d=x.d,v=x.value!=null?+x.value:null;ids.push(x.id);n++;
+      if(x.kind==='weight'){var e=wt.filter(function(w){return w.d===d;})[0];if(e)e.lb=v;else wt.push({d:d,lb:v});said.push('weight '+v);}
+      else if(x.kind==='waist'){var e2=wt.filter(function(w){return w.d===d;})[0]||wt.filter(function(w){return w.d<=d;}).slice(-1)[0];if(e2)e2.waist=v;else wt.push({d:d,lb:null,waist:v});said.push('waist '+v);}
+      else if(x.kind==='sleep'){ci[d]=ci[d]||{};ci[d].sleepH=v;said.push('sleep '+v+' h');}
+      else if(x.kind==='mood'||x.kind==='energy'||x.kind==='stress'){ci[d]=ci[d]||{};ci[d][x.kind]=v;said.push(x.kind+' '+v);}
+      else if(x.kind==='note'&&x.txt){notes.push({d:d,t:x.txt,at:x.created_at});said.push('a note');}});
+    wt=wt.filter(function(w){return w.lb!=null;});lsSet(WT_KEY,wt.sort(function(a,b){return a.d<b.d?-1:1;}));lsSet(MH_KEY,ci);lsSet(VX_NOTES,notes.slice(-300));
+    await sb.from('tareeq_inbox').delete().in('id',ids);
+    if(typeof bbToast==='function')bbToast('From Siri: '+said.slice(0,3).join(', ')+(said.length>3?' +'+(said.length-3):''));
+    ['wtRender','mhRender','wkRender','tdRender','vxNotesRender'].forEach(function(f){if(typeof window[f]==='function')try{window[f]();}catch(e){}});
+  }catch(e){}finally{vxPull.busy=false;}}
+function vxNotesRender(){var el=document.getElementById('vx-notes');if(!el)return;var n=lsGet(VX_NOTES,[]).slice(-8).reverse();
+  el.innerHTML=n.length?n.map(function(x){return '<div class="ex"><span class="exn">'+fmtD(x.d)+'</span><span class="exs">'+x.t.replace(/</g,'&lt;')+'</span></div>';}).join(''):'<div class="cs">Nothing yet. Say “Hey Siri, log to Tareeq”, then “note” and what’s on your mind.</div>';}
+
+/* ---------- Sunday review: signals and one pattern ---------- */
+function wkSignals(sk,ek,psk,pek){var el=document.getElementById('wk-sig');if(!el)return;
+  var vr=(typeof VT_KEY!=='undefined')?lsGet(VT_KEY,[]):[],al=lsGet('tareeq-alert',[]);
+  function vavg(m,a,b){var v=vr.filter(function(x){return x.metric===m&&x.d>=a&&x.d<=b;}).map(function(x){return +x.value;});return v.length?v.reduce(function(s,y){return s+y;},0)/v.length:null;}
+  function aavg(a,b){var v=al.filter(function(x){return x.d>=a&&x.d<=b;}).map(function(x){return x.med;});return v.length?{v:v.reduce(function(s,y){return s+y;},0)/v.length,n:v.length}:null;}
+  var tr=0;for(var i=0;i<7;i++){var x=pd(sk);x.setDate(x.getDate()+i);if(typeof tqGet==='function'&&tqGet(ymd(x)).d.train)tr++;}
+  function line(lbl,cur,prev,u,dec,better){if(cur==null)return '';var s=cur.toFixed(dec)+(u?' '+u:''),dl='';
+    if(prev!=null){var df=cur-prev;if(Math.abs(df)>=(dec?0.1:1))dl=' <span class="muted">('+(df>0?'+':'')+df.toFixed(dec)+' vs the week before'+(better?(((df<0)===(better==='down'))?', the good direction':''):'')+')</span>';}
+    return '<div class="ex"><span class="exn">'+lbl+'</span><span class="exs">'+s+dl+'</span></div>';}
+  var a=aavg(sk,ek),ap=aavg(psk,pek);
+  var h=line('Resting heart rate',vavg('rhr',sk,ek),vavg('rhr',psk,pek),'bpm',0,'down')+line('HRV',vavg('hrv',sk,ek),vavg('hrv',psk,pek),'ms',0,'up')+line('Sleep from the watch',vavg('sleep_h',sk,ek),vavg('sleep_h',psk,pek),'h',1)+line('Steps a day',vavg('steps',sk,ek),vavg('steps',psk,pek),'',0).replace(/(\d{4,})/g,function(x){return (+x).toLocaleString();})+
+    '<div class="ex"><span class="exn">Training days</span><span class="exs">'+tr+' of 7 (from the watch and anything you ticked)</span></div>'+
+    (a?line('Alertness, median',a.v,ap?ap.v:null,'ms',0,'down').replace('</span></div>',' <span class="muted">· '+a.n+' check'+(a.n>1?'s':'')+'</span></span></div>'):'<div class="ex"><span class="exn">Alertness</span><span class="exs">No checks this week</span></div>');
+  el.innerHTML=h||'<div class="cs">No watch data this week yet.</div>';
+  var p=document.getElementById('wk-pat');if(p)p.innerHTML=wkPattern(ek);}
+function wkPattern(ek){var vr=(typeof VT_KEY!=='undefined')?lsGet(VT_KEY,[]):[],al=lsGet('tareeq-alert',[]),ci=lsGet(MH_KEY,{}),st=pd(ek);st.setDate(st.getDate()-27);var sk=ymd(st);
+  var sl={};vr.forEach(function(x){if(x.metric==='sleep_h')sl[x.d]=+x.value;});Object.keys(ci).forEach(function(d){if(sl[d]==null&&ci[d].sleepH)sl[d]=ci[d].sleepH;});
+  var hv={};vr.forEach(function(x){if(x.metric==='hrv')hv[x.d]=+x.value;});
+  var C=[];function split(pairs,lbl,unit,better,thr,cut){if(pairs.length<6)return;var lo=pairs.filter(function(p){return p[0]<cut;}),hi=pairs.filter(function(p){return p[0]>=cut;});if(lo.length<3||hi.length<3)return;
+    function m(a){return a.reduce(function(s,p){return s+p[1];},0)/a.length;}var d=m(lo)-m(hi);if(Math.abs(d)>=thr)C.push({s:Math.abs(d)/thr,t:lbl(d,lo.length,hi.length,m(lo),m(hi))});}
+  var p1=al.filter(function(x){return x.d>=sk&&x.d<=ek&&sl[x.d]!=null;}).map(function(x){return [sl[x.d],x.med];});
+  split(p1,function(d,a,b,ml,mh){return 'On mornings after under 7 hours of sleep, your alertness median was <b>'+Math.round(ml)+' ms</b>, against <b>'+Math.round(mh)+' ms</b> after 7 or more ('+a+' and '+b+' mornings). '+(d>0?'Shorter nights, slower reactions.':'Short nights didn’t slow you down this stretch.');},'ms',null,15,7);
+  var p2=Object.keys(hv).filter(function(d){return d>=sk&&d<=ek&&sl[d]!=null;}).map(function(d){return [sl[d],hv[d]];});
+  split(p2,function(d,a,b,ml,mh){return 'HRV averaged <b>'+Math.round(ml)+' ms</b> on days after under 7 hours of sleep and <b>'+Math.round(mh)+' ms</b> after 7 or more ('+a+' and '+b+' days).';},'ms',null,5,7);
+  var p3=al.filter(function(x){return x.d>=sk&&x.d<=ek;}).map(function(x){return [x.fast?1:0,x.med];});
+  split(p3,function(d,a,b,ml,mh){return 'Your alertness median was <b>'+Math.round(mh)+' ms</b> on fasting days and <b>'+Math.round(ml)+' ms</b> on eating days ('+b+' and '+a+' checks).';},'ms',null,15,1);
+  var p4=Object.keys(ci).filter(function(d){return d>=sk&&d<=ek&&ci[d].stress&&sl[d]!=null;}).map(function(d){return [sl[d],ci[d].stress];});
+  split(p4,function(d,a,b,ml,mh){return 'Stress check-ins averaged <b>'+ml.toFixed(1)+'</b> after short nights and <b>'+mh.toFixed(1)+'</b> after 7 or more hours (out of 5).';},'',null,0.7,7);
+  if(!C.length)return '<div class="cs">Not enough to see a pattern yet. It needs about 2 weeks of sleep plus a few Alertness Checks or check-ins. Patterns cover the last 4 weeks.</div>';
+  C.sort(function(a,b){return b.s-a.s;});return '<div class="cb">'+C[0].t+'</div><div class="cs" style="margin-top:6px">From your last 4 weeks. A pattern worth noticing, not proof of cause.</div>';}
+
+/* ---------- Neurogen: session details and EEG file import ---------- */
+var BE_KEY='tareeq-brain-eeg',BE_BANDS=['delta','theta','alpha','smr','beta','hibeta','gamma'];
+function beData(){var d=lsGet(BE_KEY,{});d.s=d.s||{};d.bands=d.bands||{};return d;}
+function beSave(n,k,v){var d=beData();d.s[n]=d.s[n]||{};d.s[n][k]=v;lsSet(BE_KEY,d);}
+function beRender(){var el=document.getElementById('be-sess');if(!el)return;var d=beData();
+  el.innerHTML=[2,3,4,5].map(function(n){var s=d.s[n]||{};return '<div class="be-row"><div class="ct" style="font-size:13.5px">Session '+n+'</div><div class="wt-form" style="flex-wrap:wrap;gap:6px;margin-top:4px">'+
+    '<input type="date" aria-label="Session '+n+' date" value="'+(s.date||'')+'" onchange="beSave('+n+',\'date\',this.value)">'+
+    '<input type="text" placeholder="Sites, e.g. Fz, Cz, T3" value="'+(s.sites||'').replace(/"/g,'&quot;')+'" onchange="beSave('+n+',\'sites\',this.value)" style="flex:1;min-width:130px">'+
+    '<input type="text" placeholder="Protocol and intensity" value="'+(s.proto||'').replace(/"/g,'&quot;')+'" onchange="beSave('+n+',\'proto\',this.value)" style="flex:1;min-width:150px"></div></div>';}).join('');
+  var b=d.bands,ses=Object.keys(b).sort(),c=document.getElementById('be-chart');
+  if(!ses.length){c.innerHTML='<div class="cs" style="padding:12px 0">No band data yet. Import a CSV export, or send Doug’s PDF reports to Claude in chat and they’ll be entered here.</div>';return;}
+  var cols={delta:'var(--ink4)',theta:'var(--ground)',alpha:'var(--repair)',smr:'var(--fuel)',beta:'var(--fire)',hibeta:'var(--fire-dk)',gamma:'#E8B64C'},used=BE_BANDS.filter(function(k){return ses.some(function(s){return b[s][k]!=null;});});
+  var base=new Date(2026,0,1);drawChart(c,used.map(function(k){return {pts:ses.map(function(s){return [new Date(+base+(+s)*86400000),b[s][k]];}).filter(function(p){return p[1]!=null;}),color:cols[k],dots:true,w:2};}),{ticks:ses.map(function(s,i){return [new Date(+base+(+s)*86400000),'S'+s,i===0?'start':i===ses.length-1?'end':'middle'];}),label:'EEG band power by session'});
+  document.getElementById('be-legend').innerHTML=used.map(function(k){return '<span><i class="sw" style="background:'+cols[k]+'"></i>'+k+'</span>';}).join('');}
+function beImport(inp){var f=inp.files&&inp.files[0],msg=document.getElementById('be-msg');if(!f)return;
+  if(/\.(pdf|edf|bdf|eeg|png|jpe?g)$/i.test(f.name)){msg.textContent=f.name+': this file type can’t be read here. Send it to Claude in chat and the numbers will be entered for you.';inp.value='';return;}
+  var r=new FileReader();r.onload=function(){try{var n=beParse(String(r.result));msg.textContent=n?('Imported '+n+' session'+(n>1?'s':'')+' of band data from '+f.name+'.'):('Couldn’t find band columns (alpha, beta, theta…) in '+f.name+'. Send it to Claude in chat instead.');beRender();}catch(e){msg.textContent='Couldn’t read '+f.name+'.';}inp.value='';};r.readAsText(f);}
+function beParse(t){var d=beData();
+  if(/^\s*[\[{]/.test(t)){var j=JSON.parse(t),arr=Array.isArray(j)?j:(j.sessions||[]);arr.forEach(function(o){var s=String(o.session||o.s||'').replace(/\D/g,'');if(!s)return;d.bands[s]=d.bands[s]||{};BE_BANDS.forEach(function(k){if(o[k]!=null)d.bands[s][k]=+o[k];});});lsSet(BE_KEY,d);return arr.length;}
+  var lines=t.split(/\r?\n/).filter(function(l){return l.trim();});if(lines.length<2)return 0;var sep=lines[0].indexOf('\t')>-1?'\t':lines[0].indexOf(';')>-1?';':',';
+  var hd=lines[0].split(sep).map(function(h){return h.trim().toLowerCase().replace(/[^a-z0-9]/g,'');}),si=hd.findIndex(function(h){return /^(session|sess|visit)/.test(h);}),bi={};
+  BE_BANDS.forEach(function(k){var i=hd.findIndex(function(h){return h===k||h.indexOf(k)===0||(k==='hibeta'&&/highbeta/.test(h));});if(i>-1)bi[k]=i;});
+  if(!Object.keys(bi).length)return 0;var acc={};
+  lines.slice(1).forEach(function(l,ix){var c=l.split(sep),s=si>-1?String(c[si]).replace(/\D/g,''):String(ix+2);if(!s)return;acc[s]=acc[s]||{};Object.keys(bi).forEach(function(k){var v=parseFloat(c[bi[k]]);if(isFinite(v)){acc[s][k]=acc[s][k]||[];acc[s][k].push(v);}});});
+  Object.keys(acc).forEach(function(s){d.bands[s]=d.bands[s]||{};Object.keys(acc[s]).forEach(function(k){var a=acc[s][k];d.bands[s][k]=Math.round(a.reduce(function(x,y){return x+y;},0)/a.length*100)/100;});});
+  lsSet(BE_KEY,d);return Object.keys(acc).length;}
+
+/* Wiring */
+(function(){
+  var _go=go;go=function(id,btn){_go(id,btn);if(id==='p-ramadan')rmRender();if(id==='p-brain')beRender();if(id==='p-mind')vxNotesRender();};
+  if(typeof tdSched==='function'){var _ts=tdSched;tdSched=function(now){return rmActive(now)?rmSched(now):_ts(now);};}
+  if(typeof tdRender==='function'){var _tr=tdRender;tdRender=function(){_tr.apply(this,arguments);rmBanner();};}
+  setInterval(rmBanner,60000);
+  if(typeof wkRender==='function'){var _wr=wkRender;wkRender=function(){_wr.apply(this,arguments);try{var s=wkStart(wkOff),e=new Date(s);e.setDate(e.getDate()+6);var ps=new Date(s);ps.setDate(ps.getDate()-7);var pe=new Date(s);pe.setDate(pe.getDate()-1);wkSignals(ymd(s),ymd(e),ymd(ps),ymd(pe));
+    var nt=document.getElementById('wk-notes');if(nt){var sk=ymd(s),ek=ymd(e),ns=lsGet(VX_NOTES,[]).filter(function(x){return x.d>=sk&&x.d<=ek;});var cd=nt.parentNode;cd.style.display=ns.length?'':'none';cd.previousElementSibling.style.display=ns.length?'':'none';nt.innerHTML=ns.map(function(x){return '<div class="ex"><span class="exn">'+fmtD(x.d)+'</span><span class="exs">'+x.t.replace(/</g,'&lt;')+'</span></div>';}).join('');}}catch(e){}};}
+  if(typeof alEnd==='function'){var _ae=alEnd;alEnd=function(){var fa=(typeof faGet==='function'&&faGet())||rmActive(new Date());_ae.apply(this,arguments);if(fa){var a=lsGet('tareeq-alert',[]),t=ymd(new Date());a.forEach(function(x){if(x.d===t)x.fast=1;});lsSet('tareeq-alert',a);}};}
+  if(typeof vtLoad==='function'){var _vl=vtLoad;vtLoad=function(){var r=_vl.apply(this,arguments);setTimeout(vxPull,600);return r;};window.vtLoad=vtLoad;}
+  document.addEventListener('visibilitychange',function(){if(document.visibilityState==='visible')setTimeout(vxPull,800);});
+  if(typeof SYNC_KEYS!=='undefined')[RM_KEY,VX_NOTES,BE_KEY].forEach(function(k){if(SYNC_KEYS.indexOf(k)<0)SYNC_KEYS.push(k);});
+  if(typeof BB!=='undefined'&&BB.plan)BB.plan.items.push(['p-ramadan','Ramadan','moon-stars']);
+  if(typeof SR_P!=='undefined')SR_P.splice(SR_P.length-5,0,['p-ramadan','Ramadan','moon-stars','protocol','ramadan suhoor iftar fajr maghrib fasting month sawm']);
+  document.addEventListener('DOMContentLoaded',function(){rmBanner();});rmBanner();
 })();
 </script>
   <nav class="bbar" id="bbar" aria-label="Sections">
