@@ -2928,7 +2928,7 @@ html[data-motion="off"] *,html[data-motion="off"] *::before,html[data-motion="of
           <label class="cs">Fajr &#177; min <input type="number" id="rm-fa" style="width:64px" onchange="rmSet('fajrAdj',+this.value||0)"></label>
           <label class="cs">Iftar &#177; min <input type="number" id="rm-ma" style="width:64px" onchange="rmSet('magAdj',+this.value||0)"></label>
         </div>
-        <div class="cs" style="margin-top:8px">Auto turns on for the dates above and off after. The Fiqh Council of North America lists 1 Ramadan 1448 as Monday, February 8, 2027; confirm the first day once it&#8217;s announced.</div>
+        <div class="cs" style="margin-top:8px">Auto turns on for the dates above and off after. <span id="rm-src"></span> Updates itself every year. Once the moon sighting is announced, change the first day here if it differs; that change applies to that year only.</div>
       </div>
       <div class="ctarow">
         <button class="btn" onclick="go('protocol',document.querySelector('[data-pillar=protocol]'))"><i class="ti ti-arrow-left"></i> Back to my protocol</button>
@@ -4928,8 +4928,23 @@ function brEnd(ms){var d=pgData();d.breath=(d.breath||0)+ms/60000;pgSave(d);var 
 <script>
 /* ---------- Ramadan mode: suhoor and iftar from the sun, a night-shaped day ---------- */
 var RM_KEY='tareeq-ramadan';
-function rmCfg(){var c=lsGet(RM_KEY,{});return {start:c.start||'2027-02-08',days:c.days||29,method:c.method||'ISNA',mode:c.mode||'auto',fajrAdj:+c.fajrAdj||0,magAdj:+c.magAdj||0};}
-function rmSave(c){lsSet(RM_KEY,c);}
+/* Each year's expected dates come from the phone's Islamic (Umm al-Qura) calendar; a typed date overrides that year only. */
+var rmCalc=null;
+function rmNext(){var k=ymd(new Date());if(rmCalc&&rmCalc.k===k)return rmCalc;var r={k:k,start:'2027-02-08',days:29,calc:false};
+  try{var f=new Intl.DateTimeFormat('en-u-ca-islamic-umalqura',{month:'numeric',day:'numeric'});if(f.resolvedOptions().calendar.indexOf('islamic')<0)throw 0;
+    var d=new Date();d.setDate(d.getDate()-32);var s=null;
+    for(var i=0;i<420;i++){var o={};f.formatToParts(d).forEach(function(p){o[p.type]=p.value;});
+      if(!s&&o.month==='9'&&o.day==='1')s=new Date(d);
+      else if(s&&o.month==='10'&&o.day==='1'){var n=Math.round((d-s)/86400000),e=new Date(d);e.setDate(e.getDate()-1);if(ymd(e)>=k){r.start=ymd(s);r.days=n;r.calc=true;break;}s=null;}
+      d.setDate(d.getDate()+1);}}catch(e){}
+  rmCalc=r;return r;}
+function rmCfg(){var c=lsGet(RM_KEY,{}),n=rmNext(),ov=c.ov||{},y=n.start.slice(0,4),o=ov[y]||{};
+  if(c.start&&!c.ov&&c.start.slice(0,4)===y)o={start:c.start,days:c.days};
+  return {start:o.start||n.start,days:o.days||n.days,calc:n.calc,over:!!o.start,year:y,method:c.method||'ISNA',mode:c.mode||'auto',fajrAdj:+c.fajrAdj||0,magAdj:+c.magAdj||0};}
+function rmSave(c){var raw=lsGet(RM_KEY,{});raw.ov=raw.ov||{};delete raw.start;delete raw.days;
+  ['method','mode','fajrAdj','magAdj'].forEach(function(k){raw[k]=c[k];});var y=c.year;
+  if(c.start!==rmNext().start||c.days!==rmNext().days)raw.ov[y]={start:c.start,days:c.days};else delete raw.ov[y];
+  lsSet(RM_KEY,raw);}
 function rmEnd(c){var e=pd(c.start);e.setDate(e.getDate()+c.days-1);return e;}
 function rmActive(d){var c=rmCfg();if(c.mode==='off')return false;if(c.mode==='on')return true;var k=ymd(d||new Date());return k>=c.start&&k<=ymd(rmEnd(c));}
 function rmDayN(d){var c=rmCfg();return Math.floor((pd(ymd(d||new Date()))-pd(c.start))/86400000)+1;}
@@ -4974,7 +4989,8 @@ function rmRender(){var c=rmCfg(),el=document.getElementById('rm-body');if(!el)r
    '<div class="ew">Your day, Ramadan shape</div><div class="card">'+rmSched(act?now:st).map(function(s){return '<div class="ex"><span class="exn">'+s[1]+'</span><span class="exs">'+s[2]+'</span></div>';}).join('')+'</div>'+
    '<div class="ew">Times through the month</div><div class="card">'+rows+'<div class="cs" style="margin-top:6px">Calculated for '+((typeof TD_HOME!=='undefined')?TD_HOME.name:'Vancouver, WA')+' with the '+(c.method==='MWL'?'Muslim World League (Fajr at 18°)':'ISNA (Fajr at 15°)')+' convention. Your masjid’s timetable wins; nudge the minutes below to match it.</div></div>';
   ['mode','method'].forEach(function(k){[].forEach.call(document.querySelectorAll('#rm-'+k+' button'),function(b){b.classList.toggle('on',b.dataset.v===c[k]);});});
-  document.getElementById('rm-start').value=c.start;document.getElementById('rm-days').value=c.days;document.getElementById('rm-fa').value=c.fajrAdj;document.getElementById('rm-ma').value=c.magAdj;}
+  document.getElementById('rm-start').value=c.start;var src=document.getElementById('rm-src');if(src)src.textContent=(c.over?'You set this year\u2019s first day.':c.calc?'Expected dates come from the Islamic calendar built into your phone.':'Using the saved default.')+(c.over?' <a> ':'');if(src&&c.over)src.innerHTML='You set this year\u2019s first day. <a href="#" onclick="rmReset();return false" style="color:var(--repair-dk)">Use the calendar date</a>';document.getElementById('rm-days').value=c.days;document.getElementById('rm-fa').value=c.fajrAdj;document.getElementById('rm-ma').value=c.magAdj;}
+function rmReset(){var raw=lsGet(RM_KEY,{});if(raw.ov)delete raw.ov[rmCfg().year];lsSet(RM_KEY,raw);rmRender();rmBanner();}
 function rmSet(k,v){var c=rmCfg();c[k]=v;rmSave(c);rmRender();rmBanner();if(window.tdRender)tdRender();}
 
 /* ---------- Voice log: merge what Siri sent into the right places ---------- */
