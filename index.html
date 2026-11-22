@@ -440,7 +440,7 @@ nav.pillar-nav::-webkit-scrollbar{display:none}
   .tt-btn{width:24px;height:26px}
   .tt-sep{margin:0 1px}
 }
-@media(max-width:350px){.tt-btn{width:22px}.hdr-controls{gap:4px}.mode-btn{padding:7px 7px}}
+@media(max-width:350px){#search-btn{display:none}.tt-btn{width:22px}.hdr-controls{gap:4px}.mode-btn{padding:7px 7px}}
 /* Bright summer: amber and coral are too light for small text on white, so labels use the deep stop */
 html[data-scheme="seasonal"][data-tq-season="ss"]:not([data-theme="dark"]) .path-lbl.fuel{color:var(--fuel-dk)}
 html[data-scheme="seasonal"][data-tq-season="ss"]:not([data-theme="dark"]) .path-lbl.repair{color:var(--repair-dk)}
@@ -562,6 +562,38 @@ body.has-bbar .fab{display:flex}
 .toast{position:fixed;left:50%;bottom:calc(140px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);z-index:960;background:var(--ink);color:var(--bg);font-size:12.5px;padding:8px 14px;border-radius:999px;opacity:0;transition:opacity .2s;pointer-events:none;white-space:nowrap}
 .toast.on{opacity:1}
 @media (prefers-reduced-motion:reduce){.sheet,.sheet-bg{transition:none}}
+/* ---------- Search ---------- */
+.sr-ico{width:15px;height:15px;fill:none;stroke:currentColor;stroke-width:2.2;stroke-linecap:round}
+.sr-bg{position:fixed;inset:0;z-index:960;background:var(--bg);opacity:0;pointer-events:none;transition:opacity .18s}
+.sr-bg.on{opacity:1;pointer-events:auto}
+.sr-in{box-sizing:border-box;width:100%;max-width:640px;margin:0 auto;height:100%;display:flex;flex-direction:column;padding:calc(12px + env(safe-area-inset-top,0px)) 16px 0}
+.sr-bar{display:flex;align-items:center;gap:8px}
+.sr-field{flex:1;min-width:0;box-sizing:border-box;display:flex;align-items:center;gap:8px;background:var(--bg2);border:0.5px solid var(--bdr2);border-radius:14px;padding:0 12px;height:44px}
+.sr-field .sr-ico{width:17px;height:17px;color:var(--ink3);flex:0 0 17px}
+.sr-field input{flex:1;min-width:0;border:none;background:none;font:inherit;font-size:16px;color:var(--ink);outline:none;height:100%}
+.sr-field input::placeholder{color:var(--ink3)}
+.sr-field input::-webkit-search-cancel-button,.sr-field input::-webkit-search-decoration{-webkit-appearance:none;appearance:none}
+.sr-x{background:none;border:none;color:var(--ink3);font-size:18px;padding:4px;cursor:pointer;display:none}
+.sr-x.on{display:block}
+.sr-cancel{flex:0 0 auto;background:none;border:none;font:inherit;font-size:15px;color:var(--repair-dk);cursor:pointer;padding:8px 2px}
+.sr-list{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;padding:10px 0 calc(24px + env(safe-area-inset-bottom,0px))}
+.sr-lbl{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink3);margin:14px 4px 6px}
+.sr-chips{display:flex;flex-wrap:wrap;gap:6px}
+.sr-chip{background:var(--bg2);border:0.5px solid var(--bdr);border-radius:16px;padding:7px 11px;font:inherit;font-size:13px;color:var(--ink);cursor:pointer;display:flex;align-items:center;gap:6px}
+.sr-chip i{color:var(--repair-dk);font-size:15px}
+.sr-r{display:flex;gap:12px;align-items:flex-start;width:100%;text-align:left;background:none;border:none;border-bottom:0.5px solid var(--bdr);padding:11px 4px;font:inherit;color:var(--ink);cursor:pointer}
+.sr-r:active,.sr-r.sel{background:var(--bg2)}
+.sr-r>i{font-size:18px;color:var(--repair-dk);margin-top:1px;flex:0 0 18px}
+.sr-r .sr-t{font-size:14.5px;line-height:1.35}
+.sr-r .sr-p{font-size:12px;color:var(--ink3);margin-top:2px}
+.sr-r .sr-s{font-size:12.5px;color:var(--ink2);margin-top:3px;line-height:1.4}
+.sr-r mark{background:var(--repair-bg);color:inherit;border-radius:3px;padding:0 1px}
+.sr-empty{color:var(--ink3);font-size:14px;padding:24px 4px;line-height:1.5}
+.sheet-search{grid-column:1/-1;flex-direction:row!important;justify-content:flex-start!important;padding:12px 14px!important;color:var(--ink3)!important;font-size:14px!important}
+.sheet-search .sr-ico{width:17px;height:17px}
+@keyframes srHit{0%,100%{box-shadow:0 0 0 0 transparent}20%,70%{box-shadow:0 0 0 3px var(--repair-mid)}}
+.sr-hit{animation:srHit 1.8s ease;border-radius:8px}
+@media (prefers-reduced-motion:reduce){.sr-bg{transition:none}.sr-hit{animation:none;outline:2px solid var(--repair-mid)}}
 
 /* Phone-width fixes: nothing runs off the edge */
 .fc-head{flex-wrap:wrap}
@@ -952,6 +984,7 @@ html[data-motion="off"] *,html[data-motion="off"] *::before,html[data-motion="of
               <div class="sm-mo" role="group" aria-label="Motion"><button data-mo="full" onclick="tqMotion('full')">Full</button><button data-mo="calm" onclick="tqMotion('calm')">Calm</button><button data-mo="off" onclick="tqMotion('off')">Off</button></div>
             </div>
           </div>
+          <button class="tt-btn" id="search-btn" onclick="srOpen()" title="Search" aria-label="Search Tareeq"><svg class="sr-ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5 20 20"/></svg></button>
           <button class="tt-btn" id="refresh-btn" onclick="refreshPage()" title="Refresh" aria-label="Load the latest version"><i class="ti ti-refresh"></i></button>
         </div>
       </div>
@@ -4185,6 +4218,152 @@ function tqLaunch(){document.body.classList.add('tq-launch');setTimeout(function
   });
   document.addEventListener('visibilitychange',function(){if(document.visibilityState==='visible'){tqAll();if(tqR.iv)tqRestTick();}});
   setInterval(tqDialPaint,30000);
+})();
+</script>
+  <div class="sr-bg" id="sr" role="dialog" aria-modal="true" aria-label="Search Tareeq"><div class="sr-in">
+    <div class="sr-bar"><label class="sr-field"><svg class="sr-ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5 20 20"/></svg><input id="sr-q" type="search" placeholder="Search Tareeq" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" enterkeyhint="go"><button class="sr-x" id="sr-x" onclick="srClear()" aria-label="Clear"><i class="ti ti-x"></i></button></label>
+    <button class="sr-cancel" onclick="srClose()">Cancel</button></div>
+    <div class="sr-list" id="sr-list"></div>
+  </div></div>
+<script>
+/* ---------- Search: one field that finds any tab, section, exercise or note ---------- */
+var SR_P=[
+ ['protocol','Today','home','protocol','today home overview my protocol day'],
+ ['p-anchor','Anchor','sunrise','protocol','anchor earl nightingale speaking public speaking leadership voice vocal articulation self mastery quote'],
+ ['p-training','Training week','flame','protocol','train training workout session exercises lifts dumbbell push pull lower full body clock'],
+ ['p-nutrition','Nutrition','soup','protocol','eat nutrition meals food plate protein portions produce'],
+ ['p-supplements','Supplements','pill','protocol','supplements stack pills vitamins creatine magnesium ashwagandha fish oil probiotic'],
+ ['p-fast','Fasting','clock','protocol','fasting fast water dry ramadan'],
+ ['p-calendar','Daily timeline','calendar-event','protocol','calendar daily timeline schedule day layout'],
+ ['p-rhythm','Rhythm','sun','protocol','rhythm seasons season circadian sunrise sunset pnw'],
+ ['p-baseline','Labs and trends','clipboard-list','protocol','labs baseline bloodwork blood work trends doctor testosterone lipids hormones'],
+ ['p-week','Weekly review','calendar-event','protocol','weekly review sunday week'],
+ ['p-weight','Weight','scale','protocol','weight waist body map benchmarks bmi photos weigh in'],
+ ['p-vitals','Vitals','heartbeat','protocol','vitals apple health watch heart rate resting hrv steps sleep exercise minutes shortcut'],
+ ['p-mind','Check-in and mental health','heart-handshake','protocol','check in checkin mental health mood stress energy sleep log'],
+ ['p-brain','Brain','sparkles','protocol','brain neurogen eeg study doug'],
+ ['p-prevent','Preventive','heart-handshake','protocol','preventive vaccines vaccine flu dentist dental screenings eye exam'],
+ ['p-checkpoints','Checkpoints','circle-check','protocol','checkpoints milestones reminders alerts progress quarterly'],
+ ['p-travel','Travel','run','protocol','travel mode trip'],
+ ['p-account','Account','refresh','protocol','account sign in login sync face id passkey backup export'],
+ ['overview','The Charter','book','charter','charter overview pillars'],
+ ['fire','Fire','flame','charter','fire agni metabolism training discipline'],
+ ['ground','Ground','leaf','charter','ground vata nervous system supplements breathwork'],
+ ['fuel','Fuel','soup','charter','fuel ahara nourishment macros food timing fasting'],
+ ['repair','Repair','moon','charter','repair yin rest sleep restorative']
+];
+var SR_HEAD='.ew,.ct,.step-t,.fc-title,.ph-title,.cd-title,summary,.exn,h1,h2,h3,h4';
+var SR_BODY='.cb,.cs,.exs,.fc-body,.ibar>span,li,td,.d';
+var srIdx=[],srRes=[],srSel=0,SR_RECENT='tareeq-search-recent';
+function srNorm(t){return (t||'').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'').replace(/[’']/g,'');}
+function srTxt(el){var w=document.createTreeWalker(el,NodeFilter.SHOW_TEXT),a=[],n;while((n=w.nextNode()))a.push(n.nodeValue);return a.join(' ').replace(/\s+/g,' ').replace(/ ([,.;:!?)\u2019])/g,'$1').replace(/\( /g,'(').trim();}
+function srWords(n){return ' '+n.replace(/[^a-z0-9]+/g,' ')+' ';}
+function srEsc(t){return t.replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});}
+function srPanelOf(domId){for(var i=0;i<SR_P.length;i++){if('p-'+SR_P[i][0]===domId)return SR_P[i];}return null;}
+function srBuild(){
+  srIdx=[];var seen={},lastEw={};
+  [].forEach.call(document.querySelectorAll('.panel'),function(pn){
+    var P=srPanelOf(pn.id);if(!P)return;
+    [].forEach.call(pn.querySelectorAll(SR_HEAD+','+SR_BODY),function(el){
+      if(el.closest('script,style,svg'))return;
+      var head=el.matches(SR_HEAD),t=srTxt(el);if(!t||t.length<2)return;
+      if(el.classList.contains('ew')){lastEw[pn.id]=t;}
+      if(!head&&el.querySelector(SR_HEAD))return;
+      var key=pn.id+'|'+t;if(seen[key]){seen[key].n++;return;}
+      var sel=head?SR_HEAD:SR_BODY,o={p:P,t:t,n:srNorm(t),head:head,sel:sel,sec:el.classList.contains('ew')?'':(lastEw[pn.id]||''),k:0,o:srIdx.length};
+      o.w=srWords(o.n);seen[key]={n:0};o.cnt=seen[key];srIdx.push(o);
+    });
+  });
+}
+function srScore(n,q,toks,base,w){
+  w=w||srWords(n);for(var i=0;i<toks.length;i++)if(w.indexOf(' '+toks[i])<0)return 0;
+  if(n.indexOf(q)===0)return base+30;
+  if((' '+n).indexOf(' '+q)>-1)return base+20;
+  if(n.indexOf(q)>-1)return base+10;
+  return base;
+}
+function srMark(t,toks){
+  var n=srNorm(t),hits=[];
+  toks.forEach(function(k){var i=0;while(k&&(i=n.indexOf(k,i))>-1){hits.push([i,i+k.length]);i+=k.length;}});
+  hits.sort(function(a,b){return a[0]-b[0];});
+  var out='',pos=0;hits.forEach(function(h){if(h[0]<pos)return;out+=srEsc(t.slice(pos,h[0]))+'<mark>'+srEsc(t.slice(h[0],h[1]))+'</mark>';pos=h[1];});
+  return out+srEsc(t.slice(pos));
+}
+function srSnip(t,toks){
+  var n=srNorm(t),i=n.indexOf(toks[0]);if(t.length<=140)return t;
+  var a=Math.max(0,i-45),b=Math.min(t.length,a+150);
+  return (a>0?'…':'')+t.slice(a,b).replace(/^\S*\s/,a>0?'':'$&')+(b<t.length?'…':'');
+}
+function srRun(){
+  var raw=document.getElementById('sr-q').value,q=srNorm(raw).trim().replace(/\s+/g,' ');
+  document.getElementById('sr-x').classList.toggle('on',!!raw);
+  var L=document.getElementById('sr-list');
+  if(!q){srRes=[];L.innerHTML=srHome();return;}
+  var toks=q.replace(/[^a-z0-9]+/g,' ').trim().split(' ').filter(Boolean),res=[];if(!toks.length)toks=[q];
+  SR_P.forEach(function(P){var s=srScore(srNorm(P[1]),q,toks,200)||srScore(srNorm(P[1]+' '+P[4]),q,toks,120);if(s)res.push({p:P,panel:1,s:s,o:-1,t:P[1]});});
+  srIdx.forEach(function(it){var s=srScore(it.n,q,toks,(it.head?(it.t.length>70?30:60):10)+(it.p[3]==='protocol'?15:0),it.w);if(s)res.push({p:it.p,s:s,o:it.o,it:it,t:it.t});});
+  res.sort(function(a,b){return b.s-a.s||a.o-b.o;});
+  srRes=res.slice(0,50);srSel=0;
+  if(!srRes.length){L.innerHTML='<div class="sr-empty">Nothing matches “'+srEsc(raw.trim())+'”. Try a shorter word, like “sleep” or “bench”.</div>';return;}
+  L.innerHTML=srRes.map(function(r,i){
+    if(r.panel)return '<button class="sr-r'+(i===0?' sel':'')+'" onclick="srPick('+i+')"><i class="ti ti-'+r.p[2]+'"></i><div><div class="sr-t">'+srMark(r.p[1],toks)+'</div><div class="sr-p">'+(r.p[3]==='charter'?'Charter':'My Protocol')+' · tab</div></div></button>';
+    var it=r.it,where=r.p[1]+(it.sec&&it.sec!==it.t?' · '+srEsc(it.sec):'');
+    var main=it.head?'<div class="sr-t">'+srMark(it.t.length>110?it.t.slice(0,110)+'…':it.t,toks)+'</div>':'<div class="sr-s">'+srMark(srSnip(it.t,toks),toks)+'</div>';
+    return '<button class="sr-r'+(i===0?' sel':'')+'" onclick="srPick('+i+')"><i class="ti ti-'+r.p[2]+'"></i><div>'+main+'<div class="sr-p">'+where+'</div></div></button>';
+  }).join('');
+}
+function srHome(){
+  var rec=lsGet(SR_RECENT,[]),h='';
+  if(rec.length)h+='<div class="sr-lbl">Recent</div><div class="sr-chips">'+rec.map(function(q){return '<button class="sr-chip" onclick="srSet(\''+srEsc(q).replace(/'/g,'')+'\')"><i class="ti ti-clock"></i>'+srEsc(q)+'</button>';}).join('')+'</div>';
+  var grp=[['My Protocol','protocol'],['The Charter','charter']];
+  grp.forEach(function(g){h+='<div class="sr-lbl">'+g[0]+'</div><div class="sr-chips">'+SR_P.map(function(P,i){return P[3]===g[1]?'<button class="sr-chip" onclick="srGoPanel('+i+')"><i class="ti ti-'+P[2]+'"></i>'+P[1]+'</button>':'';}).join('')+'</div>';});
+  return h;
+}
+function srSet(q){var i=document.getElementById('sr-q');i.value=q;srRun();i.focus();}
+function srClear(){var i=document.getElementById('sr-q');i.value='';srRun();i.focus();}
+function srRemember(){var q=document.getElementById('sr-q').value.trim();if(!q)return;var r=lsGet(SR_RECENT,[]).filter(function(x){return x.toLowerCase()!==q.toLowerCase();});r.unshift(q);try{localStorage.setItem(SR_RECENT,JSON.stringify(r.slice(0,6)));}catch(e){}}
+function srNav(P){
+  setAppMode(P[3]);go(P[0],document.querySelector('[data-pillar="'+P[0]+'"]'));
+  if(P[0]==='protocol'&&window.tdRender)tdRender();
+}
+function srGoPanel(i){srClose();srNav(SR_P[i]);window.scrollTo(0,0);}
+function srPick(i){
+  var r=srRes[i];if(!r)return;srRemember();srClose();srNav(r.p);
+  if(r.panel){window.scrollTo(0,0);return;}
+  var it=r.it,pn=document.getElementById('p-'+r.p[0]);
+  setTimeout(function(){
+    var el=null;if(pn)[].some.call(pn.querySelectorAll(it.sel),function(e){if(srTxt(e)===it.t){el=e;return true;}return false;});
+    if(!el){window.scrollTo(0,0);return;}
+    for(var d=el.closest('details');d;d=d.parentElement&&d.parentElement.closest('details'))d.open=true;
+    var tgt=el.closest('.card,.step,.fusion-card,li,tr')||el;
+    tgt.scrollIntoView({block:'center',behavior:document.documentElement.getAttribute('data-motion')==='off'?'auto':'smooth'});
+    tgt.classList.remove('sr-hit');void tgt.offsetWidth;tgt.classList.add('sr-hit');
+    setTimeout(function(){tgt.classList.remove('sr-hit');},2000);
+  },180);
+}
+function srOpen(){
+  if(window.bbClose)bbClose();if(window.closeSchemeMenu)closeSchemeMenu();
+  var s=document.getElementById('sr'),i=document.getElementById('sr-q');
+  s.classList.add('on');i.value='';i.focus();
+  srBuild();srRun();document.documentElement.style.overflow='hidden';
+}
+function srClose(){document.getElementById('sr').classList.remove('on');document.documentElement.style.overflow='';var i=document.getElementById('sr-q');if(i)i.blur();}
+(function(){
+  var i=document.getElementById('sr-q');
+  i.addEventListener('input',srRun);
+  i.addEventListener('keydown',function(e){
+    var rows=document.querySelectorAll('#sr-list .sr-r');
+    if(e.key==='Enter'){e.preventDefault();if(srRes.length)srPick(srSel);}
+    else if(e.key==='Escape'){srClose();}
+    else if((e.key==='ArrowDown'||e.key==='ArrowUp')&&rows.length){e.preventDefault();rows[srSel]&&rows[srSel].classList.remove('sel');
+      srSel=(srSel+(e.key==='ArrowDown'?1:-1)+rows.length)%rows.length;rows[srSel].classList.add('sel');rows[srSel].scrollIntoView({block:'nearest'});}
+  });
+  document.addEventListener('keydown',function(e){
+    var tag=(e.target&&e.target.tagName)||'',typing=/INPUT|TEXTAREA|SELECT/.test(tag)||(e.target&&e.target.isContentEditable);
+    if(((e.metaKey||e.ctrlKey)&&e.key.toLowerCase()==='k')||(e.key==='/'&&!typing)){e.preventDefault();srOpen();}
+  });
+  var _bo=bbOpen;bbOpen=function(s){_bo(s);if(s==='more'){var g=document.getElementById('sheet-g');
+    g.insertAdjacentHTML('afterbegin','<button class="sheet-search" onclick="srOpen()"><svg class="sr-ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5 20 20"/></svg>Search Tareeq</button>');}};
 })();
 </script>
   <nav class="bbar" id="bbar" aria-label="Sections">
