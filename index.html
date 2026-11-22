@@ -576,6 +576,21 @@ body.has-bbar .fab{display:flex}
 .vx-step{display:flex;gap:10px;padding:6px 0;font-size:13.5px;color:var(--ink2);line-height:1.45}
 .vx-step b{flex:0 0 22px;height:22px;border-radius:50%;background:var(--repair-bg);color:var(--repair-dk);display:flex;align-items:center;justify-content:center;font-size:12px}
 .vx-code{font-family:ui-monospace,Menlo,monospace;font-size:11.5px;background:var(--bg3);padding:2px 5px;border-radius:5px;word-break:break-all}
+/* ---------- Rights ---------- */
+:root{--rt-ico:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M12 3v18M7 21h10M5 7h14M5 7l-3 6a3 3 0 0 0 6 0zM19 7l-3 6a3 3 0 0 0 6 0z'/%3E%3C/svg%3E")}
+.ti.ti-justice::before{content:'';display:inline-block;width:1em;height:1em;vertical-align:-.125em;background:currentColor;-webkit-mask:var(--rt-ico) center/contain no-repeat;mask:var(--rt-ico) center/contain no-repeat}
+.rt-pocket{border-left:3px solid var(--ground)}
+.rt-say{font-family:'DM Serif Display',serif;font-size:18px;line-height:1.35;color:var(--ink);padding:6px 0}
+.rt-d{border-bottom:0.5px solid var(--bdr);padding:10px 0}
+.rt-d:last-of-type{border-bottom:none}
+.rt-d summary{cursor:pointer;list-style:none;font-size:14px;line-height:1.45;color:var(--ink2);display:block;position:relative;padding-right:26px}
+.rt-d summary::-webkit-details-marker{display:none}
+.rt-d summary::after{content:'+';position:absolute;right:2px;top:-1px;color:var(--ink3);font-size:18px;transition:transform .2s}
+.rt-d[open] summary::after{transform:rotate(45deg)}
+.rt-d summary b{color:var(--ink);font-weight:600}
+.rt-d .cb{margin-top:8px;animation:pgIn .3s ease forwards;opacity:0;transform:translateY(4px)}
+.rt-d a,.rt-pocket a,#p-p-rights .cs a,#p-p-rights .cb a{color:var(--repair-dk)}
+.rt-key{font-size:10px;letter-spacing:.06em;text-transform:uppercase;background:var(--ground-bg);color:var(--ground-dk);border-radius:8px;padding:1px 6px;font-weight:600}
 /* ---------- Play: games ---------- */
 .ti.ti-dice::before{content:'';display:inline-block;width:1em;height:1em;vertical-align:-.125em;background:currentColor;-webkit-mask:var(--pg-dice) center/contain no-repeat;mask:var(--pg-dice) center/contain no-repeat}
 :root{--pg-dice:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round'%3E%3Crect x='4' y='4' width='16' height='16' rx='3.5'/%3E%3Ccircle cx='9' cy='9' r='.9' fill='black'/%3E%3Ccircle cx='15' cy='15' r='.9' fill='black'/%3E%3Ccircle cx='15' cy='9' r='.9' fill='black'/%3E%3Ccircle cx='9' cy='15' r='.9' fill='black'/%3E%3C/svg%3E")}
@@ -1165,6 +1180,7 @@ html[data-motion="off"] *,html[data-motion="off"] *::before,html[data-motion="of
       <button class="nb" data-pillar="p-brain" onclick="go('p-brain',this)"><span class="nb-dot"></span>Brain</button>
       <button class="nb" data-pillar="p-prevent" onclick="go('p-prevent',this)"><span class="nb-dot"></span>Preventive</button>
       <button class="nb" data-pillar="p-ramadan" onclick="go('p-ramadan',this)"><span class="nb-dot"></span>Ramadan</button>
+      <button class="nb" data-pillar="p-rights" onclick="go('p-rights',this)"><span class="nb-dot"></span>Rights</button>
       <button class="nb" data-pillar="p-play" onclick="go('p-play',this)"><span class="nb-dot"></span>Play</button>
       <button class="nb" data-pillar="p-checkpoints" onclick="go('p-checkpoints',this)"><span class="nb-dot"></span>Checkpoints</button>
       <button class="nb" data-pillar="p-travel" onclick="go('p-travel',this)"><span class="nb-dot"></span>Travel</button>
@@ -2930,6 +2946,102 @@ html[data-motion="off"] *,html[data-motion="off"] *::before,html[data-motion="of
         </div>
         <div class="cs" style="margin-top:8px">Auto turns on for the dates above and off after. <span id="rm-src"></span> Updates itself every year. Once the moon sighting is announced, change the first day here if it differs; that change applies to that year only.</div>
       </div>
+      <div class="ctarow">
+        <button class="btn" onclick="go('protocol',document.querySelector('[data-pillar=protocol]'))"><i class="ti ti-arrow-left"></i> Back to my protocol</button>
+      </div>
+    </div>
+
+    <!-- ═══════════ PROTOCOL: RIGHTS ═══════════ -->
+    <div id="p-p-rights" class="panel">
+      <div class="pillar-hero" style="background:linear-gradient(160deg,color-mix(in srgb,var(--ground) 14%,var(--bg2)),var(--bg2))">
+        <div class="ph-eyebrow"><i class="ti ti-justice"></i> Know your rights</div>
+        <div class="ph-title" style="font-size:26px">Calm, clear, and on record</div>
+        <div class="ph-lede" style="margin-top:8px">Your rights under the U.S. Constitution and in Washington and Oregon, in plain words. A summary, not legal advice. Laws and court rulings change; each point links to its source. Checked November 2026.</div>
+      </div>
+
+      <div class="ew">If police stop you</div>
+      <div class="card rt-pocket">
+        <div class="rt-say">&#8220;Officer, am I being detained, or am I free to go?&#8221;</div>
+        <div class="rt-say">&#8220;I don&#8217;t consent to any searches.&#8221;</div>
+        <div class="rt-say">&#8220;I&#8217;m going to remain silent. I want a lawyer.&#8221;</div>
+        <div class="cb" style="margin-top:10px">Stay calm, keep your hands where they can be seen, and don&#8217;t physically resist, even if you believe the stop is wrong. Challenge it later, in writing or in court. Never give a false name.</div>
+        <div class="cs" style="margin-top:6px">Say the silence line out loud. The Supreme Court has held that simply staying quiet does not invoke the right; it has to be claimed clearly (<a href="https://supreme.justia.com/cases/federal/us/570/12-246/" target="_blank" rel="noopener">Salinas v. Texas, 2013</a>; <a href="https://supreme.justia.com/cases/federal/us/560/370/" target="_blank" rel="noopener">Berghuis v. Thompkins, 2010</a>).</div>
+      </div>
+
+      <div class="ew">The U.S. Constitution</div>
+      <div class="cs" style="margin:-4px 2px 8px">Tap any line to open it. The ones that matter most in daily life are marked.</div>
+      <div class="ew" style="font-size:11px;margin-top:4px">Bill of Rights (Amendments 1 to 10)</div>
+      <div class="card">
+        <details class="rt-d"><summary><b>1st <span class="rt-key">key</span></b> &#183; speech, religion, press, assembly, petition</summary><div class="cb">The government can&#8217;t punish you for what you say, how you worship or don&#8217;t, what you publish, gathering peacefully, or asking it to fix a wrong. It limits the government, not private employers or businesses, so a company can still set workplace rules.</div></details>
+        <details class="rt-d"><summary><b>2nd</b> &#183; keep and bear arms</summary><div class="cb">A personal right, but Washington and Oregon both regulate buying, carrying and storing firearms, and those rules have changed often. Check current state law before carrying, or before crossing the river with a firearm.</div></details>
+        <details class="rt-d"><summary><b>3rd</b> &#183; no soldiers in your home</summary><div class="cb">The government can&#8217;t house soldiers in your home in peacetime without your consent.</div></details>
+        <details class="rt-d"><summary><b>4th <span class="rt-key">key</span></b> &#183; searches and seizures</summary><div class="cb">Police generally need a warrant, or a recognized exception, to search you, your car, your phone or your home. You can say no when they ask permission. If they search anyway, don&#8217;t resist; say you don&#8217;t consent so it&#8217;s on record.</div></details>
+        <details class="rt-d"><summary><b>5th <span class="rt-key">key</span></b> &#183; silence, due process, property</summary><div class="cb">You can&#8217;t be forced to be a witness against yourself, tried twice for the same crime, or charged with a serious federal crime without a grand jury. The government can&#8217;t take your life, liberty or property without due process, or take your property for public use without paying fairly for it.</div></details>
+        <details class="rt-d"><summary><b>6th <span class="rt-key">key</span></b> &#183; a lawyer and a fair trial</summary><div class="cb">If you&#8217;re charged with a crime: a speedy public trial, an impartial jury where the crime happened, the right to know the charges, to face and question witnesses, to call your own, and to a lawyer (appointed if you can&#8217;t afford one, when jail is possible). Once you ask for a lawyer, stop answering questions until one is there.</div></details>
+        <details class="rt-d"><summary><b>7th</b> &#183; jury in civil cases</summary><div class="cb">A right to a jury in many federal civil lawsuits over money.</div></details>
+        <details class="rt-d"><summary><b>8th</b> &#183; no excessive bail or cruel punishment</summary><div class="cb">Bail and fines can&#8217;t be excessive, and punishment can&#8217;t be cruel and unusual.</div></details>
+        <details class="rt-d"><summary><b>9th</b> &#183; rights not listed still count</summary><div class="cb">Listing some rights doesn&#8217;t mean you lack the ones that aren&#8217;t listed.</div></details>
+        <details class="rt-d"><summary><b>10th</b> &#183; powers left to states and people</summary><div class="cb">Powers not given to the federal government belong to the states or the people. It&#8217;s why Washington and Oregon can have different rules.</div></details>
+      </div>
+      <div class="ew" style="font-size:11px">Amendments 11 to 27</div>
+      <div class="card">
+        <details class="rt-d"><summary><b>11th</b> &#183; limits on suing states</summary><div class="cb">Limits lawsuits against a state in federal court by people from other states or countries.</div></details>
+        <details class="rt-d"><summary><b>12th</b> &#183; how the president is elected</summary><div class="cb">Electors cast separate votes for president and vice president.</div></details>
+        <details class="rt-d"><summary><b>13th</b> &#183; slavery abolished</summary><div class="cb">Slavery and involuntary servitude are banned, except as punishment for a crime.</div></details>
+        <details class="rt-d"><summary><b>14th <span class="rt-key">key</span></b> &#183; citizenship, due process, equal protection</summary><div class="cb">Anyone born or naturalized here is a citizen. States must give every person due process and equal protection of the law. It is how most of the Bill of Rights applies to state and local police, not just federal agents.</div></details>
+        <details class="rt-d"><summary><b>15th</b> &#183; vote regardless of race</summary><div class="cb">The right to vote can&#8217;t be denied because of race or color.</div></details>
+        <details class="rt-d"><summary><b>16th</b> &#183; federal income tax</summary><div class="cb">Lets Congress tax income.</div></details>
+        <details class="rt-d"><summary><b>17th</b> &#183; senators elected by voters</summary><div class="cb">U.S. senators are elected directly by the people of each state.</div></details>
+        <details class="rt-d"><summary><b>18th</b> &#183; alcohol prohibition</summary><div class="cb">Banned alcohol; repealed by the 21st.</div></details>
+        <details class="rt-d"><summary><b>19th</b> &#183; women&#8217;s vote</summary><div class="cb">The right to vote can&#8217;t be denied because of sex.</div></details>
+        <details class="rt-d"><summary><b>20th</b> &#183; when terms begin</summary><div class="cb">Sets the January start dates for Congress and the president.</div></details>
+        <details class="rt-d"><summary><b>21st</b> &#183; prohibition repealed</summary><div class="cb">Ends the 18th; states regulate alcohol.</div></details>
+        <details class="rt-d"><summary><b>22nd</b> &#183; two-term president</summary><div class="cb">No one can be elected president more than twice.</div></details>
+        <details class="rt-d"><summary><b>23rd</b> &#183; D.C. votes for president</summary><div class="cb">Gives Washington, D.C. electors in presidential elections.</div></details>
+        <details class="rt-d"><summary><b>24th</b> &#183; no poll taxes</summary><div class="cb">You can&#8217;t be charged a tax to vote in federal elections.</div></details>
+        <details class="rt-d"><summary><b>25th</b> &#183; presidential succession</summary><div class="cb">Who takes over if the president dies, resigns or can&#8217;t serve.</div></details>
+        <details class="rt-d"><summary><b>26th</b> &#183; vote at 18</summary><div class="cb">Citizens 18 and older can&#8217;t be denied the vote because of age.</div></details>
+        <details class="rt-d"><summary><b>27th</b> &#183; congressional pay</summary><div class="cb">A pay raise Congress votes itself can&#8217;t take effect until after the next election.</div></details>
+      </div>
+      <div class="ew" style="font-size:11px">Rights in the original Constitution</div>
+      <div class="card">
+        <details class="rt-d"><summary><b>Habeas corpus</b> &#183; Article I</summary><div class="cb">If you&#8217;re held, you can ask a court to rule on whether your detention is lawful. Congress can suspend this only in rebellion or invasion.</div></details>
+        <details class="rt-d"><summary><b>No bills of attainder or ex post facto laws</b> &#183; Article I</summary><div class="cb">Lawmakers can&#8217;t declare a person guilty without a trial, or punish you for something that wasn&#8217;t a crime when you did it.</div></details>
+        <details class="rt-d"><summary><b>Jury trial for crimes</b> &#183; Article III</summary><div class="cb">Federal crimes are tried by jury, in the state where they happened. Treason needs two witnesses to the same act, or a confession in open court.</div></details>
+        <details class="rt-d"><summary><b>Privileges and immunities</b> &#183; Article IV</summary><div class="cb">A state must treat citizens of other states on basic matters the same as its own, which matters when you live in Washington and work or shop in Oregon.</div></details>
+        <details class="rt-d"><summary><b>No religious test for office</b> &#183; Article VI</summary><div class="cb">No religious test can be required to hold federal office.</div></details>
+        <div class="cs" style="margin-top:8px">Full text and annotations: <a href="https://constitution.congress.gov/constitution/" target="_blank" rel="noopener">Constitution Annotated (Library of Congress)</a>.</div>
+      </div>
+
+      <div class="ew">Washington, where you live</div>
+      <div class="card">
+        <details class="rt-d" open><summary><b>Your name and ID</b></summary><div class="cb">Washington has no general law requiring you to identify yourself to police. Two exceptions: when you&#8217;re driving or in charge of a vehicle, and when you&#8217;re being given a traffic or civil infraction, you must give your name and address (<a href="https://app.leg.wa.gov/rcw/default.aspx?cite=46.61.021" target="_blank" rel="noopener">RCW 46.61.021</a>, <a href="https://app.leg.wa.gov/rcw/default.aspx?cite=46.61.020" target="_blank" rel="noopener">46.61.020</a>, <a href="https://app.leg.wa.gov/rcw/default.aspx?cite=7.80.060" target="_blank" rel="noopener">7.80.060</a>). Giving false information to an officer is a crime (<a href="https://app.leg.wa.gov/rcw/default.aspx?cite=9A.76.175" target="_blank" rel="noopener">RCW 9A.76.175</a>).</div></details>
+        <details class="rt-d"><summary><b>Stronger privacy than the U.S. Constitution</b></summary><div class="cb">Article I, section 7 says no one may be disturbed in their private affairs, or have their home invaded, without authority of law. Washington&#8217;s Supreme Court reads it as broader than the 4th Amendment, and it has used it to protect text messages and bank records (<a href="https://caselaw.findlaw.com/wa-supreme-court/1658746.html" target="_blank" rel="noopener">State v. Hinton</a>).</div></details>
+        <details class="rt-d"><summary><b>No pretext traffic stops</b></summary><div class="cb">Police can&#8217;t use a minor traffic infraction as an excuse to investigate something else they have no grounds for (<a href="https://caselaw.findlaw.com/wa-supreme-court/1440459.html" target="_blank" rel="noopener">State v. Ladson, 1999</a>). A stop is still lawful if the officer truly decides the infraction itself needs addressing.</div></details>
+        <details class="rt-d"><summary><b>Police at your door</b></summary><div class="cb">If officers come without a warrant and ask to come in and search (a &#8220;knock and talk&#8221;), they must first tell you that you can refuse, limit where they go, and change your mind at any time. Without those warnings, your consent isn&#8217;t valid (<a href="https://law.justia.com/cases/washington/supreme-court/1998/64930-8-1.html" target="_blank" rel="noopener">State v. Ferrier, 1998</a>). You can talk through a closed door.</div></details>
+        <details class="rt-d"><summary><b>Recording</b></summary><div class="cb">You can record police doing their job in public; courts and the Attorney General treat those conversations as not private (<a href="https://www.atg.wa.gov/ago-opinions/video-and-audio-recording-communications-between-citizens-and-law-enforcement-officers" target="_blank" rel="noopener">AG opinion</a>; State v. Flora, 1992). Private conversations are different: Washington requires every party&#8217;s consent before you record one (<a href="https://app.leg.wa.gov/RCW/default.aspx?cite=9.73.030" target="_blank" rel="noopener">RCW 9.73.030</a>). Record openly.</div></details>
+        <details class="rt-d"><summary><b>At work</b></summary><div class="cb">Paid sick leave: at least 1 hour for every 40 hours worked, usable from your 90th day, with up to 40 unused hours carried into the next year (<a href="https://lni.wa.gov/workers-rights/leave/paid-sick-leave/" target="_blank" rel="noopener">L&amp;I</a>). Discrimination at work, in housing and in public places is illegal under the Washington Law Against Discrimination, including national origin, creed and race; complaints go to the <a href="https://www.hum.wa.gov/" target="_blank" rel="noopener">Human Rights Commission</a>, 1-800-233-3247.</div></details>
+      </div>
+
+      <div class="ew">Oregon, when you cross the river</div>
+      <div class="card">
+        <details class="rt-d" open><summary><b>Your name and ID</b></summary><div class="cb">Oregon has no general stop-and-identify law. If you&#8217;re driving, you must carry your license and show it when asked (<a href="https://www.oregonlaws.org/ors/807.570" target="_blank" rel="noopener">ORS 807.570</a>). Giving false information to an officer is an offense (<a href="https://www.oregonlaws.org/ors/807.620" target="_blank" rel="noopener">ORS 807.620</a>).</div></details>
+        <details class="rt-d"><summary><b>Traffic stops stay on topic</b></summary><div class="cb">Under Article I, section 9 of the Oregon Constitution, an officer&#8217;s questions during a traffic stop must relate to the reason for the stop, unless there&#8217;s separate legal justification. Asking about drugs or weapons during a stop for a missed signal crossed that line (<a href="https://caselaw.findlaw.com/court/or-supreme-court/2031454.html" target="_blank" rel="noopener">State v. Arreola-Botello, 2019</a>).</div></details>
+        <details class="rt-d"><summary><b>Recording</b></summary><div class="cb">You may openly record a police officer performing official duties in a place open to the public (<a href="https://www.oregonlaws.org/ors/165.540" target="_blank" rel="noopener">ORS 165.540</a>, as amended in 2015). Oregon is strict about recording other in-person conversations without telling people, so record openly and say you&#8217;re recording.</div></details>
+      </div>
+
+      <div class="ew">Your health records</div>
+      <div class="card">
+        <div class="cb">You have the right to a copy of your medical and billing records. A provider or health plan must act on your request within 30 calendar days, with one 30-day extension if they explain why in writing (<a href="https://www.hhs.gov/hipaa/for-professionals/faq/2050/how-timely-must-a-covered-entity-be/index.html" target="_blank" rel="noopener">HHS</a>). If state law gives you more, they must follow the stronger rule. That includes EEG reports and lab results.</div>
+        <div class="cs" style="margin-top:6px">Records refused or ignored? File a complaint with the HHS Office for Civil Rights (<a href="https://healthit.gov/privacy-security/your-health-information-rights/" target="_blank" rel="noopener">your health information rights</a>).</div>
+      </div>
+
+      <div class="ew">Write it down</div>
+      <div class="card">
+        <div class="cb">After any stop or encounter: date, time, place, officer names and badge numbers, car numbers, what was said, and any witnesses. Do it the same day, while it&#8217;s fresh. Saying &#8220;Hey Siri, log to Tareeq, note&#8230;&#8221; saves it here with the date.</div>
+      </div>
+
+      <div class="wbar"><i class="ti ti-info-circle"></i><span><strong>Not legal advice.</strong> A plain-language summary from the sources linked above. If you&#8217;re charged, sued or detained, talk to a lawyer licensed in that state.</span></div>
       <div class="ctarow">
         <button class="btn" onclick="go('protocol',document.querySelector('[data-pillar=protocol]'))"><i class="ti ti-arrow-left"></i> Back to my protocol</button>
       </div>
@@ -5085,6 +5197,13 @@ function beParse(t){var d=beData();
   if(typeof BB!=='undefined'&&BB.plan)BB.plan.items.push(['p-ramadan','Ramadan','moon-stars']);
   if(typeof SR_P!=='undefined')SR_P.splice(SR_P.length-5,0,['p-ramadan','Ramadan','moon-stars','protocol','ramadan suhoor iftar fajr maghrib fasting month sawm']);
   document.addEventListener('DOMContentLoaded',function(){rmBanner();});rmBanner();
+})();
+</script>
+<script>
+/* ---------- Rights tab wiring ---------- */
+(function(){
+  if(typeof bbOpen==='function'){var _bo=bbOpen;bbOpen=function(s){_bo(s);if(s==='more'){var g=document.getElementById('sheet-g');if(g&&!g.querySelector('[data-rt]'))g.insertAdjacentHTML('beforeend','<button data-rt="1" onclick="bbGoPanel(\'p-rights\')"><i class="ti ti-justice"></i>Your rights</button>');}};}
+  if(typeof SR_P!=='undefined')SR_P.splice(SR_P.length-5,0,['p-rights','Your rights','justice','protocol','rights constitution amendments bill of rights police stop search warrant silence lawyer recording washington oregon id identify sick leave discrimination medical records hipaa']);
 })();
 </script>
   <nav class="bbar" id="bbar" aria-label="Sections">
