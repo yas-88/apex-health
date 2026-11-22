@@ -576,6 +576,47 @@ body.has-bbar .fab{display:flex}
 .vx-step{display:flex;gap:10px;padding:6px 0;font-size:13.5px;color:var(--ink2);line-height:1.45}
 .vx-step b{flex:0 0 22px;height:22px;border-radius:50%;background:var(--repair-bg);color:var(--repair-dk);display:flex;align-items:center;justify-content:center;font-size:12px}
 .vx-code{font-family:ui-monospace,Menlo,monospace;font-size:11.5px;background:var(--bg3);padding:2px 5px;border-radius:5px;word-break:break-all}
+/* ---------- Insights ---------- */
+.rd,.rw{display:flex;align-items:center;gap:12px;padding:12px 14px;border-radius:var(--rlg);background:var(--bg2);border:0.5px solid var(--bdr2);margin-bottom:10px}
+.rd-ring{width:34px;height:34px;flex:0 0 34px;border-radius:50%;position:relative;background:conic-gradient(var(--rd-c) 0 var(--rd-p),var(--bg3) 0);animation:rdIn .9s cubic-bezier(.2,.8,.2,1)}
+.rd-ring span{position:absolute;inset:6px;border-radius:50%;background:var(--bg2)}
+.rdl-go{--rd-c:var(--repair);--rd-p:100%}.rdl-ok{--rd-c:var(--repair-mid);--rd-p:75%}.rdl-easy{--rd-c:var(--fuel);--rd-p:50%}.rdl-rest{--rd-c:var(--fire);--rd-p:25%}
+.rd-wait{--rd-c:var(--ink4);--rd-p:10%;opacity:.6}
+@keyframes rdIn{from{transform:rotate(-90deg) scale(.6);opacity:0}to{transform:none;opacity:1}}
+.rd-b{flex:1;min-width:0}.rd-t{font-weight:600;font-size:14.5px;color:var(--ink)}.rd-s{font-size:12.5px;color:var(--ink2);margin-top:2px;line-height:1.4}.rd-w{font-size:11.5px;color:var(--ink3);margin-top:4px;line-height:1.4}
+button.rd-go{background:var(--ink);color:var(--bg);border:none;border-radius:16px;padding:7px 12px;font:inherit;font-size:13px;cursor:pointer}
+.rw{background:color-mix(in srgb,var(--fire) 9%,var(--bg2));align-items:flex-start}.rw>i{color:var(--fire);font-size:20px;margin-top:2px}
+.rw-x{background:none;border:none;color:var(--ink3);font-size:20px;cursor:pointer;line-height:1}
+.dr-ov{position:fixed;inset:0;z-index:975;background:rgba(0,0,0,.45);overflow-y:auto;opacity:0;pointer-events:none;transition:opacity .2s}
+.dr-ov.on{opacity:1;pointer-events:auto}
+.dr-bar{position:sticky;top:0;display:flex;gap:8px;justify-content:flex-end;padding:calc(10px + env(safe-area-inset-top,0px)) 14px 10px;max-width:760px;margin:0 auto}
+.dr-bar button{background:var(--bg);color:var(--ink);border:0.5px solid var(--bdr2);border-radius:18px;padding:8px 14px;font:inherit;font-size:13.5px;cursor:pointer}
+.dr-bar button.pr{background:var(--ink);color:var(--bg)}
+.dr-page{background:#fff;color:#1c1c1a;max-width:720px;margin:0 auto 40px;padding:28px 26px;border-radius:10px;font-size:13px;line-height:1.45;box-shadow:0 10px 30px rgba(0,0,0,.25)}
+.dr-page h3{font-family:'DM Serif Display',serif;font-weight:400;font-size:17px;margin:18px 0 6px;color:#1c1c1a}
+.dr-page table{width:100%;border-collapse:collapse;font-size:12.5px}
+.dr-page td,.dr-page th{border-bottom:1px solid #e4e2dc;padding:5px 6px;text-align:left;vertical-align:top}
+.dr-page th{font-weight:600;color:#55534d;font-size:11.5px}
+.dr-h{display:flex;justify-content:space-between;align-items:flex-end;border-bottom:2px solid #1D9E75;padding-bottom:8px}
+.dr-k{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:#55534d}
+.dr-ttl{font-family:'DM Serif Display',serif;font-size:22px;color:#1c1c1a}
+.dr-n{color:#6b6963;font-size:12px}
+.dr-foot{margin-top:18px;color:#6b6963;font-size:11px;border-top:1px solid #e4e2dc;padding-top:8px}
+.dr-q{width:100%;min-height:90px;box-sizing:border-box;border:1px solid #d6d3cb;border-radius:8px;padding:8px;font:inherit;font-size:13px;background:#fafaf7;color:#1c1c1a}
+.dr-qp{display:none}
+.qr-sec{margin-top:12px}.qr-h{font-weight:600;font-size:13.5px;color:var(--ink);margin-bottom:4px}
+.dr-page .qr-h{color:#1c1c1a}
+#qr-body table{width:100%;border-collapse:collapse;font-size:13px}#qr-body td{padding:4px 0;border-bottom:0.5px solid var(--bdr)}
+#qr-body p{font-size:13px;color:var(--ink2);margin:4px 0}
+#qr-body .dr-q{background:var(--bg);color:var(--ink);border-color:var(--bdr2)}
+@media print{
+  body.dr-printing>*:not(#dr-ov){display:none!important}
+  body.dr-printing #dr-ov{position:static;background:none;overflow:visible;opacity:1}
+  body.dr-printing .dr-bar{display:none}
+  body.dr-printing .dr-page{box-shadow:none;margin:0;padding:0;max-width:none}
+  body.dr-printing .dr-q{display:none}body.dr-printing .dr-qp{display:block}
+  @page{margin:14mm}
+}
 /* ---------- Rights ---------- */
 :root{--rt-ico:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M12 3v18M7 21h10M5 7h14M5 7l-3 6a3 3 0 0 0 6 0zM19 7l-3 6a3 3 0 0 0 6 0z'/%3E%3C/svg%3E")}
 .ti.ti-justice::before{content:'';display:inline-block;width:1em;height:1em;vertical-align:-.125em;background:currentColor;-webkit-mask:var(--rt-ico) center/contain no-repeat;mask:var(--rt-ico) center/contain no-repeat}
@@ -1221,6 +1262,8 @@ html[data-motion="off"] *,html[data-motion="off"] *::before,html[data-motion="of
     <div class="cp-alert on" id="si-banner" role="status" style="display:none;background:var(--repair-bg);border-color:var(--repair-mid)"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" style="flex:0 0 20px;fill:none;stroke:var(--repair-dk);stroke-width:2;stroke-linecap:round;stroke-linejoin:round"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg><div><div class="cp-t">You&#8217;re signed out</div><div class="cp-s">Everything still saves on this phone. Sign in to sync and load Vitals.</div><button class="cp-go" style="color:var(--repair-dk)" onclick="window.acPasskey&&acPasskey()">Sign in with Face ID</button> <button class="cp-go" style="color:var(--ink3);margin-left:10px" onclick="setAppMode('protocol');go('p-account',document.querySelector('[data-pillar=p-account]'))">Use password</button></div></div>
     <div class="cp-alert on" id="tv-banner" style="display:none;background:var(--fuel-bg);border-color:var(--fuel-mid)"><i class="ti ti-run" style="color:var(--fuel-dk)"></i><div><div class="cp-t">Travel mode is on</div><div class="cp-s">Light, move, water, check-in. The rest can wait until you&#8217;re home.</div><button class="cp-go" style="color:var(--fuel-dk)" onclick="setAppMode('protocol');go('p-travel',document.querySelector('[data-pillar=p-travel]'))">Open travel mode</button></div></div>
     <div id="rm-banner" style="display:none"></div>
+    <div id="rw-banner" style="display:none"></div>
+    <div id="rd-card"></div>
     <div class="cp-alert" id="cp-alert" role="status" aria-live="polite">
       <i class="ti ti-calendar-event"></i>
       <div><div class="cp-t" id="cp-title"></div><div class="cp-s" id="cp-sub"></div>
@@ -2530,6 +2573,7 @@ html[data-motion="off"] *,html[data-motion="off"] *::before,html[data-motion="of
     <!-- ═══════════ PROTOCOL: BASELINE (physician tracker) ═══════════ -->
     <div id="p-p-baseline" class="panel">
       <div class="ibar"><i class="ti ti-info-circle"></i><span>The gate on extended fasting opens here, or it holds. One honest baseline this year, so next year's numbers mean something.</span></div>
+      <button class="btn pr" style="margin:0 0 12px" onclick="drSummary()"><i class="ti ti-clipboard-list"></i> One-page summary for your doctor</button>
 
       <div class="ew">Lab trends</div>
       <div class="card">
@@ -3121,6 +3165,12 @@ html[data-motion="off"] *,html[data-motion="off"] *::before,html[data-motion="of
     <div id="p-p-checkpoints" class="panel">
       <div class="ibar"><i class="ti ti-info-circle"></i><span>Every review point, always 3 years ahead. New years add themselves each July. Quarterly checkpoints count from the July 20, 2026 training start. Each one ends the same way: send the notes to Claude and update Tareeq.</span></div>
 
+      <div class="ew">Quarterly checkpoint report</div>
+      <div class="card">
+        <div class="cs">Filled in from your logs, in checkpoint order: strength, sleep, self-relationship, labs. Add your reflection; it saves and syncs.</div>
+        <div class="wt-form" style="margin:8px 0;flex-wrap:wrap"><select id="qr-sel" class="fa-sel" onchange="qrRender()" aria-label="Quarter"></select><button class="btn" onclick="qrPrint()"><i class="ti ti-arrow-down"></i> Save as PDF</button></div>
+        <div id="qr-body"></div>
+      </div>
       <div class="ew">Burn-up, rolling 3 years ahead</div>
       <div class="kpis" id="bu-stats"></div>
       <div class="card chart"><div id="bu-chart"></div>
@@ -5204,6 +5254,95 @@ function beParse(t){var d=beData();
 (function(){
   if(typeof bbOpen==='function'){var _bo=bbOpen;bbOpen=function(s){_bo(s);if(s==='more'){var g=document.getElementById('sheet-g');if(g&&!g.querySelector('[data-rt]'))g.insertAdjacentHTML('beforeend','<button data-rt="1" onclick="bbGoPanel(\'p-rights\')"><i class="ti ti-justice"></i>Your rights</button>');}};}
   if(typeof SR_P!=='undefined')SR_P.splice(SR_P.length-5,0,['p-rights','Your rights','justice','protocol','rights constitution amendments bill of rights police stop search warrant silence lawyer recording washington oregon id identify sick leave discrimination medical records hipaa']);
+})();
+</script>
+  <div class="dr-ov" id="dr-ov" role="dialog" aria-modal="true" aria-label="Printable summary"><div class="dr-bar"><button onclick="drClose()">Close</button><button class="pr" onclick="drPrint()"><i class="ti ti-arrow-down"></i> Save as PDF or print</button></div><div class="dr-page"></div></div>
+<script>
+/* ---------- Insights: morning readiness, resting-HR watch, doctor summary, quarterly report ---------- */
+var DR_FOR='Dr. Chikere';
+function inV(){var r=(typeof VT_KEY!=='undefined')?lsGet(VT_KEY,[]):[],m={};r.forEach(function(x){(m[x.metric]=m[x.metric]||{})[x.d]=+x.value;});return m;}
+function inAvg(obj,from,to){var v=[];Object.keys(obj||{}).forEach(function(k){if(k>=from&&k<=to)v.push(obj[k]);});return v.length?{v:v.reduce(function(a,b){return a+b;},0)/v.length,n:v.length}:null;}
+function inDay(off){var d=new Date();d.setDate(d.getDate()+off);return ymd(d);}
+function inSleep(m,k){var ci=lsGet(MH_KEY,{});return (m.sleep_h&&m.sleep_h[k]!=null)?m.sleep_h[k]:(ci[k]&&ci[k].sleepH!=null?+ci[k].sleepH:null);}
+
+/* 1. Morning readiness (thresholds are judgment, not a validated score) */
+function rdRender(){var el=document.getElementById('rd-card');if(!el)return;var m=inV(),t=ymd(new Date()),b0=inDay(-28),b1=inDay(-1);
+  var sl=inSleep(m,t),hv=m.hrv&&m.hrv[t],rh=m.rhr&&m.rhr[t],al=lsGet('tareeq-alert',[]).filter(function(x){return x.d===t;})[0];
+  if(sl==null&&hv==null&&rh==null){var nv=typeof VT_KEY==='undefined';el.innerHTML='<div class="rd"><div class="rd-ring rd-wait"></div><div class="rd-b"><div class="rd-t">Readiness</div><div class="rd-s">'+(nv?'Log last night’s sleep in the check-in to see today’s readiness.':'Waiting for today’s numbers from Apple Health.')+'</div></div><button class="rd-go" onclick="bbGoPanel(\''+(nv?'p-mind':'p-vitals')+'\')">'+(nv?'Check-in':'Vitals')+'</button></div>';return;}
+  var ah=inAvg(m.hrv,b0,b1),ar=inAvg(m.rhr,b0,b1),aa=null,s=0,why=[],enough=(ah&&ah.n>=5)||(ar&&ar.n>=5);
+  var pa=lsGet('tareeq-alert',[]).filter(function(x){return x.d>=b0&&x.d<=b1;});if(pa.length>=3)aa=pa.reduce(function(a,x){return a+x.med;},0)/pa.length;
+  if(sl!=null){if(sl<6.5){s--;why.push('short sleep ('+sl.toFixed(1)+' h)');}else if(sl>=7){s++;why.push(sl.toFixed(1)+' h sleep');}else why.push(sl.toFixed(1)+' h sleep');}
+  if(hv!=null&&ah&&ah.n>=5){var p=(hv-ah.v)/ah.v;if(p<=-0.15){s--;why.push('HRV '+Math.round(hv)+', below your usual '+Math.round(ah.v));}else if(p>=0.05){s++;why.push('HRV '+Math.round(hv)+', above your usual');}else why.push('HRV near your usual');}
+  if(rh!=null&&ar&&ar.n>=5){var dr=rh-ar.v;if(dr>=5){s-=2;why.push('resting HR '+Math.round(rh)+', up '+Math.round(dr)+' bpm');}else if(dr<=0){s++;why.push('resting HR at or under your usual');}else why.push('resting HR near your usual');}
+  if(al&&aa){if(al.med>=aa+25){s--;why.push('slower alertness check');}else if(al.med<=aa-15){s++;why.push('sharp alertness check');}}
+  var lv=s>=1?'go':s===0?'ok':s===-1?'easy':'rest',T={go:'Train as planned',ok:'Train as planned, effort honest',easy:'Go lighter today',rest:'Easy day: walk and mobility'},
+    S={go:'Your numbers look recovered.',ok:'Nothing stands out either way.',easy:'Same session, one less set per exercise, stop 3 reps short of failure.',rest:'Skip the dumbbells today. A walk, the Breath Garden, an early night.'};
+  el.innerHTML='<div class="rd rdl-'+lv+'"><div class="rd-ring"><span></span></div><div class="rd-b"><div class="rd-t">'+T[lv]+'</div><div class="rd-s">'+S[lv]+'</div><div class="rd-w">'+why.join(' · ')+(enough?'':' · your baseline is still building, so this is mostly sleep for now')+' \u00b7 a rule of thumb, not a diagnosis'+'</div></div></div>';}
+
+/* 2. Resting heart rate early warning */
+function rwRender(){var el=document.getElementById('rw-banner');if(!el)return;var m=inV(),r=m.rhr||{},t=ymd(new Date()),last=[inDay(-2),inDay(-1),t];
+  if(lsGet('tareeq-rw-off','')===t){el.style.display='none';return;}
+  var base=inAvg(r,inDay(-30),inDay(-3));if(!base||base.n<7||last.some(function(k){return r[k]==null||r[k]<base.v+5;})){el.style.display='none';return;}
+  el.style.display='';el.innerHTML='<div class="rw"><i class="ti ti-heartbeat"></i><div style="flex:1"><div class="rd-t">Resting heart rate is up</div><div class="rd-s">Above your usual '+Math.round(base.v)+' bpm for 3 days: '+last.map(function(k){return Math.round(r[k]);}).join(', ')+'. A cold coming on, short sleep, alcohol, stress or hard training can all do this. Consider an easy day. If you feel unwell or it keeps rising, check in with your doctor.</div></div><button class="rw-x" aria-label="Dismiss for today" onclick="lsSet(\'tareeq-rw-off\',\''+t+'\');rwRender()">×</button></div>';}
+
+/* 3 + 4. Printable reports */
+function drOpen(html){var o=document.getElementById('dr-ov');o.querySelector('.dr-page').innerHTML=html;o.classList.add('on');document.documentElement.style.overflow='hidden';o.scrollTop=0;}
+function drClose(){document.getElementById('dr-ov').classList.remove('on');document.documentElement.style.overflow='';}
+function drPrint(){document.body.classList.add('dr-printing');setTimeout(function(){window.print();setTimeout(function(){document.body.classList.remove('dr-printing');},400);},50);}
+function drFmt(v,u){return v==null?'–':(Math.round(v*10)/10)+(u?' '+u:'');}
+function drD(d){return fmtD(d)+', '+String(d).slice(0,4);}
+function drSummary(){var t=new Date(),m=inV(),wt=(typeof wtData==='function')?wtData():[],k90=inDay(-90),k28=inDay(-28),tk=ymd(t);
+  var labs=(typeof lbData==='function')?lbData():[],byM={};labs.forEach(function(e){(byM[e.m]=byM[e.m]||[]).push(e);});
+  var lr=Object.keys(byM).map(function(k){var a=byM[k].sort(function(x,y){return x.d<y.d?-1:1;}),L=a[a.length-1],P=a.length>1?a[a.length-2]:null,M=(typeof LB_M!=='undefined'&&LB_M[k])||{n:k,u:''},rg=M.r?M.r[0]+' to '+M.r[1]:'';
+    return '<tr><td>'+M.n+'</td><td><b>'+L.v+'</b> '+(M.u||'')+'</td><td>'+drD(L.d)+'</td><td>'+(P?P.v+' ('+drD(P.d)+')':'')+'</td><td>'+rg+'</td></tr>';}).join('');
+  var w3=wt.filter(function(e){return e.d>=k90;}),wf=w3[0],wl=w3[w3.length-1],ws=wt.filter(function(e){return e.waist;}),wsl=ws[ws.length-1];
+  function row(lbl,key,u,dec){var a=inAvg(m[key],k28,tk),b=inAvg(m[key],k90,tk);return '<tr><td>'+lbl+'</td><td>'+(a?(+a.v.toFixed(dec)).toLocaleString()+' '+u:'–')+'</td><td>'+(b?(+b.v.toFixed(dec)).toLocaleString()+' '+u+' <span class="dr-n">('+b.n+' days)</span>':'–')+'</td></tr>';}
+  var tr=0;for(var i=0;i<28;i++){if(typeof tqGet==='function'&&tqGet(inDay(-i)).d.train)tr++;}
+  var stk=(typeof TQ_STK!=='undefined')?TQ_STK.map(function(g){return '<tr><td>'+g[0]+'</td><td>'+g[1].map(function(x){return x[1];}).join(', ')+'</td></tr>';}).join(''):'';
+  var q=lsGet('tareeq-dr-q','');
+  drOpen('<div class="dr-h"><div><div class="dr-k">Health summary</div><div class="dr-ttl">From Tareeq'+(DR_FOR?', for '+DR_FOR:'')+'</div></div><div class="dr-k">'+drD(tk)+'</div></div>'+
+    '<h3>Lab results</h3>'+(lr?'<table><tr><th>Test</th><th>Latest</th><th>Date</th><th>Previous</th><th>Lab range</th></tr>'+lr+'</table>':'<p class="dr-n">No lab results entered.</p>')+
+    '<h3>Body</h3><table><tr><td>Weight, last 3 months</td><td>'+(wf?drFmt(wf.lb,'lb')+' ('+drD(wf.d)+') to '+drFmt(wl.lb,'lb')+' ('+drD(wl.d)+')':'–')+'</td></tr><tr><td>Waist, latest</td><td>'+(wsl?drFmt(wsl.waist,'in')+' ('+drD(wsl.d)+')':'–')+'</td></tr></table>'+
+    '<h3>From Apple Watch</h3><table><tr><th></th><th>Last 4 weeks</th><th>Last 3 months</th></tr>'+row('Resting heart rate','rhr','bpm',0)+row('HRV','hrv','ms',0)+row('Sleep','sleep_h','h',1)+row('Steps a day','steps','',0)+'</table><p class="dr-n">Training days in the last 4 weeks: '+tr+'.</p>'+
+    '<h3>Supplements, daily</h3><table>'+stk+'</table>'+
+    '<h3>My questions</h3><textarea id="dr-q" class="dr-q" placeholder="Type questions for the visit. They print with the summary." oninput="lsSet(\'tareeq-dr-q\',this.value)">'+String(q).replace(/</g,'&lt;')+'</textarea><div class="dr-qp">'+String(q).replace(/</g,'&lt;').replace(/\n/g,'<br>')+'</div>'+
+    '<p class="dr-foot">Self-tracked with an Apple Watch and entered by hand; not a medical record. Lab ranges are the lab’s own.</p>');
+  var ta=document.getElementById('dr-q');if(ta)ta.addEventListener('input',function(){ta.nextElementSibling.innerHTML=ta.value.replace(/</g,'&lt;').replace(/\n/g,'<br>');});}
+
+var QR_KEY='tareeq-qreport';
+function qrStart(){return (typeof TQ_START!=='undefined'&&TQ_START)?(Array.isArray(TQ_START)?new Date(TQ_START[0],TQ_START[1],TQ_START[2]):pd(TQ_START)):new Date(2026,6,20);}
+function qrList(){var s=qrStart(),out=[],now=new Date();for(var i=1;i<40;i++){var e=new Date(s);e.setMonth(e.getMonth()+3*i);var b=new Date(s);b.setMonth(b.getMonth()+3*(i-1));out.push({i:i,from:ymd(b),to:ymd(e)});if(e>now)break;}return out;}
+function qrRender(){var sel=document.getElementById('qr-sel');if(!sel)return;var L=qrList(),cur=sel.value?+sel.value:L[L.length-1].i;
+  sel.innerHTML=L.map(function(q){return '<option value="'+q.i+'"'+(q.i===cur?' selected':'')+'>'+(q.i*3)+'-month checkpoint, '+fmtD(q.to)+'</option>';}).join('');
+  var q=L.filter(function(x){return x.i===cur;})[0],box=document.getElementById('qr-body');box.innerHTML=qrBody(q,false);}
+function qrBody(q,print){var m=inV(),ci=lsGet(MH_KEY,{}),bn=(typeof bnData==='function')?bnData():[],wt=(typeof wtData==='function')?wtData():[],labs=(typeof lbData==='function')?lbData():[];
+  var inQ=function(d){return d>q.from&&d<=q.to;};
+  var bq=bn.filter(function(e){return e.d<=q.to;}),b0=bq.filter(function(e){return e.d>q.from;})[0]||null,b1=bq[bq.length-1]||null,bprev=bn.filter(function(e){return e.d<=q.from;}).slice(-1)[0]||null;
+  var st=(typeof BN_F!=='undefined'&&b1)?BN_F.map(function(f){var a=(bprev||b0||{})[f[0]],b=b1[f[0]];return b==null?'':'<tr><td>'+f[1]+'</td><td>'+(a!=null&&(bprev||b0)!==b1?a+' → ':'')+'<b>'+b+'</b> '+f[2]+'</td></tr>';}).join(''):'';
+  var sv=[],cv={mood:[],stress:[],energy:[]},rs=0,rn=0;Object.keys(ci).forEach(function(d){if(!inQ(d))return;var c=ci[d];['mood','stress','energy'].forEach(function(k){if(c[k])cv[k].push(+c[k]);});if(c.rested!=null){rn++;if(+c.rested>=3)rs++;}});
+  Object.keys(m.sleep_h||{}).forEach(function(d){if(inQ(d))sv.push(m.sleep_h[d]);});Object.keys(ci).forEach(function(d){if(inQ(d)&&ci[d].sleepH&&!(m.sleep_h&&m.sleep_h[d]!=null))sv.push(+ci[d].sleepH);});
+  var av=function(a){return a.length?(a.reduce(function(x,y){return x+y;},0)/a.length):null;};
+  var wq=wt.filter(function(e){return inQ(e.d);}),lq=labs.filter(function(e){return inQ(e.d);});
+  var tr=0,days=0;for(var d=pd(q.from);ymd(d)<=q.to&&d<=new Date();d.setDate(d.getDate()+1)){days++;if(typeof tqGet==='function'&&tqGet(ymd(d)).d.train)tr++;}
+  var notes=(lsGet(QR_KEY,{})[q.i]||{}).notes||'';
+  return '<div class="qr-sec"><div class="qr-h">1. Strength</div>'+(st?'<table>'+st+'</table>':'<p class="dr-n">No monthly benchmarks logged yet.</p>')+'<p class="dr-n">Training days logged: '+tr+' of '+days+'.</p></div>'+
+   '<div class="qr-sec"><div class="qr-h">2. Sleep</div><p>'+(sv.length?'Average '+av(sv).toFixed(1)+' h over '+sv.length+' nights.':'No sleep data in this quarter.')+(rn?' Felt rested on '+rs+' of '+rn+' check-ins.':'')+'</p></div>'+
+   '<div class="qr-sec"><div class="qr-h">3. Self-relationship</div><p>'+(cv.mood.length||cv.stress.length?'Check-ins: mood '+(av(cv.mood)||0).toFixed(1)+', energy '+(av(cv.energy)||0).toFixed(1)+', stress '+(av(cv.stress)||0).toFixed(1)+' (out of 5, '+Math.max(cv.mood.length,cv.stress.length)+' days).':'No check-ins in this quarter.')+'</p></div>'+
+   '<div class="qr-sec"><div class="qr-h">4. Labs</div>'+(lq.length?'<p>'+lq.map(function(e){var M=(typeof LB_M!=='undefined'&&LB_M[e.m])||{n:e.m,u:''};return M.n+' '+e.v+' '+(M.u||'')+' ('+fmtD(e.d)+')';}).join('; ')+'.</p>':'<p class="dr-n">No lab draws in this quarter.</p>')+'</div>'+
+   '<div class="qr-sec"><div class="qr-h">Body</div><p>'+(wq.length?'Weight '+wq[0].lb+' lb ('+fmtD(wq[0].d)+') to '+wq[wq.length-1].lb+' lb ('+fmtD(wq[wq.length-1].d)+').':'No weigh-ins in this quarter.')+' Check the body map against this quarter’s photos.</p></div>'+
+   '<div class="qr-sec"><div class="qr-h">Your reflection</div>'+(print?'<p>'+(notes?notes.replace(/</g,'&lt;').replace(/\n/g,'<br>'):'–')+'</p>':'<textarea class="dr-q" placeholder="What worked, what didn’t, what changes next quarter." oninput="qrSave('+q.i+',this.value)">'+notes.replace(/</g,'&lt;')+'</textarea>')+'</div>';}
+function qrSave(i,v){var d=lsGet(QR_KEY,{});d[i]={notes:v};lsSet(QR_KEY,d);}
+function qrPrint(){var sel=document.getElementById('qr-sel'),L=qrList(),q=L.filter(function(x){return x.i===+sel.value;})[0];
+  drOpen('<div class="dr-h"><div><div class="dr-k">Quarterly checkpoint</div><div class="dr-ttl">'+(q.i*3)+' months, '+fmtD(q.from)+' to '+fmtD(q.to)+'</div></div><div class="dr-k">'+fmtD(ymd(new Date()))+'</div></div>'+qrBody(q,true)+'<p class="dr-foot">Review order: strength, sleep, self-relationship, labs.</p>');}
+
+(function(){
+  if(typeof tdRender==='function'){var _t=tdRender;tdRender=function(){_t.apply(this,arguments);rdRender();rwRender();};}
+  if(typeof vtRender==='function'){var _v=vtRender;vtRender=function(){_v.apply(this,arguments);rdRender();rwRender();};}
+  var _g=go;go=function(id,btn){_g(id,btn);if(id==='p-checkpoints')qrRender();};
+  document.addEventListener('keydown',function(e){if(e.key==='Escape'&&document.getElementById('dr-ov').classList.contains('on'))drClose();});
+  if(typeof SYNC_KEYS!=='undefined')['tareeq-dr-q',QR_KEY].forEach(function(k){if(SYNC_KEYS.indexOf(k)<0)SYNC_KEYS.push(k);});
+  if(typeof SR_P!=='undefined'){SR_P.forEach(function(P){if(P[0]==='p-baseline')P[4]+=' doctor summary pdf print visit';if(P[0]==='p-checkpoints')P[4]+=' quarterly report review';});}
+  rdRender();rwRender();
 })();
 </script>
   <nav class="bbar" id="bbar" aria-label="Sections">
