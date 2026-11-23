@@ -476,6 +476,105 @@ html[data-scheme="seasonal"][data-tq-season="ss"]:not([data-theme="dark"]) .path
 .mv-x{position:absolute;top:6px;right:8px;border:none;background:none;font-size:18px;line-height:1;color:var(--ink4);padding:6px;cursor:pointer}
 @keyframes mv-drift{from{transform:translate(-6%,0) rotate(0deg)}to{transform:translate(6%,3%) rotate(8deg)}}
 html[data-motion="calm"] .mv-glow{animation-duration:40s}
+/* ---------- Wudu guide ---------- */
+.wd-ov{position:fixed;inset:0;z-index:9000;background:color-mix(in srgb,var(--bg) 60%,transparent);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);display:flex;align-items:flex-end;justify-content:center;opacity:0;pointer-events:none;transition:opacity .3s ease}
+.wd-ov.on{opacity:1;pointer-events:auto}
+.wd-box{position:relative;width:100%;max-width:460px;background:var(--bg2);border-radius:22px 22px 0 0;padding:16px 18px calc(18px + env(safe-area-inset-bottom));box-shadow:0 -10px 40px rgba(0,0,0,.18);transform:translateY(30px);transition:transform .45s var(--tq-spring,ease)}
+.wd-ov.on .wd-box{transform:none}
+.wd-x{position:absolute;top:8px;right:10px;border:none;background:none;font-size:24px;color:var(--ink3);padding:6px;cursor:pointer}
+.wd-prog{display:flex;gap:4px;margin:4px 40px 10px 0}
+.wd-prog i{flex:1;height:4px;border-radius:3px;background:var(--bdr)}
+.wd-prog i.done{background:var(--repair)}
+.wd-prog i.now{background:linear-gradient(90deg,var(--repair),var(--gold))}
+.wd-stage{background:radial-gradient(circle at 50% 45%,color-mix(in srgb,var(--repair) 12%,var(--bg)),var(--bg));border-radius:18px;padding:6px}
+.wd-svg{display:block;width:100%;max-width:240px;height:auto;margin:0 auto}
+.wd-svg.in{animation:wd-in .5s var(--tq-spring,ease)}
+@keyframes wd-in{from{opacity:0;transform:scale(.94)}to{opacity:1;transform:none}}
+.wd-n{font-size:11px;color:var(--ink3);text-transform:uppercase;letter-spacing:.06em;margin-top:12px}
+.wd-t{font-family:'DM Serif Display',Georgia,serif;font-size:24px;color:var(--ink);line-height:1.2}
+.wd-t span{font-family:Inter,system-ui,sans-serif;font-size:13px;color:var(--repair);font-weight:600;vertical-align:4px;margin-left:4px}
+.wd-d{font-size:14.5px;line-height:1.5;color:var(--ink2);margin-top:4px}
+.wd-tip{font-size:12.5px;color:var(--ink3);margin-top:6px;font-style:italic}
+.wd-ct{min-height:8px}
+.wd-cnt{display:flex;align-items:center;gap:8px;margin:10px 0 0;padding:10px 14px;border-radius:14px;border:0.5px solid var(--bdr2);background:var(--bg);color:var(--ink2);font:inherit;font-size:13px;cursor:pointer;width:100%}
+.wd-cnt i{width:16px;height:16px;border-radius:50%;border:1.5px solid var(--repair);transition:all .25s var(--tq-spring,ease)}
+.wd-cnt i.on{background:var(--repair);transform:scale(1.15)}
+.wd-cnt span{margin-left:auto}
+.wd-nav{display:flex;gap:10px;margin-top:12px}
+.wd-nav .wd-next{flex:1;margin-top:0;animation:none}
+.wd-stream{animation:wd-dash .6s linear infinite}
+.wd-faint{opacity:.35}
+@keyframes wd-dash{to{stroke-dashoffset:-12}}
+.wd-drop{animation:wd-drop 1.4s ease-in infinite}
+@keyframes wd-drop{0%{transform:translateY(0);opacity:0}20%{opacity:1}100%{transform:translateY(40px);opacity:0}}
+.wd-rub{animation:wd-rub 1.1s ease-in-out infinite alternate}
+.wd-rub2{animation:wd-rub 1.1s ease-in-out infinite alternate-reverse}
+@keyframes wd-rub{from{transform:translateX(-5px)}to{transform:translateX(5px)}}
+.wd-lift{animation:wd-lift 2.2s ease-in-out infinite}
+@keyframes wd-lift{0%,100%{transform:translateY(14px)}45%,60%{transform:translateY(-4px)}}
+.wd-swish{animation:wd-sw 1s ease-in-out infinite alternate}
+@keyframes wd-sw{from{transform:translateX(-4px)}to{transform:translateX(4px)}}
+.wd-breath{animation:wd-br 2.2s ease-in-out infinite;transform-origin:100px 108px}
+@keyframes wd-br{0%,50%{opacity:0;transform:scale(.6)}70%{opacity:1;transform:scale(1)}100%{opacity:0;transform:scale(1.3)}}
+.wd-sweep{animation:wd-swp 2.4s ease-in-out infinite}
+@keyframes wd-swp{0%{transform:translateY(-6px)}50%{transform:translateY(40px)}100%{transform:translateY(-6px)}}
+.wd-shine{animation:wd-sh 2.4s ease-in-out infinite}
+@keyframes wd-sh{0%,100%{opacity:.2}50%{opacity:1}}
+.wd-flow{animation:wd-dash2 .9s linear infinite}
+@keyframes wd-dash2{to{stroke-dashoffset:-18}}
+.wd-slide{animation:wd-sl 2.6s ease-in-out infinite}
+@keyframes wd-sl{0%,100%{transform:translateX(0)}50%{transform:translateX(96px)}}
+.wd-wipe{animation:wd-wp 2.4s ease-in-out infinite}
+@keyframes wd-wp{0%,100%{transform:translate(-26px,8px)}50%{transform:translate(26px,8px)}}
+.wd-ear{animation:wd-ea 1.4s ease-in-out infinite}
+@keyframes wd-ea{0%,100%{opacity:.3}50%{opacity:1}}
+.wd-toes{animation:wd-to 1.2s ease-in-out infinite alternate}
+@keyframes wd-to{from{transform:translateX(-4px)}to{transform:translateX(6px)}}
+.wd-glow{animation:wd-gl 3s ease-in-out infinite;transform-origin:100px 100px}
+@keyframes wd-gl{0%,100%{transform:scale(.92)}50%{transform:scale(1.06)}}
+.wd-heart{animation:wd-ht 1.6s ease-in-out infinite;transform-origin:100px 106px}
+@keyframes wd-ht{0%,100%{transform:scale(1)}15%{transform:scale(1.12)}30%{transform:scale(1)}}
+.wd-ray{animation:wd-ry 2.6s ease-in-out infinite}
+@keyframes wd-ry{0%,100%{opacity:.1}50%{opacity:.6}}
+.wd-finger{animation:wd-fg 2.6s ease-in-out infinite}
+@keyframes wd-fg{0%,100%{transform:translateY(4px)}50%{transform:translateY(0)}}
+html[data-motion="calm"] .wd-svg *{animation-duration:6s!important}
+/* ---------- Roots ---------- */
+.ro-hero{background:radial-gradient(120% 90% at 85% 0%,color-mix(in srgb,var(--gold) 18%,transparent),transparent 60%),linear-gradient(160deg,color-mix(in srgb,var(--fire) 6%,var(--bg2)),var(--bg2))}
+.ro-read{display:inline-block;font-size:10px;font-weight:600;padding:2px 7px;border-radius:10px;background:var(--gold-bg);color:var(--gold);vertical-align:1px;margin-right:4px;font-style:normal}
+.ro-tl{position:relative;padding-left:30px}
+.ro-tl::before{content:'';position:absolute;left:16px;top:18px;bottom:18px;width:2px;background:linear-gradient(var(--gold),var(--repair));border-radius:2px}
+.ro-ev{position:relative;padding:8px 0 10px;font-size:13px;line-height:1.5;color:var(--ink2);opacity:0;transform:translateY(8px);transition:opacity .6s ease,transform .6s ease}
+.ro-ev.in{opacity:1;transform:none}
+.ro-ev::before{content:'';position:absolute;left:-19px;top:12px;width:10px;height:10px;border-radius:50%;background:var(--bg2);border:2px solid var(--gold)}
+.ro-ev b{display:block;color:var(--ink);font-size:13.5px}
+.ro-mem::before{border-color:var(--ground);background:var(--ground)}
+.ro-now::before{border-color:var(--repair);background:var(--repair);box-shadow:0 0 0 4px color-mix(in srgb,var(--repair) 25%,transparent);animation:sl-breathe 3s ease-in-out infinite}
+.ro-mom .ro-q{font-family:'DM Serif Display',Georgia,serif;font-size:20px;line-height:1.35;color:var(--ink);padding-left:12px;border-left:2px solid var(--gold)}
+.ro-p{padding:10px 0;border-bottom:0.5px solid var(--bdr);font-size:13px;line-height:1.55;color:var(--ink2)}
+.ro-p:last-child{border-bottom:none}
+.ro-p b{display:block;color:var(--ink);font-size:14px;margin-bottom:2px}
+.ro-r{margin-top:6px;padding:8px 10px;background:var(--bg);border-radius:10px}
+.ro-w{display:flex;gap:10px;padding:9px 0;border-bottom:0.5px solid var(--bdr);font-size:13px;line-height:1.55;color:var(--ink2)}
+.ro-w:last-child{border-bottom:none}
+.ro-w>i{font-size:17px;color:var(--repair);flex:0 0 20px;margin-top:2px}
+.ro-w b{color:var(--ink)}
+.ro-y{display:grid;grid-template-columns:76px minmax(0,1fr);gap:10px;padding:8px 0;border-bottom:0.5px solid var(--bdr);font-size:13px;line-height:1.45;color:var(--ink2);animation:wd-in .5s ease both}
+.ro-y:last-of-type{border-bottom:none}
+.ro-y.on{background:color-mix(in srgb,var(--repair) 8%,transparent);border-radius:8px;padding:8px 6px}
+.ro-yd{font-size:11.5px;color:var(--ink3)}
+.ro-y b{color:var(--ink)}
+.ro-y b span{font-size:10px;padding:1px 6px;border-radius:8px;background:var(--repair);color:#fff;vertical-align:1px}
+.ro-age{display:flex;align-items:baseline;gap:8px;margin-bottom:6px}
+.ro-age b{font-family:'DM Serif Display',Georgia,serif;font-size:34px;font-weight:400;color:var(--ink)}
+.ro-age span{font-size:12px;color:var(--ink3)}
+.ro-f{padding:10px 0;border-top:0.5px solid var(--bdr);font-size:13.5px;line-height:1.55;color:var(--ink2)}
+.ro-fh{font-family:'DM Serif Display',Georgia,serif;font-size:19px;color:var(--ink)}
+.ro-fh span{font-family:Inter,system-ui,sans-serif;font-size:11.5px;color:var(--ink3);margin-left:6px}
+.ro-tie{font-size:12px;color:var(--ink3);margin-top:4px}
+.ro-k{background:var(--bg);border:0.5px solid var(--bdr);border-radius:var(--rmd);padding:10px}
+.ro-k b{display:block;font-family:'DM Serif Display',Georgia,serif;font-size:clamp(16px,4.8vw,20px);font-weight:400;color:var(--ink)}
+.ro-k span{font-size:11px;color:var(--ink3)}
 /* ---------- Prayer ---------- */
 .sl-steps{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:4px}
 .sl-steps span{font-size:10.5px;padding:4px 2px;text-align:center;overflow:hidden;text-overflow:ellipsis;border-radius:12px;border:0.5px solid var(--bdr2);color:var(--ink3);white-space:nowrap}
@@ -488,6 +587,11 @@ html[data-motion="calm"] .mv-glow{animation-duration:40s}
 .sl-66{margin-top:12px;font-size:12px;color:var(--ink3)}
 .sl-66b{height:6px;border-radius:4px;background:var(--bdr);overflow:hidden;margin-bottom:4px}
 .sl-66b i{display:block;height:100%;background:linear-gradient(90deg,var(--repair),var(--gold));border-radius:4px;transition:width 1s ease}
+.sl-wbtn{display:flex;align-items:center;gap:8px;width:100%;font:inherit;font-size:14px;font-weight:600;padding:11px 14px;margin-bottom:8px;border-radius:var(--rlg);border:0.5px solid color-mix(in srgb,var(--repair) 45%,var(--bdr));background:color-mix(in srgb,var(--repair) 8%,var(--bg));color:var(--ink);cursor:pointer}
+.sl-wbtn i{font-size:18px;color:var(--repair)}
+.sl-wbtn span{margin-left:auto;font-size:11.5px;font-weight:400;color:var(--ink3)}
+.sl-strow{display:flex;gap:8px;align-items:center;margin-top:8px}
+.sl-strow .sl-pray{flex:1;margin-top:0}
 .sl-heroc{background:radial-gradient(120% 90% at 15% 0%,color-mix(in srgb,var(--repair) 18%,transparent),transparent 60%),linear-gradient(160deg,color-mix(in srgb,var(--gold) 8%,var(--bg2)),var(--bg2))}
 .sl-hero{position:relative;width:200px;height:200px;margin:4px auto 10px}
 .sl-ring{width:100%;height:100%;transform:rotate(-90deg)}
@@ -1372,6 +1476,7 @@ html[data-motion="off"] *,html[data-motion="off"] *::before,html[data-motion="of
       <button class="nb" data-pillar="p-ramadan" onclick="go('p-ramadan',this)"><span class="nb-dot"></span>Ramadan</button>
       <button class="nb" data-pillar="p-rights" onclick="go('p-rights',this)"><span class="nb-dot"></span>Rights</button>
       <button class="nb" data-pillar="p-salah" onclick="go('p-salah',this)"><span class="nb-dot"></span>Prayer</button>
+      <button class="nb" data-pillar="p-roots" onclick="go('p-roots',this)"><span class="nb-dot"></span>Roots</button>
       <button class="nb" data-pillar="p-cosmos" onclick="go('p-cosmos',this)"><span class="nb-dot"></span>Cosmos</button>
       <button class="nb" data-pillar="p-play" onclick="go('p-play',this)"><span class="nb-dot"></span>Play</button>
       <button class="nb" data-pillar="p-checkpoints" onclick="go('p-checkpoints',this)"><span class="nb-dot"></span>Checkpoints</button>
@@ -3147,6 +3252,61 @@ html[data-motion="off"] *,html[data-motion="off"] *::before,html[data-motion="of
     </div>
 
     <!-- ═══════════ PROTOCOL: RIGHTS ═══════════ -->
+    <div id="p-p-roots" class="panel">
+      <div class="pillar-hero ro-hero">
+        <div class="ph-eyebrow"><i class="ti ti-sunrise"></i> Roots</div>
+        <div class="ph-title" style="font-size:26px">Where you come from, where you&#8217;re going</div>
+        <div class="ph-lede" style="margin-top:8px">Built from what you shared on November 22, 2026. What you told me is written plainly. Anything marked <span class="ro-read">My read</span> is Claude&#8217;s interpretation, offered for you to keep or throw out.</div>
+      </div>
+
+      <div class="ew">Your timeline</div>
+      <div class="card ro-tl" id="ro-tl">
+        <div class="ro-ev"><b>Aug 20, 1988</b><div>Born in K&#233;nitra, Morocco, to Najat and Mustapha. Dad was a lawyer; Mom stayed home and ran the house.</div></div>
+        <div class="ro-ev"><b>Childhood in K&#233;nitra</b><div>A comfortable home your dad built, a farm you visited, summers in the north. Mom cooked every meal with a helper who lived with you. A house full of family visits when you were young, though family drama kept you from being close to many relatives. Neighborhood soccer, tennis, kickboxing, lots of walking and running.</div></div>
+        <div class="ro-ev"><b>After high school: Canada</b><div>You moved first, to UFV in Abbotsford, BC, and earned your A.S. in Engineering. Zouhair joined you in your second year.</div></div>
+        <div class="ro-ev"><b>Seattle</b><div>Zak, already in Seattle, helped you both move there. You enrolled at North Seattle College.</div></div>
+        <div class="ro-ev"><b>Portland</b><div>B.S. in Architecture at Portland State, then PSU Capital Projects: Vanport, Art &amp; Design, Vernier Science Center, Stott Center and Viking Pavilion.</div></div>
+        <div class="ro-ev ro-mem"><b>June 28, 2024</b><div>Mom passed away. She held the family together, and she still does through what she taught you.</div></div>
+        <div class="ro-ev"><b>Around May 2025</b><div>Sober. One year and six months as of November 2026, after more than a decade.</div></div>
+        <div class="ro-ev"><b>May 19, 2025</b><div>Joined VC as Senior Construction Project Manager.</div></div>
+        <div class="ro-ev"><b>July 20, 2026</b><div>Started Tareeq training. The most serious you&#8217;ve ever been about your health, and you want it for life.</div></div>
+        <div class="ro-ev ro-now"><b>November 22, 2026</b><div>Started building the five-prayer habit.</div></div>
+      </div>
+
+      <div class="ew">What you carry from Mom</div>
+      <div class="card ro-mom">
+        <div class="ro-q">Be kind. Be generous. Take good care of yourself.</div>
+        <div class="cs" style="font-size:13px;line-height:1.55;margin-top:8px">Super friendly, social, generous, a light. She smiled and talked to everyone, even when she was very sick and couldn&#8217;t speak English during treatment here. Dar Najat carries the generosity. Tareeq carries the third lesson, the one she couldn&#8217;t always keep for herself.</div>
+      </div>
+
+      <div class="ew">Patterns</div>
+      <div class="card" id="ro-pat">
+        <div class="ro-p"><b>Comparison turned into self-judgment</b><div>Your dad compared you to smarter cousins and friends, and you&#8217;re still recovering from that. You&#8217;ve felt self-conscious about your body since you were young, and you say you judged yourself more than anyone else did.</div><div class="ro-r"><span class="ro-read">My read</span> The voice that compares didn&#8217;t leave when you grew up. It moved inside. That&#8217;s why Tareeq only ever compares you to your own last month (benchmarks, weigh-ins, the body map), and why the line &#8220;speak to yourself like someone you&#8217;re helping&#8221; sits in the banner.</div></div>
+        <div class="ro-p"><b>Scarcity you inherited, comfort you actually had</b><div>Dad&#8217;s family grew up poor, and the feeling that there was never enough stayed, even though you had a good home, food, travel and a farm.</div><div class="ro-r"><span class="ro-read">My read</span> That feeling probably fuels your drive for independence and Coast FIRE, which is a strength. Its risk is that &#8220;enough&#8221; keeps moving. Writing down your enough number (below) gives it a finish line.</div></div>
+        <div class="ro-p"><b>All or nothing</b><div>You describe an addictive personality. With prayer, missing one and stacking several makes it feel like a lot. Last winter is when you started drifting.</div><div class="ro-r"><span class="ro-read">My read</span> Intensity is how you got sober and how you got serious about training. It also means a small slip can feel like the whole thing broke. The fix is built in: no streaks to lose, the next prayer is always a fresh start, and minimums count.</div></div>
+        <div class="ro-p"><b>It has to feel real</b><div>You want to pray because it feels genuinely good, not to cross it off a list. If it doesn&#8217;t, you lose focus.</div><div class="ro-r"><span class="ro-read">My read</span> That&#8217;s a good instinct, and it points to presence over count. The wudu guide slows you down on purpose before you pray, and the habit builder protects one prayer at a time so each one can be felt.</div></div>
+        <div class="ro-p"><b>Solitude, with soccer as the social anchor</b><div>You enjoy your own time and like to work on things. Your friendships are mostly the people you play soccer with.</div><div class="ro-r"><span class="ro-read">My read</span> Soccer stops in November, right when the light drops and the holidays start. You lose movement, light and people in the same weeks. That timing likely explains a lot of last winter.</div></div>
+      </div>
+
+      <div class="ew">Your winter plan</div>
+      <div class="card" id="ro-winter">
+        <div class="ro-w"><i class="ti ti-check"></i><div><b>Your plan:</b> train indoors on freezing days.</div></div>
+        <div class="ro-w"><i class="ti ti-check"></i><div><b>Your plan:</b> skip the Thanksgiving and Christmas sweets, and keep protein snacks like jerky on hand so you stay full.</div></div>
+        <div class="ro-w"><i class="ti ti-sun"></i><div><b>Light:</b> get outside within an hour of waking, even when it&#8217;s gray. <span class="etag est"><i class="ti ti-flask"></i>Established</span> Bright light therapy is an established treatment for seasonal depression. If the gloom comes back hard, ask Dr. Chikere whether a light box fits.</div></div>
+        <div class="ro-w"><i class="ti ti-heart-handshake"></i><div><b>Replace soccer&#8217;s people, not just its exercise.</b> <span class="ro-read">My read</span> One weekly thing with others: indoor futsal, a winter league, or Jumu&#8217;ah at a local mosque on Fridays, which also strengthens the prayer habit.</div></div>
+        <div class="ro-w"><i class="ti ti-heart-handshake"></i><div><b>Grief dates:</b> Mom&#8217;s birthday (Oct 14) and the day she passed (June 28). Tareeq marks both quietly. Plan something gentle for those days instead of pushing through.</div></div>
+        <div class="ro-w"><i class="ti ti-heartbeat"></i><div><b>A question for Dr. Chikere:</b> your mother and your grandmother both died of gallbladder or liver cancer. Ask whether that family history changes any screening or labs for you. <button class="cz-btn" style="margin-top:6px" onclick="roAddQ()">Add to my doctor questions</button></div></div>
+      </div>
+
+      <div class="ew">The year ahead, mapped</div>
+      <div class="card" id="ro-year"></div>
+
+      <div class="ew">Where you&#8217;re going</div>
+      <div class="card ro-fut" id="ro-fut"></div>
+
+      <div class="ew">Coast FIRE</div>
+      <div class="card" id="ro-fire"></div>
+    </div>
     <div id="p-p-salah" class="panel">
       <div class="pillar-hero sl-heroc">
         <div class="ph-eyebrow"><i class="ti ti-moon-stars"></i> Prayer</div>
@@ -3180,8 +3340,8 @@ html[data-motion="off"] *,html[data-motion="off"] *::before,html[data-motion="of
         <div class="cz-when"><span id="cz-when">Now</span><button class="cz-btn" id="cz-now" onclick="czSet(0)">Now</button></div>
         <input type="range" id="cz-scrub" class="cz-scrub" min="-365" max="365" step="1" value="0" aria-label="Move through time, in days">
         <div class="cz-row">
-          <button class="cz-btn" onclick="czPlay(30)"><i class="ti ti-player-play"></i> Watch a month</button>
-          <button class="cz-btn" onclick="czPlay(365)"><i class="ti ti-player-play"></i> Watch a year</button>
+          <button class="cz-btn" onclick="czPlay(30)"><i class="ti ti-chevron-right"></i> Watch a month</button>
+          <button class="cz-btn" onclick="czPlay(365)"><i class="ti ti-chevron-right"></i> Watch a year</button>
           <label class="cz-tog"><input type="checkbox" id="cz-natal" checked onchange="czDraw()"> Birth sky</label>
         </div>
         <div class="cz-key">Outer ring: Western (tropical) zodiac. Inner ring: Vedic (sidereal, Lahiri). Earth sits in the middle, and each body is drawn at the angle we see it along the zodiac. Hollow dots mark where everything was on the day you were born.</div>
@@ -4633,12 +4793,12 @@ function mvOccasions(now){
   /* United States */
   if(on(0,1))L.push(['A new year on the same steady path.','Pick one habit to protect this year and keep everything else light.','spark']);
   if(m===0&&d===mvNth(y,0,1,3))L.push(['Martin Luther King Jr. Day.','A good day to serve someone, even in a small way.','star']);
-  if(on(1,14))L.push(['Valentine&#8217;s Day.','Care for the people you love, and for the body that gets you to them.','heart']);
+  if(on(1,14))L.push(['Valentine&#8217;s Day.','Care for the people you love, and for the body that gets you to them.','heart-handshake']);
   if(m===1&&d===mvNth(y,1,1,3))L.push(['Presidents&#8217; Day.','A long weekend for many. Spend the extra hour outside.','star']);
   if(on(3,7))L.push(['World Health Day.','Sleep, food, movement, people. Check in on all four.','bloom']);
-  if(m===4&&d===mvNth(y,4,0,2))L.push(['Mother&#8217;s Day.','Honoring the mothers in your life, those here and those remembered.','heart']);
+  if(m===4&&d===mvNth(y,4,0,2))L.push(['Mother&#8217;s Day.','Honoring the mothers in your life, those here and those remembered.','heart-handshake']);
   if(m===4&&d===mvLast(y,4,1))L.push(['Memorial Day.','Remembering those who gave their lives in service.','star']);
-  if(m===5&&d===mvNth(y,5,0,3))L.push(['Father&#8217;s Day.','Strength that lasts is the kind you can pass on.','heart']);
+  if(m===5&&d===mvNth(y,5,0,3))L.push(['Father&#8217;s Day.','Strength that lasts is the kind you can pass on.','heart-handshake']);
   if(on(5,19))L.push(['Juneteenth.','A federal holiday marking the end of slavery in the United States.','star']);
   if(on(6,4))L.push(['Independence Day.','Enjoy it. Drink water in the heat and guard your sleep from late fireworks.','spark']);
   if(m===8&&d===mvNth(y,8,1,1))L.push(['Labor Day.','Rest is earned. Take it without guilt.','calm']);
@@ -4738,12 +4898,12 @@ function mvCalendar(now){
     summer:[['Summer.','Long light. Keep bedtime steady even when it&#8217;s bright at nine.'],['Warm days.','Train earlier and drink before you feel thirsty.']],
     fall:[['Fall.','Soups and stews are an easy way to get protein and vegetables.'],['The rain is back.','Good weather for steady indoor work and early nights.']]};
   var sl=mvPick(SE[se],wk);L.push([sl[0],sl[1],wx||(se==='winter'?'snow':se==='fall'?'leaf':se==='spring'?'bloom':'sun')]);
-  var MO=[['January.','A good month to build the base quietly.','snow'],['February.','Halfway through winter. Keep morning light and vitamin D in mind.','rain'],
+  var MO=[['January.','A good month to build the base quietly.','snow'],['February.','Halfway through winter. Keep morning light and vitamin D in mind.','cloud-rain'],
     ['March.','Evenings get longer. Walks get easier.','bloom'],['April.','Spring rain and first blooms. Outdoor season is close.','bloom'],
     ['May.','Fields are drying out. Outdoor training is back.','bloom'],['June.','The longest days of the year. Make the most of the light.','sun'],
     ['July.','Hot afternoons. Train earlier on warm days.','sun'],['August.','Late summer fruit is at its best. Enjoy it while it lasts.','sun'],
     ['September.','Back-to-routine month. Reset bedtime as evenings shorten.','leaf'],['October.','Rain returns, flu shot season starts.','leaf'],
-    ['November.','Darker evenings. Lower the screens and keep sleep regular.','rain'],['December.','A busy month. Keep sessions short rather than skipping them.','snow']];
+    ['November.','Darker evenings. Lower the screens and keep sleep regular.','cloud-rain'],['December.','A busy month. Keep sessions short rather than skipping them.','snow']];
   L.push(MO[m]);
   var wom=Math.ceil(d/7),dim=new Date(now.getFullYear(),m+1,0).getDate(),left=dim-d;
   var WM=[['First week of the month.','Benchmarks, waist and photos are due on the first Sunday.'],['Second week of the month.','The month&#8217;s rhythm is set. Protect it.'],
@@ -6150,6 +6310,7 @@ function slRender(){var el=document.getElementById('sl-body');if(!el)return;var 
   var total=s.end&&s.cur?(s.end-(t[s.cur]||now)):null,frac=total&&s.end?Math.min(1,Math.max(0,(now-(s.end-total))/total)):0;
   h+='<div class="sl-hero"><svg viewBox="0 0 120 120" class="sl-ring"><circle cx="60" cy="60" r="52" class="sl-tr"/><circle cx="60" cy="60" r="52" class="sl-ar" style="stroke-dasharray:'+(326.7*(1-frac)).toFixed(1)+' 400"/></svg>'+
     '<div class="sl-hc"><div class="sl-now">'+(s.cur?slName(s.cur)+' time':'Between prayers')+'</div><div class="sl-cd">'+(hh?hh+' h ':'')+mm+' min</div><div class="sl-nx">until '+slName(s.next)+' at '+slHM(s.nt)+'</div></div></div>';
+  h+='<button class="sl-wbtn" onclick="wdOpen()"><i class="ti ti-droplet"></i> Wudu guide<span>10 steps, about 3 minutes</span></button>';
   if(s.cur&&s.end&&!(L[slDayKey(now,s.cur)]||{})[s.cur])h+='<button class="sl-pray" onclick="slMark(\''+s.cur+'\',1)"><i class="ti ti-check"></i> I prayed '+slName(s.cur)+'</button><div class="sl-left">'+slName(s.cur)+' window closes at '+slHM(s.end)+(s.cur==='fajr'?' (sunrise)':'')+'.</div>';
   h+='<div class="sl-list">';
   SL_N.forEach(function(p){var k=p[0],tt=t[k],dk=k==='isha'&&now.getHours()<5?slDayKey(now,'isha'):today,v=(L[dk]||{})[k],past=now>=tt;
@@ -6182,7 +6343,7 @@ function slHabit(){var el=document.getElementById('sl-habit');if(!el)return;var 
     '<div class="cz-h" style="margin-top:10px">Step '+st+' of 5: protect '+foc.map(slName).join(', ')+'</div>'+
     '<div class="cz-tx">Pray all five whenever you can. The focus prayers are the ones you keep no matter what during this step. Kept on time '+kept7+' of the last 7 days.</div>'+
     '<div class="sl-ifs">'+foc.map(function(k){return '<div><b>'+slName(k)+'</b>'+SL_IF[k]+'</div>';}).join('')+'</div>'+
-    (ready?'<button class="sl-pray sm" onclick="slStep(1)"><i class="ti ti-arrow-up-right"></i> Ready: add '+slName(nxt)+'</button>':st<5?'<div class="cs" style="margin-top:8px">Next step adds '+slName(nxt)+' once you keep this step 5 of 7 days.</div>':'')+
+    (ready?'<button class="sl-pray sm" onclick="slStep(1)"><i class="ti ti-arrow-up"></i> Ready: add '+slName(nxt)+'</button>':st<5?'<div class="cs" style="margin-top:8px">Next step adds '+slName(nxt)+' once you keep this step 5 of 7 days.</div>':'')+
     '<div class="sl-66"><div class="sl-66b"><i style="width:'+Math.min(100,tot/66*100).toFixed(1)+'%"></i></div><span>'+tot+' of 66 days with all five prayers</span></div>'+
     '<p class="cz-p"><span class="etag est"><i class="ti ti-flask"></i>Established</span>Planning the exact cue (&#8220;when X happens, I do Y&#8221;) makes people much more likely to follow through; a meta-analysis of 94 studies found a medium-to-large effect. In one well-known study, new daily habits took 66 days on average to feel automatic, ranging from 18 to 254 days, and missing a single day didn&#8217;t undo the progress.</p>'+
     (st>1?'<button class="cz-btn" style="margin-top:8px" onclick="slStep(-1)">Go back a step</button>':'');}
@@ -6199,7 +6360,7 @@ function slDhikr(){var c=SL_DH[SL_D.i];SL_D.n++;if(navigator.vibrate)try{navigat
 function slStrip(){var el=document.getElementById('sl-strip');if(!el)return;var s=slNow();if(!s){el.style.display='none';return;}el.style.display='';
   var now=new Date(),L=slLog(),e=L[ymd(now)]||{},left=Math.max(0,s.nt-now),hh=Math.floor(left/36e5),mm=Math.round((left%36e5)/6e4),cp=s.cur&&s.end&&!(L[slDayKey(now,s.cur)]||{})[s.cur];
   el.innerHTML='<div class="sl-st" onclick="bbGoPanel(\'p-salah\')"><i class="ti ti-moon-stars"></i><div class="sl-stx">'+(cp?'<b>'+slName(s.cur)+' time</b>, until '+slHM(s.end):'<b>'+slName(s.next)+'</b> at '+slHM(s.nt)+' &#183; in '+(hh?hh+' h ':'')+mm+' min')+'</div><div class="sl-dots">'+SL_N.map(function(p){return '<i class="'+(e[p[0]]===1?'on':e[p[0]]===2?'late':'')+'"></i>';}).join('')+'</div></div>'+
-    (cp?'<button class="sl-pray sm" onclick="slMark(\''+s.cur+'\',1)"><i class="ti ti-check"></i> Prayed '+slName(s.cur)+'</button>':'');}
+    (cp?'<div class="sl-strow"><button class="cz-btn" onclick="wdOpen()"><i class="ti ti-droplet"></i> Wudu</button><button class="sl-pray sm" onclick="slMark(\''+s.cur+'\',1)"><i class="ti ti-check"></i> Prayed '+slName(s.cur)+'</button></div>':(s.nt-new Date()<15*6e4?'<div class="sl-strow"><button class="cz-btn" onclick="wdOpen()"><i class="ti ti-droplet"></i> Wudu now, '+slName(s.next)+' is close</button></div>':''));}
 (function(){var _go=go;go=function(id,btn){_go(id,btn);if(id==='p-salah')slRender();};
   if(typeof bbOpen==='function'){var _bo=bbOpen;bbOpen=function(s){_bo(s);if(s==='more'){var g=document.getElementById('sheet-g');if(g&&!g.querySelector('[data-sl]'))g.insertAdjacentHTML('afterbegin','<button data-sl="1" onclick="bbGoPanel(\'p-salah\')"><i class="ti ti-moon-stars"></i>Prayer</button>');}};}
   if(typeof SR_P!=='undefined')SR_P.splice(1,0,['p-salah','Prayer','moon-stars','protocol','prayer salah salat namaz fajr dhuhr asr maghrib isha qibla dhikr tasbih adhan times spirituality soul deen']);
@@ -6213,6 +6374,109 @@ function slStrip(){var el=document.getElementById('sl-strip');if(!el)return;var 
   var TH={fajr:'dawn',dhuhr:'sun',asr:'sun',maghrib:'moon',isha:'night'};
   if(s.cur&&s.end&&!(lg[slDayKey(now,s.cur)]||{})[s.cur]){var m=Math.round((s.end-now)/6e4);L.unshift([slName(s.cur)+' time.',(m<45?'About '+m+' minutes left in the window. ':'')+'A few minutes with Allah, then back to the day.',TH[s.cur]]);}
   else if(s.nt-now<30*6e4)L.unshift([slName(s.next)+' in '+Math.max(1,Math.round((s.nt-now)/6e4))+' minutes.','Wudu now, and you&#8217;re ready when it comes in.',TH[s.next]]);}catch(e){}return L;};})();
+
+</script>
+<script>
+/* ---------- Wudu: animated step-by-step guide, opened from Prayer, the Today strip and the banner ---------- */
+var WD_SKIN='#d9b08c',WD_W='var(--repair)';
+function wdTap(x){return '<g class="wd-tap"><path d="M'+(x-22)+' 18h30a8 8 0 0 1 8 8v10h-12v-6h-26z" fill="var(--ink3)"/><rect x="'+(x+6)+'" y="36" width="12" height="4" rx="2" fill="var(--ink2)"/></g>';}
+function wdStream(x,y1,y2){var h='<line class="wd-stream" x1="'+x+'" y1="'+y1+'" x2="'+x+'" y2="'+y2+'" stroke="'+WD_W+'" stroke-width="5" stroke-linecap="round" stroke-dasharray="6 6"/>';
+  for(var i=0;i<4;i++)h+='<circle class="wd-drop" cx="'+(x-10+i*7)+'" cy="'+y2+'" r="2.2" fill="'+WD_W+'" style="animation-delay:'+(i*0.35)+'s"/>';return h;}
+function wdHand(x,y,rot,cls,sc){var f='';[[-11,-30,24],[-3.5,-34,28],[4,-33,27],[11,-27,21]].forEach(function(q){f+='<rect x="'+(q[0]-3.6)+'" y="'+q[1]+'" width="7.2" height="'+q[2]+'" rx="3.6"/>';});
+  return '<g class="'+(cls||'')+'" transform="translate('+x+' '+y+') rotate('+(rot||0)+') scale('+(sc||1)+')"><g fill="'+WD_SKIN+'" stroke="#b98a66" stroke-width=".8">'+f+'<rect x="-15" y="-10" width="30" height="30" rx="10"/><rect x="-27" y="-2" width="7.5" height="22" rx="3.7" transform="rotate(-42 -23 9)"/></g><path d="M-9 4 q9 4 18 0" stroke="#b98a66" stroke-width=".8" fill="none" opacity=".7"/></g>';}
+function wdFace(cx,cy,o){o=o||{};return '<g><ellipse cx="'+(cx-31)+'" cy="'+(cy+2)+'" rx="5" ry="9" fill="#c99a76"/><ellipse cx="'+(cx+31)+'" cy="'+(cy+2)+'" rx="5" ry="9" fill="#c99a76"/><ellipse cx="'+cx+'" cy="'+cy+'" rx="30" ry="38" fill="'+WD_SKIN+'"/>'+
+  '<path d="M'+(cx-31)+' '+(cy-8)+' q-2 -40 31 -38 q33 -2 31 38 q-6 -20 -31 -24 q-25 4 -31 24z" fill="#2e211a"/>'+
+  '<path d="M'+(cx-29)+' '+(cy+6)+' q2 34 29 36 q27 -2 29 -36 q-4 16 -14 18 q-15 -6 -30 0 q-10 -2 -14 -18z" fill="#2e211a" opacity=".85"/>'+
+  '<path d="M'+(cx-15)+' '+(cy-8)+' h9 M'+(cx+6)+' '+(cy-8)+' h9" stroke="#2e211a" stroke-width="2" stroke-linecap="round"/><circle cx="'+(cx-10)+'" cy="'+(cy-1)+'" r="2.4" fill="#2e211a"/><circle cx="'+(cx+10)+'" cy="'+(cy-1)+'" r="2.4" fill="#2e211a"/>'+
+  '<path d="M'+cx+' '+(cy+2)+' q-3 9 0 11" stroke="#b98a66" stroke-width="1.6" fill="none" stroke-linecap="round"/><path d="M'+(cx-7)+' '+(cy+21)+' q7 4 14 0" stroke="'+WD_SKIN+'" stroke-width="2.4" fill="none" stroke-linecap="round"/></g>';}
+function wdHead(cx,cy){return wdFace(cx,cy);}
+var WD_ART={
+  niyyah:function(){return '<circle class="wd-glow" cx="100" cy="100" r="60" fill="'+WD_W+'" opacity=".12"/>'+wdHand(74,124,-14,'',.95)+wdHand(126,124,14,'',.95).replace('rotate(14)','rotate(14) scale(-1 1)')+'<path class="wd-heart" d="M100 74 c-7 -12 -25 -5 -18 9 l18 18 l18 -18 c7 -14 -11 -21 -18 -9z" fill="var(--gold)" opacity=".9"/>';},
+  hands:function(){return wdTap(100)+wdStream(106,42,96)+'<g class="wd-rub">'+wdHand(90,132,-62,'',.9)+'</g><g class="wd-rub2">'+wdHand(118,130,62,'',.9).replace('rotate(62)','rotate(62) scale(-1 1)')+'</g>';},
+  mouth:function(){return wdFace(100,86)+'<g class="wd-lift">'+wdHand(100,158,-90,'',.85)+'<ellipse cx="100" cy="146" rx="11" ry="3.5" fill="'+WD_W+'" opacity=".8"/></g><g class="wd-swish"><circle cx="108" cy="110" r="2" fill="'+WD_W+'"/><circle cx="92" cy="111" r="2" fill="'+WD_W+'"/></g>';},
+  nose:function(){return wdFace(100,86)+'<g class="wd-lift">'+wdHand(100,156,-90,'',.85)+'<ellipse cx="100" cy="144" rx="11" ry="3.5" fill="'+WD_W+'" opacity=".8"/></g><g class="wd-breath"><path d="M96 100 q-10 6 -16 2 M104 100 q10 6 16 2" stroke="'+WD_W+'" stroke-width="2.4" fill="none" stroke-linecap="round"/></g>';},
+  face:function(){return wdFace(100,96)+'<g class="wd-shine"><path d="M78 76 q22 -10 44 0" stroke="'+WD_W+'" stroke-width="3" fill="none" stroke-linecap="round" opacity=".8"/><path d="M76 116 q24 12 48 0" stroke="'+WD_W+'" stroke-width="3" fill="none" stroke-linecap="round" opacity=".8"/></g><g class="wd-sweep">'+wdHand(64,92,-8,'',.8)+wdHand(136,92,8,'',.8).replace('rotate(8)','rotate(8) scale(-1 1)')+'</g>';},
+  arms:function(){return '<path d="M40 112 h96 q18 0 18 -18 v-26" stroke="'+WD_SKIN+'" stroke-width="20" fill="none" stroke-linecap="round"/><path d="M40 112 h96 q18 0 18 -18 v-26" stroke="#b98a66" stroke-width="20" fill="none" stroke-linecap="round" opacity=".12"/><circle cx="152" cy="108" r="5" fill="#c99a76"/><text x="170" y="128" font-size="10" fill="var(--ink3)" text-anchor="middle" font-family="Inter,system-ui">elbow</text>'+wdHand(30,112,-90,'',.8)+
+    '<path class="wd-flow" d="M34 104 h106" stroke="'+WD_W+'" stroke-width="3.6" fill="none" stroke-linecap="round" stroke-dasharray="10 8"/><g class="wd-slide">'+wdHand(48,140,-60,'',.75)+'</g>';},
+  head:function(){return wdFace(100,112)+'<path d="M70 72 q30 -40 60 0" stroke="'+WD_W+'" stroke-width="3" fill="none" stroke-dasharray="4 5" opacity=".7"/><g class="wd-wipe">'+wdHand(100,62,180,'',.8)+'</g>';},
+  ears:function(){return wdFace(100,102)+'<g class="wd-ear">'+wdHand(58,118,-20,'',.6)+wdHand(142,118,20,'',.6).replace('rotate(20)','rotate(20) scale(-1 1)')+'</g><path d="M60 90 q-8 14 0 28 M140 90 q8 14 0 28" stroke="'+WD_W+'" stroke-width="2.4" fill="none" stroke-linecap="round" class="wd-shine"/>';},
+  feet:function(){return wdTap(80)+wdStream(86,42,120)+'<path d="M52 156 q-4 -22 14 -30 q4 -26 26 -24 q12 2 12 20 l42 14 q18 6 18 16 q0 8 -12 8 h-88 q-12 0 -12 -4z" fill="'+WD_SKIN+'" stroke="#b98a66" stroke-width=".8"/><circle cx="96" cy="126" r="4" fill="#c99a76"/><text x="112" y="112" font-size="10" fill="var(--ink3)" font-family="Inter,system-ui">ankle</text>'+
+    '<path class="wd-flow" d="M70 132 q46 2 90 18" stroke="'+WD_W+'" stroke-width="3.4" fill="none" stroke-linecap="round" stroke-dasharray="9 8"/><g class="wd-toes">'+wdHand(166,142,100,'',.6)+'</g>';},
+  dua:function(){return '<circle class="wd-glow" cx="100" cy="92" r="58" fill="var(--gold)" opacity=".14"/>'+[0,40,80,120,160,200,240,280,320].map(function(a){return '<line class="wd-ray" x1="100" y1="92" x2="'+(100+Math.cos(a*Math.PI/180)*72).toFixed(1)+'" y2="'+(92+Math.sin(a*Math.PI/180)*72).toFixed(1)+'" stroke="var(--gold)" stroke-width="1.4" opacity=".4" style="animation-delay:'+(a/400)+'s"/>';}).join('')+
+    '<g class="wd-finger">'+wdHand(80,120,-18,'',.9)+wdHand(120,120,18,'',.9).replace('rotate(18)','rotate(18) scale(-1 1)')+'</g>';}};
+var WD_STEPS=[
+  ['niyyah','Intention','Make the intention in your heart to purify yourself for prayer, then say Bismillah.',0,'Say quietly: Bismillah.'],
+  ['hands','Hands','Wash both hands up to the wrists, between the fingers.',3,'Right hand first if you pour by hand.'],
+  ['mouth','Mouth','Take water in your right hand, rinse your mouth and spit it out.',3,''],
+  ['nose','Nose','Draw water gently into the nose with the right hand, then blow it out with the left.',3,'Gently if you are fasting.'],
+  ['face','Face','Wash the whole face: hairline to chin, ear to ear.',3,'Run wet fingers through the beard.'],
+  ['arms','Arms','Wash the right arm from fingertips to just past the elbow, then the left.',3,'Right first, then left.'],
+  ['head','Head','With wet hands, wipe from the front of the head to the back, then back to the front.',1,'Once.'],
+  ['ears','Ears','Wipe the inside of the ears with your index fingers and the back with your thumbs.',1,'Once.'],
+  ['feet','Feet','Wash the right foot up to and including the ankle, between the toes, then the left.',3,'Right first, then left.'],
+  ['dua','After wudu','Say the shahada, as taught in Sahih Muslim.',0,'Ash-hadu an la ilaha illa Allah, wahdahu la sharika lah, wa ash-hadu anna Muhammadan &#8216;abduhu wa rasuluh.']];
+var WD={i:0,n:0};
+function wdOpen(){var ov=document.getElementById('wd-ov');if(!ov){document.body.insertAdjacentHTML('beforeend','<div id="wd-ov" class="wd-ov" role="dialog" aria-label="Wudu guide"><div class="wd-box"><button class="wd-x" onclick="wdClose()" aria-label="Close">&#215;</button><div class="wd-prog" id="wd-prog"></div><div class="wd-stage"><svg id="wd-svg" viewBox="0 0 200 200" class="wd-svg"></svg></div><div class="wd-step" id="wd-step"></div><div class="wd-ct" id="wd-ct"></div><div class="wd-nav"><button class="cz-btn" onclick="wdGo(-1)"><i class="ti ti-chevron-left"></i> Back</button><button class="sl-pray sm wd-next" id="wd-next" onclick="wdGo(1)">Next</button></div></div></div>');ov=document.getElementById('wd-ov');}
+  WD={i:0,n:0};wdDraw();requestAnimationFrame(function(){ov.classList.add('on');});document.body.style.overflow='hidden';}
+function wdClose(){var ov=document.getElementById('wd-ov');if(ov)ov.classList.remove('on');document.body.style.overflow='';}
+function wdDraw(){var s=WD_STEPS[WD.i],svg=document.getElementById('wd-svg');svg.classList.remove('in');void svg.offsetWidth;svg.innerHTML=WD_ART[s[0]]();svg.classList.add('in');
+  document.getElementById('wd-prog').innerHTML=WD_STEPS.map(function(x,i){return '<i class="'+(i<WD.i?'done':i===WD.i?'now':'')+'"></i>';}).join('');
+  document.getElementById('wd-step').innerHTML='<div class="wd-n">Step '+(WD.i+1)+' of '+WD_STEPS.length+'</div><div class="wd-t">'+s[1]+(s[3]?' <span>&#215;'+s[3]+'</span>':'')+'</div><div class="wd-d">'+s[2]+'</div>'+(s[4]?'<div class="wd-tip">'+s[4]+'</div>':'');
+  wdCt();
+  var nx=document.getElementById('wd-next');nx.innerHTML=WD.i===WD_STEPS.length-1?'<i class="ti ti-check"></i> Ready to pray':'Next <i class="ti ti-chevron-right"></i>';}
+function wdCt(){var s=WD_STEPS[WD.i],ct=document.getElementById('wd-ct');ct.innerHTML=s[3]>1?'<button class="wd-cnt" onclick="wdCount()">'+Array.apply(null,{length:s[3]}).map(function(_,i){return '<i class="'+(i<WD.n?'on':'')+'"></i>';}).join('')+'<span>'+(WD.n<s[3]?'Tap each time':'Done')+'</span></button>':'';}
+function wdCount(){var s=WD_STEPS[WD.i];if(WD.n<s[3]){WD.n++;if(navigator.vibrate)try{navigator.vibrate(WD.n===s[3]?[15,40,15]:8);}catch(e){}}wdCt();if(WD.n===s[3])setTimeout(function(){if(WD_STEPS[WD.i]===s)wdGo(1);},700);}
+function wdGo(d){if(d>0&&WD.i===WD_STEPS.length-1){wdClose();try{if(typeof slStrip==='function')slStrip();}catch(e){}return;}WD.i=Math.max(0,Math.min(WD_STEPS.length-1,WD.i+d));WD.n=0;wdDraw();}
+document.addEventListener('keydown',function(e){var ov=document.getElementById('wd-ov');if(!ov||!ov.classList.contains('on'))return;if(e.key==='Escape')wdClose();if(e.key==='ArrowRight')wdGo(1);if(e.key==='ArrowLeft')wdGo(-1);});
+
+/* ---------- Roots: life timeline, patterns, winter plan, year map, future, Coast FIRE ---------- */
+var RO_FIRE='tareeq-fire'; /* kept on this device only; not synced */
+function roAddQ(){var q=lsGet('tareeq-dr-q',''),line='My mother and grandmother both died of gallbladder or liver cancer. Does that family history change any screening or labs for me?';
+  if(q.indexOf('gallbladder')<0){lsSet('tareeq-dr-q',(q?q.replace(/\s+$/,'')+'\n':'')+line);}
+  var b=event&&event.target;if(b){b.textContent='Added to the doctor summary';b.disabled=true;}}
+function roYear(){var el=document.getElementById('ro-year');if(!el)return;var now=new Date(),y=now.getFullYear();
+  var rm=null;try{var c=rmCfg();rm=[pd(c.start),rmEnd(c)];}catch(e){}
+  var E=[[new Date(y,10,22),new Date(y+1,1,28),'Winter window','Light, soccer and social time drop together. Indoor training, daylight, one weekly thing with people.','cloud-rain'],
+    [new Date(y,10,26),new Date(y+1,0,1),'Holiday sweets','Your plan: skip them, keep jerky and protein snacks on hand.','sparkles'],
+    [new Date(y+1,0,20),null,'6-month checkpoint','Review and draft the new training week.','calendar-event'],
+    [new Date(y+1,0,28),null,'About 66 days of prayer practice','Where the prayer habit should start to feel automatic, if you keep going from today.','moon-stars']];
+  if(rm)E.push([rm[0],rm[1],'Ramadan','A natural month to lock in all five prayers. The habit you build now carries into it.','moon']);
+  E.push([new Date(y+1,2,15),null,'New training week starts','After Ramadan, as planned.','flame'],[new Date(y+1,4,1),null,'Soccer season returns','Around May, when fields dry.','ball-football'],
+    [new Date(y+1,5,28),null,'The day Mom passed','A quiet day. Plan something gentle.','heart-handshake'],[new Date(y+1,6,20),null,'One year on the path','Full review: strength, sleep, self-relationship, labs.','calendar-event'],
+    [new Date(y+1,7,20),null,'Your birthday','',''],[new Date(y+1,9,14),null,'Mom&#8217;s birthday','A good day to feed someone in her name.','heart-handshake']);
+  E=E.filter(function(e){return (e[1]||e[0])>=now;}).sort(function(a,b){return a[0]-b[0];});
+  el.innerHTML=E.map(function(e,i){var f=function(d){return d.toLocaleDateString([],{month:'short',day:'numeric'})+(d.getFullYear()!==y?' '+d.getFullYear():'');},on=e[0]<=now&&e[1]&&e[1]>=now;
+    return '<div class="ro-y'+(on?' on':'')+'" style="animation-delay:'+(i*0.06)+'s"><div class="ro-yd">'+f(e[0])+(e[1]?'<br>to '+f(e[1]):'')+'</div><div><b>'+e[2]+(on?' <span>now</span>':'')+'</b>'+(e[3]?'<div>'+e[3]+'</div>':'')+'</div></div>';}).join('')+
+    '<div class="cs" style="margin-top:8px"><span class="ro-read">My read</span> The windows are patterns from what you told me, not predictions. They&#8217;re here so you see them coming.</div>';}
+function roFut(){var el=document.getElementById('ro-fut');if(!el)return;var now=new Date(),b=new Date(1988,7,20),age=(now-b)/(365.2425*864e5);
+  var y45=new Date(2033,7,20),y60=new Date(2048,7,20),yl=function(d){return ((d-now)/(365.2425*864e5)).toFixed(1);};
+  el.innerHTML='<div class="ro-age"><b>'+age.toFixed(1)+'</b><span>years old today</span></div>'+
+    '<div class="ro-f"><div class="ro-fh">At 45 <span>'+yl(y45)+' years away</span></div><div>Great savings. Still enjoying the work you do. The best health and fitness you&#8217;ve ever had.</div><div class="ro-tie">In Tareeq: quarterly checkpoints, yearly labs, colorectal screening at 45 (already on your calendar).</div></div>'+
+    '<div class="ro-f"><div class="ro-fh">At 60 <span>'+yl(y60)+' years away</span></div><div>Alive and well, and the same as 45. Doing work you want to do, not work you have to do to pay the bills. Time for yourself and family, and still exploring the world.</div><div class="ro-tie">In Tareeq: Coast FIRE below, strength and balance benchmarks that keep you capable, and the prayer and family habits you&#8217;re building now.</div></div>';}
+function roFireGet(){return Object.assign({inv:'',add:'',spend:'',age:60,ret:5,wr:4},lsGet(RO_FIRE,{}));}
+function roFireSet(k,v){var c=roFireGet();c[k]=v===''?'':+v;lsSet(RO_FIRE,c);roFireCalc();}
+function roFire(){var el=document.getElementById('ro-fire');if(!el)return;var c=roFireGet(),f=function(k,l,ph,st){return '<label>'+l+'<input type="number" inputmode="decimal" step="'+(st||'any')+'" value="'+c[k]+'" placeholder="'+ph+'" oninput="roFireSet(\''+k+'\',this.value)"></label>';};
+  el.innerHTML='<div class="cs" style="font-size:13px;line-height:1.5">Coast FIRE means you&#8217;ve invested enough that growth alone can reach your full retirement number by a target age, so from then on work only has to cover today&#8217;s bills.</div>'+
+    '<div class="cz-form" style="margin-top:10px">'+f('inv','Invested now ($)','e.g. 150000')+f('add','Adding per year ($)','e.g. 20000')+f('spend','Yearly spending in retirement, today&#8217;s $','e.g. 60000')+f('age','Full retirement age','60',1)+f('ret','Real return after inflation (%)','5',0.5)+f('wr','Withdrawal rate (%)','4',0.25)+'</div>'+
+    '<div id="ro-fout"></div><div class="cs" style="margin-top:8px">These numbers stay on this phone only and are not synced. A planning sketch, not financial advice: returns aren&#8217;t guaranteed, and the 4% withdrawal rule comes from historical US market data. I&#8217;m not a financial advisor; check big decisions with one.</div>';
+  roFireCalc();}
+function roFireCalc(){var o=document.getElementById('ro-fout');if(!o)return;var c=roFireGet(),now=new Date(),age=(now-new Date(1988,7,20))/(365.2425*864e5);
+  if(!c.spend){o.innerHTML='<div class="cs" style="margin-top:10px">Enter your yearly spending to see your numbers.</div>';return;}
+  var r=(+c.ret||0)/100,fire=c.spend/((+c.wr||4)/100),yrs=Math.max(0,(+c.age||60)-age),coast=fire/Math.pow(1+r,yrs),inv=+c.inv||0,add=+c.add||0;
+  var hit=null,v=inv;for(var t=0;t<=yrs*12;t++){var left=Math.max(0,(+c.age||60)-age-t/12);if(v>=fire/Math.pow(1+r,left)){hit=t/12;break;}v=v*Math.pow(1+r,1/12)+add/12;}
+  var m=function(x){return '$'+Math.round(x).toLocaleString();},pct=Math.min(100,inv/coast*100);
+  o.innerHTML='<div class="cz-big" style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-top:12px"><div class="ro-k"><b>'+m(fire)+'</b><span>full FIRE number</span></div><div class="ro-k"><b>'+m(coast)+'</b><span>coast number today</span></div></div>'+
+    '<div class="sl-66" style="margin-top:12px"><div class="sl-66b"><i style="width:'+pct.toFixed(1)+'%"></i></div><span>'+(inv?pct.toFixed(0)+'% of your coast number today':'Add what you have invested')+'</span></div>'+
+    (hit!=null?'<div class="cz-p" style="font-size:13px">'+(hit<0.05?'<b>You&#8217;re at Coast FIRE now</b> on these assumptions.':'At this pace you reach Coast FIRE in about <b>'+hit.toFixed(1)+' years</b>, around age '+(age+hit).toFixed(0)+'.')+'</div>':'<div class="cz-p" style="font-size:13px">At these numbers you don&#8217;t reach Coast FIRE before '+(+c.age||60)+'. Raising yearly additions or the retirement age changes that.</div>');}
+(function(){var _go=go;go=function(id,btn){_go(id,btn);if(id==='p-roots'){roYear();roFut();roFire();var evs=document.querySelectorAll('#ro-tl .ro-ev');if('IntersectionObserver' in window){var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}});},{threshold:.2});evs.forEach(function(e,i){e.style.transitionDelay=(i%4*0.08)+'s';io.observe(e);});}else evs.forEach(function(e){e.classList.add('in');});}};
+  if(typeof bbOpen==='function'){var _bo=bbOpen;bbOpen=function(s){_bo(s);if(s==='more'){var g=document.getElementById('sheet-g');if(g&&!g.querySelector('[data-ro]'))g.insertAdjacentHTML('beforeend','<button data-ro="1" onclick="bbGoPanel(\'p-roots\')"><i class="ti ti-sunrise"></i>Roots</button>');}};}
+  if(typeof SR_P!=='undefined')SR_P.splice(2,0,['p-roots','Roots','sunrise','protocol','roots life story history timeline childhood kenitra morocco family mom najat dad patterns winter plan future 45 60 coast fire money retirement']);
+})();
+/* banner: the holiday plan in his own words, and wudu before each prayer */
+(function(){if(typeof mvOccasions!=='function')return;var _mo=mvOccasions;mvOccasions=function(now){var L=_mo(now);var m=now.getMonth(),d=now.getDate();
+  if((m===10&&d>=20)||m===11)L.push(['Your holiday plan.','Skip the sweets, keep jerky and protein snacks close. You decided this already.','snow']);
+  if((m===10&&d>=15)||m===11||m<=1)L.push(['Winter, on your terms.','Daylight early, indoor training on freezing days, one thing a week with people.','cloud-rain']);
+  return L;};})();
 
 </script>
 </body>
