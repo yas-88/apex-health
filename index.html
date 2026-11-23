@@ -6,6 +6,7 @@
 <title>Tareeq — A Charter for Body, Mind, and Soul</title>
 <link rel="stylesheet" href="fonts/fonts.css">
 <script src="vendor/supabase.js" defer></script>
+<script src="vendor/astronomy.min.js" defer></script>
 <link rel="manifest" href="manifest.webmanifest">
 <meta name="theme-color" content="#f8f7f4">
 <meta name="apple-mobile-web-app-capable" content="yes">
@@ -475,6 +476,67 @@ html[data-scheme="seasonal"][data-tq-season="ss"]:not([data-theme="dark"]) .path
 .mv-x{position:absolute;top:6px;right:8px;border:none;background:none;font-size:18px;line-height:1;color:var(--ink4);padding:6px;cursor:pointer}
 @keyframes mv-drift{from{transform:translate(-6%,0) rotate(0deg)}to{transform:translate(6%,3%) rotate(8deg)}}
 html[data-motion="calm"] .mv-glow{animation-duration:40s}
+/* ---------- Cosmos ---------- */
+.cz-hero{background:radial-gradient(120% 90% at 85% 0%,color-mix(in srgb,var(--ground) 22%,transparent),transparent 60%),linear-gradient(160deg,color-mix(in srgb,#1d2350 10%,var(--bg2)),var(--bg2))}
+.cz-card{padding:12px}
+.cz-dialwrap,.cz-daywrap{position:relative;max-width:360px;margin:0 auto}
+.cz-dial,.cz-day{display:block;width:100%;height:auto;overflow:visible}
+.cz-dial text,.cz-day text{font-family:Inter,system-ui,sans-serif;fill:var(--ink2)}
+.cz-dial .zg{font-size:13px}
+.cz-dial .zs{font-size:9px;fill:var(--ink3)}
+.cz-dial .bl{font-size:12px;font-weight:600}
+.cz-dial .rx{font-size:7px;font-weight:700;fill:var(--fire)}
+.cz-sky{fill:color-mix(in srgb,#141a3c 7%,transparent)}
+html[data-theme="dark"] .cz-sky{fill:#0b0f26}
+.cz-orb{fill:none;stroke:var(--bdr);stroke-width:.6;stroke-dasharray:1.5 3}
+.cz-star{fill:var(--ink4);animation:cz-tw 4s ease-in-out infinite}
+html[data-theme="dark"] .cz-star{fill:#cfd6ff}
+@keyframes cz-tw{0%,100%{opacity:.25}50%{opacity:.9}}
+.cz-sunglow{animation:cz-pulse 5s ease-in-out infinite;transform-origin:center;transform-box:fill-box}
+@keyframes cz-pulse{0%,100%{opacity:.55;transform:scale(1)}50%{opacity:.9;transform:scale(1.18)}}
+.cz-earth{animation:cz-spin 30s linear infinite;transform-origin:0 0}
+@keyframes cz-spin{to{transform:rotate(360deg)}}
+.cz-when{display:flex;align-items:center;justify-content:space-between;gap:8px;margin:8px 2px 4px;font-size:13px;color:var(--ink2)}
+.cz-scrub{width:100%;accent-color:var(--repair)}
+.cz-row{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-top:8px}
+.cz-btn{font:inherit;font-size:12.5px;padding:7px 12px;border-radius:20px;border:0.5px solid var(--bdr2);background:var(--bg);color:var(--ink);cursor:pointer;display:inline-flex;align-items:center;gap:5px}
+.cz-btn.pri{background:var(--repair);color:#fff;border-color:transparent}
+.cz-tog{font-size:12.5px;color:var(--ink2);display:inline-flex;align-items:center;gap:6px;margin-left:auto}
+.cz-key{font-size:11.5px;color:var(--ink3);line-height:1.5;margin-top:10px}
+.cz-legend{display:flex;flex-wrap:wrap;gap:6px 12px;margin-top:10px;font-size:12px;color:var(--ink2)}
+.cz-legend span{display:inline-flex;align-items:center;gap:5px}
+.cz-legend b{font-weight:600;color:var(--ink)}
+.cz-moon{display:flex;gap:14px;align-items:flex-start}
+.cz-moonfig{flex:0 0 96px}
+.cz-moontx{flex:1;min-width:0;font-size:13px;line-height:1.5;color:var(--ink2)}
+.cz-tx{font-size:13px;line-height:1.55;color:var(--ink2)}
+.cz-h{font-family:'DM Serif Display',Georgia,serif;font-size:18px;color:var(--ink);line-height:1.25;margin-bottom:4px}
+.cz-p{margin:8px 0 0;font-size:13px;line-height:1.55;color:var(--ink2)}
+.cz-p .etag{margin-right:4px;vertical-align:1px}
+.cz-tbl{width:100%;border-collapse:collapse;font-size:12.5px;margin-top:6px}
+.cz-tbl th{font-weight:600;text-align:left;color:var(--ink3);font-size:11px;padding:4px 4px 6px;border-bottom:0.5px solid var(--bdr)}
+.cz-tbl td{padding:6px 4px;border-bottom:0.5px solid var(--bdr);color:var(--ink2);vertical-align:top}
+.cz-tbl td:first-child{color:var(--ink);white-space:nowrap}
+.cz-tbl .gl{display:inline-block;width:16px;text-align:center}
+.cz-ev{display:flex;gap:10px;padding:8px 0;border-bottom:0.5px solid var(--bdr);font-size:13px;color:var(--ink2)}
+.cz-ev:last-child{border-bottom:none}
+.cz-ev i{font-size:18px;color:var(--ground);flex:0 0 22px;margin-top:1px}
+.cz-ev b{color:var(--ink);font-weight:600}
+.cz-small .cz-big{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin:4px 0 6px}
+.cz-small .cz-big div{background:var(--bg);border-radius:var(--rmd);padding:10px;border:0.5px solid var(--bdr)}
+.cz-small .cz-big b{display:block;font-family:'DM Serif Display',Georgia,serif;font-size:clamp(15px,4.6vw,19px);font-weight:400;color:var(--ink);line-height:1.15}
+.cz-small .cz-big span{font-size:11px;color:var(--ink3)}
+.cz-quote{font-family:'DM Serif Display',Georgia,serif;font-size:15.5px;line-height:1.45;color:var(--ink);margin-top:12px;padding-left:12px;border-left:2px solid var(--gold)}
+.cz-quote small{display:block;font-family:Inter,system-ui,sans-serif;font-size:11px;color:var(--ink3);margin-top:4px}
+.cz-form{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.cz-form label{display:flex;flex-direction:column;gap:4px;font-size:11.5px;color:var(--ink3);min-width:0}
+.cz-form .cz-wide{grid-column:1/-1}
+.cz-form input,.cz-form select{font:inherit;font-size:14px;padding:8px 10px;border-radius:var(--rmd);border:0.5px solid var(--bdr2);background:var(--bg);color:var(--ink);min-width:0;width:100%;box-sizing:border-box}
+.cz-chip{display:inline-block;font-size:11px;padding:2px 8px;border-radius:12px;background:var(--bg);border:0.5px solid var(--bdr);color:var(--ink2);margin:2px 4px 2px 0}
+.cz-arrow{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin-top:10px}
+.cz-arrow div{background:var(--bg);border:0.5px solid var(--bdr);border-radius:var(--rmd);padding:9px;font-size:12px;line-height:1.45;color:var(--ink2)}
+.cz-arrow b{display:block;color:var(--ink);font-size:12.5px;margin-bottom:2px}
+html[data-motion="calm"] .cz-star,html[data-motion="calm"] .cz-sunglow,html[data-motion="calm"] .cz-earth{animation:none}
 .mv-fx{position:absolute;inset:0;pointer-events:none;overflow:hidden;transition:opacity .45s ease}
 .mv-fx.out{opacity:0}
 .mvf{position:absolute;display:block;font-style:normal;line-height:1;will-change:transform,opacity}
@@ -1241,6 +1303,7 @@ html[data-motion="off"] *,html[data-motion="off"] *::before,html[data-motion="of
       <button class="nb" data-pillar="p-prevent" onclick="go('p-prevent',this)"><span class="nb-dot"></span>Preventive</button>
       <button class="nb" data-pillar="p-ramadan" onclick="go('p-ramadan',this)"><span class="nb-dot"></span>Ramadan</button>
       <button class="nb" data-pillar="p-rights" onclick="go('p-rights',this)"><span class="nb-dot"></span>Rights</button>
+      <button class="nb" data-pillar="p-cosmos" onclick="go('p-cosmos',this)"><span class="nb-dot"></span>Cosmos</button>
       <button class="nb" data-pillar="p-play" onclick="go('p-play',this)"><span class="nb-dot"></span>Play</button>
       <button class="nb" data-pillar="p-checkpoints" onclick="go('p-checkpoints',this)"><span class="nb-dot"></span>Checkpoints</button>
       <button class="nb" data-pillar="p-travel" onclick="go('p-travel',this)"><span class="nb-dot"></span>Travel</button>
@@ -3015,6 +3078,72 @@ html[data-motion="off"] *,html[data-motion="off"] *::before,html[data-motion="of
     </div>
 
     <!-- ═══════════ PROTOCOL: RIGHTS ═══════════ -->
+    <div id="p-p-cosmos" class="panel">
+      <div class="pillar-hero cz-hero">
+        <div class="ph-eyebrow"><i class="ti ti-moon-stars"></i> Cosmos</div>
+        <div class="ph-title" style="font-size:26px">Your place in the sky</div>
+        <div class="ph-lede" style="margin-top:8px">The sun, moon and planets where they really are right now, worked out on your phone. Astronomy is tagged <span class="etag est"><i class="ti ti-flask"></i>Established</span>. Astrology, Ayurveda, Chinese medicine and the Enneagram are tagged <span class="etag trad"><i class="ti ti-feather"></i>Traditional practice</span> or <span class="etag emrg"><i class="ti ti-sparkles"></i>Emerging</span>: they're here for reflection, and they don't predict anything.</div>
+      </div>
+
+      <div class="ew">Cosmic clock</div>
+      <div class="card cz-card">
+        <div class="cz-dialwrap"><svg id="cz-dial" class="cz-dial" viewBox="-170 -170 340 340" role="img" aria-label="Sun, moon and planets on the zodiac, as seen from Earth"></svg></div>
+        <div class="cz-when"><span id="cz-when">Now</span><button class="cz-btn" id="cz-now" onclick="czSet(0)">Now</button></div>
+        <input type="range" id="cz-scrub" class="cz-scrub" min="-365" max="365" step="1" value="0" aria-label="Move through time, in days">
+        <div class="cz-row">
+          <button class="cz-btn" onclick="czPlay(30)"><i class="ti ti-player-play"></i> Watch a month</button>
+          <button class="cz-btn" onclick="czPlay(365)"><i class="ti ti-player-play"></i> Watch a year</button>
+          <label class="cz-tog"><input type="checkbox" id="cz-natal" checked onchange="czDraw()"> Birth sky</label>
+        </div>
+        <div class="cz-key">Outer ring: Western (tropical) zodiac. Inner ring: Vedic (sidereal, Lahiri). Earth sits in the middle, and each body is drawn at the angle we see it along the zodiac. Hollow dots mark where everything was on the day you were born.</div>
+        <div class="cz-legend" id="cz-legend"></div>
+      </div>
+
+      <div class="ew">Moon</div>
+      <div class="card cz-moon">
+        <div class="cz-moonfig"><svg id="cz-moonsvg" viewBox="-50 -50 100 100" width="96" height="96" aria-hidden="true"></svg></div>
+        <div class="cz-moontx" id="cz-moontx"></div>
+      </div>
+
+      <div class="ew">Sun and your day</div>
+      <div class="card">
+        <div class="cz-daywrap"><svg id="cz-day" class="cz-day" viewBox="-130 -130 260 260" role="img" aria-label="24-hour clock with daylight, Ayurveda dosha times and the Chinese organ clock"></svg></div>
+        <div id="cz-daytx" class="cz-tx"></div>
+      </div>
+
+      <div class="ew">Season, East and West</div>
+      <div class="card" id="cz-season"></div>
+
+      <div class="ew">Planets tonight</div>
+      <div class="card" id="cz-planets"></div>
+
+      <div class="ew">Coming up in the sky</div>
+      <div class="card" id="cz-events"></div>
+
+      <div class="ew">Small and rare</div>
+      <div class="card cz-small" id="cz-small"></div>
+
+      <div class="ew">Your birth sky</div>
+      <div class="card" id="cz-natalc"></div>
+
+      <div class="ew">Today&#8217;s reflection</div>
+      <div class="card" id="cz-reflect"></div>
+
+      <div class="ew">Enneagram</div>
+      <div class="card" id="cz-ennea"></div>
+
+      <div class="ew">Your birth details</div>
+      <div class="card">
+        <div class="cz-form">
+          <label>Birth date<input type="date" id="cz-bd"></label>
+          <label>Birth time (optional)<input type="time" id="cz-bt"></label>
+          <label class="cz-wide">Birth city<input type="text" id="cz-bc" placeholder="City, country" autocomplete="off"></label>
+          <label>Enneagram type<select id="cz-et"><option value="">Not set</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option></select></label>
+        </div>
+        <div class="cz-row"><button class="cz-btn pri" onclick="czSaveForm()">Save</button><span class="muted" id="cz-fmsg" style="font-size:12px"></span></div>
+        <div class="cz-key">The city is looked up once (Open-Meteo geocoding) to get its coordinates and time zone. Everything else is calculated on your phone with Astronomy Engine (MIT license), which is checked against NASA JPL data.</div>
+      </div>
+    </div>
     <div id="p-p-rights" class="panel">
       <div class="pillar-hero" style="background:linear-gradient(160deg,color-mix(in srgb,var(--ground) 14%,var(--bg2)),var(--bg2))">
         <div class="ph-eyebrow"><i class="ti ti-justice"></i> Know your rights</div>
@@ -4398,6 +4527,10 @@ document.addEventListener('visibilitychange',function(){if(document.visibilitySt
 var MV={i:0,lines:[],t:null,th:''};
 var MV_MA=true; /* Moroccan national days + birthday: live only, off in the Template */
 var MV_BDAY='08-20';
+/* [name, MM-DD, birth year or 0, kind, note]; Zaid's date is still to add */
+var MV_FAM=[['Mae','12-03',1998,'mae'],['Dad','01-02',1950,''],['Zouhair','01-03',1990,''],['Amirah','02-21',0,''],['Yasmine','05-18',0,''],['Zaidane','06-04',0,''],['Zak','06-15',0,''],['Mossaab','08-25',0,''],
+  ['Mom','10-14',1958,'mem','Najat Ihsane, born 1958. A good day to feed someone in her name.']];
+var MV_MEM=[['06-28','Remembering Mom today.','Allah yarhamha. Be gentle with yourself today.']];
 function mvSeed(s){var h=2166136261;for(var i=0;i<s.length;i++){h^=s.charCodeAt(i);h=Math.imul(h,16777619);}return function(){h=Math.imul(h^(h>>>15),2246822507);h=Math.imul(h^(h>>>13),3266489909);h^=h>>>16;return (h>>>0)/4294967296;};}
 function mvPick(a,k){return a[k%a.length];}
 function mvNth(y,m,dow,n){var d=new Date(y,m,1),c=0;while(true){if(d.getDay()===dow){c++;if(c===n)return d.getDate();}d.setDate(d.getDate()+1);}}
@@ -4464,6 +4597,13 @@ function mvOccasions(now){
       '11-18':['Moroccan Independence Day.','A national day back home.']};
     if(MA[md])L.push([MA[md][0],MA[md][1],'zellige']);
     if(md===MV_BDAY)L.unshift(['Happy birthday.','Another year in a body you&#8217;re taking good care of.','confetti']);
+    /* family birthdays: day-of first, a heads-up 3 days and 1 day before */
+    MV_FAM.forEach(function(f){var p=f[1].split('-'),bm=+p[0]-1,bd=+p[1];var tgt=new Date(y,bm,bd);if(tgt<new Date(y,m,d))tgt=new Date(y+1,bm,bd);
+      var dd=Math.round((tgt-new Date(y,m,d))/864e5),age=f[2]?tgt.getFullYear()-f[2]:null;
+      if(f[3]==='mem'){if(dd===0)L.unshift(['Remembering '+f[0]+' on her birthday.',f[4],'star']);return;}
+      if(dd===0)L.unshift([age?f[0]+' turns '+age+' today.':f[0]+'&#8217;s birthday today.',f[3]==='mae'?'Make time for her today. A call, a walk, a meal together.':'A good day to call and say happy birthday.',f[3]==='mae'?'heart':'confetti']);
+      else if(dd===1||dd===3)L.push([f[0]+'&#8217;s birthday is '+(dd===1?'tomorrow':'in 3 days')+'.',dd===3?'Still time to plan something or send a gift.':'A quick message or call tomorrow goes a long way.',f[3]==='mae'?'heart':'confetti']);});
+    MV_MEM.forEach(function(x){if(md===x[0])L.unshift([x[1],x[2],'star']);});
   }
   return L;
 }
@@ -5567,5 +5707,313 @@ function qrPrint(){var sel=document.getElementById('qr-sel'),L=qrList(),q=L.filt
     <button onclick="tqRestAdd()">+15 s</button><button onclick="tqRestStop()">Skip</button>
   </div>
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
+<script>
+/* ---------- Cosmos: live sky, moon, day clock, seasons East and West, birth sky, Enneagram ---------- */
+var CZ_KEY='tareeq-cosmos';
+var CZ_SEED={date:'1988-08-20',time:'',place:'K\u00e9nitra, Morocco',lat:34.261,lon:-6.58,tz:'Africa/Casablanca',tzMin:0,ennea:'8'};
+var CZ_VS='︎';
+var CZ_SIGNS=['Aries','Taurus','Gemini','Cancer','Leo','Virgo','Libra','Scorpio','Sagittarius','Capricorn','Aquarius','Pisces'];
+var CZ_RASHI=['Mesha','Vrishabha','Mithuna','Karka','Simha','Kanya','Tula','Vrishchika','Dhanu','Makara','Kumbha','Meena'];
+var CZ_ZG=['♈','♉','♊','♋','♌','♍','♎','♏','♐','♑','♒','♓'];
+var CZ_EL=['fire','earth','air','water'];
+var CZ_ELC={fire:'var(--fire)',earth:'var(--fuel)',air:'var(--ground)',water:'var(--repair)'};
+var CZ_NAK=['Ashwini','Bharani','Krittika','Rohini','Mrigashira','Ardra','Punarvasu','Pushya','Ashlesha','Magha','Purva Phalguni','Uttara Phalguni','Hasta','Chitra','Swati','Vishakha','Anuradha','Jyeshtha','Mula','Purva Ashadha','Uttara Ashadha','Shravana','Dhanishta','Shatabhisha','Purva Bhadrapada','Uttara Bhadrapada','Revati'];
+/* [key, name, glyph, color, orbit radius on the dial, dot size] */
+var CZ_B=[['Moon','Moon','☽','#9aa3b5',44,6],['Mercury','Mercury','☿','#8c8f99',56,3.2],['Venus','Venus','♀','#d9b36a',68,4],['Sun','Sun','☉','#e8a93a',80,7],
+  ['Mars','Mars','♂','#c8503a',92,3.8],['Jupiter','Jupiter','♃','#c49a6c',104,5.2],['Saturn','Saturn','♄','#c9b072',116,4.6],['Uranus','Uranus','♅','#5fb3c4',126,3.4],
+  ['Neptune','Neptune','♆','#4a72c8',134,3.4],['Pluto','Pluto (dwarf planet)','♇','#9a7a68',141,2.4]];
+var CZ={off:0,raf:0,anim:null,cache:{}};
+
+function czOK(){return typeof Astronomy!=='undefined';}
+function czCfg(){var c=lsGet(CZ_KEY,null);if(!c&&CZ_SEED){c=JSON.parse(JSON.stringify(CZ_SEED));lsSet(CZ_KEY,c);}return c||{};}
+function czAyan(date){var y=2000+(date.getTime()-Date.UTC(2000,0,1,12))/(365.25*864e5);return 23.853+(y-2000)*50.2888/3600;}
+function czLon(key,date){
+  if(key==='Sun')return Astronomy.SunPosition(date).elon;
+  if(key==='Moon')return Astronomy.EclipticGeoMoon(date).lon;
+  return Astronomy.Ecliptic(Astronomy.GeoVector(Astronomy.Body[key],date,true)).elon;}
+function czSky(date){var out={},a=czAyan(date),d2=new Date(date.getTime()+864e5);
+  CZ_B.forEach(function(b){var L=czLon(b[0],date),L2=(b[0]==='Sun'||b[0]==='Moon')?null:czLon(b[0],d2),rx=L2!=null&&(((L2-L+540)%360)-180)<0;
+    out[b[0]]={lon:L,sid:((L-a)%360+360)%360,rx:rx};});
+  return out;}
+function czSign(l){return CZ_SIGNS[Math.floor(l/30)%12];}
+function czRashi(l){return CZ_RASHI[Math.floor(l/30)%12];}
+function czNak(l){return CZ_NAK[Math.floor(l/(360/27))%27];}
+function czDeg(l){var d=l%30;return Math.floor(d)+'&#176;';}
+function czEl(l){return CZ_EL[Math.floor(l/30)%4];}
+function czG(s){return s+CZ_VS;}
+function czLoc(){try{if(typeof tdLoc==='function')return tdLoc();}catch(e){}return {lat:45.6387,lon:-122.6615,name:'Vancouver, WA'};}
+function czObs(){var L=czLoc();return new Astronomy.Observer(L.lat,L.lon,50);}
+function czFmtT(d){return d?d.toLocaleTimeString([],{hour:'numeric',minute:'2-digit'}):'–';}
+function czFmtD(d,yr){return d?d.toLocaleDateString([],{weekday:'short',month:'short',day:'numeric',year:yr?'numeric':undefined}):'–';}
+function czNow(){return new Date(Date.now()+CZ.off*864e5);}
+/* polar: angle measured from Aries at 9 o'clock, counterclockwise */
+function czP(r,lon){var a=Math.PI-lon*Math.PI/180;return [r*Math.cos(a),-r*Math.sin(a)];}
+function czArc(r0,r1,a0,a1){var p=function(r,l){var q=czP(r,l);return q[0].toFixed(2)+' '+q[1].toFixed(2);};var big=((a1-a0+360)%360)>180?1:0;
+  return 'M'+p(r1,a0)+' A'+r1+' '+r1+' 0 '+big+' 0 '+p(r1,a1)+' L'+p(r0,a1)+' A'+r0+' '+r0+' 0 '+big+' 1 '+p(r0,a0)+'Z';}
+
+/* ---- birth sky: noon local when the time is unknown; flags bodies that change sign that day ---- */
+function czBirthUTC(c,hh,mm){var p=c.date.split('-');return new Date(Date.UTC(+p[0],+p[1]-1,+p[2],hh,mm)-(c.tzMin||0)*60000);}
+function czNatal(){var c=czCfg();if(!c.date||!czOK())return null;var k=c.date+'|'+(c.time||'')+'|'+(c.tzMin||0);if(CZ.cache.nk===k)return CZ.cache.n;
+  var n={known:!!c.time},t;
+  if(c.time){var tp=c.time.split(':');t=czBirthUTC(c,+tp[0],+tp[1]);n.sky=czSky(t);n.t=t;}
+  else{t=czBirthUTC(c,12,0);n.sky=czSky(t);n.t=t;var a=czSky(czBirthUTC(c,0,0)),b=czSky(czBirthUTC(c,23,59));n.ch={};
+    CZ_B.forEach(function(B){var k2=B[0];if(Math.floor(a[k2].lon/30)!==Math.floor(b[k2].lon/30))n.ch[k2]=n.ch[k2]||{},n.ch[k2].t=[czSign(a[k2].lon),czSign(b[k2].lon),czChange(c,k2,false)];
+      if(Math.floor(a[k2].sid/30)!==Math.floor(b[k2].sid/30))n.ch[k2]=n.ch[k2]||{},n.ch[k2].s=[czRashi(a[k2].sid),czRashi(b[k2].sid),czChange(c,k2,true)];
+      if(k2==='Moon'&&Math.floor(a[k2].sid/(360/27))!==Math.floor(b[k2].sid/(360/27)))n.ch[k2]=n.ch[k2]||{},n.ch[k2].n=[czNak(a[k2].sid),czNak(b[k2].sid)];});}
+  CZ.cache.nk=k;CZ.cache.n=n;return n;}
+function czChange(c,key,sid){var lo=0,hi=24*60,f=function(m){var d=czBirthUTC(c,0,0);d=new Date(d.getTime()+m*60000);var L=czLon(key,d);if(sid)L=((L-czAyan(d))%360+360)%360;return Math.floor(L/30);},s0=f(0);
+  for(var i=0;i<22;i++){var m=(lo+hi)/2;if(f(m)===s0)lo=m;else hi=m;}var h=Math.floor(lo/60),mi=Math.round(lo%60);if(mi===60){h++;mi=0;}
+  return (h%12||12)+':'+('0'+mi).slice(-2)+(h<12?' AM':' PM');}
+
+/* ---- cosmic clock ---- */
+function czDraw(){var svg=document.getElementById('cz-dial');if(!svg||!czOK())return;var now=czNow(),sky=czSky(now),a=czAyan(now),h='',i;
+  var R=czSeedR('stars');
+  h+='<circle class="cz-sky" r="150"/>';
+  for(i=0;i<46;i++){var rr=20+R()*126,an=R()*360,q=czP(rr,an);h+='<circle class="cz-star" cx="'+q[0].toFixed(1)+'" cy="'+q[1].toFixed(1)+'" r="'+(0.4+R()*0.8).toFixed(2)+'" style="animation-delay:-'+(R()*4).toFixed(2)+'s"/>';}
+  /* outer tropical ring */
+  for(i=0;i<12;i++){var el=CZ_EL[i%4];h+='<path d="'+czArc(150,166,i*30,i*30+30)+'" fill="'+CZ_ELC[el]+'" fill-opacity="'+(i%2?0.13:0.2)+'" stroke="var(--bg2)" stroke-width="1"/>';
+    var g=czP(158,i*30+15);h+='<text class="zg" x="'+g[0].toFixed(1)+'" y="'+(g[1]+4.5).toFixed(1)+'" text-anchor="middle" style="fill:'+CZ_ELC[el]+'">'+czG(CZ_ZG[i])+'</text>';}
+  /* inner sidereal ring, rotated by the ayanamsa */
+  for(i=0;i<12;i++){var s0=i*30+a,el2=CZ_EL[i%4];h+='<path d="'+czArc(144,150,s0,s0+30)+'" fill="'+CZ_ELC[el2]+'" fill-opacity="'+(i%2?0.3:0.5)+'" stroke="var(--bg2)" stroke-width=".8"/>';}
+  for(i=0;i<27;i++){var t0=czP(144,i*360/27+a),t1=czP(141,i*360/27+a);h+='<line x1="'+t0[0].toFixed(1)+'" y1="'+t0[1].toFixed(1)+'" x2="'+t1[0].toFixed(1)+'" y2="'+t1[1].toFixed(1)+'" stroke="var(--ink4)" stroke-width=".5"/>';}
+  CZ_B.forEach(function(b){h+='<circle class="cz-orb" r="'+b[4]+'"/>';});
+  /* birth sky markers */
+  var n=czNatal(),nat=document.getElementById('cz-natal');
+  if(n&&(!nat||nat.checked))CZ_B.forEach(function(b){var p=czP(b[4],n.sky[b[0]].lon);h+='<circle cx="'+p[0].toFixed(1)+'" cy="'+p[1].toFixed(1)+'" r="'+(b[5]*.75+1).toFixed(1)+'" fill="none" stroke="'+b[3]+'" stroke-width="1.1" stroke-dasharray="2 1.5" opacity=".9"/>';});
+  /* Earth */
+  h+='<g class="cz-earth"><circle r="8" fill="#3b7dc4"/><path d="M-5 -3 q3 -3 6 0 q-1 3 -4 3z M1 2 q3 0 4 3 q-3 1 -5 -1z" fill="#5aa86b"/></g><circle r="8" fill="none" stroke="#9cc4ec" stroke-width=".8"/>';
+  /* bodies */
+  CZ_B.forEach(function(b){var s=sky[b[0]],p=czP(b[4],s.lon),x=p[0].toFixed(1),y=p[1].toFixed(1);
+    if(b[0]==='Sun')h+='<circle class="cz-sunglow" cx="'+x+'" cy="'+y+'" r="14" fill="#f2c25a" opacity=".5" style="filter:blur(3px)"/>';
+    if(b[0]==='Moon')h+=czMoonMini(p[0],p[1],b[5],Astronomy.MoonPhase(now));
+    else h+='<circle cx="'+x+'" cy="'+y+'" r="'+b[5]+'" fill="'+b[3]+'"'+(b[0]==='Saturn'?' stroke="'+b[3]+'" stroke-opacity=".5"':'')+'/>'+(b[0]==='Saturn'?'<ellipse cx="'+x+'" cy="'+y+'" rx="8" ry="2.4" fill="none" stroke="'+b[3]+'" stroke-width="1" transform="rotate(-20 '+x+' '+y+')"/>':'');
+    if(s.rx){h+='<text class="rx" x="'+(p[0]+b[5]+1.5).toFixed(1)+'" y="'+(p[1]-b[5]+1).toFixed(1)+'">R</text>';}});
+  /* sun-earth line hints the season */
+  svg.innerHTML=h;
+  var lg=document.getElementById('cz-legend');
+  if(lg)lg.innerHTML=CZ_B.map(function(b){var s=sky[b[0]];return '<span><svg width="10" height="10"><circle cx="5" cy="5" r="4" fill="'+b[3]+'"/></svg><b>'+b[1].replace(' (dwarf planet)','')+'</b> '+czSign(s.lon)+(s.rx?' &#8478;':'')+' <span class="muted">/ '+czRashi(s.sid)+'</span></span>';}).join('');
+  var w=document.getElementById('cz-when');if(w)w.textContent=CZ.off===0?'Now, '+czFmtT(now):czFmtD(now,true)+(Math.abs(CZ.off)<2?', '+czFmtT(now):'');
+  var sc=document.getElementById('cz-scrub');if(sc&&!CZ.anim)sc.value=Math.round(CZ.off);
+}
+function czMoonMini(x,y,r,ph){return '<g transform="translate('+x.toFixed(1)+' '+y.toFixed(1)+')"><circle r="'+r+'" fill="#2a2f45"/><path d="'+czMoonPath(r,ph)+'" fill="#e9ecf4"/></g>';}
+/* lit part of the moon, northern-hemisphere view (waxing lit on the right) */
+function czMoonPath(r,ph){var rx=Math.abs(Math.cos(ph*Math.PI/180))*r;if(rx<0.01)rx=0.01;
+  if(ph<=180){var gib=ph>90;return 'M0 '+(-r)+' A'+r+' '+r+' 0 0 1 0 '+r+' A'+rx.toFixed(2)+' '+r+' 0 0 '+(gib?1:0)+' 0 '+(-r)+'Z';}
+  var gib2=ph<270;return 'M0 '+(-r)+' A'+r+' '+r+' 0 0 0 0 '+r+' A'+rx.toFixed(2)+' '+r+' 0 0 '+(gib2?0:1)+' 0 '+(-r)+'Z';}
+function czSeedR(s){var h=2166136261;for(var i=0;i<s.length;i++){h^=s.charCodeAt(i);h=Math.imul(h,16777619);}return function(){h=Math.imul(h^(h>>>15),2246822507);h=Math.imul(h^(h>>>13),3266489909);h^=h>>>16;return (h>>>0)/4294967296;};}
+function czSet(d){CZ.off=d;if(CZ.anim){cancelAnimationFrame(CZ.raf);CZ.anim=null;}czDraw();if(d===0)czRenderAll(true);}
+function czPlay(days){if(!czOK())return;cancelAnimationFrame(CZ.raf);var mo=document.documentElement.getAttribute('data-motion')||'full';
+  if(mo==='off'){CZ.off=days;czDraw();return;}var t0=null,dur=days>60?9000:6000,start=CZ.off;CZ.anim=1;
+  var step=function(ts){if(!t0)t0=ts;var k=Math.min(1,(ts-t0)/dur),e=k<.5?2*k*k:1-Math.pow(-2*k+2,2)/2;CZ.off=start+days*e;czDraw();
+    if(k<1)CZ.raf=requestAnimationFrame(step);else{CZ.anim=null;var sc=document.getElementById('cz-scrub');if(sc)sc.value=Math.round(CZ.off);}};
+  CZ.raf=requestAnimationFrame(step);}
+
+/* ---- moon ---- */
+function czPhaseName(ph){return ph<6||ph>=354?'New moon':ph<84?'Waxing crescent':ph<96?'First quarter':ph<174?'Waxing gibbous':ph<186?'Full moon':ph<264?'Waning gibbous':ph<276?'Last quarter':'Waning crescent';}
+function czMoon(){var el=document.getElementById('cz-moontx'),sv=document.getElementById('cz-moonsvg');if(!el)return;var now=new Date(),ph=Astronomy.MoonPhase(now),ill=Astronomy.Illumination(Astronomy.Body.Moon,now).phase_fraction;
+  var sky=czSky(now),m=sky.Moon,age=ph/360*29.530588,obs=czObs();
+  var nf=Astronomy.SearchMoonPhase(180,now,40),nn=Astronomy.SearchMoonPhase(0,now,40);
+  var rise=null,set=null;try{var d0=new Date(now);d0.setHours(0,0,0,0);rise=Astronomy.SearchRiseSet(Astronomy.Body.Moon,obs,+1,d0,1.2);set=Astronomy.SearchRiseSet(Astronomy.Body.Moon,obs,-1,d0,1.2);}catch(e){}
+  if(sv)sv.innerHTML='<defs><radialGradient id="czmg" cx="40%" cy="40%"><stop offset="0" stop-color="#ffffff"/><stop offset="1" stop-color="#d9dde8"/></radialGradient></defs><circle r="46" fill="#232838"/><path d="'+czMoonPath(46,ph)+'" fill="url(#czmg)"/><circle cx="-12" cy="-10" r="6" fill="#000" opacity=".06"/><circle cx="14" cy="8" r="9" fill="#000" opacity=".05"/><circle cx="-4" cy="18" r="4" fill="#000" opacity=".06"/>';
+  var hj='';try{var f=new Intl.DateTimeFormat('en-u-ca-islamic-umalqura',{day:'numeric',month:'long',year:'numeric'});if(f.resolvedOptions().calendar.indexOf('islamic')>-1)hj=f.format(now);}catch(e){}
+  var waxing=ph<180;
+  el.innerHTML='<div class="cz-h">'+czPhaseName(ph)+'</div>'+Math.round(ill*100)+'% lit, '+age.toFixed(1)+' days into the cycle.<br>'+
+    'Moonrise '+czFmtT(rise&&rise.date)+', moonset '+czFmtT(set&&set.date)+'.<br>'+
+    'In '+czSign(m.lon)+' (Western) and '+czRashi(m.sid)+', nakshatra '+czNak(m.sid)+' (Vedic).<br>'+
+    'Next full moon '+czFmtD(nf&&nf.date)+', next new moon '+czFmtD(nn&&nn.date)+'.'+(hj?'<br>Hijri date: '+hj+'.':'')+
+    '<p class="cz-p"><span class="etag emrg"><i class="ti ti-sparkles"></i>Emerging</span>A few sleep-lab and field studies found people sleep a little later and less deeply in the nights before a full moon. Results are mixed, so treat it as something to notice.</p>'+
+    '<p class="cz-p"><span class="etag trad"><i class="ti ti-feather"></i>Traditional practice</span>'+(waxing?'Waxing moon: many traditions treat this as the time to build. Add a rep, start the new habit.':'Waning moon: many traditions treat this as the time to release and refine. Tidy the routine, ease the load, clear what you don&#8217;t need.')+'</p>';}
+
+/* ---- day clock: daylight, Ayurveda doshas, Chinese organ clock ---- */
+var CZ_TCM=[[23,'Gallbladder'],[1,'Liver'],[3,'Lung'],[5,'Large intestine'],[7,'Stomach'],[9,'Spleen'],[11,'Heart'],[13,'Small intestine'],[15,'Bladder'],[17,'Kidney'],[19,'Pericardium'],[21,'Triple burner']];
+var CZ_DOSHA=[[2,6,'Vata','var(--ground)'],[6,10,'Kapha','var(--repair)'],[10,14,'Pitta','var(--fire)'],[14,18,'Vata','var(--ground)'],[18,22,'Kapha','var(--repair)'],[22,26,'Pitta','var(--fire)']];
+function czHA(hr){return hr/24*360-90;} /* midnight at top */
+function czHP(r,hr){var a=czHA(hr)*Math.PI/180;return [r*Math.cos(a),r*Math.sin(a)];}
+function czHArc(r0,r1,h0,h1){var p=function(r,h){var q=czHP(r,h);return q[0].toFixed(2)+' '+q[1].toFixed(2);},big=((h1-h0+24)%24)>12?1:0;
+  return 'M'+p(r1,h0)+' A'+r1+' '+r1+' 0 '+big+' 1 '+p(r1,h1)+' L'+p(r0,h1)+' A'+r0+' '+r0+' 0 '+big+' 0 '+p(r0,h0)+'Z';}
+function czDay(){var svg=document.getElementById('cz-day'),tx=document.getElementById('cz-daytx');if(!svg)return;var now=new Date(),obs=czObs(),d0=new Date(now);d0.setHours(0,0,0,0);
+  var sr=null,ss=null,noon=null;try{sr=Astronomy.SearchRiseSet(Astronomy.Body.Sun,obs,+1,d0,1);ss=Astronomy.SearchRiseSet(Astronomy.Body.Sun,obs,-1,d0,1);noon=Astronomy.SearchHourAngle(Astronomy.Body.Sun,obs,0,d0);}catch(e){}
+  var hf=function(d){return d?d.getHours()+d.getMinutes()/60:null;},hr=hf(sr&&sr.date),hs=hf(ss&&ss.date),hn=noon?hf(noon.time.date):null,hnow=now.getHours()+now.getMinutes()/60,h='';
+  h+='<circle r="122" fill="color-mix(in srgb,#141a3c 8%,transparent)"/>';
+  if(hr!=null&&hs!=null)h+='<path d="'+czHArc(96,122,hr,hs)+'" fill="#f2c25a" fill-opacity=".28"/>';
+  CZ_DOSHA.forEach(function(d){h+='<path d="'+czHArc(80,94,d[0]%24,d[1]%24)+'" fill="'+d[3]+'" fill-opacity=".28" stroke="var(--bg2)" stroke-width="1"/>';var m=czHP(87,((d[0]+d[1])/2)%24);h+='<text x="'+m[0].toFixed(1)+'" y="'+(m[1]+3).toFixed(1)+'" text-anchor="middle" font-size="7.5">'+d[2]+'</text>';});
+  CZ_TCM.forEach(function(o,i){h+='<path d="'+czHArc(56,78,o[0]%24,(o[0]+2)%24)+'" fill="var(--fuel)" fill-opacity="'+(i%2?0.1:0.18)+'" stroke="var(--bg2)" stroke-width="1"/>';var m=czHP(67,(o[0]+1)%24);
+    var nm=o[1].replace('Large intestine','L. int.').replace('Small intestine','S. int.').replace('Triple burner','T. burner').replace('Gallbladder','Gallbl.').replace('Pericardium','Pericard.');
+    h+='<text x="'+m[0].toFixed(1)+'" y="'+(m[1]+2.5).toFixed(1)+'" text-anchor="middle" font-size="6">'+nm+'</text>';});
+  for(var i=0;i<24;i++){var a=czHP(122,i),b=czHP(i%6?118:114,i);h+='<line x1="'+a[0].toFixed(1)+'" y1="'+a[1].toFixed(1)+'" x2="'+b[0].toFixed(1)+'" y2="'+b[1].toFixed(1)+'" stroke="var(--ink4)" stroke-width="'+(i%6?.6:1.2)+'"/>';
+    if(i%3===0){var t=czHP(106,i);h+='<text x="'+t[0].toFixed(1)+'" y="'+(t[1]+3).toFixed(1)+'" text-anchor="middle" font-size="8.5">'+(i===0?'12a':i===12?'12p':i<12?i+'a':(i-12)+'p')+'</text>';}}
+  if(hn!=null){var n1=czHP(122,hn),n2=czHP(96,hn);h+='<line x1="'+n1[0].toFixed(1)+'" y1="'+n1[1].toFixed(1)+'" x2="'+n2[0].toFixed(1)+'" y2="'+n2[1].toFixed(1)+'" stroke="#d9a441" stroke-width="1.4" stroke-dasharray="2 2"/>';}
+  var sp=czHP(109,hnow),day=hr!=null&&hs!=null&&hnow>=hr&&hnow<=hs,hand=czHP(52,hnow);
+  h+='<line x1="0" y1="0" x2="'+hand[0].toFixed(1)+'" y2="'+hand[1].toFixed(1)+'" stroke="var(--ink)" stroke-width="1.6" stroke-linecap="round"/>';
+  h+=day?'<circle class="cz-sunglow" cx="'+sp[0].toFixed(1)+'" cy="'+sp[1].toFixed(1)+'" r="9" fill="#f2c25a" opacity=".6"/><circle cx="'+sp[0].toFixed(1)+'" cy="'+sp[1].toFixed(1)+'" r="5" fill="#e8a93a"/>':'<g transform="translate('+sp[0].toFixed(1)+' '+sp[1].toFixed(1)+')"><circle r="5" fill="#2a2f45"/><path d="'+czMoonPath(5,Astronomy.MoonPhase(now))+'" fill="#e9ecf4"/></g>';
+  var cur=CZ_TCM.filter(function(o){var s=o[0],x=hnow;if(s===23)return x>=23||x<1;return x>=s&&x<s+2;})[0],dz=CZ_DOSHA.filter(function(d){var x=hnow<2?hnow+24:hnow;return x>=d[0]&&x<d[1];})[0];
+  h+='<circle r="40" fill="var(--bg2)"/><text y="-6" text-anchor="middle" font-size="16" style="font-family:\'DM Serif Display\',Georgia,serif;fill:var(--ink)">'+czFmtT(now).replace(/\s?[AP]M/i,'')+'</text><text y="8" text-anchor="middle" font-size="7.5">'+(dz?dz[2]:'')+' time</text><text y="18" text-anchor="middle" font-size="7">'+(cur?cur[1]:'')+'</text>';
+  svg.innerHTML=h;
+  var len=hr!=null&&hs!=null?hs-hr:null;
+  var CB={Vata:'Movement, ideas, nerves. Good for creative work in the afternoon; at dawn, quiet practice and breath.',Kapha:'Steady, heavy, grounded. Mornings: move early to shake it off. Evenings: wind down, it eases sleep.',Pitta:'Heat, digestion, focus. Midday suits the biggest meal and hard training; late night is for deep repair, ideally asleep.'};
+  if(tx)tx.innerHTML='<div class="cz-h">'+(day?'Daylight':'Night')+'</div>Sunrise '+czFmtT(sr&&sr.date)+', solar noon '+czFmtT(noon&&noon.time.date)+', sunset '+czFmtT(ss&&ss.date)+(len?', '+Math.floor(len)+' h '+Math.round(len%1*60)+' min of light':'')+' in '+czLoc().name+'.'+
+    '<p class="cz-p"><span class="etag est"><i class="ti ti-flask"></i>Established</span>Bright light in the first hours after waking moves your body clock earlier and helps you fall asleep at night. Bright light late in the evening pushes it later. Melatonin usually starts rising about 2 hours before your normal bedtime.</p>'+
+    '<p class="cz-p"><span class="etag trad"><i class="ti ti-feather"></i>Traditional practice</span><b>Ayurveda:</b> it&#8217;s '+(dz?dz[2]:'')+' time. '+(dz?CB[dz[2]]:'')+'</p>'+
+    '<p class="cz-p"><span class="etag trad"><i class="ti ti-feather"></i>Traditional practice</span><b>Chinese organ clock:</b> '+(cur?cur[1]:'')+' hours. The ring shows the 2-hour window each organ system is said to be strongest.</p>';}
+
+/* ---- seasons, East and West ---- */
+var CZ_TERMS=['Spring Equinox','Pure Brightness','Grain Rain','Start of Summer','Grain Buds','Grain in Ear','Summer Solstice','Minor Heat','Major Heat','Start of Autumn','End of Heat','White Dew','Autumn Equinox','Cold Dew','Frost Descent','Start of Winter','Minor Snow','Major Snow','Winter Solstice','Minor Cold','Major Cold','Start of Spring','Rain Water','Awakening of Insects'];
+var CZ_RITU=[['Vasanta','spring','Kapha melts as it warms. Lighter food, more movement, less heavy and sweet.'],['Grishma','summer','Pitta builds. Cooling food, water, shade, easier midday training.'],['Varsha','monsoon','Digestion is weaker. Warm, simple, freshly cooked food.'],['Sharad','early autumn','Pitta releases. Cooling and bitter foods, early nights.'],['Hemanta','early winter','Digestion is strongest. Nourishing, warm, heartier meals suit it.'],['Shishira','late winter','Cold and dry. Warm oils, soups, steady routine.']];
+var CZ_WUXING=[['Wood','Liver','spring','Stretch, move, plan. Green vegetables.'],['Fire','Heart','summer','Connection and joy. Bitter greens, lighter meals.'],['Earth','Spleen','late summer','Steady routine, regular mealtimes. Warm, cooked foods.'],['Metal','Lung','autumn','Breathwork and letting go. Pungent foods like ginger and onion.'],['Water','Kidney','winter','Rest, warmth, early nights. Soups, beans, dark foods.']];
+function czSeason(){var el=document.getElementById('cz-season');if(!el)return;var now=new Date(),sky=czSky(now),sl=sky.Sun.lon,ss=sky.Sun.sid;
+  var ti=Math.floor(sl/15)%24,next=(ti+1)*15,dd=(((next-sl)%360)+360)%360/0.9856;
+  var rI=[11,0,1,2,3,4,5,6,7,8,9,10].indexOf(Math.floor(ss/30)),ritu=CZ_RITU[Math.floor(((Math.floor(ss/30)+1)%12)/2)];
+  var m=now.getMonth(),dy=now.getDate(),k=m*100+dy,wx=k>=720&&k<822?2:k>=220&&k<521?0:k>=521&&k<720?1:k>=822&&k<1121?3:4,W=CZ_WUXING[wx];
+  var yr=now.getFullYear(),S=null;try{S=Astronomy.Seasons(yr);}catch(e){}
+  var nexts=null;if(S){[['Spring equinox',S.mar_equinox],['Summer solstice',S.jun_solstice],['Fall equinox',S.sep_equinox],['Winter solstice',S.dec_solstice]].some(function(x){if(x[1].date>now){nexts=x;return true;}});
+    if(!nexts){var S2=Astronomy.Seasons(yr+1);nexts=['Spring equinox',S2.mar_equinox];}}
+  el.innerHTML='<div class="cz-h">'+CZ_TERMS[ti]+'</div>'+
+    '<div class="cz-tx">The sun is at '+Math.round(sl)+'&#176; along the ecliptic. The Chinese calendar splits the year into 24 solar terms, one every 15&#176; of the sun&#8217;s path; this one lasts about '+Math.max(1,Math.round(dd))+' more day'+(Math.round(dd)===1?'':'s')+', then '+CZ_TERMS[(ti+1)%24]+'.'+(nexts?' '+nexts[0]+': '+czFmtD(nexts[1].date)+' at '+czFmtT(nexts[1].date)+'.':'')+'</div>'+
+    '<p class="cz-p"><span class="etag est"><i class="ti ti-flask"></i>Established</span>Seasons come from Earth&#8217;s 23.4&#176; tilt, not its distance from the sun. Earth is actually closest to the sun in early January.</p>'+
+    '<p class="cz-p"><span class="etag trad"><i class="ti ti-feather"></i>Traditional practice</span><b>Ayurveda, '+ritu[0]+'</b> ('+ritu[1]+', by the sidereal sun in '+czRashi(ss)+'). '+ritu[2]+'</p>'+
+    '<p class="cz-p"><span class="etag trad"><i class="ti ti-feather"></i>Traditional practice</span><b>Five phases, '+W[0]+'</b> ('+W[2]+', '+W[1]+'). '+W[3]+'</p>';}
+
+/* ---- planets tonight ---- */
+function czPlanets(){var el=document.getElementById('cz-planets');if(!el)return;var now=new Date(),obs=czObs(),sky=czSky(now),h='',vis=[];
+  var d0=new Date(now);d0.setHours(0,0,0,0);var ss=null,sr=null;try{ss=Astronomy.SearchRiseSet(Astronomy.Body.Sun,obs,-1,d0,1);sr=Astronomy.SearchRiseSet(Astronomy.Body.Sun,obs,+1,new Date(d0.getTime()+864e5),1);}catch(e){}
+  var ev=ss?new Date(ss.date.getTime()+75*60000):null,mo=sr?new Date(sr.date.getTime()-75*60000):null;
+  var alt=function(B,t){var q=Astronomy.Equator(Astronomy.Body[B],t,obs,true,true);return Astronomy.Horizon(t,obs,q.ra,q.dec,'normal').altitude;};
+  h+='<table class="cz-tbl"><tr><th></th><th>Western</th><th>Vedic</th><th>Tonight</th></tr>';
+  ['Mercury','Venus','Mars','Jupiter','Saturn','Uranus','Neptune'].forEach(function(B){var b=CZ_B.filter(function(x){return x[0]===B;})[0],s=sky[B],el2=Astronomy.AngleFromSun(Astronomy.Body[B],now),w='',
+      ae=ev?alt(B,ev):-90,am=mo?alt(B,mo):-90,eye=['Mercury','Venus','Mars','Jupiter','Saturn'].indexOf(B)>-1;
+    if(el2<12)w='Too close to the sun';else if(ae>10)w='Evening sky'+(eye?'':' (binoculars)');else if(am>10)w='Before dawn'+(eye?'':' (binoculars)');else w='Below the horizon';
+    if(eye&&(ae>10||am>10)&&el2>=12)vis.push(B);
+    h+='<tr><td><span class="gl" style="color:'+b[3]+'">'+czG(b[2])+'</span> '+B+'</td><td>'+czSign(s.lon)+' '+czDeg(s.lon)+(s.rx?' &#8478;':'')+'</td><td>'+czRashi(s.sid)+'</td><td>'+w+'</td></tr>';});
+  h+='</table>';
+  var pairs=[],ks=['Moon','Mercury','Venus','Mars','Jupiter','Saturn'];
+  for(var i=0;i<ks.length;i++)for(var j=i+1;j<ks.length;j++){var dd=Math.abs(((sky[ks[i]].lon-sky[ks[j]].lon+540)%360)-180);if(dd<6)pairs.push(ks[i]+' and '+ks[j]+' are '+Math.round(dd)+'&#176; apart');}
+  var rx=['Mercury','Venus','Mars','Jupiter','Saturn'].filter(function(B){return sky[B].rx;});
+  h+='<p class="cz-p"><span class="etag est"><i class="ti ti-flask"></i>Established</span>'+(vis.length?vis.length+' bright planet'+(vis.length>1?'s':'')+' visible to the naked eye: '+vis.join(', ')+'. ':'No bright planets well placed tonight. ')+
+    (pairs.length?'Close together on the sky: '+pairs.join('; ')+'. ':'')+
+    (rx.length?rx.join(' and ')+(rx.length>1?' appear':' appears')+' to move backward (retrograde) right now. It&#8217;s an optical effect of Earth passing or being passed by '+(rx.length>1?'them':'it')+'.':'')+'</p>'+
+    (rx.indexOf('Mercury')>-1?'<p class="cz-p"><span class="etag trad"><i class="ti ti-feather"></i>Traditional practice</span>Astrology reads Mercury retrograde as a time to double-check plans and messages. That&#8217;s good practice any week.</p>':'');
+  el.innerHTML=h;}
+
+/* ---- coming up ---- */
+var CZ_SHOWERS=[[0,3,'Quadrantids'],[3,22,'Lyrids'],[4,6,'Eta Aquariids'],[7,12,'Perseids'],[9,21,'Orionids'],[10,17,'Leonids'],[11,14,'Geminids']];
+function czEvents(){var el=document.getElementById('cz-events');if(!el)return;var now=new Date(),obs=czObs(),L=[];
+  try{var nf=Astronomy.SearchMoonPhase(180,now,40),nn=Astronomy.SearchMoonPhase(0,now,40);L.push([nf.date,'moon','Full moon',czFmtT(nf.date)]);L.push([nn.date,'circle','New moon','Darkest skies for stargazing']);}catch(e){}
+  try{var le=Astronomy.SearchLunarEclipse(now);var lk={penumbral:'Penumbral',partial:'Partial',total:'Total'}[le.kind]||'';var la=null;try{var q=Astronomy.Equator(Astronomy.Body.Moon,le.peak.date,obs,true,true);la=Astronomy.Horizon(le.peak.date,obs,q.ra,q.dec,'normal').altitude;}catch(e){}
+    L.push([le.peak.date,'moon-stars',lk+' lunar eclipse',la!=null?(la>0?'Visible from '+czLoc().name+' at its peak, '+czFmtT(le.peak.date):'Moon below the horizon here at its peak'):'']);}catch(e){}
+  try{var se=Astronomy.SearchLocalSolarEclipse(now,obs);L.push([se.peak.time.date,'sun',({partial:'Partial',annular:'Annular',total:'Total'}[se.kind]||'')+' solar eclipse visible from '+czLoc().name,'Never look at the sun without certified eclipse glasses']);}catch(e){}
+  try{var yr=now.getFullYear();[yr,yr+1].forEach(function(y){var S=Astronomy.Seasons(y);[['Spring equinox',S.mar_equinox],['Summer solstice',S.jun_solstice],['Fall equinox',S.sep_equinox],['Winter solstice',S.dec_solstice]].forEach(function(x){if(x[1].date>now)L.push([x[1].date,'sun-moon',x[0],czFmtT(x[1].date)]);});});}catch(e){}
+  try{var ap=Astronomy.SearchPlanetApsis(Astronomy.Body.Earth,now);L.push([ap.time.date,'circle-dot',ap.kind===0?'Earth closest to the sun (perihelion)':'Earth farthest from the sun (aphelion)',(ap.dist_au*92.956).toFixed(2)+' million miles']);}catch(e){}
+  CZ_SHOWERS.forEach(function(s){[now.getFullYear(),now.getFullYear()+1].forEach(function(y){var d=new Date(y,s[0],s[1],23);if(d>now){var il=0;try{il=Astronomy.Illumination(Astronomy.Body.Moon,d).phase_fraction;}catch(e){}
+    L.push([d,'meteor',s[2]+' meteor shower peak (around this night)','Moon '+Math.round(il*100)+'% lit'+(il>0.6?', bright moon washes out fainter meteors':il<0.3?', dark skies':'')]);}});});
+  L.sort(function(a,b){return a[0]-b[0];});var seen={};L=L.filter(function(x){if(seen[x[2]])return false;seen[x[2]]=1;return x[0]-now<400*864e5;}).slice(0,9);
+  var ic={moon:'moon','circle':'moon','moon-stars':'moon-stars',sun:'sun','sun-moon':'sun-moon','circle-dot':'sun',meteor:'moon-stars'};
+  el.innerHTML=L.map(function(x){return '<div class="cz-ev"><i class="ti ti-'+(ic[x[1]]||'moon-stars')+'"></i><div><b>'+x[2]+'</b><br>'+czFmtD(x[0],x[0].getFullYear()!==now.getFullYear())+(x[3]?' &#183; '+x[3]:'')+'</div></div>';}).join('')+
+    '<p class="cz-p" style="font-size:11.5px">Meteor shower peaks are approximate and can shift by a day; the best viewing is usually after midnight.</p>';}
+
+/* ---- small and rare ---- */
+function czSmall(){var el=document.getElementById('cz-small');if(!el)return;var now=new Date(),c=czCfg(),au=Astronomy.HelioDistance(Astronomy.Body.Earth,now),mi=au*92.955807,lt=au*499.005;
+  var md=Astronomy.GeoMoon(now).Length()*149597870.7/1.609344;
+  var h='<div class="cz-big"><div><b>'+mi.toFixed(1)+'M mi</b><span>to the sun right now</span></div><div><b>'+Math.floor(lt/60)+' min '+Math.round(lt%60)+' s</b><span>for its light to reach you</span></div>'+
+    '<div><b>'+Math.round(md).toLocaleString()+' mi</b><span>to the moon</span></div><div><b>18.5 mi/s</b><span>your speed around the sun, sitting still</span></div>';
+  if(c.date){var b=czBirthUTC(c,12,0),days=(now-b)/864e5,orb=days/365.256;
+    h+='<div><b>'+orb.toFixed(2)+'</b><span>trips around the sun</span></div><div><b>'+(orb*584).toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g,',')+'M mi</b><span>traveled around the sun since birth</span></div>'+
+      '<div><b>'+Math.floor(days).toLocaleString()+'</b><span>days, each with a sunrise</span></div><div><b>'+Math.floor(days/29.530588).toLocaleString()+'</b><span>full moons since you were born</span></div>';}
+  h+='</div><p class="cz-p"><span class="etag est"><i class="ti ti-flask"></i>Established</span>The Milky Way holds an estimated 100 to 400 billion stars, and the sun carries us around it at roughly 140 miles a second, one lap every 230 million years or so. Most of the carbon, oxygen and iron in your body was made inside stars that lived and died before the sun formed. Out of all that, you are here, on the one planet known to hold life, breathing on a Tuesday or a Sunday like this one.</p>'+
+    '<div class="cz-quote">It is not for the sun to overtake the moon, nor doth the night outstrip the day. They float each in an orbit.<small>Qur&#8217;an 36:40, Pickthall translation</small></div>';
+  el.innerHTML=h.replace('on a Tuesday or a Sunday like this one','on a '+now.toLocaleDateString([],{weekday:'long'})+' like this one');}
+
+/* ---- birth sky ---- */
+var CZ_SIGNTX={Aries:'drive, courage, starting things',Taurus:'steadiness, comfort, patience',Gemini:'curiosity, talk, quick learning',Cancer:'care, home, protection',Leo:'warmth, pride, leadership, generosity',Virgo:'craft, detail, service',Libra:'balance, fairness, partnership',Scorpio:'depth, intensity, loyalty',Sagittarius:'freedom, meaning, the long view',Capricorn:'discipline, structure, the long climb',Aquarius:'independence, ideas, community',Pisces:'empathy, imagination, surrender'};
+function czNatalCard(){var el=document.getElementById('cz-natalc');if(!el)return;var c=czCfg(),n=czNatal();
+  if(!n){el.innerHTML='<div class="cz-tx">Add your birth date and city below to see the sky on the day you were born, in both the Western and Vedic zodiacs.</div>';return;}
+  var bd=pd(c.date),h='<div class="cz-h">'+bd.toLocaleDateString([],{month:'long',day:'numeric',year:'numeric'})+(c.place?', '+czEsc2(c.place):'')+'</div>';
+  h+='<div class="cz-tx">'+(n.known?'Birth time '+c.time+'.':'No birth time, so positions are for noon local time. Bodies that changed sign during that day show both signs, with the switch time. Rising sign and houses need an exact time.')+'</div>';
+  h+='<table class="cz-tbl"><tr><th></th><th>Western</th><th>Vedic</th></tr>';
+  CZ_B.forEach(function(b){var s=n.sky[b[0]],ch=n.ch&&n.ch[b[0]];
+    var w=ch&&ch.t?ch.t[0]+' until '+ch.t[2]+', then '+ch.t[1]:czSign(s.lon)+' '+czDeg(s.lon);
+    var v=ch&&ch.s?ch.s[0]+' until '+ch.s[2]+', then '+ch.s[1]:czRashi(s.sid)+' '+czDeg(s.sid);
+    if(b[0]==='Moon')v+='<br><span class="muted">Nakshatra '+(ch&&ch.n?ch.n[0]+' then '+ch.n[1]:czNak(s.sid))+'</span>';
+    if(b[0]==='Sun')v+='<br><span class="muted">Nakshatra '+czNak(s.sid)+'</span>';
+    h+='<tr><td><span class="gl" style="color:'+b[3]+'">'+czG(b[2])+'</span> '+b[1].replace(' (dwarf planet)','')+(s.rx?' &#8478;':'')+'</td><td>'+w+'</td><td>'+v+'</td></tr>';});
+  h+='</table>';
+  var cnt={fire:0,earth:0,air:0,water:0};['Sun','Moon','Mercury','Venus','Mars','Jupiter','Saturn'].forEach(function(k){cnt[czEl(n.sky[k].lon)]++;});
+  var top=Object.keys(cnt).sort(function(a,b){return cnt[b]-cnt[a];})[0],sun=czSign(n.sky.Sun.lon);
+  h+='<p class="cz-p">Elements across the 7 classical bodies (Western): '+Object.keys(cnt).map(function(k){return '<span class="cz-chip" style="border-color:'+CZ_ELC[k]+'">'+k+' '+cnt[k]+'</span>';}).join('')+'</p>';
+  var EL={fire:'Fire leads: energy, drive, warmth. In Tareeq terms that&#8217;s your Fire pillar; balance it with Repair so the drive lasts.',earth:'Earth leads: steadiness and follow-through. Fuel and routine come naturally; keep some play in the week.',air:'Air leads: ideas and connection. Ground pillar practices (breath, stillness) keep the mind from running the body.',water:'Water leads: feeling and intuition. Repair comes easily; Fire practices keep momentum.'};
+  h+='<p class="cz-p"><span class="etag trad"><i class="ti ti-feather"></i>Traditional practice</span>'+sun+' sun: '+(CZ_SIGNTX[sun]||'')+'. '+EL[top]+(CZ_SIGNS.indexOf(sun)===CZ_RASHI.indexOf(czRashi(n.sky.Sun.sid))?' Both zodiacs agree your sun is in '+sun+' ('+czRashi(n.sky.Sun.sid)+').':' In the Vedic zodiac your sun falls in '+czRashi(n.sky.Sun.sid)+'.')+'</p>';
+  el.innerHTML=h;}
+function czEsc2(s){return String(s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});}
+
+/* ---- today's reflection: moon element and phase, plus today's sky against your birth sky ---- */
+function czReflect(){var el=document.getElementById('cz-reflect');if(!el)return;var now=new Date(),sky=czSky(now),ph=Astronomy.MoonPhase(now),m=sky.Moon,e=czEl(m.lon),n=czNatal();
+  var EP={fire:['Fire','Train with intent today. Bring energy to one thing and finish it.'],earth:['Earth','Cook something simple and good. Keep the routine; it holds you.'],air:['Air','Breathe, talk, learn. Call someone, read a page, take a walk without your phone.'],water:['Water','Rest well and drink water. Notice how you feel before you push.']};
+  var PP=ph<45?'New and young moon: set one intention for this cycle.':ph<165?'Growing moon: build. Small additions stick now.':ph<195?'Full moon: notice what you&#8217;ve built. Protect sleep tonight.':ph<315?'Waning moon: refine and release. Ease off what isn&#8217;t helping.':'Dark moon: rest, reflect, get ready to begin again.';
+  var h='<div class="cz-h">Moon in '+czSign(m.lon)+', '+EP[e][0]+'</div><div class="cz-tx">'+EP[e][1]+' '+PP+' Vedic nakshatra: '+czNak(m.sid)+'.</div>';
+  if(n){var AS=[[0,'meets','a point of emphasis'],[60,'supports','an easy opening'],[90,'presses on','tension that can fuel effort'],[120,'flows with','so things may come more easily'],[180,'faces','a pull between two needs, so look for the middle']],hits=[];
+    ['Sun','Moon','Mars','Venus','Jupiter','Saturn'].forEach(function(t){['Sun','Moon','Mars'].forEach(function(nb){var d=Math.abs(((sky[t].lon-n.sky[nb].lon+540)%360)-180),orb=t==='Moon'?5:2.5;
+      AS.forEach(function(a){if(Math.abs(d-a[0])<=orb)hits.push([Math.abs(d-a[0]),'Today&#8217;s '+t+' '+a[1]+' your birth '+nb+', '+a[2]+'.']);});});});
+    hits.sort(function(a,b){return a[0]-b[0];});
+    if(hits.length)h+='<p class="cz-p">'+hits.slice(0,3).map(function(x){return x[1];}).join(' ')+'</p>';}
+  h+='<p class="cz-p"><span class="etag trad"><i class="ti ti-feather"></i>Traditional practice</span>A reflection prompt from astrological tradition. It doesn&#8217;t forecast anything; use what helps and leave the rest.</p>';
+  el.innerHTML=h;}
+
+/* ---- Enneagram ---- */
+var CZ_EN={1:['The Reformer','Wants to be good and do things right; fears being wrong or corrupt.',7,4,'Perfectionism can turn training into a test. Count the sessions you did, not how perfectly.'],
+  2:['The Helper','Wants to be loved and needed; fears being unwanted.',4,8,'Easy to care for everyone but yourself. Put your own sleep and meals on the calendar first.'],
+  3:['The Achiever','Wants to be valuable and admired; fears being worthless.',6,9,'Watch for training for the image. Rest days still count as progress.'],
+  4:['The Individualist','Wants to be truly themselves; fears having no identity.',1,2,'Mood can drive the routine. A simple daily anchor keeps you steady through low days.'],
+  5:['The Investigator','Wants to be capable and understand; fears being helpless or overwhelmed.',8,7,'Easy to live in the head. Strength work and the body map bring you back into the body.'],
+  6:['The Loyalist','Wants security and support; fears being without guidance.',9,3,'Anxiety can spike before checkups. Breathwork and a written plan for labs help.'],
+  7:['The Enthusiast','Wants to be satisfied and free; fears pain and missing out.',5,1,'New routines are exciting, then fade. Keep the plan simple and finish the cycle before changing it.'],
+  8:['The Challenger','Wants to protect themselves and those they care about, and to stay in control of their own life; fears being harmed or controlled by others.',2,5,'Eights tend to push through pain and ignore the body&#8217;s quieter signals. The readiness card, rest days and deloads are strength, not weakness. Anger is energy: move it through training and long exhales.'],
+  9:['The Peacemaker','Wants inner peace and harmony; fears loss and conflict.',3,6,'Easy to drift and go along. Small, visible daily goals help you show up for yourself.']};
+function czEnnea(){var el=document.getElementById('cz-ennea');if(!el)return;var c=czCfg(),t=+c.ennea;
+  if(!t||!CZ_EN[t]){el.innerHTML='<div class="cz-tx">Set your Enneagram type below if you know it. It&#8217;s a self-reflection tool built around nine core motivations.</div>';return;}
+  var E=CZ_EN[t],g=CZ_EN[E[2]],s=CZ_EN[E[3]];
+  el.innerHTML='<div class="cz-h">Type '+t+', '+E[0]+'</div><div class="cz-tx">'+E[1]+'</div>'+
+    '<div class="cz-arrow"><div><b>Growth: toward '+E[2]+'</b>When healthy, '+t+'s pick up the best of '+g[0].replace('The ','')+'s'+(t===8?': open-hearted, generous, caring for others with tenderness.':'.')+'</div><div><b>Stress: toward '+E[3]+'</b>Under pressure, '+t+'s can take on the harder side of '+s[0].replace('The ','')+'s'+(t===8?': withdrawing, guarded, cut off.':'.')+'</div></div>'+
+    '<p class="cz-p">'+E[4]+'</p>'+
+    (t===8?'<p class="cz-p">Leo sun and type 8 share a lot in traditional readings: protectiveness, strength, presence. The work for both is the same: let people see the softer side, and let strength include rest.</p>':'')+
+    '<p class="cz-p"><span class="etag emrg"><i class="ti ti-sparkles"></i>Emerging</span>Popular in coaching and spiritual direction, but research on how reliable and valid the Enneagram is remains limited and mixed. Use it as a mirror.</p>';}
+
+/* ---- form ---- */
+function czFill(){var c=czCfg();var s=function(id,v){var e=document.getElementById(id);if(e)e.value=v||'';};s('cz-bd',c.date);s('cz-bt',c.time);s('cz-bc',c.place);s('cz-et',c.ennea);}
+function czTzMin(tz,y,m,d,hh,mm){try{var u=Date.UTC(y,m,d,hh,mm),f=new Intl.DateTimeFormat('en-US',{timeZone:tz,hourCycle:'h23',year:'numeric',month:'numeric',day:'numeric',hour:'numeric',minute:'numeric'}),o={};
+  f.formatToParts(new Date(u)).forEach(function(p){o[p.type]=p.value;});return Math.round((Date.UTC(+o.year,+o.month-1,+o.day,+o.hour%24,+o.minute)-u)/60000);}catch(e){return 0;}}
+async function czSaveForm(){var msg=document.getElementById('cz-fmsg'),c=czCfg(),g=function(id){var e=document.getElementById(id);return e?e.value.trim():'';};
+  var bd=g('cz-bd'),bt=g('cz-bt'),bc=g('cz-bc'),et=g('cz-et');c.time=bt;c.ennea=et;
+  if(bd)c.date=bd;
+  if(bc&&bc!==c.place){if(msg)msg.textContent='Looking up '+bc+'...';
+    try{var r=await fetch('https://geocoding-api.open-meteo.com/v1/search?count=1&language=en&name='+encodeURIComponent(bc.split(',')[0])).then(function(x){return x.json();});
+      var hit=r&&r.results&&r.results[0];if(!hit)throw 0;c.place=hit.name+(hit.country?', '+hit.country:'');c.lat=hit.latitude;c.lon=hit.longitude;c.tz=hit.timezone;}
+    catch(e){if(msg)msg.textContent='Couldn&#8217;t find that city. Check the spelling or try a nearby larger city.';return;}}
+  if(c.date&&c.tz){var p=c.date.split('-'),tp=(c.time||'12:00').split(':');c.tzMin=czTzMin(c.tz,+p[0],+p[1]-1,+p[2],+tp[0],+tp[1]);}
+  lsSet(CZ_KEY,c);CZ.cache={};if(msg)msg.textContent='Saved.';czFill();czRenderAll(true);}
+
+function czRenderAll(full){if(!czOK()){var p=document.getElementById('cz-legend');if(p)p.textContent='The sky calculator is still loading.';return;}
+  try{czDraw();}catch(e){console.warn(e);}if(!full)return;[czMoon,czDay,czSeason,czPlanets,czEvents,czSmall,czNatalCard,czReflect,czEnnea].forEach(function(f){try{f();}catch(e){console.warn('cosmos',e);}});}
+function czOpen(){czFill();CZ.off=-30;czRenderAll(true);var mo=document.documentElement.getAttribute('data-motion')||'full';if(mo==='off'){czSet(0);return;}czPlay(30);
+  clearInterval(CZ.tick);CZ.tick=setInterval(function(){var p=document.getElementById('p-p-cosmos');if(!p||!p.classList.contains('on')){clearInterval(CZ.tick);return;}if(CZ.off===0&&!CZ.anim){czDraw();try{czDay();}catch(e){}}},60000);}
+(function(){var _go=go;go=function(id,btn){_go(id,btn);if(id==='p-cosmos')czOpen();};
+  var sc=document.getElementById('cz-scrub');if(sc)sc.addEventListener('input',function(){if(CZ.anim){cancelAnimationFrame(CZ.raf);CZ.anim=null;}CZ.off=+sc.value;czDraw();});
+  if(typeof bbOpen==='function'){var _bo=bbOpen;bbOpen=function(s){_bo(s);if(s==='more'){var g=document.getElementById('sheet-g');if(g&&!g.querySelector('[data-cz]'))g.insertAdjacentHTML('beforeend','<button data-cz="1" onclick="bbGoPanel(\'p-cosmos\')"><i class="ti ti-moon-stars"></i>Cosmos</button>');}};}
+  if(typeof SR_P!=='undefined')SR_P.splice(SR_P.length-5,0,['p-cosmos','Cosmos','moon-stars','protocol','cosmos cosmic clock sky stars planets moon phase sun sunrise sunset solstice equinox eclipse meteor zodiac horoscope astrology vedic jyotish nakshatra birth chart natal enneagram ayurveda dosha organ clock solar terms season universe']);
+  if(typeof SYNC_KEYS!=='undefined'&&SYNC_KEYS.indexOf(CZ_KEY)<0)SYNC_KEYS.push(CZ_KEY);
+})();
+
+/* ---- banner: moon phases, eclipses, meteor showers ---- */
+(function(){if(typeof mvOccasions!=='function')return;var _mo=mvOccasions;mvOccasions=function(now){var L=_mo(now);if(!czOK())return L;
+  try{var d0=new Date(now);d0.setHours(0,0,0,0);var d1=new Date(d0.getTime()+864e5),hit=function(t){return t&&t.date>=d0&&t.date<d1;};
+    var f=Astronomy.SearchMoonPhase(180,d0,2),nw=Astronomy.SearchMoonPhase(0,d0,2),fq=Astronomy.SearchMoonPhase(90,d0,2),lq=Astronomy.SearchMoonPhase(270,d0,2);
+    if(hit(f))L.push(['Full moon tonight.','Notice what you&#8217;ve built this cycle. Keep the bedroom dark; full-moon nights can run lighter.','moon']);
+    if(hit(nw))L.push(['New moon today.','A quiet start to a new cycle. Set one small intention.','night']);
+    if(hit(fq))L.push(['First quarter moon.','Halfway to full. A good week to add a little.','moon']);
+    if(hit(lq))L.push(['Last quarter moon.','The cycle is winding down. Ease off, tidy up, rest well.','moon']);
+    var le=Astronomy.SearchLunarEclipse(d0);if(hit(le.peak))L.unshift(['Lunar eclipse tonight.','Earth&#8217;s shadow crosses the moon. Step outside if the sky is clear.','moon']);
+    var se=Astronomy.SearchGlobalSolarEclipse(d0);if(hit(se.peak))L.unshift(['Solar eclipse today.','The moon passes in front of the sun somewhere on Earth. Only look with certified eclipse glasses.','sun']);
+    CZ_SHOWERS.forEach(function(s){if(now.getMonth()===s[0]&&now.getDate()===s[1])L.push([s[2]+' meteor shower peaks tonight.','Best after midnight, away from city lights.','night']);});
+  }catch(e){}return L;};})();
+
+</script>
 </body>
 </html>
