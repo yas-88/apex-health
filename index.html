@@ -2604,7 +2604,7 @@ html[data-motion="off"] *,html[data-motion="off"] *::before,html[data-motion="of
 
       <div class="ew">Daily timeline, Mon to Fri at home</div>
       <div class="card tl">
-        <div class="ex"><span class="exn"><span class="tag tag-ground" style="margin-right:6px">9:00 am</span>Binaural beats, then shake plate</span><span class="exs">5 min. Wake-up and core activation</span></div>
+        <div class="ex"><span class="exn"><span class="tag tag-ground" style="margin-right:6px">9:00 am</span>Binaural beats, then shake plate</span><span class="exs">5 min. Wake-up and core activation. October to March: light box with coffee while you work, 20 to 30 min</span></div>
         <div class="ex"><span class="exn"><span class="tag tag-ground" style="margin-right:6px">10:30 am</span>Stand and stretch, 2 min</span><span class="exs">Get up from the desk: hips, chest, neck</span></div>
         <div class="ex"><span class="exn"><span class="tag tag-fire" style="margin-right:6px">~12:00</span>Train, fasted</span><span class="exs">Mon &amp; Thu: onion treatment on during the session</span></div>
         <div class="ex"><span class="exn"><span class="tag tag-repair" style="margin-right:6px">1:00 pm</span>Shake plate flush, then first meal</span><span class="exs">5 to 10 min, low frequency</span></div>
@@ -3292,7 +3292,7 @@ html[data-motion="off"] *,html[data-motion="off"] *::before,html[data-motion="of
       <div class="card" id="ro-winter">
         <div class="ro-w"><i class="ti ti-check"></i><div><b>Your plan:</b> train indoors on freezing days.</div></div>
         <div class="ro-w"><i class="ti ti-check"></i><div><b>Your plan:</b> skip the Thanksgiving and Christmas sweets, and keep protein snacks like jerky on hand so you stay full.</div></div>
-        <div class="ro-w"><i class="ti ti-sun"></i><div><b>Light:</b> get outside within an hour of waking, even when it&#8217;s gray. <span class="etag est"><i class="ti ti-flask"></i>Established</span> Bright light therapy is an established treatment for seasonal depression. If the gloom comes back hard, ask Dr. Chikere whether a light box fits.</div></div>
+        <div class="ro-w"><i class="ti ti-sun"></i><div><b>You already do this:</b> the light box from Costco each morning after binaural beats and the shake plate, while you work with your coffee. <span class="etag est"><i class="ti ti-flask"></i>Established</span> Mayo Clinic&#8217;s usual guidance: 10,000 lux, within the first hour of waking, 20 to 30 minutes, about 16 to 24 inches from your face, eyes open but not staring into it. <span class="ro-read">My read</span> You wake around 6:30 and start it after 9:00, so it lands later than that first hour. If the gloom creeps in, try moving it earlier, to Fajr or your first coffee, and check the box&#8217;s label says 10,000 lux at your distance.</div></div>
         <div class="ro-w"><i class="ti ti-heart-handshake"></i><div><b>Replace soccer&#8217;s people, not just its exercise.</b> <span class="ro-read">My read</span> One weekly thing with others: indoor futsal, a winter league, or Jumu&#8217;ah at a local mosque on Fridays, which also strengthens the prayer habit.</div></div>
         <div class="ro-w"><i class="ti ti-heart-handshake"></i><div><b>Grief dates:</b> Mom&#8217;s birthday (Oct 14) and the day she passed (June 28). Tareeq marks both quietly. Plan something gentle for those days instead of pushing through.</div></div>
         <div class="ro-w"><i class="ti ti-heartbeat"></i><div><b>A question for Dr. Chikere:</b> your mother and your grandmother both died of gallbladder or liver cancer. Ask whether that family history changes any screening or labs for you. <button class="cz-btn" style="margin-top:6px" onclick="roAddQ()">Add to my doctor questions</button></div></div>
@@ -4230,7 +4230,7 @@ async function tdFetch(force){
 function tdSched(now){
   var d=now.getDay(), wk=d>=1&&d<=5, tr=d>=1&&d<=4, stamp=d===1||d===4;
   var L=[];
-  if(wk)L.push([9*60,'9:00','Binaural beats, then shake plate']);
+  if(wk)L.push([9*60,'9:00',((function(m){return m>=9||m<=2;})(new Date().getMonth())?'Binaural beats, shake plate, then light box with coffee':'Binaural beats, then shake plate')]);
   if(wk)L.push([10*60+30,'10:30','Stand and stretch, 2 min']);
   if(tr)L.push([12*60,'12:00',stamp?'Train with onion on, then Nizoral wash':'Train, fasted']);
   if(d===6)L.push([12*60,'Midday',tqSoccer()?'Soccer, then Nexxus wash (optional onion first)':'Long walk, hike, run, ride or swim, then mobility and Nexxus wash']);
@@ -4516,7 +4516,7 @@ function tqFmt(m){var h=Math.floor(m/60),x=Math.round(m%60);return h?(h+' h '+(x
 /* The day's items: the same schedule the Today card already used, each tagged to a pillar */
 function tqSched(d){
   var wk=d>=1&&d<=5,tr=d>=1&&d<=4,stamp=d===1||d===4,L=[];
-  if(wk)L.push(['beats',540,'9:00','Binaural beats, then shake plate','ground']);
+  if(wk)L.push(['beats',540,'9:00',((function(m){return m>=9||m<=2;})(new Date().getMonth())?'Binaural beats, shake plate, then light box with coffee':'Binaural beats, then shake plate'),'ground']);
   if(wk)L.push(['st1',630,'10:30','Stand and stretch, 2 min','ground']);
   if(tr)L.push(['train',720,'12:00',stamp?'Train with onion on: '+TQ_SES[d].n+', then Nizoral wash':'Train, fasted: '+TQ_SES[d].n,'fire']);
   else L.push(['train',720,d===6?'Midday':'Today',d===6?(tqSoccer()?'Soccer, then Nexxus wash (optional onion first)':'Long walk, hike, run, ride or swim, then mobility and Nexxus wash'):TQ_OFF[d][0],'fire']);
@@ -5721,7 +5721,7 @@ function rmSched(now){var t=rmTimes(now),f=rmMins(t.fajr),i=rmMins(t.maghrib),d=
   function hm(m){return rmHM(new Date(now.getFullYear(),now.getMonth(),now.getDate(),Math.floor(m/60),m%60));}
   L.push([f-40,hm(f-40),'Suhoor: protein, slow carbs, salt, 2 to 3 glasses of water. Morning supplements here.']);
   L.push([f,hm(f),'Fajr. Eating and drinking stop']);
-  if(wk)L.push([9*60,'9:00','Binaural beats, then shake plate']);
+  if(wk)L.push([9*60,'9:00',((function(m){return m>=9||m<=2;})(new Date().getMonth())?'Binaural beats, shake plate, then light box with coffee':'Binaural beats, then shake plate')]);
   if(wk)L.push([10*60+30,'10:30','Stand and stretch, 2 min']);
   if(wk)L.push([14*60+30,'2:30','Stand and stretch, 2 min. A 20-minute nap is fine']);
   L.push([i,hm(i),'Iftar: water and dates, then a real meal. Midday supplements with it']);
@@ -6298,7 +6298,7 @@ function slDayKey(now,k){/* Isha prayed after midnight belongs to the day before
 function slMark(k,v,dayKey){var L=slLog(),dk=dayKey||slDayKey(new Date(),k);L[dk]=L[dk]||{};if(L[dk][k]===v)delete L[dk][k];else L[dk][k]=v;lsSet(SL_KEY,L);
   if(v===1&&navigator.vibrate)try{navigator.vibrate(12);}catch(e){}slRender();slStrip();}
 var SL_ANCHOR={
-  fajr:['When you wake, before the phone','In winter Fajr is already in when you get up around 6:30, and it runs until sunrise. Wudu first, pray, then water, daylight and the 9:00 binaural beats. In summer Fajr comes around 3 to 4 am: pray and go back to sleep. Plenty of people do.'],
+  fajr:['When you wake, before the phone','In winter Fajr is already in when you get up around 6:30, and it runs until sunrise. Wudu first, pray, then water and daylight. Binaural beats, the plate and the light box follow at 9. In summer Fajr comes around 3 to 4 am: pray and go back to sleep. Plenty of people do.'],
   dhuhr:['After training','Train at noon, shower, pray Dhuhr, then eat. The shower is already halfway to wudu. In winter the window closes around 2:10, so don&#8217;t let the 1:00 plate flush push it late.'],
   asr:['With an afternoon break','From fall through spring, Asr falls between about 2:10 and 4:30, so your 2:30 stretch break or the 4:00 plate break are both inside it. In summer Asr comes around 5: pray before dinner.'],
   maghrib:['At sunset, at home','Maghrib has the shortest window, about 80 minutes in winter, starting around 4:30. Working from home helps: when the alert goes off, step away from the desk and pray before anything else.'],
