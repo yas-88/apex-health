@@ -476,6 +476,63 @@ html[data-scheme="seasonal"][data-tq-season="ss"]:not([data-theme="dark"]) .path
 .mv-x{position:absolute;top:6px;right:8px;border:none;background:none;font-size:18px;line-height:1;color:var(--ink4);padding:6px;cursor:pointer}
 @keyframes mv-drift{from{transform:translate(-6%,0) rotate(0deg)}to{transform:translate(6%,3%) rotate(8deg)}}
 html[data-motion="calm"] .mv-glow{animation-duration:40s}
+/* ---------- Prayer ---------- */
+.sl-heroc{background:radial-gradient(120% 90% at 15% 0%,color-mix(in srgb,var(--repair) 18%,transparent),transparent 60%),linear-gradient(160deg,color-mix(in srgb,var(--gold) 8%,var(--bg2)),var(--bg2))}
+.sl-hero{position:relative;width:200px;height:200px;margin:4px auto 10px}
+.sl-ring{width:100%;height:100%;transform:rotate(-90deg)}
+.sl-tr{fill:none;stroke:var(--bdr);stroke-width:6}
+.sl-ar{fill:none;stroke:var(--repair);stroke-width:6;stroke-linecap:round;transition:stroke-dasharray 1s ease}
+.sl-hc{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:0 22px}
+.sl-now{font-size:12px;color:var(--ink3);text-transform:uppercase;letter-spacing:.06em}
+.sl-cd{font-family:'DM Serif Display',Georgia,serif;font-size:32px;color:var(--ink);line-height:1.1;margin:4px 0}
+.sl-nx{font-size:12px;color:var(--ink2)}
+.sl-pray{display:flex;align-items:center;justify-content:center;gap:6px;width:100%;font:inherit;font-size:15px;font-weight:600;padding:12px;border-radius:var(--rlg);border:none;background:var(--repair);color:#fff;cursor:pointer;animation:sl-breathe 3.5s ease-in-out infinite}
+.sl-pray.sm{font-size:13px;padding:9px;margin-top:8px}
+@keyframes sl-breathe{0%,100%{box-shadow:0 0 0 0 color-mix(in srgb,var(--repair) 35%,transparent)}50%{box-shadow:0 0 0 8px transparent}}
+.sl-left{font-size:12px;color:var(--ink3);text-align:center;margin:6px 0 4px}
+.sl-list{margin-top:10px}
+.sl-row{display:flex;align-items:center;gap:12px;padding:10px 6px;border-bottom:0.5px solid var(--bdr);border-radius:8px}
+.sl-row:last-child{border-bottom:none}
+.sl-row.cur{background:color-mix(in srgb,var(--repair) 9%,transparent)}
+.sl-row>i{font-size:19px;color:var(--gold);flex:0 0 22px}
+.sl-nm{flex:1;font-size:15px;color:var(--ink);font-weight:500}
+.sl-nm span{display:block;font-size:12px;color:var(--ink3);font-weight:400}
+.sl-ck{width:36px;height:36px;border-radius:50%;border:1.5px solid var(--bdr2);background:none;color:transparent;font-size:17px;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .25s var(--tq-spring,ease)}
+.sl-ck:disabled{opacity:.35;cursor:default}
+.sl-ck.on{background:var(--repair);border-color:var(--repair);color:#fff;transform:scale(1.06)}
+.sl-ck.late{background:var(--gold-bg);border-color:var(--gold);color:var(--gold)}
+.sl-week{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:6px;margin:4px 0 8px}
+.sl-wd{display:flex;flex-direction:column;align-items:center;gap:4px;font-size:11px;color:var(--ink3)}
+.sl-dots{display:flex;gap:3px}
+.sl-wd .sl-dots{flex-direction:column}
+.sl-dots i{width:7px;height:7px;border-radius:50%;background:var(--bdr2);display:block}
+.sl-dots i.on{background:var(--repair)}
+.sl-dots i.late{background:var(--gold)}
+.sl-an{padding:9px 0;border-bottom:0.5px solid var(--bdr);font-size:13px;line-height:1.5;color:var(--ink2)}
+.sl-an:last-child{border-bottom:none}
+.sl-an b{display:block;color:var(--ink);font-weight:600;margin-bottom:2px}
+.sl-qb{display:flex;gap:14px;align-items:center}
+.sl-qb svg{flex:0 0 84px}
+.sl-qn{fill:var(--ink3);font-family:Inter,system-ui,sans-serif}
+.sl-tasbih{display:flex;flex-direction:column;align-items:center;justify-content:center;width:160px;height:160px;margin:4px auto 10px;border-radius:50%;border:none;background:radial-gradient(circle at 35% 30%,color-mix(in srgb,var(--repair) 30%,var(--bg)),var(--bg2));box-shadow:inset 0 0 0 1px var(--bdr2);cursor:pointer;-webkit-tap-highlight-color:transparent;transition:transform .12s ease}
+.sl-tasbih:active{transform:scale(.96)}
+.sl-tn{font-family:'DM Serif Display',Georgia,serif;font-size:44px;color:var(--ink);line-height:1}
+.sl-tw{font-size:14px;color:var(--ink);margin-top:4px}
+.sl-tt{font-size:11px;color:var(--ink3)}
+.sl-tsteps{display:flex;justify-content:center;flex-wrap:wrap;gap:6px;margin-bottom:10px}
+.sl-tsteps span{font-size:11px;padding:3px 9px;border-radius:12px;border:0.5px solid var(--bdr);color:var(--ink3)}
+.sl-tsteps span.now{border-color:var(--repair);color:var(--ink)}
+.sl-tsteps span.done{background:var(--repair-bg);color:var(--ink2)}
+#sl-dhikr{text-align:center}
+.sl-adj{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:6px}
+.sl-adj label{display:flex;flex-direction:column;gap:3px;font-size:11px;color:var(--ink3);text-align:center}
+.sl-adj input{font:inherit;font-size:13px;padding:6px 4px;border-radius:8px;border:0.5px solid var(--bdr2);background:var(--bg);color:var(--ink);text-align:center;width:100%;box-sizing:border-box}
+.sl-st{display:flex;align-items:center;gap:10px;padding:10px 14px;border-radius:var(--rlg);background:var(--bg2);border:0.5px solid var(--bdr);cursor:pointer}
+.sl-st>i{font-size:18px;color:var(--repair)}
+.sl-stx{flex:1;font-size:13px;color:var(--ink2);min-width:0}
+.sl-stx b{color:var(--ink);font-weight:600}
+#sl-strip{margin:0 0 10px}
+html[data-motion="calm"] .sl-pray{animation:none}
 /* ---------- Cosmos ---------- */
 .cz-hero{background:radial-gradient(120% 90% at 85% 0%,color-mix(in srgb,var(--ground) 22%,transparent),transparent 60%),linear-gradient(160deg,color-mix(in srgb,#1d2350 10%,var(--bg2)),var(--bg2))}
 .cz-card{padding:12px}
@@ -1303,6 +1360,7 @@ html[data-motion="off"] *,html[data-motion="off"] *::before,html[data-motion="of
       <button class="nb" data-pillar="p-prevent" onclick="go('p-prevent',this)"><span class="nb-dot"></span>Preventive</button>
       <button class="nb" data-pillar="p-ramadan" onclick="go('p-ramadan',this)"><span class="nb-dot"></span>Ramadan</button>
       <button class="nb" data-pillar="p-rights" onclick="go('p-rights',this)"><span class="nb-dot"></span>Rights</button>
+      <button class="nb" data-pillar="p-salah" onclick="go('p-salah',this)"><span class="nb-dot"></span>Prayer</button>
       <button class="nb" data-pillar="p-cosmos" onclick="go('p-cosmos',this)"><span class="nb-dot"></span>Cosmos</button>
       <button class="nb" data-pillar="p-play" onclick="go('p-play',this)"><span class="nb-dot"></span>Play</button>
       <button class="nb" data-pillar="p-checkpoints" onclick="go('p-checkpoints',this)"><span class="nb-dot"></span>Checkpoints</button>
@@ -1768,7 +1826,7 @@ html[data-motion="off"] *,html[data-motion="off"] *::before,html[data-motion="of
 
     <!-- ═══════════ PROTOCOL: OVERVIEW ═══════════ -->
     <div id="p-protocol" class="panel">
-      <div class="mv" id="mv" role="status" aria-live="polite" style="display:none"><div class="mv-glow"></div><div class="mv-fx" id="mv-fx"></div><div class="mv-t" id="mv-t"></div><button class="mv-x" onclick="mvHide()" aria-label="Hide for today">&#215;</button></div>
+      <div class="mv" id="mv" role="status" aria-live="polite" style="display:none"><div class="mv-glow"></div><div class="mv-fx" id="mv-fx"></div><div class="mv-t" id="mv-t"></div><button class="mv-x" onclick="mvHide()" aria-label="Hide for today">&#215;</button></div><div id="sl-strip" style="display:none"></div>
       <div class="today" id="today">
         <div class="td-top">
           <div><div class="td-time" id="td-time">--:--</div><div class="td-date" id="td-date"></div></div>
@@ -3078,6 +3136,24 @@ html[data-motion="off"] *,html[data-motion="off"] *::before,html[data-motion="of
     </div>
 
     <!-- ═══════════ PROTOCOL: RIGHTS ═══════════ -->
+    <div id="p-p-salah" class="panel">
+      <div class="pillar-hero sl-heroc">
+        <div class="ph-eyebrow"><i class="ti ti-moon-stars"></i> Prayer</div>
+        <div class="ph-title" style="font-size:26px">Five pauses a day</div>
+        <div class="ph-lede" style="margin-top:8px">The body and mind have their tabs. This one is for the soul. Times are for your location, ISNA method (Fajr and Isha at 15&#176;), with the standard Asr rule. Your local mosque may differ by a few minutes.</div>
+      </div>
+      <div class="card" id="sl-body"></div>
+      <div class="ew">Tie each prayer to your day</div>
+      <div class="card" id="sl-anchors"></div>
+      <div class="ew">Qibla</div>
+      <div class="card" id="sl-qibla"></div>
+      <div class="ew">After the prayer</div>
+      <div class="card" id="sl-dhikr"></div>
+      <div class="ew">At work</div>
+      <div class="card"><div class="cs" style="font-size:13px;line-height:1.55">Under federal law (Title VII), employers have to reasonably accommodate religious practice, like a short prayer break or a quiet room, unless it would cause undue hardship. In 2023 the Supreme Court (Groff v. DeJoy) said undue hardship means substantial increased costs, not just inconvenience. Washington&#8217;s anti-discrimination law covers religion too. Asking for a small, regular break is reasonable. More in Your rights.</div></div>
+      <div class="ew">Settings</div>
+      <div class="card"><div class="cs" style="margin-bottom:8px">Adjust a prayer by a few minutes to match your mosque&#8217;s timetable.</div><div class="sl-adj" id="sl-adj"></div></div>
+    </div>
     <div id="p-p-cosmos" class="panel">
       <div class="pillar-hero cz-hero">
         <div class="ph-eyebrow"><i class="ti ti-moon-stars"></i> Cosmos</div>
@@ -6013,6 +6089,93 @@ function czOpen(){czFill();CZ.off=-30;czRenderAll(true);var mo=document.document
     var se=Astronomy.SearchGlobalSolarEclipse(d0);if(hit(se.peak))L.unshift(['Solar eclipse today.','The moon passes in front of the sun somewhere on Earth. Only look with certified eclipse glasses.','sun']);
     CZ_SHOWERS.forEach(function(s){if(now.getMonth()===s[0]&&now.getDate()===s[1])L.push([s[2]+' meteor shower peaks tonight.','Best after midnight, away from city lights.','night']);});
   }catch(e){}return L;};})();
+
+</script>
+<script>
+/* ---------- Prayer: five daily prayers, ISNA (Fajr and Isha at 15°), standard Asr (shadow = 1x, Maliki/Shafi'i/Hanbali) ---------- */
+var SL_KEY='tareeq-salah',SL_CFG='tareeq-salah-cfg';
+var SL_N=[['fajr','Fajr','sunrise'],['dhuhr','Dhuhr','sun'],['asr','Asr','sun'],['maghrib','Maghrib','sunset'],['isha','Isha','moon']];
+function slCfg(){var c=lsGet(SL_CFG,{});return {angle:+c.angle||15,dhuhrAdj:c.dhuhrAdj!=null?+c.dhuhrAdj:1,adj:c.adj||{}};}
+function slLoc(){try{if(typeof tdLoc==='function')return tdLoc();}catch(e){}return {lat:45.6387,lon:-122.6615,name:'Vancouver, WA'};}
+var SL_C={};
+function slTimes(day,loc){if(typeof Astronomy==='undefined')return null;loc=loc||slLoc();var c=slCfg(),d0=new Date(day);d0.setHours(0,0,0,0);var k=ymd(d0)+'|'+loc.lat+'|'+c.angle+'|'+c.dhuhrAdj+'|'+JSON.stringify(c.adj);if(SL_C[k])return SL_C[k];
+  var A=Astronomy,o=new A.Observer(loc.lat,loc.lon,50),S=A.Body.Sun,g=function(x){return x?x.date:null;};
+  var noonEv=A.SearchHourAngle(S,o,0,d0),noon=noonEv.time.date;
+  var sr=g(A.SearchRiseSet(S,o,+1,d0,1)),ss=g(A.SearchRiseSet(S,o,-1,noon,1));
+  var fajr=g(A.SearchAltitude(S,o,+1,d0,1,-c.angle)),isha=g(A.SearchAltitude(S,o,-1,noon,1,-c.angle));
+  var eq=A.Equator(S,noon,o,true,true),dec=eq.dec,altAsr=Math.atan(1/(1+Math.tan(Math.abs(loc.lat-dec)*Math.PI/180)))*180/Math.PI;
+  var asr=g(A.SearchAltitude(S,o,-1,noon,1,altAsr));
+  /* high-latitude fallback: one-seventh of the night */
+  if(sr&&ss){var night=(sr.getTime()+864e5)-ss.getTime();if(!fajr)fajr=new Date(sr.getTime()-night/7);if(!isha)isha=new Date(ss.getTime()+night/7);}
+  var r={fajr:fajr,sunrise:sr,dhuhr:new Date(noon.getTime()+c.dhuhrAdj*60000),asr:asr,maghrib:ss,isha:isha,noon:noon};
+  SL_N.forEach(function(p){var a=+c.adj[p[0]]||0;if(a&&r[p[0]])r[p[0]]=new Date(r[p[0]].getTime()+a*60000);});
+  SL_C[k]=r;return r;}
+function slHM(d){return d?d.toLocaleTimeString([],{hour:'numeric',minute:'2-digit'}):'–';}
+/* which prayer is current, which is next; a prayer's window ends at the next one (Fajr ends at sunrise, Isha at Fajr) */
+function slNow(now){now=now||new Date();var t=slTimes(now);if(!t)return null;var cur=null,next=null,nt=null,end=null;
+  var seq=[['fajr',t.fajr,t.sunrise],['dhuhr',t.dhuhr,t.asr],['asr',t.asr,t.maghrib],['maghrib',t.maghrib,t.isha],['isha',t.isha,null]];
+  for(var i=0;i<seq.length;i++){if(now>=seq[i][1]&&(!seq[i][2]||now<seq[i][2])){cur=seq[i][0];end=seq[i][2];}if(!next&&now<seq[i][1]){next=seq[i][0];nt=seq[i][1];}}
+  if(!next){var tm=slTimes(new Date(now.getTime()+864e5));next='fajr';nt=tm.fajr;}
+  if(cur==='isha'){var tm2=now.getHours()<12?t:slTimes(new Date(now.getTime()+864e5));end=tm2.fajr;}
+  if(!cur&&now<t.fajr){cur='isha';end=t.fajr;} /* after midnight, before Fajr: still yesterday's Isha */
+  return {t:t,cur:cur,end:end,next:next,nt:nt};}
+function slName(k){return SL_N.filter(function(p){return p[0]===k;})[0][1];}
+function slLog(){return lsGet(SL_KEY,{});}
+function slDayKey(now,k){/* Isha prayed after midnight belongs to the day before */var d=new Date(now);if(k==='isha'&&d.getHours()<5)d.setDate(d.getDate()-1);return ymd(d);}
+function slMark(k,v,dayKey){var L=slLog(),dk=dayKey||slDayKey(new Date(),k);L[dk]=L[dk]||{};if(L[dk][k]===v)delete L[dk][k];else L[dk][k]=v;lsSet(SL_KEY,L);
+  if(v===1&&navigator.vibrate)try{navigator.vibrate(12);}catch(e){}slRender();slStrip();}
+var SL_ANCHOR={
+  fajr:['Before the phone','Wudu wakes you up better than coffee. Pray first, then water and daylight. In winter Fajr is before your 6:30 wake-up, so it&#8217;s already waiting for you. In summer it comes around 3 to 4 am: pray and go back to sleep. Plenty of people do.'],
+  dhuhr:['Around noon training','Train, wash, pray Dhuhr, then eat. The shower is already halfway to wudu.'],
+  asr:['With the afternoon stretch break','Your 2:30 desk stretch falls inside Asr from fall through spring. Stretch, then pray. In summer Asr comes later, around 5, so pray before you leave work.'],
+  maghrib:['The short window','Maghrib has the shortest window, about 80 minutes in winter. In winter it lands around 4:20, often at work or on the commute. Keep a small mat at work and pray before you head out.'],
+  isha:['Before winding down','Pray Isha as part of the evening wind-down, before the screens go off. In summer it&#8217;s late, around 10:30 to 11, so keep it close to bedtime.']};
+var SL_TS=[0,0];
+function slRender(){var el=document.getElementById('sl-body');if(!el)return;var s=slNow();if(!s){el.innerHTML='<div class="cs">Loading the prayer calculator...</div>';return;}
+  var now=new Date(),t=s.t,L=slLog(),today=ymd(now),h='';
+  var left=Math.max(0,s.nt-now),hh=Math.floor(left/36e5),mm=Math.round((left%36e5)/6e4);
+  var total=s.end&&s.cur?(s.end-(t[s.cur]||now)):null,frac=total&&s.end?Math.min(1,Math.max(0,(now-(s.end-total))/total)):0;
+  h+='<div class="sl-hero"><svg viewBox="0 0 120 120" class="sl-ring"><circle cx="60" cy="60" r="52" class="sl-tr"/><circle cx="60" cy="60" r="52" class="sl-ar" style="stroke-dasharray:'+(326.7*(1-frac)).toFixed(1)+' 400"/></svg>'+
+    '<div class="sl-hc"><div class="sl-now">'+(s.cur?slName(s.cur)+' time':'Between prayers')+'</div><div class="sl-cd">'+(hh?hh+' h ':'')+mm+' min</div><div class="sl-nx">until '+slName(s.next)+' at '+slHM(s.nt)+'</div></div></div>';
+  if(s.cur&&s.end&&!(L[slDayKey(now,s.cur)]||{})[s.cur])h+='<button class="sl-pray" onclick="slMark(\''+s.cur+'\',1)"><i class="ti ti-check"></i> I prayed '+slName(s.cur)+'</button><div class="sl-left">'+slName(s.cur)+' window closes at '+slHM(s.end)+(s.cur==='fajr'?' (sunrise)':'')+'.</div>';
+  h+='<div class="sl-list">';
+  SL_N.forEach(function(p){var k=p[0],tt=t[k],dk=k==='isha'&&now.getHours()<5?slDayKey(now,'isha'):today,v=(L[dk]||{})[k],past=now>=tt;
+    h+='<div class="sl-row'+(s.cur===k?' cur':'')+'"><i class="ti ti-'+p[2]+'"></i><div class="sl-nm">'+p[1]+'<span>'+slHM(tt)+(k==='fajr'?' &#183; sunrise '+slHM(t.sunrise):'')+'</span></div>'+
+      '<button class="sl-ck'+(v===1?' on':v===2?' late':'')+'" '+(past?'':'disabled ')+'onclick="slMark(\''+k+'\','+(v===1?2:1)+',\''+dk+'\')" aria-label="Mark '+p[1]+'">'+(v===2?'<i class="ti ti-clock"></i>':'<i class="ti ti-check"></i>')+'</button></div>';});
+  h+='</div><div class="cs" style="margin-top:6px">Tap once for prayed on time, tap again for made up later, a third time to clear.</div>';
+  /* week */
+  var wk='',days=0,full=0,cnt=0;for(var i=6;i>=0;i--){var d=new Date(now);d.setDate(d.getDate()-i);var k2=ymd(d),e=L[k2]||{},n=SL_N.filter(function(p){return e[p[0]];}).length;days++;cnt+=n;if(n===5)full++;
+    wk+='<div class="sl-wd"><div class="sl-dots">'+SL_N.map(function(p){return '<i class="'+(e[p[0]]===1?'on':e[p[0]]===2?'late':'')+'"></i>';}).join('')+'</div><span>'+d.toLocaleDateString([],{weekday:'narrow'})+'</span></div>';}
+  h+='<div class="ew" style="margin-top:16px">This week</div><div class="sl-week">'+wk+'</div><div class="cs">'+cnt+' of 35 prayers this week'+(full?', '+full+' full day'+(full>1?'s':''):'')+'. Missed one? Make it up when you can and pray the next one on time. The next prayer is always a fresh start.</div>';
+  el.innerHTML=h;
+  var an=document.getElementById('sl-anchors');if(an&&!an.innerHTML)an.innerHTML=SL_N.map(function(p){var a=SL_ANCHOR[p[0]];return '<div class="sl-an"><b>'+p[1]+': '+a[0]+'</b><div>'+a[1]+'</div></div>';}).join('');
+  var q=document.getElementById('sl-qibla');if(q){var Lc=slLoc(),b=slBearing(Lc.lat,Lc.lon);q.innerHTML='<div class="sl-qb"><svg viewBox="-50 -50 100 100" width="84" height="84"><circle r="40" class="sl-tr" style="stroke-width:1.5"/><text y="-43" text-anchor="middle" font-size="9" class="sl-qn">N</text><line x1="0" y1="-40" x2="0" y2="-34" stroke="var(--ink3)" stroke-width="1.5"/><g transform="rotate('+b.toFixed(1)+')"><path d="M0 -24 L5 2 L0 -3 L-5 2Z" fill="var(--repair)"/><rect x="-4" y="-35" width="8" height="8" rx="1" fill="var(--ink)"/></g><circle r="2.5" fill="var(--ink3)"/></svg><div><div class="cz-h" style="font-size:16px">Qibla '+Math.round(b)+'&#176; from true north</div><div class="cs">Roughly north-northeast from '+Lc.name+'. Along the great circle, the shortest path over the globe, so it points far more north than a flat map suggests. Phone compasses point to magnetic north, which around Vancouver is about 15&#176; east of true north, so subtract that on a compass app that shows magnetic headings.</div></div></div>';}
+  var dk2=document.getElementById('sl-dhikr');if(dk2)slDhikrDraw();
+  var ad=document.getElementById('sl-adj');if(ad&&!ad.innerHTML){var c=slCfg();ad.innerHTML=SL_N.map(function(p){return '<label>'+p[1]+'<input type="number" step="1" value="'+(+c.adj[p[0]]||0)+'" onchange="slAdj(\''+p[0]+'\',this.value)"></label>';}).join('');}}
+function slAdj(k,v){var c=lsGet(SL_CFG,{});c.adj=c.adj||{};c.adj[k]=Math.max(-30,Math.min(30,+v||0));lsSet(SL_CFG,c);SL_C={};slRender();slStrip();}
+function slBearing(lat,lon){var r=Math.PI/180,f1=lat*r,f2=21.4225*r,dl=(39.8262-lon)*r,y=Math.sin(dl)*Math.cos(f2),x=Math.cos(f1)*Math.sin(f2)-Math.sin(f1)*Math.cos(f2)*Math.cos(dl);return (Math.atan2(y,x)/r+360)%360;}
+var SL_DH=[['SubhanAllah',33],['Alhamdulillah',33],['Allahu akbar',34]],SL_D={i:0,n:0};
+function slDhikrDraw(){var el=document.getElementById('sl-dhikr');if(!el)return;var c=SL_DH[SL_D.i];
+  el.innerHTML='<button class="sl-tasbih" onclick="slDhikr()"><span class="sl-tn">'+SL_D.n+'</span><span class="sl-tw">'+c[0]+'</span><span class="sl-tt">of '+c[1]+'</span></button><div class="sl-tsteps">'+SL_DH.map(function(x,i){return '<span class="'+(i<SL_D.i?'done':i===SL_D.i?'now':'')+'">'+x[0]+' '+x[1]+'</span>';}).join('')+'</div><button class="cz-btn" onclick="SL_D={i:0,n:0};slDhikrDraw()">Reset</button>';}
+function slDhikr(){var c=SL_DH[SL_D.i];SL_D.n++;if(navigator.vibrate)try{navigator.vibrate(SL_D.n===c[1]?[20,40,20]:6);}catch(e){}if(SL_D.n>=c[1]){SL_D.n=0;SL_D.i=(SL_D.i+1)%3;}slDhikrDraw();}
+/* Today strip: next prayer + five dots */
+function slStrip(){var el=document.getElementById('sl-strip');if(!el)return;var s=slNow();if(!s){el.style.display='none';return;}el.style.display='';
+  var now=new Date(),L=slLog(),e=L[ymd(now)]||{},left=Math.max(0,s.nt-now),hh=Math.floor(left/36e5),mm=Math.round((left%36e5)/6e4),cp=s.cur&&s.end&&!(L[slDayKey(now,s.cur)]||{})[s.cur];
+  el.innerHTML='<div class="sl-st" onclick="bbGoPanel(\'p-salah\')"><i class="ti ti-moon-stars"></i><div class="sl-stx">'+(cp?'<b>'+slName(s.cur)+' time</b>, until '+slHM(s.end):'<b>'+slName(s.next)+'</b> at '+slHM(s.nt)+' &#183; in '+(hh?hh+' h ':'')+mm+' min')+'</div><div class="sl-dots">'+SL_N.map(function(p){return '<i class="'+(e[p[0]]===1?'on':e[p[0]]===2?'late':'')+'"></i>';}).join('')+'</div></div>'+
+    (cp?'<button class="sl-pray sm" onclick="slMark(\''+s.cur+'\',1)"><i class="ti ti-check"></i> Prayed '+slName(s.cur)+'</button>':'');}
+(function(){var _go=go;go=function(id,btn){_go(id,btn);if(id==='p-salah')slRender();};
+  if(typeof bbOpen==='function'){var _bo=bbOpen;bbOpen=function(s){_bo(s);if(s==='more'){var g=document.getElementById('sheet-g');if(g&&!g.querySelector('[data-sl]'))g.insertAdjacentHTML('afterbegin','<button data-sl="1" onclick="bbGoPanel(\'p-salah\')"><i class="ti ti-moon-stars"></i>Prayer</button>');}};}
+  if(typeof SR_P!=='undefined')SR_P.splice(1,0,['p-salah','Prayer','moon-stars','protocol','prayer salah salat namaz fajr dhuhr asr maghrib isha qibla dhikr tasbih adhan times spirituality soul deen']);
+  if(typeof SYNC_KEYS!=='undefined')[SL_KEY,SL_CFG].forEach(function(k){if(SYNC_KEYS.indexOf(k)<0)SYNC_KEYS.push(k);});
+  var tick=function(){try{slStrip();var p=document.getElementById('p-p-salah');if(p&&p.classList.contains('on'))slRender();}catch(e){}};
+  document.addEventListener('DOMContentLoaded',function(){setTimeout(tick,400);setInterval(tick,30000);});
+  document.addEventListener('visibilitychange',function(){if(document.visibilityState==='visible')setTimeout(tick,300);});
+})();
+/* banner: the current prayer if not yet marked, or the next one within 30 minutes */
+(function(){if(typeof mvOccasions!=='function')return;var _mo=mvOccasions;mvOccasions=function(now){var L=_mo(now);try{var s=slNow(now);if(!s)return L;var lg=slLog();
+  var TH={fajr:'dawn',dhuhr:'sun',asr:'sun',maghrib:'moon',isha:'night'};
+  if(s.cur&&s.end&&!(lg[slDayKey(now,s.cur)]||{})[s.cur]){var m=Math.round((s.end-now)/6e4);L.unshift([slName(s.cur)+' time.',(m<45?'About '+m+' minutes left in the window. ':'')+'A few minutes with Allah, then back to the day.',TH[s.cur]]);}
+  else if(s.nt-now<30*6e4)L.unshift([slName(s.next)+' in '+Math.max(1,Math.round((s.nt-now)/6e4))+' minutes.','Wudu now, and you&#8217;re ready when it comes in.',TH[s.next]]);}catch(e){}return L;};})();
 
 </script>
 </body>
