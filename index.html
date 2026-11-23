@@ -4603,8 +4603,8 @@ document.addEventListener('visibilitychange',function(){if(document.visibilitySt
 var MV={i:0,lines:[],t:null,th:''};
 var MV_MA=true; /* Moroccan national days + birthday: live only, off in the Template */
 var MV_BDAY='08-20';
-/* [name, MM-DD, birth year or 0, kind, note]; Zaid's date is still to add */
-var MV_FAM=[['Mae','12-03',1998,'mae'],['Dad','01-02',1950,''],['Zouhair','01-03',1990,''],['Amirah','02-21',0,''],['Yasmine','05-18',0,''],['Zaidane','06-04',0,''],['Zak','06-15',0,''],['Mossaab','08-25',0,''],
+/* [name, MM-DD, birth year or 0, kind, note] */
+var MV_FAM=[['Mae','12-03',1998,'mae'],['Dad','01-02',1950,''],['Zouhair','01-03',1990,''],['Amirah','02-21',0,''],['Yasmine','05-18',0,''],['Zaidane','06-04',0,''],['Zaid','08-05',0,''],['Zak','06-15',0,''],['Mossaab','08-25',0,''],
   ['Mom','10-14',1958,'mem','Najat Ihsane, born 1958. A good day to feed someone in her name.']];
 var MV_MEM=[['06-28','Remembering Mom today.','Allah yarhamha. Be gentle with yourself today.']];
 function mvSeed(s){var h=2166136261;for(var i=0;i<s.length;i++){h^=s.charCodeAt(i);h=Math.imul(h,16777619);}return function(){h=Math.imul(h^(h>>>15),2246822507);h=Math.imul(h^(h>>>13),3266489909);h^=h>>>16;return (h>>>0)/4294967296;};}
