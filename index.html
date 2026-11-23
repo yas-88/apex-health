@@ -475,6 +475,25 @@ html[data-scheme="seasonal"][data-tq-season="ss"]:not([data-theme="dark"]) .path
 .mv-x{position:absolute;top:6px;right:8px;border:none;background:none;font-size:18px;line-height:1;color:var(--ink4);padding:6px;cursor:pointer}
 @keyframes mv-drift{from{transform:translate(-6%,0) rotate(0deg)}to{transform:translate(6%,3%) rotate(8deg)}}
 html[data-motion="calm"] .mv-glow{animation-duration:40s}
+.mv-fx{position:absolute;inset:0;pointer-events:none;overflow:hidden;transition:opacity .45s ease}
+.mv-fx.out{opacity:0}
+.mvf{position:absolute;display:block;font-style:normal;line-height:1;will-change:transform,opacity}
+.mvf-sun{position:absolute;right:-30px;top:-40px;width:130px;height:130px;border-radius:50%;opacity:.45;animation:mvf-pulse 6s ease-in-out infinite}
+.mvf-cres{position:absolute;right:46px;top:9px;width:18px;height:18px;border-radius:50%;animation:mvf-glowc 5s ease-in-out infinite}
+.mvf-zel::after{content:'';position:absolute;inset:-1.5px;border:inherit;transform:rotate(45deg)}
+@keyframes mvf-fall{0%{transform:translate(0,0) rotate(0);opacity:0}10%{opacity:.9}90%{opacity:.9}100%{transform:translate(var(--sx),130px) rotate(var(--r));opacity:0}}
+@keyframes mvf-rain{0%{transform:translate(0,0) rotate(14deg);opacity:0}15%{opacity:1}100%{transform:translate(-30px,130px) rotate(14deg);opacity:0}}
+@keyframes mvf-rise{0%{transform:translate(0,0) scale(.6);opacity:0}15%{opacity:.9}100%{transform:translate(var(--sx),-120px) scale(1);opacity:0}}
+@keyframes mvf-sway{0%{transform:translate(0,0) rotate(-8deg);opacity:0}15%{opacity:.85}50%{transform:translate(var(--sx),-60px) rotate(8deg)}100%{transform:translate(0,-125px) rotate(-6deg);opacity:0}}
+@keyframes mvf-drift{0%,100%{transform:translate(-20px,0)}50%{transform:translate(30px,-8px)}}
+@keyframes mvf-drift2{0%{transform:translate(-40px,10px) rotate(0);opacity:0}15%{opacity:.85}85%{opacity:.85}100%{transform:translate(120px,-30px) rotate(var(--r));opacity:0}}
+@keyframes mvf-twinkle{0%,100%{opacity:.15;transform:scale(.7)}50%{opacity:1;transform:scale(1.1)}}
+@keyframes mvf-shimmer{0%{transform:translate(0,0);opacity:0}30%{opacity:.8}100%{transform:translate(var(--sx),-40px);opacity:0}}
+@keyframes mvf-burst{0%{transform:translate(0,0) scale(.4);opacity:0}8%{opacity:1}70%{opacity:.9}100%{transform:translate(var(--dx),var(--dy)) scale(.9);opacity:0}}
+@keyframes mvf-spin{0%{transform:rotate(0) scale(.9);opacity:.25}50%{opacity:.6;transform:rotate(45deg) scale(1)}100%{transform:rotate(90deg) scale(.9);opacity:.25}}
+@keyframes mvf-pulse{0%,100%{transform:scale(1);opacity:.35}50%{transform:scale(1.12);opacity:.55}}
+@keyframes mvf-glowc{0%,100%{opacity:.7}50%{opacity:1}}
+html[data-motion="off"] .mv-fx{display:none}
 .vt-now{width:100%;justify-content:center}
 .bn-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px 10px}
 .bn-grid label{display:flex;flex-direction:column;gap:4px;font-size:11.5px;font-weight:500;color:var(--ink3);min-width:0}
@@ -1686,7 +1705,7 @@ html[data-motion="off"] *,html[data-motion="off"] *::before,html[data-motion="of
 
     <!-- ═══════════ PROTOCOL: OVERVIEW ═══════════ -->
     <div id="p-protocol" class="panel">
-      <div class="mv" id="mv" role="status" aria-live="polite" style="display:none"><div class="mv-glow"></div><div class="mv-t" id="mv-t"></div><button class="mv-x" onclick="mvHide()" aria-label="Hide for today">&#215;</button></div>
+      <div class="mv" id="mv" role="status" aria-live="polite" style="display:none"><div class="mv-glow"></div><div class="mv-fx" id="mv-fx"></div><div class="mv-t" id="mv-t"></div><button class="mv-x" onclick="mvHide()" aria-label="Hide for today">&#215;</button></div>
       <div class="today" id="today">
         <div class="td-top">
           <div><div class="td-time" id="td-time">--:--</div><div class="td-date" id="td-date"></div></div>
@@ -4373,33 +4392,220 @@ function vtRender(){var rows=lsGet(VT_KEY,[]),k=document.getElementById('vt-kpis
 (function(){var _go=go;go=function(id,btn){_go(id,btn);if(id==='p-vitals'){vtRender();vtLoad(false);}};})();
 document.addEventListener('visibilitychange',function(){if(document.visibilityState==='visible'){var p=document.getElementById('p-p-vitals');if(p&&p.classList.contains('on'))vtLoad(false);}});
 
-/* ---------- Motivation banner: one calm line at a time, drawn from what actually went right ---------- */
-var MV={i:0,lines:[],t:null};
-function mvLines(){
-  var L=[],now=new Date(),h=now.getHours(),dow=now.getDay();
+/* ---------- Motivation banner: occasion-aware lines, each with its own animation ----------
+   Line = [title, sub, theme]. Order: occasions today, progress, calendar (day, time, season,
+   month, week of month, quarter), then the steady base lines. Themes live in MV_TH. */
+var MV={i:0,lines:[],t:null,th:''};
+var MV_MA=true; /* Moroccan national days + birthday: live only, off in the Template */
+var MV_BDAY='08-20';
+function mvSeed(s){var h=2166136261;for(var i=0;i<s.length;i++){h^=s.charCodeAt(i);h=Math.imul(h,16777619);}return function(){h=Math.imul(h^(h>>>15),2246822507);h=Math.imul(h^(h>>>13),3266489909);h^=h>>>16;return (h>>>0)/4294967296;};}
+function mvPick(a,k){return a[k%a.length];}
+function mvNth(y,m,dow,n){var d=new Date(y,m,1),c=0;while(true){if(d.getDay()===dow){c++;if(c===n)return d.getDate();}d.setDate(d.getDate()+1);}}
+function mvLast(y,m,dow){var d=new Date(y,m+1,0);while(d.getDay()!==dow)d.setDate(d.getDate()-1);return d.getDate();}
+function mvHijri(d){try{var f=new Intl.DateTimeFormat('en-u-ca-islamic-umalqura',{year:'numeric',month:'numeric',day:'numeric'});if(f.resolvedOptions().calendar.indexOf('islamic')<0)return null;
+  var o={};f.formatToParts(d).forEach(function(p){o[p.type]=p.value;});return {y:parseInt(o.year,10),m:+o.month,d:+o.day};}catch(e){return null;}}
+
+function mvOccasions(now){
+  var L=[],y=now.getFullYear(),m=now.getMonth(),d=now.getDate(),dow=now.getDay(),md=('0'+(m+1)).slice(-2)+'-'+('0'+d).slice(-2);
+  function on(mm,dd){return m===mm&&d===dd;}
+  /* United States */
+  if(on(0,1))L.push(['A new year on the same steady path.','Pick one habit to protect this year and keep everything else light.','spark']);
+  if(m===0&&d===mvNth(y,0,1,3))L.push(['Martin Luther King Jr. Day.','A good day to serve someone, even in a small way.','star']);
+  if(on(1,14))L.push(['Valentine&#8217;s Day.','Care for the people you love, and for the body that gets you to them.','heart']);
+  if(m===1&&d===mvNth(y,1,1,3))L.push(['Presidents&#8217; Day.','A long weekend for many. Spend the extra hour outside.','star']);
+  if(on(3,7))L.push(['World Health Day.','Sleep, food, movement, people. Check in on all four.','bloom']);
+  if(m===4&&d===mvNth(y,4,0,2))L.push(['Mother&#8217;s Day.','Honoring the mothers in your life, those here and those remembered.','heart']);
+  if(m===4&&d===mvLast(y,4,1))L.push(['Memorial Day.','Remembering those who gave their lives in service.','star']);
+  if(m===5&&d===mvNth(y,5,0,3))L.push(['Father&#8217;s Day.','Strength that lasts is the kind you can pass on.','heart']);
+  if(on(5,19))L.push(['Juneteenth.','A federal holiday marking the end of slavery in the United States.','star']);
+  if(on(6,4))L.push(['Independence Day.','Enjoy it. Drink water in the heat and guard your sleep from late fireworks.','spark']);
+  if(m===8&&d===mvNth(y,8,1,1))L.push(['Labor Day.','Rest is earned. Take it without guilt.','calm']);
+  if(on(9,10))L.push(['World Mental Health Day.','Breathe slowly for one minute. It counts.','calm']);
+  if(on(9,31))L.push(['Halloween.','Enjoy a treat. One day never undoes the work.','night']);
+  if(on(10,11))L.push(['Veterans Day.','Honoring everyone who served.','star']);
+  var tg=mvNth(y,10,4,4);
+  if(m===10&&d===tg)L.push(['Thanksgiving.','Protein and vegetables first, then enjoy the rest. A short walk after the meal feels good.','harvest']);
+  if(m===10&&d===tg+1)L.push(['The day after Thanksgiving.','Back to normal meals today. No need to make up for anything.','harvest']);
+  if(on(11,24)||on(11,25))L.push([d===24?'Christmas Eve.':'Christmas Day.','A day for people, food and rest. The plan will be here tomorrow.','snow']);
+  if(on(11,31))L.push(['Last day of the year.','Look back at what you kept before you plan what comes next.','spark']);
+  if(m===1&&d===29)L.push(['A leap day.','One extra day this year. Spend part of it outside.','confetti']);
+  if(m===2&&d===mvNth(y,2,0,2))L.push(['Clocks moved forward last night.','Get daylight early and keep bedtime steady this week.','dawn']);
+  if(m===10&&d===mvNth(y,10,0,1))L.push(['Clocks moved back last night.','Darker evenings start now. Morning light helps your body clock adjust.','night']);
+  /* Seasons: equinox and solstice dates move by a day, so this says "this week" */
+  [[2,20,'Spring equinox this week.','Day and night are nearly equal. Light grows from here.','bloom'],
+   [5,21,'Summer solstice this week.','The longest days of the year. Keep the bedroom dark and cool.','sun'],
+   [8,22,'Fall equinox this week.','Evenings shorten from here. Move bedtime with the light.','leaf'],
+   [11,21,'Winter solstice this week.','The shortest days. Light returns a little each day from here.','snow']].forEach(function(s){
+    var t=new Date(y,s[0],s[1]);if(Math.abs((now-t)/864e5)<3.5)L.push([s[2],s[3],s[4]]);});
+  /* Islamic calendar (Umm al-Qura via the phone; local moon sighting can shift a day) */
+  var hj=mvHijri(now);
+  var inRm=false;try{inRm=typeof rmActive==='function'&&rmActive(now);}catch(e){}
+  if(inRm){var rd=null;try{var c=rmCfg();rd=Math.floor((pd(ymd(now))-pd(c.start))/864e5)+1;}catch(e){}
+    if(rd&&rd>=21)L.push(['The last ten nights of Ramadan.','Rest when you can between prayers. Keep the meals simple.','moon']);
+    else L.push(['Ramadan'+(rd&&rd>0?', day '+rd:'')+'.','Lighter training, good suhoor, water between iftar and sleep.','moon']);}
+  if(hj){
+    if(hj.m===1&&hj.d===1)L.push(['Islamic New Year, '+hj.y+'.','A fresh start on the hijri calendar.','moon']);
+    if(hj.m===1&&hj.d===10)L.push(['Ashura.','Many Muslims fast today. A day for reflection.','moon']);
+    if(hj.m===3&&hj.d===12)L.push(['Mawlid an-Nabi.','Remembering the Prophet&#8217;s birth, &#7779;alla Allahu &#8216;alayhi wa sallam.','lantern']);
+    if(hj.m===7&&hj.d===27)L.push(['Isra and Mi&#8217;raj.','A night journey remembered. A quiet evening suits it.','moon']);
+    if(hj.m===10&&hj.d<=3&&!inRm)L.push(['Eid Mubarak.','Eid al-Fitr. Ease back into regular meals and enjoy the day with family.','lantern']);
+    if(hj.m===12&&hj.d===9)L.push(['The Day of Arafah.','Many fast today. A day for reflection and du&#8217;a.','moon']);
+    if(hj.m===12&&hj.d>=10&&hj.d<=12)L.push(['Eid al-Adha Mubarak.','Enjoy the feast. Add greens and water to a meat-heavy week.','lantern']);
+  }
+  /* Morocco and personal (live only) */
+  if(MV_MA){
+    var MA={'01-11':['Independence Manifesto Day.','Remembering the 1944 call for Morocco&#8217;s independence.'],
+      '01-14':['Yennayer, the Amazigh New Year.','Asseggas ameggaz. A happy new year.'],
+      '07-30':['Throne Day in Morocco.','A national day back home.'],
+      '08-14':['Oued Ed-Dahab Day.','A national day in Morocco.'],
+      '08-20':['Revolution of the King and the People.','A national day in Morocco.'],
+      '08-21':['Youth Day in Morocco.','Energy is something you build. Keep building it.'],
+      '11-06':['Green March Day.','A national day in Morocco.'],
+      '11-18':['Moroccan Independence Day.','A national day back home.']};
+    if(MA[md])L.push([MA[md][0],MA[md][1],'zellige']);
+    if(md===MV_BDAY)L.unshift(['Happy birthday.','Another year in a body you&#8217;re taking good care of.','confetti']);
+  }
+  return L;
+}
+
+function mvProgress(now){
+  var L=[];
+  var s;try{s=typeof qrStart==='function'?qrStart():new Date(TQ_START[0],TQ_START[1],TQ_START[2]);}catch(e){s=new Date(2026,6,20);}
+  var days=Math.floor((pd(ymd(now))-pd(ymd(s)))/864e5)+1;
+  if(days>0){
+    if(now.getMonth()===s.getMonth()&&now.getDate()===s.getDate()&&days>300){var yrs=Math.round(days/365.25);L.push([yrs+(yrs===1?' year':' years')+' on the path today.','Same day you started. Look how far it is from there.','spark']);}
+    else if([50,100,150,200,250,300,400,500,600,700,800,900,1000,1500].indexOf(days)>-1)L.push(['Day '+days+'.','A round number. Every one of those days counted.','confetti']);
+    if(now.getDate()===s.getDate()&&((now.getMonth()-s.getMonth()+12)%3===0)&&days>30)L.push(['Checkpoint day.','Review strength, sleep, self-relationship, then labs.','confetti']);
+  }
+  try{var a=lsGet(TQ_KEY,{}),n=0;for(var i=0;i<7;i++){var x=new Date(now);x.setDate(x.getDate()-i);var e=a[ymd(x)];if(e&&e.d&&e.d.train)n++;}
+    if(n>=3)L.push([n+' training days this week.','That is the rhythm working.','ember']);}catch(e){}
+  try{var st=bmState(),lost=st.lb0-st.lb;if(lost>=5){var mk=Math.floor(lost/5)*5;L.push(['Past the '+mk+' lb mark.','Steady loss, muscle kept. That is the plan.','confetti']);}}catch(e){}
+  try{var v=lsGet('tareeq-vitals',[]),sl=v.filter(function(x){return x.metric==='sleep_h';}).slice(-7);
+    if(sl.length>=4){var av=sl.reduce(function(p,c){return p+(+c.value);},0)/sl.length;if(av>=7)L.push(['Averaging '+av.toFixed(1)+' hours of sleep.','Recovery is on track this week.','night']);}
+    var stp=v.filter(function(x){return x.metric==='steps';}).slice(-28),tod=stp.filter(function(x){return x.d===ymd(now);})[0];
+    if(tod&&stp.length>=7&&stp.every(function(x){return +x.value<=+tod.value;}))L.push(['Most steps in four weeks.','A good day to notice.','confetti']);}catch(e){}
+  return L;
+}
+
+function mvWx(){try{var c=lsGet('tareeq-wx',null);if(!c||!c.w||Date.now()-c.t>6*36e5)return null;var k=c.w.current.weather_code;
+  if((k>=71&&k<=77)||k===85||k===86)return 'snow';if((k>=51&&k<=67)||(k>=80&&k<=82)||k>=95)return 'rain';if(k<=1&&c.w.current.is_day)return 'sun';}catch(e){}return null;}
+function mvSeason(now){var m=now.getMonth(),d=now.getDate(),k=m*100+d;return k>=220&&k<521?'spring':k>=521&&k<822?'summer':k>=822&&k<1121?'fall':'winter';}
+
+function mvCalendar(now){
+  var L=[],dow=now.getDay(),h=now.getHours(),m=now.getMonth(),d=now.getDate(),wk=Math.floor((pd(ymd(now))-new Date(2024,0,7))/(7*864e5)),wx=mvWx(),se=mvSeason(now);
+  var DOW=[
+    [['Sunday. Weigh in, look back, set the week gently.','Ten quiet minutes now saves a scattered week.'],['Sunday reset.','Prep some food and look at the week ahead.']],
+    [['Monday. A clean start.','Do the first session and the week tends to follow.'],['New week.','Small, steady, repeatable.']],
+    [['Tuesday. Keep yesterday&#8217;s pace.','Momentum is quieter than motivation, and it lasts longer.'],['Tuesday.','The ordinary days are where change happens.']],
+    [['Midweek.','Check the basics: water, sleep, steps.'],['Wednesday. Halfway there.','Keep it simple and keep going.']],
+    [['Thursday.','One more full effort before the week winds down.'],['Thursday. Consistency lives on days like this.','Nobody notices them, and they add up anyway.']],
+    [['Friday. Finish the week clean.','Then enjoy the evening.'],['Friday.','Protect tonight&#8217;s sleep and the weekend starts well.']],
+    [['Saturday. Move outside if the weather lets you.','A long walk counts as training.'],['Saturday. Make movement fun today.','Walk, hike, swim, play.']]];
+  var dl=mvPick(DOW[dow],wk);L.push([dl[0],dl[1],dow===0?'calm':dow===1?'dawn':dow===6?(wx||(se==='summer'?'sun':'calm')):'ember']);
+  if(h<9)L.push(['Good morning.','Water and daylight first, then the day.','dawn']);
+  else if(h>=21)L.push(['The day is done.','Dim the lights. Sleep is where training turns into muscle.','night']);
+  var SE={winter:[['Winter in the Northwest.','Strength work indoors, longer sleep, morning light when you can get it.'],['Short days.','Get outside before noon, even for ten minutes.']],
+    spring:[['Spring.','Light in the morning sets up the whole day.'],['Things are growing again.','Add a little: one more rep, one more walk.']],
+    summer:[['Summer.','Long light. Keep bedtime steady even when it&#8217;s bright at nine.'],['Warm days.','Train earlier and drink before you feel thirsty.']],
+    fall:[['Fall.','Soups and stews are an easy way to get protein and vegetables.'],['The rain is back.','Good weather for steady indoor work and early nights.']]};
+  var sl=mvPick(SE[se],wk);L.push([sl[0],sl[1],wx||(se==='winter'?'snow':se==='fall'?'leaf':se==='spring'?'bloom':'sun')]);
+  var MO=[['January.','A good month to build the base quietly.','snow'],['February.','Halfway through winter. Keep morning light and vitamin D in mind.','rain'],
+    ['March.','Evenings get longer. Walks get easier.','bloom'],['April.','Spring rain and first blooms. Outdoor season is close.','bloom'],
+    ['May.','Fields are drying out. Outdoor training is back.','bloom'],['June.','The longest days of the year. Make the most of the light.','sun'],
+    ['July.','Hot afternoons. Train earlier on warm days.','sun'],['August.','Late summer fruit is at its best. Enjoy it while it lasts.','sun'],
+    ['September.','Back-to-routine month. Reset bedtime as evenings shorten.','leaf'],['October.','Rain returns, flu shot season starts.','leaf'],
+    ['November.','Darker evenings. Lower the screens and keep sleep regular.','rain'],['December.','A busy month. Keep sessions short rather than skipping them.','snow']];
+  L.push(MO[m]);
+  var wom=Math.ceil(d/7),dim=new Date(now.getFullYear(),m+1,0).getDate(),left=dim-d;
+  var WM=[['First week of the month.','Benchmarks, waist and photos are due on the first Sunday.'],['Second week of the month.','The month&#8217;s rhythm is set. Protect it.'],
+    ['Third week of the month.','This is where habits stick or slip. Keep them small enough to keep.'],['Last full week of the month.','Finish steady. No need to rush.']];
+  if(left<7)L.push([left===0?'Last day of the month.':left+' day'+(left===1?'':'s')+' left in the month.','Note one thing that went well.','confetti']);
+  else L.push(WM[Math.min(wom,4)-1].concat([wom===1?'dawn':wom===4?'ember':'calm']));
+  var q=Math.floor(m/3),qd=(pd(ymd(now))-new Date(now.getFullYear(),q*3,1))/864e5;
+  var Q=[['Q1. Build the base.','Simple sessions, done often.'],['Q2. Add a little.','More reps, a slower tempo, a longer hold.'],['Q3. The summer quarter.','Train early, recover well, enjoy being outside.'],['Q4. Hold what you built.','The holidays are easier with a plan that bends.']];
+  if(qd<7)L.push(['A new quarter starts.','Q'+(q+1)+'. Review strength, sleep, self-relationship, then labs.','spark']);
+  else L.push(Q[q].concat(['calm']));
+  return L;
+}
+
+function mvBase(now){
+  var L=[],h=now.getHours(),dow=now.getDay();
   try{var st=bmState();
-    L.push(['Week '+st.wk+' on the path.','Every week you show up counts, including the easy ones.']);
-    if(st.p>0.01){var lost=Math.round((st.lb0-st.lb)*10)/10;if(lost>0)L.push([lost+' lb lighter than where you started.','Slow and steady keeps the muscle.']);}
-    if(st.wk>=8)L.push(['Two months of consistency builds real change.','The visceral fat usually goes first, before the mirror shows it.']);
+    L.push(['Week '+st.wk+' on the path.','Every week you show up counts, including the easy ones.','ember']);
+    if(st.p>0.01){var lost=Math.round((st.lb0-st.lb)*10)/10;if(lost>0)L.push([lost+' lb lighter than where you started.','Slow and steady keeps the muscle.','confetti']);}
+    if(st.wk>=8)L.push(['Two months of consistency builds real change.','The visceral fat usually goes first, before the mirror shows it.','ember']);
   }catch(e){}
   try{var v=lsGet('tareeq-vitals',[]),td=ymd(now),stp=v.filter(function(x){return x.metric==='steps';}),tod=stp.filter(function(x){return x.d===td;})[0];
     if(tod){var a=stp.slice(-28).map(function(x){return +x.value;}),avg=a.reduce(function(p,c){return p+c;},0)/a.length;
-      L.push([Math.round(tod.value).toLocaleString()+' steps so far today.',+tod.value>=avg?'Ahead of your usual pace.':'Plenty of day left for a walk if it feels good.']);}
+      L.push([Math.round(tod.value).toLocaleString()+' steps so far today.',+tod.value>=avg?'Ahead of your usual pace.':'Plenty of day left for a walk if it feels good.','dawn']);}
     var r=v.filter(function(x){return x.metric==='rhr';});if(r.length>=14){var f=r.slice(0,7),l=r.slice(-7),av=function(z){return z.reduce(function(p,c){return p+(+c.value);},0)/z.length;};
-      if(av(l)<av(f)-1)L.push(['Resting heart rate is easing down.','That usually tracks better fitness.']);}
+      if(av(l)<av(f)-1)L.push(['Resting heart rate is easing down.','That usually tracks better fitness.','calm']);}
   }catch(e){}
-  try{var b=bnData();if(b.length>=2){var A=b[b.length-2],B=b[b.length-1];[['pu','push-ups'],['hang','seconds of dead hang'],['sq','seconds in the squat hold']].forEach(function(f){if(A[f[0]]!=null&&B[f[0]]!=null&&B[f[0]]>A[f[0]])L.push(['+'+(B[f[0]]-A[f[0]])+' '+f[1]+' since last month.','Strength first, as planned.']);});}}catch(e){}
+  try{var b=bnData();if(b.length>=2){var A=b[b.length-2],B=b[b.length-1];[['pu','push-ups'],['hang','seconds of dead hang'],['sq','seconds in the squat hold']].forEach(function(f){if(A[f[0]]!=null&&B[f[0]]!=null&&B[f[0]]>A[f[0]])L.push(['+'+(B[f[0]]-A[f[0]])+' '+f[1]+' since last month.','Strength first, as planned.','confetti']);});}}catch(e){}
   var ses=(typeof TQ_SES!=='undefined'&&TQ_SES[dow])?TQ_SES[dow].n:null;
-  if(ses&&h<12)L.push(['Today is '+ses+'.','Show up, do the work, let it be enough.']);
-  if(!ses&&(dow===5||dow===0))L.push(['A lighter day.','Rest is part of the plan, and part of the progress.']);
-  if(h>=20)L.push(['Winding down soon.','Sleep is where today&#8217;s training turns into muscle.']);
-  L.push(['Speak to yourself like someone you&#8217;re helping.','']);
+  if(ses&&h<12)L.push(['Today is '+ses+'.','Show up, do the work, let it be enough.','ember']);
+  if(!ses&&(dow===5||dow===0))L.push(['A lighter day.','Rest is part of the plan, and part of the progress.','calm']);
+  L.push(['Speak to yourself like someone you&#8217;re helping.','','calm']);
   return L;
+}
+
+function mvLines(){var now=new Date(),seen={},out=[];
+  [mvOccasions,mvProgress,mvCalendar,mvBase].forEach(function(f){try{f(now).forEach(function(x){if(x&&!seen[x[0]]){seen[x[0]]=1;out.push(x);}});}catch(e){}});
+  return out;}
+
+/* Themes: particle count, keyframe, glyph or shape, size and duration ranges, colors (light / dark), glow pair */
+var MV_TH={
+  dawn:{n:7,a:'mvf-rise',sh:'dot',sz:[3,6],du:[7,12],c:['#d9a441','#e8b860'],k:['#f0c674','#ffd98a'],g:['rgba(232,176,72,.32)','rgba(255,210,140,.22)'],sun:1},
+  ember:{n:12,a:'mvf-rise',sh:'dot',sz:[2,4],du:[3,6],c:['#d9603b','#e88a3c'],k:['#ff8a4c','#ffb35c'],g:['rgba(217,96,59,.22)','rgba(232,138,60,.18)']},
+  calm:{n:5,a:'mvf-drift',sh:'dot',sz:[18,34],du:[14,22],c:['rgba(47,122,120,.14)','rgba(47,122,120,.09)'],k:['rgba(120,200,190,.14)','rgba(120,200,190,.08)'],g:['var(--repair-bg)','var(--gold-bg)'],blur:1},
+  night:{n:14,a:'mvf-twinkle',sh:'g',gl:'✦',sz:[6,10],du:[2.5,5],c:['#6b6fb0','#8f8fc9'],k:['#e6e3ff','#c8c4ff'],g:['rgba(90,95,170,.22)','rgba(40,45,110,.18)']},
+  moon:{n:12,a:'mvf-twinkle',sh:'g',gl:'✦',sz:[5,9],du:[2.5,5.5],c:['#b8923a','#8a7bc0'],k:['#ffe3a0','#e6e3ff'],g:['rgba(70,70,150,.24)','rgba(200,160,70,.18)'],cres:1},
+  lantern:{n:10,a:'mvf-sway',sh:'lan',sz:[9,14],du:[4,7],c:['#c9932e','#b8402e','#2f7a78'],k:['#ffcf6b','#ff8a5c','#6fd2c6'],g:['rgba(201,147,46,.28)','rgba(184,64,46,.16)'],sparkle:1},
+  snow:{n:16,a:'mvf-fall',sh:'dot',sz:[3,6],du:[6,11],c:['#9fb4c9','#b9c9d8'],k:['#ffffff','#dfe9f3'],g:['rgba(160,190,220,.28)','rgba(230,240,250,.2)']},
+  rain:{n:18,a:'mvf-rain',sh:'streak',sz:[10,16],du:[.8,1.4],c:['rgba(70,110,150,.45)'],k:['rgba(170,205,240,.55)'],g:['rgba(90,120,150,.22)','rgba(150,170,190,.16)']},
+  leaf:{n:9,a:'mvf-fall',sh:'leaf',sz:[7,11],du:[6,10],c:['#c8692c','#b8402e','#d9a441'],k:['#e8823c','#d65a40','#f0c674'],g:['rgba(200,105,44,.22)','rgba(217,164,65,.18)'],spin:1},
+  harvest:{n:10,a:'mvf-fall',sh:'leaf',sz:[7,11],du:[6,10],c:['#b8862c','#c8692c','#8a5a2b'],k:['#e0ad4c','#e8823c','#c48a50'],g:['rgba(201,147,46,.3)','rgba(200,105,44,.2)'],spin:1},
+  bloom:{n:9,a:'mvf-drift2',sh:'petal',sz:[6,9],du:[7,12],c:['#d98aa6','#e8b4c8','#7fae6b'],k:['#f2a7c3','#ffd0e0','#a6d48f'],g:['rgba(217,138,166,.22)','rgba(127,174,107,.18)'],spin:1},
+  sun:{n:6,a:'mvf-shimmer',sh:'dot',sz:[3,5],du:[3,6],c:['#d9a441'],k:['#ffd98a'],g:['rgba(240,190,80,.34)','rgba(255,225,150,.2)'],sun:1},
+  spark:{n:30,a:'mvf-burst',sh:'dot',sz:[3,4],du:[2.2,2.2],c:['#d9603b','#d9a441','#2f7a78','#6b6fb0'],k:['#ff8a4c','#ffd98a','#6fd2c6','#c8c4ff'],g:['rgba(107,111,176,.22)','rgba(217,164,65,.2)'],burst:1},
+  confetti:{n:16,a:'mvf-fall',sh:'conf',sz:[4,7],du:[3.5,6],c:['#d9603b','#d9a441','#2f7a78','#8a6fc0'],k:['#ff8a4c','#ffd98a','#6fd2c6','#c8a8ff'],g:['var(--gold-bg)','var(--repair-bg)'],spin:1},
+  heart:{n:8,a:'mvf-rise',sh:'g',gl:'♥︎',sz:[9,14],du:[5,9],c:['#c8506a','#d98aa6'],k:['#ff8aa6','#ffb4c8'],g:['rgba(200,80,106,.2)','rgba(217,138,166,.16)']},
+  star:{n:6,a:'mvf-twinkle',sh:'g',gl:'★',sz:[7,10],du:[4,7],c:['#4a5f8a','#8a96b0'],k:['#c9d4ee','#9fb0d4'],g:['rgba(74,95,138,.18)','rgba(140,150,176,.14)']},
+  zellige:{n:6,a:'mvf-spin',sh:'zel',sz:[10,16],du:[9,16],c:['#1f7a4d','#b8302e','#2f7a78'],k:['#4fc28a','#e86a5c','#6fd2c6'],g:['rgba(31,122,77,.2)','rgba(184,48,46,.16)']}
+};
+function mvApply(th){var el=document.getElementById('mv'),fx=document.getElementById('mv-fx'),gl=el&&el.querySelector('.mv-glow');if(!el||!fx)return;
+  var T=MV_TH[th]||MV_TH.calm,mo=document.documentElement.getAttribute('data-motion')||'full',dk=document.documentElement.getAttribute('data-theme')==='dark';
+  if(gl)gl.style.background='radial-gradient(circle at 30% 50%,'+T.g[0]+',transparent 55%),radial-gradient(circle at 75% 40%,'+T.g[1]+',transparent 50%)';
+  el.setAttribute('data-th',th);
+  if(MV.th===th&&fx.childNodes.length)return;MV.th=th;
+  fx.classList.add('out');
+  setTimeout(function(){fx.innerHTML='';if(mo==='off'){fx.classList.remove('out');return;}
+    var R=mvSeed(th+ymd(new Date())),n=mo==='calm'?Math.ceil(T.n/2):T.n,sl=mo==='calm'?2:1,cols=dk?T.k:T.c,h='';
+    var rr=function(a){return a[0]+R()*(a[1]-a[0]);};
+    if(T.sun)h+='<i class="mvf-sun" style="background:radial-gradient(circle,'+cols[0]+' 0,transparent 70%)"></i>';
+    if(T.cres)h+='<i class="mvf-cres" style="box-shadow:5px -3px 0 0 '+cols[0]+'"></i>';
+    var bx=[18+R()*20,62+R()*20];
+    for(var i=0;i<n;i++){var s=rr(T.sz),du=rr(T.du)*sl,dl=-R()*du,c=cols[i%cols.length],x=(R()*100).toFixed(1),yy=(R()*100).toFixed(1),st='',g='';
+      if(T.burst){var b=i%2,ang=(i/n)*Math.PI*4+R()*.3,rad=30+R()*26;dl=(b?1.1:0)*sl;
+        st='left:'+bx[b]+'%;top:45%;--dx:'+(Math.cos(ang)*rad).toFixed(1)+'px;--dy:'+(Math.sin(ang)*rad*.8).toFixed(1)+'px;';}
+      else st='left:'+x+'%;'+(T.a==='mvf-fall'||T.a==='mvf-rain'?'top:-14px;':T.a==='mvf-rise'||T.a==='mvf-sway'?'top:100%;':'top:'+yy+'%;');
+      st+='animation:'+T.a+' '+du.toFixed(2)+'s '+dl.toFixed(2)+'s '+(T.burst?'ease-out':'linear')+' infinite;--r:'+(T.spin?Math.round(180+R()*360):0)+'deg;--sx:'+((R()-.5)*40).toFixed(0)+'px;';
+      if(T.sh==='g'){st+='font-size:'+s.toFixed(0)+'px;color:'+c+';';g=T.gl;}
+      else if(T.sh==='streak')st+='width:1.5px;height:'+s.toFixed(0)+'px;background:'+c+';border-radius:2px;';
+      else if(T.sh==='leaf')st+='width:'+s.toFixed(0)+'px;height:'+(s*.6).toFixed(0)+'px;background:'+c+';border-radius:0 80% 0 80%;';
+      else if(T.sh==='petal')st+='width:'+s.toFixed(0)+'px;height:'+(s*.7).toFixed(0)+'px;background:'+c+';border-radius:80% 0 80% 0;opacity:.85;';
+      else if(T.sh==='conf')st+='width:'+(s*.55).toFixed(0)+'px;height:'+s.toFixed(0)+'px;background:'+c+';border-radius:1px;';
+      else if(T.sh==='lan')st+='width:'+s.toFixed(0)+'px;height:'+(s*1.35).toFixed(0)+'px;background:'+c+';border-radius:40% 40% 30% 30%;box-shadow:0 0 10px '+c+';opacity:.85;';
+      else if(T.sh==='zel')st+='width:'+s.toFixed(0)+'px;height:'+s.toFixed(0)+'px;border:1.5px solid '+c+';top:'+(15+R()*60).toFixed(0)+'%;';
+      else st+='width:'+s.toFixed(1)+'px;height:'+s.toFixed(1)+'px;background:'+c+';border-radius:50%;'+(T.blur?'filter:blur(6px);':'');
+      h+='<i class="mvf'+(T.sh==='zel'?' mvf-zel':'')+'" style="'+st+'">'+g+'</i>';}
+    if(T.sparkle)for(var j=0;j<6;j++)h+='<i class="mvf" style="left:'+(R()*100).toFixed(0)+'%;top:'+(R()*80).toFixed(0)+'%;font-size:7px;color:'+cols[0]+';animation:mvf-twinkle '+(2+R()*3)*sl+'s '+(-R()*3)+'s linear infinite">✦</i>';
+    fx.innerHTML=h;fx.classList.remove('out');},MV.th&&fx.childNodes.length?450:0);
 }
 function mvShow(){var el=document.getElementById('mv'),t=document.getElementById('mv-t');if(!el||!t)return;
   try{if(lsGet('tareeq-mv-hide','')===ymd(new Date())){el.style.display='none';return;}}catch(e){}
   MV.lines=mvLines();if(!MV.lines.length)return;el.style.display='';
-  var draw=function(){var x=MV.lines[MV.i%MV.lines.length];t.innerHTML=x[0]+(x[1]?'<small>'+x[1]+'</small>':'');};
+  var draw=function(){var x=MV.lines[MV.i%MV.lines.length];t.innerHTML=x[0]+(x[1]?'<small>'+x[1]+'</small>':'');mvApply(x[2]||'calm');};
   draw();clearInterval(MV.t);
   var mo=document.documentElement.getAttribute('data-motion')||'full';if(mo==='off')return;
   MV.t=setInterval(function(){t.classList.add('out');setTimeout(function(){MV.i++;draw();t.classList.remove('out');},900);},14000);
