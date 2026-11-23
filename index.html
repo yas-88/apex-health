@@ -6314,7 +6314,8 @@ function slRender(){var el=document.getElementById('sl-body');if(!el)return;var 
   if(s.cur&&s.end&&!(L[slDayKey(now,s.cur)]||{})[s.cur])h+='<button class="sl-pray" onclick="slMark(\''+s.cur+'\',1)"><i class="ti ti-check"></i> I prayed '+slName(s.cur)+'</button><div class="sl-left">'+slName(s.cur)+' window closes at '+slHM(s.end)+(s.cur==='fajr'?' (sunrise)':'')+'.</div>';
   h+='<div class="sl-list">';
   SL_N.forEach(function(p){var k=p[0],tt=t[k],dk=k==='isha'&&now.getHours()<5?slDayKey(now,'isha'):today,v=(L[dk]||{})[k],past=now>=tt;
-    h+='<div class="sl-row'+(s.cur===k?' cur':'')+'"><i class="ti ti-'+p[2]+'"></i><div class="sl-nm">'+p[1]+'<span>'+slHM(tt)+(k==='fajr'?' &#183; sunrise '+slHM(t.sunrise):'')+'</span></div>'+
+    var jm=k==='dhuhr'&&now.getDay()===5;
+    h+='<div class="sl-row'+(s.cur===k?' cur':'')+'"><i class="ti ti-'+p[2]+'"></i><div class="sl-nm">'+(jm?'Jumu&#8217;ah':p[1])+'<span>'+(jm?'Masjid Al-Noor, khutbah 12:15 or 1:00':slHM(tt))+(k==='fajr'?' &#183; sunrise '+slHM(t.sunrise):'')+'</span></div>'+
       '<button class="sl-ck'+(v===1?' on':v===2?' late':'')+'" '+(past?'':'disabled ')+'onclick="slMark(\''+k+'\','+(v===1?2:1)+',\''+dk+'\')" aria-label="Mark '+p[1]+'">'+(v===2?'<i class="ti ti-clock"></i>':'<i class="ti ti-check"></i>')+'</button></div>';});
   h+='</div><div class="cs" style="margin-top:6px">Tap once for prayed on time, tap again for made up later, a third time to clear.</div>';
   /* week */
@@ -6474,6 +6475,7 @@ function roFireCalc(){var o=document.getElementById('ro-fout');if(!o)return;var 
 })();
 /* banner: the holiday plan in his own words, and wudu before each prayer */
 (function(){if(typeof mvOccasions!=='function')return;var _mo=mvOccasions;mvOccasions=function(now){var L=_mo(now);var m=now.getMonth(),d=now.getDate();
+  if(now.getDay()===5&&now.getHours()<13)L.unshift(['Jumu&#8217;ah today.','Masjid Al-Noor, 1000 NE 66th St. Khutbah at 12:15, or the second one at 1:00.','moon']);
   if((m===10&&d>=20)||m===11)L.push(['Your holiday plan.','Skip the sweets, keep jerky and protein snacks close. You decided this already.','snow']);
   if((m===10&&d>=15)||m===11||m<=1)L.push(['Winter, on your terms.','Daylight early, indoor training on freezing days, one thing a week with people.','cloud-rain']);
   return L;};})();
