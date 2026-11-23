@@ -918,6 +918,12 @@ button.rd-go{background:var(--ink);color:var(--bg);border:none;border-radius:16p
 .pg-ttl{font-family:'DM Serif Display',serif;font-size:21px;color:var(--ink);flex:1}
 .pg-sc{font-size:13px;color:var(--ink3);text-align:right;font-variant-numeric:tabular-nums}
 .pg-body{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;max-width:640px;width:100%;margin:0 auto;padding:4px 16px calc(24px + env(safe-area-inset-bottom,0px));box-sizing:border-box;position:relative}
+.tn-sb{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:10px;max-width:360px;margin:0 auto 8px;padding:8px 14px;border-radius:14px;background:var(--bg2);border:0.5px solid var(--bdr)}
+.tn-sb>div{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--ink3)}
+.tn-sb>div:last-child{justify-content:flex-end}
+.tn-sb b{font-family:'DM Serif Display',Georgia,serif;font-size:26px;font-weight:400;color:var(--ink)}
+.tn-pts{flex-direction:column;gap:0!important;font-size:15px!important;color:var(--ink)!important;font-weight:600;text-align:center}
+.tn-pts small{font-size:10.5px;color:var(--ink3);font-weight:400}
 .pk-wrap{max-width:360px;margin:4px auto 0;border-radius:18px;overflow:hidden;box-shadow:0 10px 30px rgba(0,0,0,.18)}
 .pk-svg{display:block;width:100%;height:auto;user-select:none;-webkit-user-select:none;cursor:pointer}
 .pk-big{font-family:'DM Serif Display',Georgia,serif;font-size:40px;fill:#fff;opacity:0;letter-spacing:.04em}
@@ -5407,11 +5413,13 @@ var PG_G=[
  {id:'memory',n:'Memory Grid',d:'Hold the pattern. The grid grows with you.',art:'<svg viewBox="0 0 46 46"><g fill="var(--bg3)"><rect x="4" y="4" width="11" height="11" rx="3"/><rect x="17.5" y="4" width="11" height="11" rx="3"/><rect x="31" y="17.5" width="11" height="11" rx="3"/><rect x="4" y="31" width="11" height="11" rx="3"/><rect x="31" y="31" width="11" height="11" rx="3"/></g><g fill="var(--repair)"><rect class="bl" x="31" y="4" width="11" height="11" rx="3"/><rect class="bl" style="animation-delay:.7s" x="4" y="17.5" width="11" height="11" rx="3"/><rect x="17.5" y="17.5" width="11" height="11" rx="3" class="bl" style="animation-delay:1.4s"/><rect x="17.5" y="31" width="11" height="11" rx="3" class="bl" style="animation-delay:.35s"/></g></svg>'},
  {id:'words',n:'Word Sprint',d:'Unscramble as many as you can in 60 seconds.',art:'<svg viewBox="0 0 46 46"><rect class="bob" x="2" y="14" width="13" height="16" rx="3" fill="var(--ink)"/><rect class="bob" style="animation-delay:.3s" x="16.5" y="14" width="13" height="16" rx="3" fill="var(--ink)"/><rect class="bob" style="animation-delay:.6s" x="31" y="14" width="13" height="16" rx="3" fill="var(--repair)"/><text x="8.5" y="26" font-size="10" text-anchor="middle" fill="var(--bg)" font-weight="700">T</text><text x="23" y="26" font-size="10" text-anchor="middle" fill="var(--bg)" font-weight="700">A</text><text x="37.5" y="26" font-size="10" text-anchor="middle" fill="#fff" font-weight="700">Q</text></svg>'},
  {id:'breath',n:'Breath Garden',d:'Slow breathing grows a plant, leaf by leaf.',art:'<svg viewBox="0 0 46 46"><circle cx="23" cy="23" r="19" fill="color-mix(in srgb,var(--repair) 12%,transparent)"/><g class="sway"><path d="M23 40V18" stroke="var(--repair)" stroke-width="2.2" stroke-linecap="round"/><path d="M23 30c-6 0-9-4-9-8 5 0 9 3 9 8z" fill="var(--repair)"/><path d="M23 24c6 0 9-4 9-8-5 0-9 3-9 8z" fill="var(--repair-mid)"/><circle cx="23" cy="15" r="3.4" fill="var(--fuel)"/></g></svg>'},
-{id:'pens',n:'Penalty Kicks',d:'Swipe to shoot. Five shots, one keeper who learns.',art:'<svg viewBox="0 0 46 46"><rect x="3" y="3" width="40" height="40" rx="9" fill="color-mix(in srgb,#2f7a4a 35%,transparent)"/><path d="M9 26V12h28v14" stroke="var(--ink)" stroke-width="2" fill="none"/><g stroke="var(--ink3)" stroke-width=".6"><line x1="15" y1="12" x2="15" y2="26"/><line x1="23" y1="12" x2="23" y2="26"/><line x1="31" y1="12" x2="31" y2="26"/><line x1="9" y1="19" x2="37" y2="19"/></g><circle class="bob" cx="23" cy="36" r="5" fill="#fff" stroke="var(--ink)" stroke-width="1"/></svg>'},
+{id:'tennis',n:'Tennis',d:'Slide to move, let go to swing. First to 3 games.',art:'<svg viewBox="0 0 46 46"><rect x="3" y="3" width="40" height="40" rx="9" fill="color-mix(in srgb,#2b4f7a 40%,transparent)"/><path d="M12 38 L17 10 H29 L34 38Z" fill="none" stroke="var(--ink)" stroke-width="1.4"/><line x1="10" y1="24" x2="36" y2="24" stroke="var(--ink)" stroke-width="2"/><circle class="bob" cx="27" cy="17" r="3.4" fill="#dff25a" stroke="#9aa838" stroke-width=".8"/></svg>'},
+ {id:'pens',n:'Penalty Kicks',d:'Swipe to shoot. Five shots, one keeper who learns.',art:'<svg viewBox="0 0 46 46"><rect x="3" y="3" width="40" height="40" rx="9" fill="color-mix(in srgb,#2f7a4a 35%,transparent)"/><path d="M9 26V12h28v14" stroke="var(--ink)" stroke-width="2" fill="none"/><g stroke="var(--ink3)" stroke-width=".6"><line x1="15" y1="12" x2="15" y2="26"/><line x1="23" y1="12" x2="23" y2="26"/><line x1="31" y1="12" x2="31" y2="26"/><line x1="9" y1="19" x2="37" y2="19"/></g><circle class="bob" cx="23" cy="36" r="5" fill="#fff" stroke="var(--ink)" stroke-width="1"/></svg>'},
  {id:'kalah',n:'Kalah',d:'A classic seed-sowing strategy game. Count, plan, capture.',art:'<svg viewBox="0 0 46 46"><rect x="2" y="12" width="42" height="22" rx="11" fill="color-mix(in srgb,var(--fuel) 30%,transparent)"/><g fill="var(--bg3)"><circle cx="14" cy="18.5" r="4"/><circle cx="23" cy="18.5" r="4"/><circle cx="32" cy="18.5" r="4"/><circle cx="14" cy="27.5" r="4"/><circle cx="23" cy="27.5" r="4"/><circle cx="32" cy="27.5" r="4"/></g><g class="bob"><circle cx="22" cy="27" r="1.6" fill="var(--repair)"/><circle cx="24.5" cy="28.5" r="1.6" fill="var(--fire)"/><circle cx="31" cy="18" r="1.6" fill="var(--ground)"/></g></svg>'}
 ];
 function pgBestLine(id){var d=pgData(),b=d.best,r=d.rec;
   if(id==='checkers'){var c=r.checkers||{w:0,l:0,dr:0};return (c.w||c.l||c.dr)?('vs Tareeq: '+c.w+' won, '+c.l+' lost'):'New';}
+  if(id==='tennis'){var tr=r.tennis||{w:0,l:0};return (tr.w||tr.l)?('vs Tareeq: '+tr.w+' won, '+tr.l+' lost'):'New';}
   if(id==='pens'){var p=r.pens;return p?('Best: '+b.pens+' of 5 · '+p.g+' goals in '+p.m+' matches'):'New';}
   if(id==='kalah'){var k=r.kalah||{w:0,l:0};return (k.w||k.l)?('vs Tareeq: '+k.w+' won, '+k.l+' lost'):'New';}
   if(id==='speed')return b.speed?('Best: '+b.speed+' ms'):'New';
@@ -5428,7 +5436,7 @@ function pgHub(){var h=pgEl('pg-hub');if(!h)return;
 function pgOpen(id,opt){pgStop();pgAfter=(opt&&opt.after)||null;var g=PG_G.filter(function(x){return x.id===id;})[0];
   pgEl('pg-ttl').textContent=g.n;pgSc('');pgEl('pg-body').innerHTML='';pgEl('pg-body').scrollTop=0;
   pgEl('pg-ov').classList.add('on');document.documentElement.style.overflow='hidden';
-  pgCur={id:id};({checkers:ckStart,speed:spStart,alert:alStart,memory:mgStart,words:wsStart,breath:brStart,kalah:kaStart,pens:pkStart})[id](opt||{});}
+  pgCur={id:id};({checkers:ckStart,speed:spStart,alert:alStart,memory:mgStart,words:wsStart,breath:brStart,kalah:kaStart,pens:pkStart,tennis:tnStart})[id](opt||{});}
 function pgClose(){pgStop();pgAfter=null;pgEl('pg-ov').classList.remove('on');document.documentElement.style.overflow='';pgHub();}
 function pgDone(){if(pgAfter){var f=pgAfter;pgAfter=null;pgLater(f,900);}}
 function pgWarmup(){if(window.setAppMode){setAppMode('protocol');go('p-play',document.querySelector('[data-pillar="p-play"]'));}
@@ -5510,6 +5518,77 @@ function ckEnd(w){CK.over=true;var d=pgData(),rc=d.rec.checkers||{w:0,l:0,dr:0};
   if(CK.mode==='ai'){if(w===1){rc.w++;ckMsg('You win. Well played.');pgConfetti();}else if(w===2){rc.l++;ckMsg('Tareeq wins this one. Rematch?');}else{rc.dr++;ckMsg('Draw: 40 moves each without a capture.');}d.rec.checkers=rc;pgSave(d);pgSc('<b style="color:var(--ink)">'+rc.w+'</b>–'+rc.l);}
   else{ckMsg(w===0?'Draw.':(w===1?'Red wins.':'Black wins.'));if(w)pgConfetti();}
   ckRender();}
+
+/* ===== Tennis: hold and slide to move, let go to swing. First to 3 games, real scoring with deuce ===== */
+var TN=null;
+var TN_PT=['0','15','30','40'];
+function tnProj(x,z,h){var yN=352,yF=78,s=1-0.52*z,y=yN+(yF-yN)*(z<0?z:Math.pow(z,0.92));return {x:150+x*128*s,y:y-(h||0)*90*s,gy:y,s:s};}
+function tnSvg(){var c=function(x,z){var p=tnProj(x,z);return p.x.toFixed(1)+' '+p.y.toFixed(1);};
+  var lines='<path d="M'+c(-1,0)+' L'+c(1,0)+' L'+c(1,1)+' L'+c(-1,1)+'Z" fill="none" stroke="#fff" stroke-width="2"/>'+
+    '<path d="M'+c(-0.78,0)+' L'+c(-0.78,1)+' M'+c(0.78,0)+' L'+c(0.78,1)+' M'+c(-0.78,0.27)+' L'+c(0.78,0.27)+' M'+c(-0.78,0.73)+' L'+c(0.78,0.73)+' M'+c(0,0.27)+' L'+c(0,0.73)+'" stroke="#fff" stroke-width="1.4" opacity=".85" fill="none"/>';
+  var n0=tnProj(-1.12,0.5),n1=tnProj(1.12,0.5);
+  return '<svg id="tn-svg" viewBox="0 0 300 400" class="pk-svg"><defs><linearGradient id="tnbg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2b4f7a"/><stop offset="1" stop-color="#1d3a5c"/></linearGradient></defs>'+
+    '<rect width="300" height="400" fill="#3b6e4a"/><path d="M'+c(-1.25,-0.08)+' L'+c(1.25,-0.08)+' L'+c(1.25,1.06)+' L'+c(-1.25,1.06)+'Z" fill="url(#tnbg)"/>'+lines+
+    '<g id="tn-ai"></g>'+
+    '<g><rect x="'+n0.x.toFixed(1)+'" y="'+(n0.y-16).toFixed(1)+'" width="'+(n1.x-n0.x).toFixed(1)+'" height="16" fill="#fff" opacity=".18"/><line x1="'+n0.x.toFixed(1)+'" y1="'+(n0.y-16).toFixed(1)+'" x2="'+n1.x.toFixed(1)+'" y2="'+(n0.y-16).toFixed(1)+'" stroke="#fff" stroke-width="2"/></g>'+
+    '<ellipse id="tn-sh" rx="5" ry="2" fill="#000" opacity=".3"/><circle id="tn-ball" r="5" fill="#dff25a" stroke="#b7c93a" stroke-width=".8"/>'+
+    '<g id="tn-me"></g><circle id="tn-zone" r="0" fill="#dff25a" opacity="0"/><text id="tn-big" x="150" y="210" text-anchor="middle" class="pk-big"></text></svg>';}
+function tnFig(p,col,far){var s=p.s*(far?1.05:1.25),sw=TN.swing&&!far?TN.swing:0,ra=far?(TN.aiSw||0):sw;
+  return '<g transform="translate('+p.x.toFixed(1)+' '+p.gy.toFixed(1)+') scale('+s.toFixed(2)+')"><ellipse cx="0" cy="1" rx="11" ry="3" fill="#000" opacity=".25"/><rect x="-7" y="-30" width="14" height="20" rx="6" fill="'+col+'"/><rect x="-6" y="-11" width="5" height="11" rx="2.5" fill="#222"/><rect x="1" y="-11" width="5" height="11" rx="2.5" fill="#222"/><circle cx="0" cy="-36" r="6" fill="#d9b08c"/>'+
+    '<g transform="rotate('+(-40+ra*110)+' 7 -24)"><line x1="7" y1="-24" x2="19" y2="-34" stroke="#333" stroke-width="2.4" stroke-linecap="round"/><ellipse cx="23" cy="-38" rx="6" ry="7.5" fill="none" stroke="#333" stroke-width="2"/></g></g>';}
+function tnStart(){var d=pgData();TN={lvl:d.tnLvl!=null?d.tnLvl:1,me:{x:0},ai:{x:0},g:[0,0],p:[0,0],srv:0,ball:null,hold:false,state:'serve',swing:0,aiSw:0,t:0,raf:0,msgT:0};
+  pgEl('pg-body').innerHTML='<div class="pg-row"><div class="pg-seg" id="tn-lvl"><button data-v="0">Easy</button><button data-v="1">Medium</button><button data-v="2">Hard</button></div></div>'+
+    '<div class="tn-sb" id="tn-sb"></div><div class="pk-wrap">'+tnSvg()+'</div><div class="pg-msg" id="tn-msg"></div>'+
+    '<div class="pg-row"><button class="pg-btn ghost" onclick="tnStart()">New match</button></div><div class="pg-note">Hold your finger on the court and slide to move. Let go to swing when the ball reaches you (the glow means it&#8217;s in range). Hit it off the left of your racket to send it right, and the other way around. Clean timing hits harder. First to 3 games.</div>';
+  [].forEach.call(pgEl('tn-lvl').children,function(b){b.classList.toggle('on',+b.dataset.v===TN.lvl);b.onclick=function(){var x=pgData();x.tnLvl=+b.dataset.v;pgSave(x);tnStart();};});
+  tnBind();tnSB();tnServe();pgMark('tennis');var rc=pgData().rec.tennis||{w:0,l:0};pgSc('<b style="color:var(--ink)">'+rc.w+'</b>–'+rc.l);
+  var last=performance.now();(function loop(ts){if(!TN)return;var dt=Math.min(0.05,(ts-last)/1000);last=ts;tnTick(dt);tnDraw();TN.raf=requestAnimationFrame(loop);})(last);
+  pgCur.stop=function(){if(TN){cancelAnimationFrame(TN.raf);window.removeEventListener('pointerup',TN.up);}TN=null;};}
+function tnMsg(t,big,cls){var m=pgEl('tn-msg');if(m)m.textContent=t;if(big){var b=pgEl('tn-big');b.textContent=big;b.setAttribute('class','pk-big on '+(cls||''));void b.getBoundingClientRect();}}
+function tnPtName(){var a=TN.p[0],b=TN.p[1];if(a>=3&&b>=3){if(a===b)return 'Deuce';return 'Advantage '+(a>b?'you':'Tareeq');}return TN_PT[Math.min(a,3)]+'–'+TN_PT[Math.min(b,3)];}
+function tnSB(){var el=pgEl('tn-sb');if(!el)return;el.innerHTML='<div><span>You</span><b>'+TN.g[0]+'</b></div><div class="tn-pts">'+tnPtName()+'<small>'+(TN.srv===0?'You serve':'Tareeq serves')+'</small></div><div><b>'+TN.g[1]+'</b><span>Tareeq</span></div>';}
+function tnBind(){var svg=pgEl('tn-svg');svg.style.touchAction='none';
+  var pos=function(e){var r=svg.getBoundingClientRect();return ((e.clientX-r.left)/r.width*300-150)/128;};
+  svg.addEventListener('pointerdown',function(e){if(!TN)return;e.preventDefault();TN.hold=true;TN.tx=Math.max(-1.15,Math.min(1.15,pos(e)));if(TN.state==='serve'&&TN.srv===0)TN.ready=true;});
+  svg.addEventListener('pointermove',function(e){if(!TN||!TN.hold)return;TN.tx=Math.max(-1.15,Math.min(1.15,pos(e)));});
+  TN.up=function(){if(!TN||!TN.hold)return;TN.hold=false;tnSwing();};window.addEventListener('pointerup',TN.up);}
+function tnShot(from,x0,z0,x1,z1,dur,lift){TN.ball={from:from,x0:x0,z0:z0,x1:x1,z1:z1,dur:dur,t:0,A:lift||0.55,bx:x0+(x1-x0)*0.72};}
+function tnServe(){TN.state='serve';TN.ball=null;TN.me.x=0.25;TN.ai.x=-0.25;tnSB();
+  if(TN.srv===0)tnMsg('Your serve. Tap the court.');else{tnMsg('Tareeq serves.');pgLater(function(){if(!TN||TN.state!=='serve')return;TN.state='rally';TN.aiSw=1;tnShot(1,-0.25,1,(Math.random()-0.5)*1.1,0,[1.6,1.35,1.15][TN.lvl],0.6);},900);}}
+function tnSwing(){if(!TN)return;TN.swing=1;
+  if(TN.state==='serve'&&TN.srv===0){TN.state='rally';var aim=(Math.random()-0.5)*1.2;tnShot(0,TN.me.x,0,aim,1,1.25,0.6);tnMsg('');return;}
+  var b=TN.ball;if(!b||b.from!==1||TN.state!=='rally')return;var s=b.t/b.dur,bx=b.x0+(b.x1-b.x0)*s,off=(bx-TN.me.x)/0.3;
+  if(s<0.8||Math.abs(off)>1){return;}
+  var q=1-Math.min(1,Math.abs(s-0.93)/0.12),aim=Math.max(-1.05,Math.min(1.05,-off*0.95+(Math.random()-0.5)*0.15));
+  if(Math.abs(off)>0.85&&Math.random()<0.5)aim=off>0?-1.3:1.3;
+  tnShot(0,bx,0.02,aim,1,1.35-q*0.45,0.5+q*0.1);pgVib(q>0.7?18:8);if(q>0.75)tnMsg('Clean.');}
+function tnTick(dt){var T=TN;if(!T)return;T.swing=Math.max(0,T.swing-dt*3.5);T.aiSw=Math.max(0,T.aiSw-dt*3.5);
+  if(T.hold&&T.tx!=null){var d=T.tx-T.me.x,v=2.6*dt;T.me.x+=Math.max(-v,Math.min(v,d));}
+  var b=T.ball;if(!b||T.state!=='rally')return;b.t+=dt;var s=b.t/b.dur;
+  /* bounce check */
+  if(!b.bounced&&s>=0.72){b.bounced=true;if(Math.abs(b.bx)>1.0){return tnPoint(b.from===0?1:0,'Out');}}
+  if(b.from===0){/* AI chases the ball */var tx=b.x1,v2=[0.85,1.15,1.5][T.lvl]*dt;T.ai.x+=Math.max(-v2,Math.min(v2,tx-T.ai.x));
+    if(s>=0.92&&!b.aiTried){b.aiTried=true;var bx=b.x0+(b.x1-b.x0)*s;
+      if(Math.abs(bx-T.ai.x)<0.32&&Math.abs(b.bx)<=1.0){var err=[0.16,0.09,0.04][T.lvl];
+        if(Math.random()<err){T.aiSw=1;tnShot(1,bx,0.98,(Math.random()<0.5?-1:1)*1.75,0,[1.5,1.3,1.1][T.lvl],0.55);return;}
+        var away=T.me.x>0?-1:1,aim=Math.random()<[0.4,0.55,0.7][T.lvl]?away*(0.45+Math.random()*0.5):(Math.random()-0.5)*1.4;
+        T.aiSw=1;tnShot(1,bx,0.98,aim,0,[1.55,1.3,1.08][T.lvl],0.55);}}
+    if(s>=1.06)return tnPoint(0,'Winner');}
+  else if(s>=1.08){return tnPoint(1,TN.me&&Math.abs((b.x1)-TN.me.x)<0.32?'Late':'Passed');}}
+function tnPoint(w,why){var T=TN;T.state='pause';T.p[w]++;var a=T.p[0],b=T.p[1],won=null;
+  if((a>=4||b>=4)&&Math.abs(a-b)>=2)won=a>b?0:1;
+  var big=w===0?(why==='Out'?'OUT':why==='Winner'?'WINNER':'POINT'):(why==='Out'?'OUT':'POINT');
+  tnMsg(w===0?(why==='Out'?'Tareeq hit it long. Your point.':why==='Winner'?'Clean winner.':'Your point.'):(why==='Out'?'Just out. Tareeq&#8217;s point.'.replace('&#8217;','’'):why==='Late'?'A touch late. Let go a little sooner.':'Tareeq passed you.'),big,w===0?'':'m');pgVib(w===0?[15,30,15]:10);
+  if(won!=null){T.g[won]++;T.p=[0,0];T.srv=1-T.srv;if(T.g[won]>=3)return pgLater(function(){tnEnd(won);},900);pgLater(function(){if(!TN)return;tnMsg(won===0?'Game, you.':'Game, Tareeq.');},700);}
+  tnSB();pgLater(function(){if(TN)tnServe();},1500);}
+function tnEnd(w){var d=pgData(),rc=d.rec.tennis||{w:0,l:0};if(w===0){rc.w++;pgConfetti();tnMsg('Game, set. You win '+TN.g[0]+'–'+TN.g[1]+'.','MATCH','');}else{rc.l++;tnMsg('Tareeq takes it '+TN.g[1]+'–'+TN.g[0]+'. Rematch?','','');}
+  d.rec.tennis=rc;pgSave(d);pgSc('<b style="color:var(--ink)">'+rc.w+'</b>–'+rc.l);TN.state='over';tnSB();pgDone();}
+function tnDraw(){var T=TN;if(!T)return;var me=tnProj(T.me.x,-0.02),ai=tnProj(T.ai.x,1.02);pgEl('tn-me').innerHTML=tnFig(me,'var(--repair)',false);pgEl('tn-ai').innerHTML=tnFig(ai,'var(--fire)',true);
+  var bl=pgEl('tn-ball'),sh=pgEl('tn-sh'),zn=pgEl('tn-zone'),b=T.ball;
+  if(!b||T.state==='serve'){var sp=T.srv===0?tnProj(T.me.x+0.12,0,0.55+Math.sin(performance.now()/260)*0.12):tnProj(T.ai.x+0.12,1,0.5);bl.setAttribute('cx',sp.x);bl.setAttribute('cy',sp.y);bl.setAttribute('r',(5*sp.s).toFixed(2));sh.setAttribute('opacity','0');zn.setAttribute('opacity','0');return;}
+  var s=Math.min(1.1,b.t/b.dur),x=b.x0+(b.x1-b.x0)*s,z=b.z0+(b.z1-b.z0)*s,h=s<0.72?b.A*Math.sin(Math.PI*s/0.72)+0.08*(1-s/0.72):0.32*Math.sin(Math.PI*Math.min(1,(s-0.72)/0.34)),p=tnProj(x,z,h);
+  bl.setAttribute('cx',p.x.toFixed(1));bl.setAttribute('cy',p.y.toFixed(1));bl.setAttribute('r',(5.5*p.s).toFixed(2));sh.setAttribute('cx',p.x.toFixed(1));sh.setAttribute('cy',p.gy.toFixed(1));sh.setAttribute('rx',(5*p.s).toFixed(1));sh.setAttribute('ry',(2*p.s).toFixed(1));sh.setAttribute('opacity','.3');
+  var inR=b.from===1&&s>=0.8&&s<1.04&&Math.abs(x-T.me.x)<0.3;zn.setAttribute('cx',p.x.toFixed(1));zn.setAttribute('cy',p.y.toFixed(1));zn.setAttribute('r',inR?(14*p.s).toFixed(1):'0');zn.setAttribute('opacity',inR?'.35':'0');}
 
 /* ===== Penalty Kicks: swipe to shoot, 5 per match, the keeper reads you better at higher levels ===== */
 var PK=null;
@@ -5751,7 +5830,7 @@ function brEnd(ms){var d=pgData();d.breath=(d.breath||0)+ms/60000;pgSave(d);var 
   if(typeof bbOpen==='function'){
     var _bo=bbOpen;bbOpen=function(s){_bo(s);if(s==='more'){var g=pgEl('sheet-g'),lbl=[].filter.call(g.querySelectorAll('.sheet-lbl'),function(x){return x.textContent==='Read';})[0];
       var h='<div class="sheet-lbl">Play</div><button onclick="bbGoPanel(\'p-play\')"><i class="ti ti-dice"></i>Games</button>';if(lbl)lbl.insertAdjacentHTML('beforebegin',h);else g.insertAdjacentHTML('beforeend',h);}};}
-  if(typeof SR_P!=='undefined')SR_P.splice(SR_P.length-5,0,['p-play','Play: games','dice','protocol','play games game soccer football penalty kicks checkers kalah mancala speed spot alertness reaction memory grid word sprint anagram breath garden breathing brain']);
+  if(typeof SR_P!=='undefined')SR_P.splice(SR_P.length-5,0,['p-play','Play: games','dice','protocol','play games game tennis rally soccer football penalty kicks checkers kalah mancala speed spot alertness reaction memory grid word sprint anagram breath garden breathing brain']);
   if(typeof vtRender==='function'){var _vr=vtRender;vtRender=function(){_vr.apply(this,arguments);pgAlertChart('vt-c-alert');};}
   if(typeof SYNC_KEYS!=='undefined'){[PG_KEY,AL_KEY].forEach(function(k){if(SYNC_KEYS.indexOf(k)<0)SYNC_KEYS.push(k);});}
 })();
