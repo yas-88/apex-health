@@ -477,6 +477,17 @@ html[data-scheme="seasonal"][data-tq-season="ss"]:not([data-theme="dark"]) .path
 @keyframes mv-drift{from{transform:translate(-6%,0) rotate(0deg)}to{transform:translate(6%,3%) rotate(8deg)}}
 html[data-motion="calm"] .mv-glow{animation-duration:40s}
 /* ---------- Prayer ---------- */
+.sl-steps{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:4px}
+.sl-steps span{font-size:10.5px;padding:4px 2px;text-align:center;overflow:hidden;text-overflow:ellipsis;border-radius:12px;border:0.5px solid var(--bdr2);color:var(--ink3);white-space:nowrap}
+.sl-steps span.on{background:var(--repair-bg);border-color:var(--repair);color:var(--ink)}
+.sl-steps span.now{background:var(--repair);color:#fff}
+.sl-steps i{display:none}
+.sl-ifs{margin-top:8px}
+.sl-ifs div{font-size:13px;line-height:1.5;color:var(--ink2);padding:7px 10px;border-left:2px solid var(--repair);background:var(--bg);border-radius:0 8px 8px 0;margin-top:6px}
+.sl-ifs b{display:block;font-size:11px;color:var(--ink3);font-weight:600;text-transform:uppercase;letter-spacing:.05em}
+.sl-66{margin-top:12px;font-size:12px;color:var(--ink3)}
+.sl-66b{height:6px;border-radius:4px;background:var(--bdr);overflow:hidden;margin-bottom:4px}
+.sl-66b i{display:block;height:100%;background:linear-gradient(90deg,var(--repair),var(--gold));border-radius:4px;transition:width 1s ease}
 .sl-heroc{background:radial-gradient(120% 90% at 15% 0%,color-mix(in srgb,var(--repair) 18%,transparent),transparent 60%),linear-gradient(160deg,color-mix(in srgb,var(--gold) 8%,var(--bg2)),var(--bg2))}
 .sl-hero{position:relative;width:200px;height:200px;margin:4px auto 10px}
 .sl-ring{width:100%;height:100%;transform:rotate(-90deg)}
@@ -3143,14 +3154,16 @@ html[data-motion="off"] *,html[data-motion="off"] *::before,html[data-motion="of
         <div class="ph-lede" style="margin-top:8px">The body and mind have their tabs. This one is for the soul. Times are for your location, ISNA method (Fajr and Isha at 15&#176;), with the standard Asr rule. Your local mosque may differ by a few minutes.</div>
       </div>
       <div class="card" id="sl-body"></div>
+      <div class="ew">Build the habit</div>
+      <div class="card" id="sl-habit"></div>
       <div class="ew">Tie each prayer to your day</div>
       <div class="card" id="sl-anchors"></div>
       <div class="ew">Qibla</div>
       <div class="card" id="sl-qibla"></div>
       <div class="ew">After the prayer</div>
       <div class="card" id="sl-dhikr"></div>
-      <div class="ew">At work</div>
-      <div class="card"><div class="cs" style="font-size:13px;line-height:1.55">Under federal law (Title VII), employers have to reasonably accommodate religious practice, like a short prayer break or a quiet room, unless it would cause undue hardship. In 2023 the Supreme Court (Groff v. DeJoy) said undue hardship means substantial increased costs, not just inconvenience. Washington&#8217;s anti-discrimination law covers religion too. Asking for a small, regular break is reasonable. More in Your rights.</div></div>
+      <div class="ew">On a job site or at the office</div>
+      <div class="card"><div class="cs" style="font-size:13px;line-height:1.55">Under federal law (Title VII), employers have to reasonably accommodate religious practice, like a short prayer break or a quiet room, unless it would cause undue hardship. In 2023 the Supreme Court (Groff v. DeJoy) said undue hardship means substantial increased costs, not just inconvenience. Washington&#8217;s anti-discrimination law covers religion too. On days you&#8217;re away from home, asking for a short, regular break is reasonable. More in Your rights.</div></div>
       <div class="ew">Settings</div>
       <div class="card"><div class="cs" style="margin-bottom:8px">Adjust a prayer by a few minutes to match your mosque&#8217;s timetable.</div><div class="sl-adj" id="sl-adj"></div></div>
     </div>
@@ -6125,11 +6138,11 @@ function slDayKey(now,k){/* Isha prayed after midnight belongs to the day before
 function slMark(k,v,dayKey){var L=slLog(),dk=dayKey||slDayKey(new Date(),k);L[dk]=L[dk]||{};if(L[dk][k]===v)delete L[dk][k];else L[dk][k]=v;lsSet(SL_KEY,L);
   if(v===1&&navigator.vibrate)try{navigator.vibrate(12);}catch(e){}slRender();slStrip();}
 var SL_ANCHOR={
-  fajr:['Before the phone','Wudu wakes you up better than coffee. Pray first, then water and daylight. In winter Fajr is before your 6:30 wake-up, so it&#8217;s already waiting for you. In summer it comes around 3 to 4 am: pray and go back to sleep. Plenty of people do.'],
-  dhuhr:['Around noon training','Train, wash, pray Dhuhr, then eat. The shower is already halfway to wudu.'],
-  asr:['With the afternoon stretch break','Your 2:30 desk stretch falls inside Asr from fall through spring. Stretch, then pray. In summer Asr comes later, around 5, so pray before you leave work.'],
-  maghrib:['The short window','Maghrib has the shortest window, about 80 minutes in winter. In winter it lands around 4:20, often at work or on the commute. Keep a small mat at work and pray before you head out.'],
-  isha:['Before winding down','Pray Isha as part of the evening wind-down, before the screens go off. In summer it&#8217;s late, around 10:30 to 11, so keep it close to bedtime.']};
+  fajr:['When you wake, before the phone','In winter Fajr is already in when you get up around 6:30, and it runs until sunrise. Wudu first, pray, then water, daylight and the 9:00 binaural beats. In summer Fajr comes around 3 to 4 am: pray and go back to sleep. Plenty of people do.'],
+  dhuhr:['After training','Train at noon, shower, pray Dhuhr, then eat. The shower is already halfway to wudu. In winter the window closes around 2:10, so don&#8217;t let the 1:00 plate flush push it late.'],
+  asr:['With an afternoon break','From fall through spring, Asr falls between about 2:10 and 4:30, so your 2:30 stretch break or the 4:00 plate break are both inside it. In summer Asr comes around 5: pray before dinner.'],
+  maghrib:['At sunset, at home','Maghrib has the shortest window, about 80 minutes in winter, starting around 4:30. Working from home helps: when the alert goes off, step away from the desk and pray before anything else.'],
+  isha:['After dinner and the evening supplements','In winter Isha comes around 6, right after your eating window closes. Pray, then take the evening supplements. In summer it&#8217;s late, around 10:30 to 11, so make it the last thing before bed.']};
 var SL_TS=[0,0];
 function slRender(){var el=document.getElementById('sl-body');if(!el)return;var s=slNow();if(!s){el.innerHTML='<div class="cs">Loading the prayer calculator...</div>';return;}
   var now=new Date(),t=s.t,L=slLog(),today=ymd(now),h='';
@@ -6148,11 +6161,35 @@ function slRender(){var el=document.getElementById('sl-body');if(!el)return;var 
     wk+='<div class="sl-wd"><div class="sl-dots">'+SL_N.map(function(p){return '<i class="'+(e[p[0]]===1?'on':e[p[0]]===2?'late':'')+'"></i>';}).join('')+'</div><span>'+d.toLocaleDateString([],{weekday:'narrow'})+'</span></div>';}
   h+='<div class="ew" style="margin-top:16px">This week</div><div class="sl-week">'+wk+'</div><div class="cs">'+cnt+' of 35 prayers this week'+(full?', '+full+' full day'+(full>1?'s':''):'')+'. Missed one? Make it up when you can and pray the next one on time. The next prayer is always a fresh start.</div>';
   el.innerHTML=h;
+  try{slHabit();}catch(e){}
   var an=document.getElementById('sl-anchors');if(an&&!an.innerHTML)an.innerHTML=SL_N.map(function(p){var a=SL_ANCHOR[p[0]];return '<div class="sl-an"><b>'+p[1]+': '+a[0]+'</b><div>'+a[1]+'</div></div>';}).join('');
   var q=document.getElementById('sl-qibla');if(q){var Lc=slLoc(),b=slBearing(Lc.lat,Lc.lon);q.innerHTML='<div class="sl-qb"><svg viewBox="-50 -50 100 100" width="84" height="84"><circle r="40" class="sl-tr" style="stroke-width:1.5"/><text y="-43" text-anchor="middle" font-size="9" class="sl-qn">N</text><line x1="0" y1="-40" x2="0" y2="-34" stroke="var(--ink3)" stroke-width="1.5"/><g transform="rotate('+b.toFixed(1)+')"><path d="M0 -24 L5 2 L0 -3 L-5 2Z" fill="var(--repair)"/><rect x="-4" y="-35" width="8" height="8" rx="1" fill="var(--ink)"/></g><circle r="2.5" fill="var(--ink3)"/></svg><div><div class="cz-h" style="font-size:16px">Qibla '+Math.round(b)+'&#176; from true north</div><div class="cs">Roughly north-northeast from '+Lc.name+'. Along the great circle, the shortest path over the globe, so it points far more north than a flat map suggests. Phone compasses point to magnetic north, which around Vancouver is about 15&#176; east of true north, so subtract that on a compass app that shows magnetic headings.</div></div></div>';}
   var dk2=document.getElementById('sl-dhikr');if(dk2)slDhikrDraw();
   var ad=document.getElementById('sl-adj');if(ad&&!ad.innerHTML){var c=slCfg();ad.innerHTML=SL_N.map(function(p){return '<label>'+p[1]+'<input type="number" step="1" value="'+(+c.adj[p[0]]||0)+'" onchange="slAdj(\''+p[0]+'\',this.value)"></label>';}).join('');}}
 function slAdj(k,v){var c=lsGet(SL_CFG,{});c.adj=c.adj||{};c.adj[k]=Math.max(-30,Math.min(30,+v||0));lsSet(SL_CFG,c);SL_C={};slRender();slStrip();}
+
+/* ---- habit builder: protect one more prayer at each step, in the order that's easiest from home ---- */
+var SL_STEPS=['dhuhr','asr','maghrib','isha','fajr'];
+var SL_IF={dhuhr:'When I finish training and shower, I pray Dhuhr before I eat.',asr:'When I stand up for my afternoon break, I pray Asr.',maghrib:'When the Maghrib alert goes off, I leave the desk and pray first.',isha:'When I close my eating window, I pray Isha, then take my evening supplements.',fajr:'When I wake up, I make wudu before I touch my phone.'};
+function slHabit(){var el=document.getElementById('sl-habit');if(!el)return;var c=lsGet(SL_CFG,{}),st=Math.min(5,Math.max(1,+c.stage||1)),since=c.stageSince||ymd(new Date()),L=slLog(),foc=SL_STEPS.slice(0,st);
+  if(!c.stageSince){c.stage=st;c.stageSince=since;lsSet(SL_CFG,c);}
+  var kept7=0,days=0,streak66=0,d=new Date(),start=pd(since);
+  for(var i=0;i<7;i++){var x=new Date(d);x.setDate(x.getDate()-i);var e=L[ymd(x)]||{};if(foc.every(function(k){return e[k]===1;}))kept7++;}
+  for(var j=0;j<400;j++){var y=new Date(d);y.setDate(y.getDate()-j);if(y<start)break;var e2=L[ymd(y)]||{};if(SL_STEPS.every(function(k){return e2[k];}))streak66++;}
+  var tot=0;Object.keys(L).forEach(function(k){if(pd(k)>=start){var e3=L[k];if(SL_STEPS.every(function(p){return e3[p];}))tot++;}});
+  var ready=kept7>=5&&st<5,nxt=SL_STEPS[st];
+  el.innerHTML='<div class="sl-steps">'+SL_STEPS.map(function(k,i){return '<span class="'+(i<st?'on':'')+(i===st-1?' now':'')+'">'+slName(k)+'</span>';}).join('<i></i>')+'</div>'+
+    '<div class="cz-h" style="margin-top:10px">Step '+st+' of 5: protect '+foc.map(slName).join(', ')+'</div>'+
+    '<div class="cz-tx">Pray all five whenever you can. The focus prayers are the ones you keep no matter what during this step. Kept on time '+kept7+' of the last 7 days.</div>'+
+    '<div class="sl-ifs">'+foc.map(function(k){return '<div><b>'+slName(k)+'</b>'+SL_IF[k]+'</div>';}).join('')+'</div>'+
+    (ready?'<button class="sl-pray sm" onclick="slStep(1)"><i class="ti ti-arrow-up-right"></i> Ready: add '+slName(nxt)+'</button>':st<5?'<div class="cs" style="margin-top:8px">Next step adds '+slName(nxt)+' once you keep this step 5 of 7 days.</div>':'')+
+    '<div class="sl-66"><div class="sl-66b"><i style="width:'+Math.min(100,tot/66*100).toFixed(1)+'%"></i></div><span>'+tot+' of 66 days with all five prayers</span></div>'+
+    '<p class="cz-p"><span class="etag est"><i class="ti ti-flask"></i>Established</span>Planning the exact cue (&#8220;when X happens, I do Y&#8221;) makes people much more likely to follow through; a meta-analysis of 94 studies found a medium-to-large effect. In one well-known study, new daily habits took 66 days on average to feel automatic, ranging from 18 to 254 days, and missing a single day didn&#8217;t undo the progress.</p>'+
+    (st>1?'<button class="cz-btn" style="margin-top:8px" onclick="slStep(-1)">Go back a step</button>':'');}
+function slStep(n){var c=lsGet(SL_CFG,{});c.stage=Math.min(5,Math.max(1,(+c.stage||1)+n));c.stageSince=ymd(new Date());lsSet(SL_CFG,c);slHabit();}
+/* a soft chime when a prayer comes in while Tareeq is open */
+(function(){var last='';setInterval(function(){try{if(document.visibilityState!=='visible')return;var s=slNow();if(!s||!s.cur)return;var t=s.t[s.cur],k=ymd(new Date())+s.cur;
+  if(k!==last&&new Date()-t>=0&&new Date()-t<60000){last=k;if(typeof cpChime==='function')cpChime();if(navigator.vibrate)navigator.vibrate([30,60,30]);slStrip();if(typeof mvShow==='function')mvShow();}}catch(e){}},20000);})();
 function slBearing(lat,lon){var r=Math.PI/180,f1=lat*r,f2=21.4225*r,dl=(39.8262-lon)*r,y=Math.sin(dl)*Math.cos(f2),x=Math.cos(f1)*Math.sin(f2)-Math.sin(f1)*Math.cos(f2)*Math.cos(dl);return (Math.atan2(y,x)/r+360)%360;}
 var SL_DH=[['SubhanAllah',33],['Alhamdulillah',33],['Allahu akbar',34]],SL_D={i:0,n:0};
 function slDhikrDraw(){var el=document.getElementById('sl-dhikr');if(!el)return;var c=SL_DH[SL_D.i];
