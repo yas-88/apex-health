@@ -5973,7 +5973,7 @@ function czEnnea(){var el=document.getElementById('cz-ennea');if(!el)return;var 
   el.innerHTML='<div class="cz-h">Type '+t+', '+E[0]+'</div><div class="cz-tx">'+E[1]+'</div>'+
     '<div class="cz-arrow"><div><b>Growth: toward '+E[2]+'</b>When healthy, '+t+'s pick up the best of '+g[0].replace('The ','')+'s'+(t===8?': open-hearted, generous, caring for others with tenderness.':'.')+'</div><div><b>Stress: toward '+E[3]+'</b>Under pressure, '+t+'s can take on the harder side of '+s[0].replace('The ','')+'s'+(t===8?': withdrawing, guarded, cut off.':'.')+'</div></div>'+
     '<p class="cz-p">'+E[4]+'</p>'+
-    (t===8?'<p class="cz-p">Leo sun and type 8 share a lot in traditional readings: protectiveness, strength, presence. The work for both is the same: let people see the softer side, and let strength include rest.</p>':'')+
+    (t===8&&czNatal()&&czSign(czNatal().sky.Sun.lon)==='Leo'?'<p class="cz-p">Leo sun and type 8 share a lot in traditional readings: protectiveness, strength, presence. The work for both is the same: let people see the softer side, and let strength include rest.</p>':'')+
     '<p class="cz-p"><span class="etag emrg"><i class="ti ti-sparkles"></i>Emerging</span>Popular in coaching and spiritual direction, but research on how reliable and valid the Enneagram is remains limited and mixed. Use it as a mirror.</p>';}
 
 /* ---- form ---- */
