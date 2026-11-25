@@ -703,6 +703,49 @@ html[data-theme="dark"] .cz-star{fill:#cfd6ff}
 .cz-form{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
 .cz-form label{display:flex;flex-direction:column;gap:4px;font-size:11.5px;color:var(--ink3);min-width:0}
 .cz-form .cz-wide{grid-column:1/-1}
+.ln-hero{background:radial-gradient(120% 90% at 15% 0%,color-mix(in srgb,var(--repair) 16%,transparent),transparent 60%),linear-gradient(160deg,color-mix(in srgb,var(--gold) 7%,var(--bg2)),var(--bg2))}
+.ln-fan{width:100%;max-width:420px;display:block;margin:0 auto;overflow:visible}
+.ln-sec{cursor:pointer;stroke:var(--bg2);stroke-width:1.5;transition:filter .2s ease;animation:ln-in .7s ease both}
+.ln-sec:hover{filter:brightness(1.08)}
+.ln-sec.e{fill:transparent;stroke:var(--bdr2);stroke-dasharray:3 3}
+.ln-sec.known{fill:color-mix(in srgb,var(--repair) 42%,var(--bg))}
+.ln-sec.told{fill:color-mix(in srgb,var(--gold) 38%,var(--bg))}
+.ln-sec.guess{fill:color-mix(in srgb,var(--ink3) 20%,var(--bg))}
+.ln-sec.mem{stroke:var(--gold);stroke-width:1.2}
+.ln-t{font:500 9.5px Inter,system-ui,sans-serif;fill:var(--ink);pointer-events:none;text-anchor:middle;dominant-baseline:middle}
+.ln-t.s{font-size:8px;fill:var(--ink2)}
+.ln-t.q{fill:var(--ink4);font-size:12px}
+.ln-you{fill:var(--ink);stroke:none;cursor:pointer;animation:ln-in .5s ease both}
+.ln-yt{font:400 13px 'DM Serif Display',Georgia,serif;fill:var(--bg);text-anchor:middle;pointer-events:none}
+@keyframes ln-in{from{opacity:0;transform:scale(.92)}to{opacity:1;transform:none}}
+.ln-leg{display:flex;flex-wrap:wrap;gap:6px 12px;justify-content:center;font-size:11px;color:var(--ink3);margin-top:6px}
+.ln-leg span:before{content:'';display:inline-block;width:9px;height:9px;border-radius:3px;margin-right:5px;vertical-align:-1px;background:var(--c)}
+.ln-leg .ln-unk:before{background:none;border:1px dashed var(--ink3);box-sizing:border-box}
+.ln-bar{height:6px;border-radius:4px;background:var(--bdr);overflow:hidden;margin:6px 0 2px}
+.ln-bar i{display:block;height:100%;background:linear-gradient(90deg,var(--repair),var(--gold));border-radius:4px;transition:width .8s ease}
+.ln-row{display:flex;align-items:center;gap:10px;padding:9px 0;border-bottom:0.5px solid var(--bdr);cursor:pointer;font-size:13px;color:var(--ink2)}
+.ln-row:last-child{border-bottom:none}
+.ln-row b{display:block;color:var(--ink);font-size:13.5px;font-weight:500}
+.ln-row .ln-rl{font-size:11px;color:var(--ink3)}
+.ln-row>div{flex:1;min-width:0}
+.ln-row>i{color:var(--ink4);font-size:15px}
+.ln-dot{flex:0 0 10px;height:10px;border-radius:50%;border:1.5px dashed var(--bdr2)}
+.ln-dot.known{background:var(--repair);border:none}.ln-dot.told{background:var(--gold);border:none}.ln-dot.guess{background:var(--ink3);border:none}
+.ln-q{display:flex;gap:10px;padding:9px 0;border-bottom:0.5px solid var(--bdr);font-size:13px;line-height:1.5;color:var(--ink2)}
+.ln-q:last-child{border-bottom:none}
+.ln-q input[type=checkbox]{flex:0 0 18px;width:18px;height:18px;margin-top:1px;accent-color:var(--repair)}
+.ln-q.done>div>span{color:var(--ink3);text-decoration:line-through}
+.ln-q small{display:block;font-size:10.5px;color:var(--ink4);text-transform:uppercase;letter-spacing:.06em}
+.ln-q textarea{display:block;width:100%;box-sizing:border-box;margin-top:6px;font:inherit;font-size:13px;padding:7px 9px;border-radius:10px;border:0.5px solid var(--bdr2);background:var(--bg2);color:var(--ink);resize:vertical;min-height:38px}
+.ln-src{font-size:12.5px;line-height:1.55;color:var(--ink2);padding:9px 0;border-bottom:0.5px solid var(--bdr)}
+.ln-src:last-child{border-bottom:none}
+.ln-src b{color:var(--ink)}
+.ln-cite{font-size:11px;color:var(--ink4);display:block;margin-top:3px}
+.ln-ed h3{font-family:'DM Serif Display',Georgia,serif;font-weight:400;font-size:20px;margin:2px 0 2px;color:var(--ink)}
+.ln-ed .ln-sub{font-size:12px;color:var(--ink3);margin-bottom:10px}
+.ln-ed textarea{font:inherit;font-size:14px;padding:8px 10px;border-radius:var(--rmd);border:0.5px solid var(--bdr2);background:var(--bg);color:var(--ink);width:100%;box-sizing:border-box;min-height:56px;resize:vertical}
+.ln-ed .cz-form{max-height:52vh;overflow:auto;padding-right:2px}
+.ln-x{position:absolute;right:12px;top:12px;width:32px;height:32px;border-radius:50%;border:0.5px solid var(--bdr2);background:var(--bg);color:var(--ink);font-size:16px;cursor:pointer}
 .cz-form input,.cz-form select{font:inherit;font-size:14px;padding:8px 10px;border-radius:var(--rmd);border:0.5px solid var(--bdr2);background:var(--bg);color:var(--ink);min-width:0;width:100%;box-sizing:border-box}
 .cz-chip{display:inline-block;font-size:11px;padding:2px 8px;border-radius:12px;background:var(--bg);border:0.5px solid var(--bdr);color:var(--ink2);margin:2px 4px 2px 0}
 .cz-arrow{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin-top:10px}
@@ -1498,6 +1541,7 @@ html[data-motion="off"] *,html[data-motion="off"] *::before,html[data-motion="of
       <button class="nb" data-pillar="p-rights" onclick="go('p-rights',this)"><span class="nb-dot"></span>Rights</button>
       <button class="nb" data-pillar="p-salah" onclick="go('p-salah',this)"><span class="nb-dot"></span>Prayer</button>
       <button class="nb" data-pillar="p-roots" onclick="go('p-roots',this)"><span class="nb-dot"></span>Roots</button>
+      <button class="nb" data-pillar="p-lineage" onclick="go('p-lineage',this)"><span class="nb-dot"></span>Lineage</button>
       <button class="nb" data-pillar="p-cosmos" onclick="go('p-cosmos',this)"><span class="nb-dot"></span>Cosmos</button>
       <button class="nb" data-pillar="p-play" onclick="go('p-play',this)"><span class="nb-dot"></span>Play</button>
       <button class="nb" data-pillar="p-checkpoints" onclick="go('p-checkpoints',this)"><span class="nb-dot"></span>Checkpoints</button>
@@ -3294,6 +3338,8 @@ html[data-motion="off"] *,html[data-motion="off"] *::before,html[data-motion="of
         <div class="ro-ev ro-now"><b>November 22, 2026</b><div>Started building the five-prayer habit.</div></div>
       </div>
 
+      <div class="card" style="display:flex;align-items:center;gap:10px"><i class="ti ti-leaf" style="font-size:20px;color:var(--repair)"></i><div style="flex:1;font-size:13px;color:var(--ink2)">Trace the family line behind this story, four generations back.</div><button class="cz-btn" onclick="go('p-lineage',document.querySelector('[data-pillar=p-lineage]'))">Lineage</button></div>
+
       <div class="ew">What you carry from Mom</div>
       <div class="card ro-mom">
         <div class="ro-q">Be kind. Be generous. Take good care of yourself.</div>
@@ -3348,6 +3394,40 @@ html[data-motion="off"] *,html[data-motion="off"] *::before,html[data-motion="of
       <div class="ew">Settings</div>
       <div class="card"><div class="cs" style="margin-bottom:8px">Adjust a prayer by a few minutes to match your mosque&#8217;s timetable.</div><div class="sl-adj" id="sl-adj"></div></div>
     </div>
+    <div id="p-p-lineage" class="panel">
+      <div class="pillar-hero ln-hero">
+        <div class="ph-eyebrow"><i class="ti ti-leaf"></i> Lineage</div>
+        <div class="ph-title" style="font-size:26px">The people you come from</div>
+        <div class="ph-lede" style="margin-top:8px">Who you come from, generation by generation. Fill in what you know, mark how sure you are, and use the questions below the next time you talk with Dad.</div>
+      </div>
+
+      <div class="ew">Four generations</div>
+      <div class="card">
+        <svg class="ln-fan" id="ln-fan" viewBox="-160 -156 320 166" role="img" aria-label="Family fan chart"></svg>
+        <div class="ln-leg"><span style="--c:var(--repair)">Known</span><span style="--c:var(--gold)">Family story</span><span style="--c:var(--ink3)">Best guess</span><span class="ln-unk">Unknown</span></div>
+        <div id="ln-prog" style="margin-top:10px"></div>
+        <div class="cs" style="font-size:11.5px;color:var(--ink3);margin-top:6px">Tap any slot to add or edit. Dad&#8217;s side is on the left, Mom&#8217;s on the right.</div>
+      </div>
+
+      <div id="ln-gens"></div>
+
+      <div class="ew">Your family now</div>
+      <div class="card"><div id="ln-kin"></div>
+        <button class="cz-btn" style="margin-top:8px" onclick="lnEdit('k',-1)"><i class="ti ti-plus"></i> Add a relative</button></div>
+
+      <div class="ew">Questions to ask</div>
+      <div class="card"><div class="cs" style="font-size:12.5px;color:var(--ink3);margin-bottom:4px" id="ln-qh"></div><div id="ln-q"></div></div>
+
+      <div class="ew">Where the records are</div>
+      <div class="card">
+        <div class="ln-src"><b>Civil records in Morocco start late.</b> A 1915 dahir set up civil registration, but only for French and foreign residents. Moroccans could register births and deaths optionally from 1931, and a 1950 dahir created a civil status system for Moroccans.<span class="ln-cite">Source: Moroccan government paper for a 1995 UN civil registration workshop in Rabat (unstats.un.org)</span></div>
+        <div class="ln-src"><b>When it became mandatory.</b> One genealogy wiki says birth and death declarations became compulsory with a dahir of December 4, 1963. <span class="etag emrg">Weak source</span><span class="ln-cite">Source: Geneawiki, a volunteer French genealogy wiki. I couldn&#8217;t confirm this against a government text.</span></div>
+        <div class="ln-src"><b>Today&#8217;s law.</b> Law 37-99 (2002) governs civil status and sets up a civil status office in every commune. Records are held where the event was registered, so a grandparent&#8217;s birth record, if one exists, sits in the commune where they were born.<span class="ln-cite">Source: Dahir 1-02-239 promulgating Law 37-99, Ministry of Justice (adala.justice.gov.ma)</span></div>
+        <div class="ln-src"><span class="ro-read">My read</span> Dad, born 1950, may well have a birth record. Your grandparents were born before Moroccans had a civil status system, so for them the best sources are people who remember, the family booklet, adoul marriage contracts, land papers from the farm, and old photos with writing on the back.</div>
+        <div class="ln-src"><b>DNA tests.</b> AncestryDNA and 23andMe estimate regional ancestry and match you with relatives who also tested. 23andMe went through bankruptcy in 2025; the nonprofit TTAM Research Institute completed its purchase of 23andMe on July 14, 2025.<span class="ln-cite">Source: TTAM press release filed with the SEC (Form 8-K, July 14, 2025)</span><span class="ro-read" style="margin-top:6px">My read</span> Your DNA also says something about your brothers. Check the privacy and research settings before you send a sample, and talk to them first.</div>
+      </div>
+    </div>
+
     <div id="p-p-cosmos" class="panel">
       <div class="pillar-hero cz-hero">
         <div class="ph-eyebrow"><i class="ti ti-moon-stars"></i> Cosmos</div>
@@ -3407,6 +3487,7 @@ html[data-motion="off"] *,html[data-motion="off"] *::before,html[data-motion="of
         <div class="cz-form">
           <label>Birth date<input type="date" id="cz-bd"></label>
           <label>Birth time (optional)<input type="time" id="cz-bt"></label>
+          <label>If no exact time<select id="cz-bp"><option value="">Unknown</option><option value="night">Night (12 to 6 AM)</option><option value="am">Morning (6 AM to noon)</option><option value="pm">Afternoon (noon to 6 PM)</option><option value="eve">Evening (6 PM to midnight)</option></select></label>
           <label class="cz-wide">Birth city<input type="text" id="cz-bc" placeholder="City, country" autocomplete="off"></label>
           <label>Enneagram type<select id="cz-et"><option value="">Not set</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option></select></label>
         </div>
@@ -6112,7 +6193,7 @@ function qrPrint(){var sel=document.getElementById('qr-sel'),L=qrList(),q=L.filt
 <script>
 /* ---------- Cosmos: live sky, moon, day clock, seasons East and West, birth sky, Enneagram ---------- */
 var CZ_KEY='tareeq-cosmos';
-var CZ_SEED={date:'1988-08-20',time:'',place:'K\u00e9nitra, Morocco',lat:34.261,lon:-6.58,tz:'Africa/Casablanca',tzMin:0,ennea:'8'};
+var CZ_SEED={date:'1988-08-20',time:'',place:'K\u00e9nitra, Morocco',lat:34.261,lon:-6.58,tz:'Africa/Casablanca',tzMin:0,ennea:'8',part:'am'};
 var CZ_VS='︎';
 var CZ_SIGNS=['Aries','Taurus','Gemini','Cancer','Leo','Virgo','Libra','Scorpio','Sagittarius','Capricorn','Aquarius','Pisces'];
 var CZ_RASHI=['Mesha','Vrishabha','Mithuna','Karka','Simha','Kanya','Tula','Vrishchika','Dhanu','Makara','Kumbha','Meena'];
@@ -6127,7 +6208,14 @@ var CZ_B=[['Moon','Moon','☽','#9aa3b5',44,6],['Mercury','Mercury','☿','#8c8f
 var CZ={off:0,raf:0,anim:null,cache:{}};
 
 function czOK(){return typeof Astronomy!=='undefined';}
-function czCfg(){var c=lsGet(CZ_KEY,null);if(!c&&CZ_SEED){c=JSON.parse(JSON.stringify(CZ_SEED));lsSet(CZ_KEY,c);}return c||{};}
+function czCfg(){var c=lsGet(CZ_KEY,null);if(!c&&CZ_SEED){c=JSON.parse(JSON.stringify(CZ_SEED));lsSet(CZ_KEY,c);}
+  if(c&&CZ_SEED&&CZ_SEED.part&&c.part===undefined&&c.date===CZ_SEED.date&&!c.time){c.part=CZ_SEED.part;lsSet(CZ_KEY,c);}return c||{};}
+var CZ_PARTS={night:[0,6,'night','midnight to 6 AM'],am:[6,12,'morning','6 AM to noon'],pm:[12,18,'afternoon','noon to 6 PM'],eve:[18,24,'evening','6 PM to midnight']};
+function czHM(m){m=Math.round(m);var h=Math.floor(m/60)%24,mi=m%60;return (h%12||12)+':'+('0'+mi).slice(-2)+(h<12?' AM':' PM');}
+function czAsc(d,lat,lon){var g=Astronomy.SiderealTime(d),r=(((g*15+lon)%360)+360)%360*Math.PI/180,T=(d.getTime()-Date.UTC(2000,0,1,12))/(36525*864e5),e=(23.4392911-0.0130042*T)*Math.PI/180,f=lat*Math.PI/180;
+  return ((Math.atan2(Math.cos(r),-(Math.sin(r)*Math.cos(e)+Math.tan(f)*Math.sin(e)))*180/Math.PI)+360)%360;}
+function czAscSegs(c,lo,hi,sid){var at=function(m){var d=new Date(czBirthUTC(c,0,0).getTime()+m*60000),L=czAsc(d,c.lat,c.lon);if(sid)L=((L-czAyan(d))%360+360)%360;return Math.floor(L/30);},out=[],m=lo,cur=at(lo),st=lo;
+  while(m<hi){var nx=Math.min(m+4,hi),v=at(nx);if(v!==cur){var a=m,b=nx;for(var i=0;i<12;i++){var md=(a+b)/2;if(at(md)===cur)a=md;else b=md;}out.push([cur,st,b]);cur=v;st=b;}m=nx;}out.push([cur,st,hi]);return out;}
 function czAyan(date){var y=2000+(date.getTime()-Date.UTC(2000,0,1,12))/(365.25*864e5);return 23.853+(y-2000)*50.2888/3600;}
 function czLon(key,date){
   if(key==='Sun')return Astronomy.SunPosition(date).elon;
@@ -6155,15 +6243,17 @@ function czArc(r0,r1,a0,a1){var p=function(r,l){var q=czP(r,l);return q[0].toFix
 
 /* ---- birth sky: noon local when the time is unknown; flags bodies that change sign that day ---- */
 function czBirthUTC(c,hh,mm){var p=c.date.split('-');return new Date(Date.UTC(+p[0],+p[1]-1,+p[2],hh,mm)-(c.tzMin||0)*60000);}
-function czNatal(){var c=czCfg();if(!c.date||!czOK())return null;var k=c.date+'|'+(c.time||'')+'|'+(c.tzMin||0);if(CZ.cache.nk===k)return CZ.cache.n;
+function czNatal(){var c=czCfg();if(!c.date||!czOK())return null;var k=c.date+'|'+(c.time||'')+'|'+(c.tzMin||0)+'|'+(c.part||'');if(CZ.cache.nk===k)return CZ.cache.n;
   var n={known:!!c.time},t;
   if(c.time){var tp=c.time.split(':');t=czBirthUTC(c,+tp[0],+tp[1]);n.sky=czSky(t);n.t=t;}
-  else{t=czBirthUTC(c,12,0);n.sky=czSky(t);n.t=t;var a=czSky(czBirthUTC(c,0,0)),b=czSky(czBirthUTC(c,23,59));n.ch={};
-    CZ_B.forEach(function(B){var k2=B[0];if(Math.floor(a[k2].lon/30)!==Math.floor(b[k2].lon/30))n.ch[k2]=n.ch[k2]||{},n.ch[k2].t=[czSign(a[k2].lon),czSign(b[k2].lon),czChange(c,k2,false)];
-      if(Math.floor(a[k2].sid/30)!==Math.floor(b[k2].sid/30))n.ch[k2]=n.ch[k2]||{},n.ch[k2].s=[czRashi(a[k2].sid),czRashi(b[k2].sid),czChange(c,k2,true)];
+  else{var W=CZ_PARTS[c.part]||[0,24],lo=W[0]*60,hi=W[1]*60-1,mid=(W[0]+W[1])/2;n.win=CZ_PARTS[c.part]?W:null;
+    t=czBirthUTC(c,Math.floor(mid),Math.round((mid%1)*60));n.sky=czSky(t);n.t=t;var a=czSky(czBirthUTC(c,0,lo)),b=czSky(czBirthUTC(c,0,hi));n.ch={};
+    if(n.win&&c.lat!=null){n.asc=czAscSegs(c,lo,hi,false);n.lag=czAscSegs(c,lo,hi,true);}
+    CZ_B.forEach(function(B){var k2=B[0];if(Math.floor(a[k2].lon/30)!==Math.floor(b[k2].lon/30))n.ch[k2]=n.ch[k2]||{},n.ch[k2].t=[czSign(a[k2].lon),czSign(b[k2].lon),czChange(c,k2,false,lo,hi)];
+      if(Math.floor(a[k2].sid/30)!==Math.floor(b[k2].sid/30))n.ch[k2]=n.ch[k2]||{},n.ch[k2].s=[czRashi(a[k2].sid),czRashi(b[k2].sid),czChange(c,k2,true,lo,hi)];
       if(k2==='Moon'&&Math.floor(a[k2].sid/(360/27))!==Math.floor(b[k2].sid/(360/27)))n.ch[k2]=n.ch[k2]||{},n.ch[k2].n=[czNak(a[k2].sid),czNak(b[k2].sid)];});}
   CZ.cache.nk=k;CZ.cache.n=n;return n;}
-function czChange(c,key,sid){var lo=0,hi=24*60,f=function(m){var d=czBirthUTC(c,0,0);d=new Date(d.getTime()+m*60000);var L=czLon(key,d);if(sid)L=((L-czAyan(d))%360+360)%360;return Math.floor(L/30);},s0=f(0);
+function czChange(c,key,sid,lo,hi){lo=lo||0;hi=hi||24*60;var f=function(m){var d=czBirthUTC(c,0,0);d=new Date(d.getTime()+m*60000);var L=czLon(key,d);if(sid)L=((L-czAyan(d))%360+360)%360;return Math.floor(L/30);},s0=f(0);
   for(var i=0;i<22;i++){var m=(lo+hi)/2;if(f(m)===s0)lo=m;else hi=m;}var h=Math.floor(lo/60),mi=Math.round(lo%60);if(mi===60){h++;mi=0;}
   return (h%12||12)+':'+('0'+mi).slice(-2)+(h<12?' AM':' PM');}
 
@@ -6329,7 +6419,7 @@ var CZ_SIGNTX={Aries:'drive, courage, starting things',Taurus:'steadiness, comfo
 function czNatalCard(){var el=document.getElementById('cz-natalc');if(!el)return;var c=czCfg(),n=czNatal();
   if(!n){el.innerHTML='<div class="cz-tx">Add your birth date and city below to see the sky on the day you were born, in both the Western and Vedic zodiacs.</div>';return;}
   var bd=pd(c.date),h='<div class="cz-h">'+bd.toLocaleDateString([],{month:'long',day:'numeric',year:'numeric'})+(c.place?', '+czEsc2(c.place):'')+'</div>';
-  h+='<div class="cz-tx">'+(n.known?'Birth time '+c.time+'.':'No birth time, so positions are for noon local time. Bodies that changed sign during that day show both signs, with the switch time. Rising sign and houses need an exact time.')+'</div>';
+  h+='<div class="cz-tx">'+(n.known?'Birth time '+c.time+'.':n.win?'Born in the '+CZ_PARTS[c.part][2]+' ('+CZ_PARTS[c.part][3]+'). Positions are for '+czHM((n.win[0]+n.win[1])*30)+', the middle of that window. Anything that changed sign inside the window shows both signs, with the switch time. An exact time would settle the rising sign below.':'No birth time, so positions are for noon local time. Bodies that changed sign during that day show both signs, with the switch time. Rising sign and houses need an exact time.')+'</div>';
   h+='<table class="cz-tbl"><tr><th></th><th>Western</th><th>Vedic</th></tr>';
   CZ_B.forEach(function(b){var s=n.sky[b[0]],ch=n.ch&&n.ch[b[0]];
     var w=ch&&ch.t?ch.t[0]+' until '+ch.t[2]+', then '+ch.t[1]:czSign(s.lon)+' '+czDeg(s.lon);
@@ -6337,7 +6427,10 @@ function czNatalCard(){var el=document.getElementById('cz-natalc');if(!el)return
     if(b[0]==='Moon')v+='<br><span class="muted">Nakshatra '+(ch&&ch.n?ch.n[0]+' then '+ch.n[1]:czNak(s.sid))+'</span>';
     if(b[0]==='Sun')v+='<br><span class="muted">Nakshatra '+czNak(s.sid)+'</span>';
     h+='<tr><td><span class="gl" style="color:'+b[3]+'">'+czG(b[2])+'</span> '+b[1].replace(' (dwarf planet)','')+(s.rx?' &#8478;':'')+'</td><td>'+w+'</td><td>'+v+'</td></tr>';});
+  if(n.asc){var seg=function(L,f){return L.map(function(x,i){return f(x[0]*30+1)+(i<L.length-1?' until '+czHM(x[2]):'');}).join(', then ');};
+    h+='<tr><td><span class="gl" style="color:var(--gold)">&#8593;</span> Rising</td><td>'+seg(n.asc,czSign)+'</td><td>'+seg(n.lag,czRashi)+'</td></tr>';}
   h+='</table>';
+  if(n.asc)h+='<p class="cz-p" style="font-size:12px;color:var(--ink3)">The rising sign moves about one sign every 2 hours, so it&#8217;s the one part of the chart a morning window can&#8217;t pin down. A birth record, a family booklet, or a parent&#8217;s memory can narrow it.</p>';
   var cnt={fire:0,earth:0,air:0,water:0};['Sun','Moon','Mercury','Venus','Mars','Jupiter','Saturn'].forEach(function(k){cnt[czEl(n.sky[k].lon)]++;});
   var top=Object.keys(cnt).sort(function(a,b){return cnt[b]-cnt[a];})[0],sun=czSign(n.sky.Sun.lon);
   h+='<p class="cz-p">Elements across the 7 classical bodies (Western): '+Object.keys(cnt).map(function(k){return '<span class="cz-chip" style="border-color:'+CZ_ELC[k]+'">'+k+' '+cnt[k]+'</span>';}).join('')+'</p>';
@@ -6379,11 +6472,11 @@ function czEnnea(){var el=document.getElementById('cz-ennea');if(!el)return;var 
     '<p class="cz-p"><span class="etag emrg"><i class="ti ti-sparkles"></i>Emerging</span>Popular in coaching and spiritual direction, but research on how reliable and valid the Enneagram is remains limited and mixed. Use it as a mirror.</p>';}
 
 /* ---- form ---- */
-function czFill(){var c=czCfg();var s=function(id,v){var e=document.getElementById(id);if(e)e.value=v||'';};s('cz-bd',c.date);s('cz-bt',c.time);s('cz-bc',c.place);s('cz-et',c.ennea);}
+function czFill(){var c=czCfg();var s=function(id,v){var e=document.getElementById(id);if(e)e.value=v||'';};s('cz-bd',c.date);s('cz-bt',c.time);s('cz-bc',c.place);s('cz-et',c.ennea);s('cz-bp',c.part);}
 function czTzMin(tz,y,m,d,hh,mm){try{var u=Date.UTC(y,m,d,hh,mm),f=new Intl.DateTimeFormat('en-US',{timeZone:tz,hourCycle:'h23',year:'numeric',month:'numeric',day:'numeric',hour:'numeric',minute:'numeric'}),o={};
   f.formatToParts(new Date(u)).forEach(function(p){o[p.type]=p.value;});return Math.round((Date.UTC(+o.year,+o.month-1,+o.day,+o.hour%24,+o.minute)-u)/60000);}catch(e){return 0;}}
 async function czSaveForm(){var msg=document.getElementById('cz-fmsg'),c=czCfg(),g=function(id){var e=document.getElementById(id);return e?e.value.trim():'';};
-  var bd=g('cz-bd'),bt=g('cz-bt'),bc=g('cz-bc'),et=g('cz-et');c.time=bt;c.ennea=et;
+  var bd=g('cz-bd'),bt=g('cz-bt'),bc=g('cz-bc'),et=g('cz-et');c.time=bt;c.ennea=et;c.part=bt?'':g('cz-bp');
   if(bd)c.date=bd;
   if(bc&&bc!==c.place){if(msg)msg.textContent='Looking up '+bc+'...';
     try{var r=await fetch('https://geocoding-api.open-meteo.com/v1/search?count=1&language=en&name='+encodeURIComponent(bc.split(',')[0])).then(function(x){return x.json();});
@@ -6396,6 +6489,88 @@ function czRenderAll(full){if(!czOK()){var p=document.getElementById('cz-legend'
   try{czDraw();}catch(e){console.warn(e);}if(!full)return;[czMoon,czDay,czSeason,czPlanets,czEvents,czSmall,czNatalCard,czReflect,czEnnea].forEach(function(f){try{f();}catch(e){console.warn('cosmos',e);}});}
 function czOpen(){czFill();CZ.off=-30;czRenderAll(true);var mo=document.documentElement.getAttribute('data-motion')||'full';if(mo==='off'){czSet(0);return;}czPlay(30);
   clearInterval(CZ.tick);CZ.tick=setInterval(function(){var p=document.getElementById('p-p-cosmos');if(!p||!p.classList.contains('on')){clearInterval(CZ.tick);return;}if(CZ.off===0&&!CZ.anim){czDraw();try{czDay();}catch(e){}}},60000);}
+var LN_SEED={p:{1:{n:'Yassir',b:'Aug 20, 1988, morning',bp:'Kénitra, Morocco',st:'known'},
+  2:{n:'Mustapha',b:'Jan 2, 1950',w:'Lawyer',st:'known',nt:'Grew up poor. Built the family home in Kénitra.'},
+  3:{n:'Najat Ihsane',b:'Oct 14, 1958',d:'Jun 28, 2024',w:'Ran the home',st:'known',nt:'Kind, generous, a light. Dar Najat carries her name.',hx:'Gallbladder or liver cancer.',mem:1}},
+  kin:[{n:'Zak',r:'Brother',b:'Jun 15'},{n:'Zouhair',r:'Brother',b:'Jan 3, 1990'},{n:'Mossaab',r:'Brother',b:'Aug 25'},{n:'Mae',r:'Partner',b:'Dec 3, 1998'},
+  {n:'Amirah',r:'Niece',b:'Feb 21'},{n:'Yasmine',r:'Niece',b:'May 18'},{n:'Zaidane',r:'Nephew',b:'Jun 4'},{n:'Zaid',r:'Nephew',b:'Aug 5'}],q:{}};
+var LN_QH='Dad, born 1950, is your best living source for his side, and for what he remembers of Mom’s. Check a question off when you’ve asked it and write the answer underneath.';
+var LN_QX=[['gm','Dad','Which grandmother had gallbladder or liver cancer, Mom’s mother or Dad’s mother? About how old was she?'],
+  ['tm','Dad','What time in the morning was I born, and at which hospital or clinic?'],
+  ['mo','Dad','Who were Mom’s parents, and where did the Ihsane family come from?']];
+var LN_KEY='tareeq-lineage';
+var LN_Q=[['gp','Parents','What were the full names of all four of my grandparents, including my grandmothers’ family names?'],
+  ['bp','Parents','Where was each grandparent born? A city, a village, a region, or a tribe?'],
+  ['fn','Parents','Where does our family name come from, and has it always been spelled this way?'],
+  ['wk','Parents','What work did my grandparents and great-grandparents do?'],
+  ['lg','Parents','Which languages did they speak at home?'],
+  ['mv','Parents','Who in the family moved, from where to where, and why?'],
+  ['dc','Parents','Which papers survive? A family booklet, marriage contracts, land deeds, letters, old photos?'],
+  ['hx','Parents','Who in the family had cancer, heart disease, diabetes, or other serious illness, and at what age?'],
+  ['st','Any elder','What do you remember about your own grandparents? One story is enough.'],
+  ['gr','Any elder','Where are our grandparents buried?']].concat(LN_QX);
+var LN_ST={known:'Known',told:'Family story',guess:'Best guess'};
+function lnData(){var d=lsGet(LN_KEY,null);if(!d){d=LN_SEED?JSON.parse(JSON.stringify(LN_SEED)):{p:{},kin:[],q:{}};lsSet(LN_KEY,d);}d.p=d.p||{};d.kin=d.kin||[];d.q=d.q||{};return d;}
+function lnSave(d){lsSet(LN_KEY,d);}
+function lnE(s){return String(s==null?'':s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});}
+function lnGen(i){return Math.floor(Math.log2(i));}
+function lnRel(i){if(i===1)return 'You';var path=[],x=i;while(x>1){path.unshift(x%2);x=Math.floor(x/2);}if(path.length===1)return path[0]?'Mother':'Father';
+  return path.map(function(b,k){return k===0?(b?'Mom':'Dad'):(b?'mother':'father');}).join('\u2019s ');}
+function lnArc(r0,r1,a0,a1){var p=function(r,a){a=a*Math.PI/180;return (r*Math.cos(a)).toFixed(2)+' '+(r*Math.sin(a)).toFixed(2);},lg=(a1-a0)>180?1:0;
+  return 'M'+p(r1,a0)+' A'+r1+' '+r1+' 0 '+lg+' 1 '+p(r1,a1)+' L'+p(r0,a1)+' A'+r0+' '+r0+' 0 '+lg+' 0 '+p(r0,a0)+'Z';}
+function lnFirst(n){return String(n||'').split(' ')[0];}
+function lnInit(n){return String(n||'').split(' ').map(function(w){return w.charAt(0);}).join('').slice(0,2).toUpperCase();}
+function lnFan(){var svg=document.getElementById('ln-fan');if(!svg)return;var d=lnData(),R=[[0,34],[36,76],[78,116],[118,154]],h='';
+  for(var g=1;g<=3;g++){var n=Math.pow(2,g),sp=180/n;for(var j=0;j<n;j++){var i=n+j,p=d.p[i],a0=180+j*sp,a1=a0+sp,cls='ln-sec '+(p&&p.n?(p.st||'told'):'e')+(p&&p.mem?' mem':'');
+    h+='<path class="'+cls+'" style="animation-delay:'+(0.08*g+0.03*j).toFixed(2)+'s;transform-origin:0 0" d="'+lnArc(R[g][0],R[g][1],a0+0.6,a1-0.6)+'" onclick="lnEdit(\'p\','+i+')"><title>'+lnE(lnRel(i)+(p&&p.n?': '+p.n:''))+'</title></path>';
+    var am=(a0+a1)/2*Math.PI/180,rm=(R[g][0]+R[g][1])/2,x=(rm*Math.cos(am)).toFixed(1),y=(rm*Math.sin(am)).toFixed(1);
+    if(p&&p.n){if(g<3){h+='<text class="ln-t" x="'+x+'" y="'+(y-(g===1?5:4))+'">'+lnE(lnFirst(p.n))+'</text>';var yr=(String(p.b||'').match(/\d{4}/)||[''])[0];if(yr)h+='<text class="ln-t s" x="'+x+'" y="'+(+y+(g===1?8:7))+'">'+yr+'</text>';}
+      else h+='<text class="ln-t s" x="'+x+'" y="'+y+'">'+lnE(lnInit(p.n))+'</text>';}
+    else h+='<text class="ln-t q" x="'+x+'" y="'+y+'">?</text>';}}
+  var me=d.p[1];h+='<path class="ln-you" d="'+lnArc(0.01,34,180,360)+'" onclick="lnEdit(\'p\',1)"/><text class="ln-yt" x="0" y="-11">'+lnE(me&&me.n?lnFirst(me.n):'You')+'</text>';
+  svg.innerHTML=h;}
+function lnProg(){var el=document.getElementById('ln-prog');if(!el)return;var d=lnData(),k=0,deep=0;for(var i=2;i<16;i++)if(d.p[i]&&d.p[i].n){k++;deep=Math.max(deep,lnGen(i));}
+  var asked=LN_Q.filter(function(q){return d.q[q[0]]&&d.q[q[0]].a;}).length;
+  el.innerHTML='<div style="display:flex;justify-content:space-between;font-size:12.5px;color:var(--ink2)"><span><b style="color:var(--ink)">'+k+' of 14</b> ancestors named</span><span>'+asked+' of '+LN_Q.length+' questions asked</span></div><div class="ln-bar"><i style="width:'+Math.round(k/14*100)+'%"></i></div>'+
+    '<div style="font-size:11.5px;color:var(--ink3)">'+(deep>=3?'You’ve reached your great-grandparents.':deep===2?'Next layer: your great-grandparents.':'Next layer: your grandparents. The first question below is the place to start.')+'</div>';}
+function lnGens(){var el=document.getElementById('ln-gens');if(!el)return;var d=lnData(),T=['','Parents','Grandparents','Great-grandparents'],h='';
+  for(var g=1;g<=3;g++){var n=Math.pow(2,g);h+='<div class="ew">'+T[g]+'</div><div class="card">';
+    for(var j=0;j<n;j++){var i=n+j,p=d.p[i]||{},yrs=[p.b,p.d].filter(Boolean).join(' to ');
+      h+='<div class="ln-row" onclick="lnEdit(\'p\','+i+')"><span class="ln-dot '+(p.n?(p.st||'told'):'')+'"></span><div><span class="ln-rl">'+lnRel(i)+'</span><b>'+(p.n?lnE(p.n):'<span style="color:var(--ink4);font-weight:400">Not known yet</span>')+'</b>'+
+        ((yrs||p.bp||p.o)?'<span class="ln-rl">'+lnE([yrs,p.bp||p.o].filter(Boolean).join(' · '))+'</span>':'')+'</div><i class="ti ti-pencil"></i></div>';}
+    h+='</div>';}
+  el.innerHTML=h;}
+function lnKin(){var el=document.getElementById('ln-kin');if(!el)return;var d=lnData();
+  el.innerHTML=d.kin.length?d.kin.map(function(k,i){return '<div class="ln-row" onclick="lnEdit(\'k\','+i+')"><div><b>'+lnE(k.n)+'</b><span class="ln-rl">'+lnE([k.r,k.b].filter(Boolean).join(' · '))+'</span></div><i class="ti ti-pencil"></i></div>';}).join(''):'<div class="cs" style="font-size:12.5px;color:var(--ink3)">Siblings, partner, children, cousins. Anyone in your own generation or below.</div>';}
+function lnQs(){var el=document.getElementById('ln-q'),hh=document.getElementById('ln-qh');if(!el)return;if(hh)hh.textContent=LN_QH;var d=lnData();
+  el.innerHTML=LN_Q.map(function(q){var v=d.q[q[0]]||{};return '<div class="ln-q'+(v.a?' done':'')+'"><input type="checkbox" '+(v.a?'checked':'')+' onchange="lnQ(\''+q[0]+'\',this.checked)" aria-label="Asked"><div style="flex:1;min-width:0"><small>Ask '+lnE(q[1])+'</small><span>'+lnE(q[2])+'</span>'+
+    ((v.a||v.t)?'<textarea placeholder="What they said" onchange="lnQt(\''+q[0]+'\',this.value)">'+lnE(v.t||'')+'</textarea>':'')+'</div></div>';}).join('');}
+function lnQ(id,on){var d=lnData();d.q[id]=d.q[id]||{};d.q[id].a=on;lnSave(d);lnQs();lnProg();if(on){var t=document.querySelector('#ln-q textarea[onchange*="'+id+'"]');if(t)t.focus();}}
+function lnQt(id,v){var d=lnData();d.q[id]=d.q[id]||{};d.q[id].t=v;lnSave(d);}
+var LN_F=[['n','Name','text',1],['ar','Name in Arabic or Tamazight','text',1],['b','Born','text',0,'Year, or a date'],['d','Died','text',0,'Leave blank if living'],['bp','Birthplace','text',1,'City, village, or region'],
+  ['o','Family origin','text',1,'Tribe, region, or where the family came from'],['w','Work','text',1],['st','How sure','sel',0],['src','Who told you, or which document','text',0],['nt','Story and notes','area',1],['hx','Health history (for your doctor)','area',1]];
+var LN_KF=[['n','Name','text',1],['r','Relation','text',0,'Brother, cousin, aunt...'],['b','Born','text',0]];
+function lnEdit(kind,i){var d=lnData(),p=kind==='p'?(d.p[i]||{}):(i>=0?d.kin[i]:{}),F=kind==='p'?LN_F:LN_KF,ov=document.getElementById('ln-ov');
+  if(!ov){document.body.insertAdjacentHTML('beforeend','<div id="ln-ov" class="wd-ov" role="dialog" aria-label="Edit person" onclick="if(event.target===this)lnClose()"><div class="wd-box ln-ed" id="ln-box"></div></div>');ov=document.getElementById('ln-ov');}
+  var h='<button class="ln-x" onclick="lnClose()" aria-label="Close"><i class="ti ti-x"></i></button><h3>'+(kind==='p'?lnRel(i):(i>=0?lnE(p.n):'Add a relative'))+'</h3><div class="ln-sub">'+(kind==='p'?(i===1?'Your own entry.':'Generation '+lnGen(i)+'. Fill in only what you know.'):'Your family now.')+'</div><div class="cz-form">';
+  F.forEach(function(f){var v=lnE(p[f[0]]||''),w=f[3]?' class="cz-wide"':'',ph=f[4]?' placeholder="'+lnE(f[4])+'"':'';
+    if(f[2]==='sel')h+='<label'+w+'>'+f[1]+'<select id="lnf-'+f[0]+'">'+Object.keys(LN_ST).map(function(k){return '<option value="'+k+'"'+((p.st||'told')===k?' selected':'')+'>'+LN_ST[k]+'</option>';}).join('')+'</select></label>';
+    else if(f[2]==='area')h+='<label'+w+'>'+f[1]+'<textarea id="lnf-'+f[0]+'"'+ph+'>'+v+'</textarea></label>';
+    else h+='<label'+w+'>'+f[1]+'<input type="text" id="lnf-'+f[0]+'" value="'+v+'"'+ph+' autocomplete="off"></label>';});
+  h+='</div><div class="cz-row" style="margin-top:12px;display:flex;gap:8px;flex-wrap:wrap"><button class="cz-btn pri" onclick="lnSaveP(\''+kind+'\','+i+')">Save</button>'+((kind==='p'&&p.n)||(kind==='k'&&i>=0)?'<button class="cz-btn" onclick="lnClear(\''+kind+'\','+i+')">'+(kind==='p'?'Clear':'Remove')+'</button>':'')+'</div>';
+  document.getElementById('ln-box').innerHTML=h;requestAnimationFrame(function(){ov.classList.add('on');});}
+function lnClose(){var ov=document.getElementById('ln-ov');if(ov)ov.classList.remove('on');}
+function lnSaveP(kind,i){var d=lnData(),F=kind==='p'?LN_F:LN_KF,o=kind==='p'?(d.p[i]||{}):(i>=0?d.kin[i]:{});
+  F.forEach(function(f){var e=document.getElementById('lnf-'+f[0]);if(e){var v=e.value.trim();if(v)o[f[0]]=v;else delete o[f[0]];}});
+  if(kind==='p'){if(o.n)d.p[i]=o;else delete d.p[i];}else{if(!o.n){lnClose();return;}if(i>=0)d.kin[i]=o;else d.kin.push(o);}
+  lnSave(d);lnClose();lnAll();}
+function lnClear(kind,i){var d=lnData();if(kind==='p')delete d.p[i];else d.kin.splice(i,1);lnSave(d);lnClose();lnAll();}
+function lnAll(){[lnFan,lnProg,lnGens,lnKin,lnQs].forEach(function(f){try{f();}catch(e){console.warn('lineage',e);}});}
+(function(){var _go=go;go=function(id,btn){_go(id,btn);if(id==='p-lineage')lnAll();};
+  if(typeof bbOpen==='function'){var _bo=bbOpen;bbOpen=function(s){_bo(s);if(s==='more'){var g=document.getElementById('sheet-g');if(g&&!g.querySelector('[data-ln]'))g.insertAdjacentHTML('beforeend','<button data-ln="1" onclick="bbGoPanel(\'p-lineage\')"><i class="ti ti-leaf"></i>Lineage</button>');}};}
+  if(typeof SR_P!=='undefined')SR_P.splice(3,0,['p-lineage','Lineage','leaf','protocol','lineage ancestry ancestors family tree genealogy grandparents great-grandparents heritage roots origin tribe family name dna records relatives']);
+  if(typeof SYNC_KEYS!=='undefined'&&SYNC_KEYS.indexOf(LN_KEY)<0)SYNC_KEYS.push(LN_KEY);
+  document.addEventListener('keydown',function(e){if(e.key==='Escape')lnClose();});})();
 (function(){var _go=go;go=function(id,btn){_go(id,btn);if(id==='p-cosmos')czOpen();};
   var sc=document.getElementById('cz-scrub');if(sc)sc.addEventListener('input',function(){if(CZ.anim){cancelAnimationFrame(CZ.raf);CZ.anim=null;}CZ.off=+sc.value;czDraw();});
   if(typeof bbOpen==='function'){var _bo=bbOpen;bbOpen=function(s){_bo(s);if(s==='more'){var g=document.getElementById('sheet-g');if(g&&!g.querySelector('[data-cz]'))g.insertAdjacentHTML('beforeend','<button data-cz="1" onclick="bbGoPanel(\'p-cosmos\')"><i class="ti ti-moon-stars"></i>Cosmos</button>');}};}
