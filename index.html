@@ -721,6 +721,17 @@ html[data-theme="dark"] .cz-star{fill:#cfd6ff}
 .ln-leg{display:flex;flex-wrap:wrap;gap:6px 12px;justify-content:center;font-size:11px;color:var(--ink3);margin-top:6px}
 .ln-leg span:before{content:'';display:inline-block;width:9px;height:9px;border-radius:3px;margin-right:5px;vertical-align:-1px;background:var(--c)}
 .ln-leg .ln-unk:before{background:none;border:1px dashed var(--ink3);box-sizing:border-box}
+.ln-dh{font-family:'DM Serif Display',Georgia,serif;font-size:18px;color:var(--ink);margin-bottom:8px}
+.ln-dh span{font-family:Inter,system-ui,sans-serif;font-size:11px;color:var(--ink3);margin-left:8px}
+.ln-dbar{display:flex;height:14px;border-radius:8px;overflow:hidden;gap:1.5px;margin-bottom:10px;background:var(--bdr)}
+.ln-dbar i{display:block;height:100%;min-width:3px;transform-origin:left;animation:ln-grow .9s ease both}
+@keyframes ln-grow{from{transform:scaleX(0)}to{transform:none}}
+.ln-dr{display:flex;align-items:center;gap:9px;padding:6px 0;font-size:13px;color:var(--ink2);border-bottom:0.5px solid var(--bdr)}
+.ln-dr b{font-weight:600;color:var(--ink)}
+.ln-dn{flex:1}
+.ln-ds{flex:0 0 10px;height:10px;border-radius:3px}
+.ln-dnote{font-size:12.5px;line-height:1.55;color:var(--ink2);margin-top:10px}
+.ln-dnote p{margin:0 0 8px}
 .ln-bar{height:6px;border-radius:4px;background:var(--bdr);overflow:hidden;margin:6px 0 2px}
 .ln-bar i{display:block;height:100%;background:linear-gradient(90deg,var(--repair),var(--gold));border-radius:4px;transition:width .8s ease}
 .ln-row{display:flex;align-items:center;gap:10px;padding:9px 0;border-bottom:0.5px solid var(--bdr);cursor:pointer;font-size:13px;color:var(--ink2)}
@@ -3411,6 +3422,9 @@ html[data-motion="off"] *,html[data-motion="off"] *::before,html[data-motion="of
 
       <div id="ln-gens"></div>
 
+      <div class="ew">DNA</div>
+      <div class="card" id="ln-dna"></div>
+
       <div class="ew">Your family now</div>
       <div class="card"><div id="ln-kin"></div>
         <button class="cz-btn" style="margin-top:8px" onclick="lnEdit('k',-1)"><i class="ti ti-plus"></i> Add a relative</button></div>
@@ -3424,6 +3438,9 @@ html[data-motion="off"] *,html[data-motion="off"] *::before,html[data-motion="of
         <div class="ln-src"><b>When it became mandatory.</b> One genealogy wiki says birth and death declarations became compulsory with a dahir of December 4, 1963. <span class="etag emrg">Weak source</span><span class="ln-cite">Source: Geneawiki, a volunteer French genealogy wiki. I couldn&#8217;t confirm this against a government text.</span></div>
         <div class="ln-src"><b>Today&#8217;s law.</b> Law 37-99 (2002) governs civil status and sets up a civil status office in every commune. Records are held where the event was registered, so a grandparent&#8217;s birth record, if one exists, sits in the commune where they were born.<span class="ln-cite">Source: Dahir 1-02-239 promulgating Law 37-99, Ministry of Justice (adala.justice.gov.ma)</span></div>
         <div class="ln-src"><span class="ro-read">My read</span> Dad, born 1950, may well have a birth record. Your grandparents were born before Moroccans had a civil status system, so for them the best sources are people who remember, the family booklet, adoul marriage contracts, land papers from the farm, and old photos with writing on the back.</div>
+        <div class="ln-src"><b>Grandpa Muhammad&#8217;s service.</b> If he served in the French army before 1956, the Military Personnel Archives Center (CAPM) in Pau keeps the registers for conscripts from colonized populations. The French defense archive says number sheets for privates and NCOs born after 1921 may be there. You can request a search online; processing takes about 2 months.<span class="ln-cite">Sources: Service historique de la D&#233;fense; Guichet du Savoir (Lyon library); service-public.gouv.fr</span></div>
+        <div class="ln-src"><b>Online first.</b> M&#233;moire des hommes, the French defense ministry&#8217;s site, has put registers of soldiers from Algeria and Morocco online. Search for &#8220;Baza&#8221; there before filing a request.<span class="ln-cite">Source: Revue fran&#231;aise de g&#233;n&#233;alogie, secondary</span><span class="ro-read" style="margin-top:6px">My read</span> If he served in Morocco&#8217;s Royal Armed Forces after independence, these French archives won&#8217;t have him. Ask Dad which army it was first.</div>
+        <div class="ln-src"><b>Chiadma.</b> A tribal region on the Atlantic coast between Safi and Essaouira. Sources describe the Chiadma as a tribe of Arab origin, with some fractions of Berber roots such as the Regraga. Every spring the Chiadma hold the Regraga, a 40-day pilgrimage.<span class="ln-cite">Source: Wikipedia, citing a 2019 linguistics paper on the Chiadma dialect. Secondary.</span></div>
         <div class="ln-src"><b>DNA tests.</b> AncestryDNA and 23andMe estimate regional ancestry and match you with relatives who also tested. 23andMe went through bankruptcy in 2025; the nonprofit TTAM Research Institute completed its purchase of 23andMe on July 14, 2025.<span class="ln-cite">Source: TTAM press release filed with the SEC (Form 8-K, July 14, 2025)</span><span class="ro-read" style="margin-top:6px">My read</span> Your DNA also says something about your brothers. Check the privacy and research settings before you send a sample, and talk to them first.</div>
       </div>
     </div>
@@ -6489,15 +6506,25 @@ function czRenderAll(full){if(!czOK()){var p=document.getElementById('cz-legend'
   try{czDraw();}catch(e){console.warn(e);}if(!full)return;[czMoon,czDay,czSeason,czPlanets,czEvents,czSmall,czNatalCard,czReflect,czEnnea].forEach(function(f){try{f();}catch(e){console.warn('cosmos',e);}});}
 function czOpen(){czFill();CZ.off=-30;czRenderAll(true);var mo=document.documentElement.getAttribute('data-motion')||'full';if(mo==='off'){czSet(0);return;}czPlay(30);
   clearInterval(CZ.tick);CZ.tick=setInterval(function(){var p=document.getElementById('p-p-cosmos');if(!p||!p.classList.contains('on')){clearInterval(CZ.tick);return;}if(CZ.off===0&&!CZ.anim){czDraw();try{czDay();}catch(e){}}},60000);}
-var LN_SEED={p:{1:{n:'Yassir',b:'Aug 20, 1988, morning',bp:'Kénitra, Morocco',st:'known'},
-  2:{n:'Mustapha',b:'Jan 2, 1950',w:'Lawyer',st:'known',nt:'Grew up poor. Built the family home in Kénitra.'},
-  3:{n:'Najat Ihsane',b:'Oct 14, 1958',d:'Jun 28, 2024',w:'Ran the home',st:'known',nt:'Kind, generous, a light. Dar Najat carries her name.',hx:'Gallbladder or liver cancer.',mem:1}},
+var LN_SEED={v:2,p:{1:{n:'Yassir',b:'Aug 20, 1988, morning',bp:'Kénitra, Morocco',st:'known'},
+  2:{n:'Mustapha',b:'Jan 2, 1950',w:'Lawyer',st:'known',o:'Chiadma, near Essaouira',nt:'Grew up poor. Built the family home in Kénitra.'},
+  3:{n:'Najat Ihsane',b:'Oct 14, 1958',d:'Jun 28, 2024',w:'Ran the home',st:'known',nt:'Kind, generous, a light. Dar Najat carries her name.',hx:'Gallbladder or liver cancer.',mem:1},
+  4:{n:'Muhammad Baza',w:'Soldier',o:'Chiadma, near Essaouira',st:'told',src:'Yassir, Nov 25, 2026'},
+  5:{n:'Fatima',st:'told',src:'Yassir, Nov 25, 2026'},
+  6:{n:'Hussein Ihsane',bp:'Agadir',o:'Amazigh, from Agadir',st:'told',src:'Yassir, Nov 25, 2026'},
+  7:{n:'Khadija Al-Qaid',bp:'Ouezzane (Wazzan)',o:'Northern Morocco',st:'told',src:'Yassir, Nov 25, 2026'}},
+  dna:{by:'Zakarya',test:'AncestryDNA',upd:'July 2024',reg:[{r:'Northern Africa',p:89},{r:'Arabian Peninsula',p:7},{r:'Senegal',p:1},{r:'Mali',p:1},{r:'Central West Africa',p:1},{r:'Sephardic Jews',p:1}],
+    nt:'<p>This is Zak\u2019s test. Ancestry notes that siblings each get a different mix of DNA from their parents, unless they\u2019re identical twins, so your own percentages would be close to these but not the same.</p><p><span class="ro-read">My read</span> 89% Northern Africa fits all four grandparents: Chiadma, Agadir, and Ouezzane. The 7% Arabian Peninsula is consistent with Chiadma being described as a tribe of Arab origin, but DNA can\u2019t point to a specific tribe, so treat that as a fit, not proof. The 1% regions sit inside the margin these estimates carry.</p>'},
   kin:[{n:'Zak',r:'Brother',b:'Jun 15'},{n:'Zouhair',r:'Brother',b:'Jan 3, 1990'},{n:'Mossaab',r:'Brother',b:'Aug 25'},{n:'Mae',r:'Partner',b:'Dec 3, 1998'},
   {n:'Amirah',r:'Niece',b:'Feb 21'},{n:'Yasmine',r:'Niece',b:'May 18'},{n:'Zaidane',r:'Nephew',b:'Jun 4'},{n:'Zaid',r:'Nephew',b:'Aug 5'}],q:{}};
 var LN_QH='Dad, born 1950, is your best living source for his side, and for what he remembers of Mom’s. Check a question off when you’ve asked it and write the answer underneath.';
 var LN_QX=[['gm','Dad','Which grandmother had gallbladder or liver cancer, Mom’s mother or Dad’s mother? About how old was she?'],
   ['tm','Dad','What time in the morning was I born, and at which hospital or clinic?'],
-  ['mo','Dad','Who were Mom’s parents, and where did the Ihsane family come from?']];
+  ['army','Dad','Which army did Grandpa Muhammad serve in, in what years, and where? Is there a service booklet, a medal, or a pension paper?'],
+  ['fat','Dad','What was Grandma Fatima\u2019s family name, and where was she from?'],
+  ['chi','Dad','Which village or part of Chiadma is the Baza family from? Is anyone still there?'],
+  ['kh','Dad','Was Grandma Khadija Al-Qaid\u2019s family Amazigh too, or Arabic-speaking from the north? How did she and Grandpa Hussein meet?'],
+  ['mo','Dad','When were Grandpa Hussein and Grandma Khadija born, and when did they pass?']];
 var LN_KEY='tareeq-lineage';
 var LN_Q=[['gp','Parents','What were the full names of all four of my grandparents, including my grandmothers’ family names?'],
   ['bp','Parents','Where was each grandparent born? A city, a village, a region, or a tribe?'],
@@ -6510,7 +6537,27 @@ var LN_Q=[['gp','Parents','What were the full names of all four of my grandparen
   ['st','Any elder','What do you remember about your own grandparents? One story is enough.'],
   ['gr','Any elder','Where are our grandparents buried?']].concat(LN_QX);
 var LN_ST={known:'Known',told:'Family story',guess:'Best guess'};
-function lnData(){var d=lsGet(LN_KEY,null);if(!d){d=LN_SEED?JSON.parse(JSON.stringify(LN_SEED)):{p:{},kin:[],q:{}};lsSet(LN_KEY,d);}d.p=d.p||{};d.kin=d.kin||[];d.q=d.q||{};return d;}
+function lnData(){var d=lsGet(LN_KEY,null);if(!d){d=LN_SEED?JSON.parse(JSON.stringify(LN_SEED)):{p:{},kin:[],q:{}};lsSet(LN_KEY,d);}d.p=d.p||{};d.kin=d.kin||[];d.q=d.q||{};
+  if(LN_SEED&&LN_SEED.v&&(d.v||1)<LN_SEED.v){Object.keys(LN_SEED.p).forEach(function(i){var a=LN_SEED.p[i],b=d.p[i];if(!b)d.p[i]=JSON.parse(JSON.stringify(a));else Object.keys(a).forEach(function(k){if(b[k]==null||b[k]==='')b[k]=a[k];});});
+    if(LN_SEED.dna&&!d.dna)d.dna=JSON.parse(JSON.stringify(LN_SEED.dna));d.v=LN_SEED.v;lsSet(LN_KEY,d);}return d;}
+var LN_DC=['#3f8f2f','#2f86b8','#e0522a','#c45b86','#c4741a','#1f8f78','#7a6cc4','#8a8a8a'];
+function lnDna(){var el=document.getElementById('ln-dna');if(!el)return;var d=lnData(),x=d.dna;
+  if(!x||!x.reg||!x.reg.length){el.innerHTML='<div class="cs" style="font-size:12.5px;color:var(--ink3)">No DNA results yet. If you or a close relative tested, add the regions here.</div><button class="cz-btn" style="margin-top:8px" onclick="lnDnaEdit()"><i class="ti ti-plus"></i> Add results</button>';return;}
+  var tot=x.reg.reduce(function(a,r){return a+(+r.p||0);},0)||100,h='<div class="ln-dh">'+lnE([x.by?x.by+'\u2019s':'',x.test||'DNA test'].filter(Boolean).join(' '))+(x.upd?'<span>Updated '+lnE(x.upd)+'</span>':'')+'</div>';
+  h+='<div class="ln-dbar">'+x.reg.map(function(r,i){return '<i style="width:'+((+r.p||0)/tot*100).toFixed(2)+'%;background:'+LN_DC[i%LN_DC.length]+';animation-delay:'+(i*0.12)+'s"></i>';}).join('')+'</div>';
+  h+=x.reg.map(function(r,i){return '<div class="ln-dr"><span class="ln-ds" style="background:'+LN_DC[i%LN_DC.length]+'"></span><span class="ln-dn">'+lnE(r.r)+'</span><b>'+lnE(r.p)+'%</b></div>';}).join('');
+  if(x.nt)h+='<div class="ln-dnote">'+x.nt+'</div>';
+  h+='<button class="cz-btn" style="margin-top:10px" onclick="lnDnaEdit()"><i class="ti ti-pencil"></i> Edit results</button>';el.innerHTML=h;}
+function lnDnaEdit(){var d=lnData(),x=d.dna||{},ov=document.getElementById('ln-ov');if(!ov){lnEdit('k',-1);ov=document.getElementById('ln-ov');}
+  document.getElementById('ln-box').innerHTML='<button class="ln-x" onclick="lnClose()" aria-label="Close"><i class="ti ti-x"></i></button><h3>DNA results</h3><div class="ln-sub">One region per line, with its percent at the end.</div><div class="cz-form">'+
+    '<label>Whose test<input type="text" id="lnd-by" value="'+lnE(x.by||'')+'" placeholder="Me, a sibling, a parent"></label><label>Company<input type="text" id="lnd-test" value="'+lnE(x.test||'')+'" placeholder="AncestryDNA"></label>'+
+    '<label class="cz-wide">Results updated<input type="text" id="lnd-upd" value="'+lnE(x.upd||'')+'" placeholder="Month and year"></label>'+
+    '<label class="cz-wide">Regions<textarea id="lnd-reg" style="min-height:120px" placeholder="Northern Africa 80">'+lnE((x.reg||[]).map(function(r){return r.r+' '+r.p;}).join(String.fromCharCode(10)))+'</textarea></label></div>'+
+    '<div class="cz-row" style="margin-top:12px"><button class="cz-btn pri" onclick="lnDnaSave()">Save</button></div>';
+  requestAnimationFrame(function(){ov.classList.add('on');});}
+function lnDnaSave(){var d=lnData(),x=d.dna||{},g=function(id){return (document.getElementById(id).value||'').trim();};x.by=g('lnd-by');x.test=g('lnd-test');x.upd=g('lnd-upd');
+  x.reg=g('lnd-reg').split(/\n+/).map(function(l){var m=l.trim().match(/^(.*?)[\s:,-]+(\d+(?:\.\d+)?)\s*%?$/);return m?{r:m[1].trim(),p:+m[2]}:null;}).filter(Boolean).sort(function(a,b){return b.p-a.p;});
+  d.dna=x;lnSave(d);lnClose();lnDna();}
 function lnSave(d){lsSet(LN_KEY,d);}
 function lnE(s){return String(s==null?'':s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});}
 function lnGen(i){return Math.floor(Math.log2(i));}
@@ -6524,7 +6571,7 @@ function lnFan(){var svg=document.getElementById('ln-fan');if(!svg)return;var d=
   for(var g=1;g<=3;g++){var n=Math.pow(2,g),sp=180/n;for(var j=0;j<n;j++){var i=n+j,p=d.p[i],a0=180+j*sp,a1=a0+sp,cls='ln-sec '+(p&&p.n?(p.st||'told'):'e')+(p&&p.mem?' mem':'');
     h+='<path class="'+cls+'" style="animation-delay:'+(0.08*g+0.03*j).toFixed(2)+'s;transform-origin:0 0" d="'+lnArc(R[g][0],R[g][1],a0+0.6,a1-0.6)+'" onclick="lnEdit(\'p\','+i+')"><title>'+lnE(lnRel(i)+(p&&p.n?': '+p.n:''))+'</title></path>';
     var am=(a0+a1)/2*Math.PI/180,rm=(R[g][0]+R[g][1])/2,x=(rm*Math.cos(am)).toFixed(1),y=(rm*Math.sin(am)).toFixed(1);
-    if(p&&p.n){if(g<3){h+='<text class="ln-t" x="'+x+'" y="'+(y-(g===1?5:4))+'">'+lnE(lnFirst(p.n))+'</text>';var yr=(String(p.b||'').match(/\d{4}/)||[''])[0];if(yr)h+='<text class="ln-t s" x="'+x+'" y="'+(+y+(g===1?8:7))+'">'+yr+'</text>';}
+    if(p&&p.n){if(g<3){var fn=lnFirst(p.n);h+='<text class="ln-t" x="'+x+'" y="'+(y-(g===1?5:4))+'"'+(g===2&&fn.length>6?' style="font-size:'+(fn.length>8?7:8)+'px"':'')+'>'+lnE(fn)+'</text>';var yr=(String(p.b||'').match(/\d{4}/)||[''])[0];if(yr)h+='<text class="ln-t s" x="'+x+'" y="'+(+y+(g===1?8:7))+'">'+yr+'</text>';}
       else h+='<text class="ln-t s" x="'+x+'" y="'+y+'">'+lnE(lnInit(p.n))+'</text>';}
     else h+='<text class="ln-t q" x="'+x+'" y="'+y+'">?</text>';}}
   var me=d.p[1];h+='<path class="ln-you" d="'+lnArc(0.01,34,180,360)+'" onclick="lnEdit(\'p\',1)"/><text class="ln-yt" x="0" y="-11">'+lnE(me&&me.n?lnFirst(me.n):'You')+'</text>';
@@ -6565,7 +6612,7 @@ function lnSaveP(kind,i){var d=lnData(),F=kind==='p'?LN_F:LN_KF,o=kind==='p'?(d.
   if(kind==='p'){if(o.n)d.p[i]=o;else delete d.p[i];}else{if(!o.n){lnClose();return;}if(i>=0)d.kin[i]=o;else d.kin.push(o);}
   lnSave(d);lnClose();lnAll();}
 function lnClear(kind,i){var d=lnData();if(kind==='p')delete d.p[i];else d.kin.splice(i,1);lnSave(d);lnClose();lnAll();}
-function lnAll(){[lnFan,lnProg,lnGens,lnKin,lnQs].forEach(function(f){try{f();}catch(e){console.warn('lineage',e);}});}
+function lnAll(){[lnFan,lnProg,lnGens,lnDna,lnKin,lnQs].forEach(function(f){try{f();}catch(e){console.warn('lineage',e);}});}
 (function(){var _go=go;go=function(id,btn){_go(id,btn);if(id==='p-lineage')lnAll();};
   if(typeof bbOpen==='function'){var _bo=bbOpen;bbOpen=function(s){_bo(s);if(s==='more'){var g=document.getElementById('sheet-g');if(g&&!g.querySelector('[data-ln]'))g.insertAdjacentHTML('beforeend','<button data-ln="1" onclick="bbGoPanel(\'p-lineage\')"><i class="ti ti-leaf"></i>Lineage</button>');}};}
   if(typeof SR_P!=='undefined')SR_P.splice(3,0,['p-lineage','Lineage','leaf','protocol','lineage ancestry ancestors family tree genealogy grandparents great-grandparents heritage roots origin tribe family name dna records relatives']);
